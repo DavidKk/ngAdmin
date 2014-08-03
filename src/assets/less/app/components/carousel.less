@@ -1,0 +1,39 @@
+
+
+// Inherit
+.carousel { height: 100%; }
+.carousel > ol.carousel-indicators { z-index: 8; }
+.carousel > ol.carousel-indicators > li {
+	@size: 14px;
+	margin: 0 6px;
+	width: @size;
+	height: @size;
+	border-width: 3px;
+	border-color: rgba(255, 255, 255, .5);
+	background-color: @flat-brown;
+
+	&.active { background-color: @flat-green; }
+}
+
+.carousel > .carousel-control {
+	width: auto;
+	height: auto;
+	background-image: none;
+	display: block;
+	cursor: pointer;
+	.box-shadow(none);
+	text-shadow: none;
+	position: absolute;
+	left: auto;
+	top: auto;
+	right: auto;
+	bottom: 20px;
+	.transition(opacity .35s);
+
+	& > i { font-size: 51px; }
+	&.left { left: 20px; }
+	&.right { right: 20px; }
+}
+
+.carousel > .carousel-inner { height: 100%; }
+.carousel > .carousel-inner > .item { overflow: hidden; }

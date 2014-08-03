@@ -1,0 +1,102 @@
+
+
+.panel {
+	.border-radius(3px);
+
+	margin-bottom: 30px;
+	border: 1px solid @default-panel;
+}
+
+.panel > .panel-heading {
+	.clearfix();
+	.border-top-left-radius(3px);
+
+	padding: 0 15px;
+	height: 40px;
+	background-color: @default-panel;
+	border-color: @default-panel;
+	overflow: hidden;
+	color: rgb(255, 255, 255);
+
+	a {
+		cursor: pointer;
+		color: rgba(255, 255, 255, 1);
+	}
+}
+
+.panel > .panel-heading > .panel-title {
+	padding: 10px 0;
+	float: left;
+	
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		margin: 0;
+		line-height: 20px;
+		.text-overflow();
+	}
+}
+
+.panel > .panel-heading > .panel-widgets {
+	margin: 8px 0;
+	float: right;
+	font-size: 14px;
+	
+	& > .divider { margin: 0 4px; }
+}
+
+.panel > .panel-collapse {
+	display: block;
+	overflow: hidden;
+	.transition(all .35s);
+}
+
+.panel > .panel-collapse > .panel-body {
+	padding: 15px;
+	background-color: #fff;
+	.clearfix();
+}
+
+.panel > .panel-collapse.in { max-height: 99999999px; }
+.panel > .panel-collapse > .panel-body.no-padding { padding: 0; }
+
+
+.panel-palette(@arr-name, @index: 1) when (@index =< length(@arr-name)) {
+	@token:		e(extract(@arr-name, @index));
+	@bg:		extract(@arr-name, @index + 1);
+
+	.panel.panel-@{token} { border-color: @bg; }
+	.panel.panel-@{token} > .panel-heading { background-color: @bg; }	
+	.panel-palette(@arr-name, @index + 2);
+}
+
+.panel-palette(@arr-panel);
+
+
+
+// Bright
+.panel.panel-bright {
+	@border: screen(@default-panel, #ccc);
+	border-color: darken(@border, 4%);
+}
+
+.panel.panel-bright > .panel-heading {
+	@bg: screen(@default-panel, #ccc);
+	background-color: @bg;
+	color: @default-panel;
+}
+
+
+.panel-bright-palette(@arr-style, @index: 1) when (@index =< length(@arr-style)) {
+	@token:		e(extract(@arr-style, @index));
+	@bg:		screen(extract(@arr-style, @index + 1), #ccc);
+
+	.panel.panel-bright.panel-@{token} { border-color: darken(@bg, 4%); }
+	.panel.panel-bright.panel-@{token} > .panel-heading { background-color: @bg; }
+	.panel-bright-palette(@arr-style, @index + 2);
+}
+
+.panel-bright-palette(@arr-panel);

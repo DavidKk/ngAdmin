@@ -1,0 +1,21 @@
+
+
+.table {
+	& > thead > tr > th .progress,
+	& > tbody > tr > th .progress,
+	& > tfoot > tr > th .progress,
+	& > thead > tr > td .progress,
+	& > tbody > tr > td .progress,
+	& > tfoot > tr > td .progress { margin-bottom: 0; }
+}
+
+
+.progress-bar-palette(@arr-style, @index: 1) when (@index =< length(@arr-style)) {
+	@token: e(extract(@arr-style, @index));
+	@color: extract(@arr-style, @index + 1);
+
+	.progress-bar-@{token} { .progress-bar-variant(@color); }
+	.progress-bar-palette(@arr-style, @index + 2);
+}
+
+.progress-bar-palette(@arr-progress);

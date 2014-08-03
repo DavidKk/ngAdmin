@@ -1,0 +1,65 @@
+[
+	{
+		"id": 1,
+		"name": "Apple",
+		"image": "../assets/images/apple.jpg",
+		"reserve": 80,
+		"max_reserve": 100
+	},
+	{
+		"id": 2,
+		"name": "Orange",
+		"image": "../assets/images/orange.jpg",
+		"reserve": 40,
+		"max_reserve": 120
+	},
+	{
+		"id": 3,
+		"name": "banana",
+		"image": "../assets/images/banana.jpg",
+		"reserve": 40,
+		"max_reserve": 100
+	},
+	{
+		"id": 4,
+		"name": "Cherry",
+		"image": "../assets/images/cherry.jpg",
+		"reserve": 20,
+		"max_reserve": 100
+	},
+	{
+		"id": 5,
+		"name": "Lemon",
+		"image": "../assets/images/orange.jpg",
+		"reserve": 40,
+		"max_reserve": 120
+	},
+	{
+		"id": 6,
+		"name": "watermelon",
+		"image": "../assets/images/watermelon.jpg",
+		"reserve": 120,
+		"max_reserve": 200
+	},
+	{
+		"id": 7,
+		"name": "strawberry",
+		"image": "../assets/images/strawberry.jpg",
+		"reserve": 100,
+		"max_reserve": 160
+	},
+	{
+		"id": 8,
+		"name": "Pineapple",
+		"image": "../assets/images/pineapple.jpg",
+		"reserve": 30,
+		"max_reserve": 120
+	},
+	{
+		"id": 9,
+		"name": "Mango",
+		"image": "../assets/images/mango.jpg",
+		"reserve": 30,
+		"max_reserve": 120
+	}
+]

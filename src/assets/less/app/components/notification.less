@@ -1,0 +1,41 @@
+
+
+
+.notification {
+	// 取最浅色
+	@bg: screen(@default-notification, #eee);
+
+	margin-bottom: 15px;
+	padding: 15px;
+	background-color: @bg;
+	border-left: 3px solid darken(@bg, 10%);
+	position: relative;
+	overflow: hidden;
+	color: darken(@default-notification, 2%);
+	font-size: 15px;
+}
+
+.notification h1,
+.notification h2,
+.notification h3,
+.notification h4,
+.notification h5,
+.notification h6 { font-weight: bold; }
+
+
+// Other Style
+.notification-palette(@arr-style, @index: 1) when (@index =< length(@arr-style)) {
+	@token:		e(extract(@arr-style, @index));
+	@color: 	extract(@arr-style, @index + 1);
+	@bg: 		screen(@color, #eee);
+
+	.notification.notification-@{token} {
+		border-left-color: darken(@bg, 10%);
+		background-color: @bg;
+		color: darken(@color, 2%);
+	}
+
+	.notification-palette(@arr-style, @index + 2);
+}
+
+.notification-palette(@arr-notification);

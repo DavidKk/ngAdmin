@@ -1,0 +1,11 @@
+
+
+.label-palette(@arr-style, @index: 1) when (@index =< length(@arr-style)) {
+	@token: 		e(extract(@arr-style, @index));
+	@bg:			extract(@arr-style, @index + 1);
+
+	.label.label-@{token} { background-color: @bg; }
+	.label-palette(@arr-style, @index + 2);
+}
+
+.label-palette(@arr-label);

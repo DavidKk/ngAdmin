@@ -1,0 +1,41 @@
+
+
+#icons-container .tile .tile-body.example { padding-top: 20px; }
+#icons-container .tile .tile-body.example .fa-hover {
+	.transition(color .35s, background-color .35s);
+
+	height: 32px;
+	padding-left: 10px;
+	border-radius: 4px;
+	display: block;
+	cursor: pointer;
+	line-height: 32/14;
+	color: rgb(34, 34, 34);
+
+	& > i {
+		.transition(color .35s);
+
+		width: 32px;
+		height: 32px;
+		display: inline-block;
+		line-height: 32px;
+		vertical-align: middle;
+		text-align: center;
+		color: rgb(34, 34, 34);
+		font-size: 14px;
+	}
+
+	& > .text-muted {
+		.transition(color .35s);
+
+		margin-left: 2px;
+	}
+
+	&:hover {
+		background-color: @dazzle-green;
+		color: #fff;
+
+		& > i { color: #fff; font-size: 20px; }
+		& > .text-muted { color: rgba(255, 255, 255, 0.8); }
+	}
+}

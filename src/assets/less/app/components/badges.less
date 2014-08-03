@@ -1,0 +1,13 @@
+
+
+.badge { font-weight: bold; }
+
+.badge-palette(@arr-style, @index: 1) when (@index =< length(@arr-style)) {
+	@token:	e(extract(@arr-style, @index));
+	@bg:	extract(@arr-style, @index + 1);
+
+	.badge.badge-@{token} { background-color: @bg; }
+	.badge-palette(@arr-style, @index + 2);
+}
+
+.badge-palette(@arr-badge);

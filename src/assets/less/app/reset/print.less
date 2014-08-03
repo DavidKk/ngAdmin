@@ -1,0 +1,34 @@
+
+
+* { outline: none !important; }
+
+html {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	.transition(all .25s);
+
+	width: 100%;
+	min-height: 100%;
+	position: relative;
+	overflow-x: hidden;
+	font-family: 'Roboto', 'Helvetica', Arial, sans-serif;
+}
+
+a {
+	.transition(color .35s);
+	
+	color: rgb(55, 62, 74);
+	&:hover { text-decoration: none; }
+}
+
+.no-padding { padding: 0 !important; }
+
+// Icon Style
+.fa:before { font-size: 1em; }
+.fa.pulled-down:before {
+	.transform(rotate(90deg));
+	display: inline-block;
+}

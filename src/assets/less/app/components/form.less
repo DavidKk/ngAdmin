@@ -1,0 +1,108 @@
+
+
+// reset
+.form-group { position: relative; }
+.form-group > label { color: #999; }
+
+.form-control {
+	.border-radius(0);
+	.box-shadow(none);
+	.transition(all .15s);
+
+	padding: 10px 15px;
+	width: 100%;
+	height: auto;
+	border-width: 0;
+	background-image: none;
+	background-color: lighten(#efefef, 4%);
+	display: block;
+	line-height: @line-height-base;
+	color: #666;
+	font-size: 14px;
+
+	&:focus {
+		.box-shadow(none);
+		
+		background-color: #fefefe;
+		outline: 0;
+	}
+}
+
+.input-group {}
+
+
+// 输入框提示
+.form-control-prompt {
+	.border-radius(5px);
+
+	width: 100%;
+	display: none;
+	border: 1px solid #5bc0de;
+	background-color: #5bc0de;
+	position: absolute;
+	left: 0;
+	top: 100%;
+	z-index: 999;
+	text-align: left;
+
+	&.show {
+		.animation(fadeIn .35s forwards);
+		display: block;
+	}
+}
+
+.form-control-prompt > .content {
+	padding: 10px 16px;
+	display: block;
+	color: #fff;
+	font-size: 14px;
+}
+
+.make-form-control-prompt-offset(@arr-offset, @size, @name, @color, @index: 1) when (@index =< length(@arr-offset)) {
+	@direction: extract(@arr-offset, @index);
+	@offset: 	extract(@arr-offset, @index + 1);
+
+	.form-control-prompt.@{direction} > .arrow { .arrow-mixin(@size, @color, @direction, @offset); }
+	
+	.form-group.@{name} .form-control-prompt.@{direction} > .arrow,
+	.form-control-prompt.@{name}.@{direction} > .arrow { .arrow-mixin > .color(@color, @direction); }
+
+	.make-form-control-prompt-offset(@arr-offset, @size, @name, @color, @index + 2);
+}
+
+.make-form-control-prompt-arrow(@arr-style, @arr-offset, @size, @index: 1) when (@index =< length(@arr-style)) {
+	@name:  e(extract(@arr-style, @index));
+	@color: extract(@arr-style, @index + 1);
+
+	.form-group.@{name} .form-control-prompt,
+	.form-control-prompt.@{name} {
+		border-color: @color;
+		background-color: @color;
+	}
+
+	.make-form-control-prompt-offset(@arr-offset, @size, @name, @color);
+	.make-form-control-prompt-arrow(@arr-style, @arr-offset, @size, @index + 2);
+}
+
+@form-control-prompt-size: 10px;
+@arr-form-control-prompt-offset:
+	top 			8%
+	right 			95%
+	bottom 			95%
+	left 			95%
+;
+
+@arr-form-control-prompt-style:
+	'green' 		@flat-green
+	'cyan'			@flat-cyan
+	'orange'		@flat-orange
+	'red'			@flat-red
+	'amethyst'		@flat-amethyst
+	'pink'			@flat-pink
+	'gray'			@flat-gray
+	'brown'			@flat-brown
+	'black'			@flat-black
+;
+
+.make-form-control-prompt-arrow(@arr-form-control-prompt-style, @arr-form-control-prompt-offset, @form-control-prompt-size);
+

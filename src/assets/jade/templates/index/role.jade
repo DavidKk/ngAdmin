@@ -1,0 +1,90 @@
+
+
+main#role-container.content-layout.no-padding(ng-controller="Roles")
+	.widgets-bar.clearfix
+		button.btn.btn-cyan(type="button", role="button", title="Crate new role")
+			i.fa.fa-plus
+			| &nbsp;New
+
+		form.search-form.pull-right(role="form")
+			label
+				input(type="search", placeholder="Search...")
+				i.fa.fa-search
+
+	.row
+		.col-md-4
+			table.role-list.table
+				thead
+					tr
+						th Role Name
+						th Operation
+				tbody
+					tr(ng-repeat="item in roles")
+						td {{item.name}}
+						td
+							a(title="edit") Edit
+							| |
+							a(title="delete") Delete
+
+		.col-md-8
+			ul.permissions-list
+				li.name
+					span.p Permissions
+					input(type="checkbox")
+
+				li
+					a.collapse(title="Expand")
+						i.entypo.entypo-flow-line
+
+					label Administrator
+						input(type="checkbox")
+					
+					ul.sub-permissions-list
+						li
+							span.collapse
+								i.entypo.entypo-flow-parallel
+							label View User
+								input(type="checkbox")
+						li
+							span.collapse
+								i.entypo.entypo-flow-parallel
+							label Add User
+								input(type="checkbox")
+						li
+							span.collapse
+								i.entypo.entypo-flow-parallel
+							label Edit User
+								input(type="checkbox")
+						li
+							span.collapse
+								i.entypo.entypo-flow-parallel
+							label Delete User
+								input(type="checkbox")
+
+				li.permissions-list
+					a.collapse(title="Expand")
+						i.entypo.entypo-flow-line
+					label Stock
+						input(type="checkbox")
+
+					ul.sub-permissions-list
+						li
+							span.collapse
+								i.entypo.entypo-flow-parallel
+							label View Stock
+								input(type="checkbox")
+						li
+							span.collapse
+								i.entypo.entypo-flow-parallel
+							label Add Stock
+								input(type="checkbox")
+						li
+							span.collapse
+								i.entypo.entypo-flow-parallel
+							label Edit Stock
+								input(type="checkbox")
+						li
+							span.collapse
+								i.entypo.entypo-flow-parallel
+							label Delete Stock
+								input(type="checkbox")

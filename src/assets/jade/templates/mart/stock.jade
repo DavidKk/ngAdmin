@@ -1,0 +1,38 @@
+
+
+#stock-container.content-layout(ng-controller="Stock")
+	.widgets-bar.clearfix
+		button.btn.btn-cyan(type="button", role="button", title="Create class")
+			i.fa.fa-plus
+			| &nbsp;New
+
+		form.search-form.pull-right(role="form")
+			label
+				input(type="search", placeholder="Search...")
+				i.fa.fa-search
+
+	.row
+		.col-md-3(ng-repeat="item in stocks")
+			.item
+				.pic
+					.widgets-cover
+						a(title="Chart")
+							i.fa.fa-bar-chart-o
+						span.divider
+						a(title="Edit")
+							i.fa.fa-edit
+						span.divider
+						a(title="Delete")
+							i.fa.fa-trash-o
+
+					.name {{item.name}}
+					img(ng-src="{{item.image}}")
+
+				.reserve Stock:
+					span.number {{item.reserve}}/{{item.max_reserve}}
+					span.unit (kg)
+
+				.input-group
+					input.input(min="-10000", max="10000", type="number", placeholder="in/out（kg）")
+					.input-group-btn
+						button.btn.btn-cyan(type="button", role="button") in/out

@@ -1,0 +1,39 @@
+
+
+@media (max-width: @screen-sm-max) {
+	#header .navbar .navbar-header { display: none; }
+	#header .navbar .search-header { display: none; }
+
+	#header .navbar ul.notify-header {
+		& > li > a {
+			padding: 15px;
+			line-height: 10px;
+			font-size: 20px;
+		}
+
+		& > li > a > span.badge {
+			right: 5px;
+			top: 5px;
+		}
+
+		& > li.bars { display: block; }
+		& > li.bars > a { width: 50px; }
+
+		& > li.profile > a.avator {
+			padding: 10px;
+			width: 50px;
+		}
+
+		& > li.profile > a.avator img {
+			margin: 0;
+			width: 30px;
+			height: 30px;
+			.border-radius(30px);
+		}
+	}
+	
+	// 修正
+	.dropdown-menu-tasks.dropdown-menu-head > .dropdown-menu-arrow {
+		.arrow-mixin > .offset(-10px, top);
+	}
+}

@@ -1,0 +1,116 @@
+
+
+.selectpicker {
+	width: 100%;
+	border-collapse: separate;
+	display: table;
+	position: relative;
+}
+
+.selectpicker > .select-addon {
+	.border-radius(0);
+	
+	width: 40px;
+	height: 40px;
+	border-width: 0;
+	background-color: #dbdbdb;
+	display: table-cell;
+	white-space: nowrap;
+	vertical-align: middle;
+	text-align: center;
+	line-height: 40px;
+	color: #999;
+	font-size: 18px;
+}
+
+.selectpicker > .dropdown-toggle {
+	.border-radius(0);
+	.box-shadow(none);
+	.user-select(none);
+
+	padding: 10px 15px;
+	width: 100%;
+	height: auto;
+	border-width: 0;
+	background-image: none;
+	background-color: lighten(#efefef, 4%);
+	display: table-cell;
+	position: relative;
+	float: left;
+	cursor: pointer;
+	line-height: 20px;
+	color: #999;
+	font-size: 14px;
+
+	&:before {
+		.transition(all 0.15s);
+
+		content: "\f107";
+		display: inline-block;
+		float: right;
+		position: relative;
+		z-index: 9;
+		right: 0;
+		top: 50%;
+		color: #aaabae;
+		font-family: 'FontAwesome';
+		font-size: 15px;
+	}
+}
+
+.selectpicker.open > .dropdown-toggle:before { .transform(rotate(-180deg)); }
+
+.selectpicker > .dropdown-menu {
+	.arrow-mixin(6px, #fff, top, 20px, 1px, #ccc);
+	.border-radius(2px);
+	
+	margin-top: 4px;
+	padding-top: 0;
+	padding-bottom: 0;
+	width: 100%;
+	position: absolute;
+}
+
+.selectpicker > .dropdown-menu > .filter-bar {
+	padding: 6px;
+	position: relative;
+
+	input.form-control {
+		.border-radius(4px);
+
+		padding: 10px;
+		border: 1px solid #ccc;
+		background-color: #fff;
+	}
+
+	i.fa {
+		position: absolute;
+		top: 20px;
+		right: 20px;
+		color: #999;
+		font-size: 16px;
+	}
+}
+
+.selectpicker > .dropdown-menu > ul.menu-list {
+	margin-bottom: 0;
+	padding-left: 0;
+	max-height: 200px;
+	overflow-y: auto;
+	list-style: none;
+
+	li > a {
+		.border-radius(0);
+		.user-select(none);
+		.transition(all .35s);
+		
+		padding: 10px 20px;
+		display: block;
+		color: #777;
+		font-size: 14px;
+		font-weight: bold;
+	}
+	
+	li.active,
+	li > a:hover { background-color: #f1f1f1; }
+}

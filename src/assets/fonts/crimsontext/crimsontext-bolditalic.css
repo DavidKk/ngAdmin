@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'CrimsonTextBoldItalic';
+    src: url('crimsontext-bolditalic.eot');
+    src: url('crimsontext-bolditalic.eot') format('embedded-opentype'),
+         url('crimsontext-bolditalic.woff') format('woff'),
+         url('crimsontext-bolditalic.ttf') format('truetype'),
+         url('crimsontext-bolditalic.svg#CrimsonTextBoldItalic') format('svg');
+}

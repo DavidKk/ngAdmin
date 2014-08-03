@@ -1,0 +1,6 @@
+node_modules/*
+bower_components/*
+views/*
+assets/*
+scripts/*
+_build/*

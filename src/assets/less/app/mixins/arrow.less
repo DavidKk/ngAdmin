@@ -1,0 +1,185 @@
+
+
+/*
+ * Usage:
+ * .arrow-mixin(size, color, direction, offset, border-size, border-color); 
+ *
+ * Modify:
+ * .arrow-mixin > .color(@color, @direction, @border-color);
+ * .arrow-mixin > .offset(@offset, @direction);
+ */
+
+/* Where
+ * Size is the with of the arrow
+ * Color is the color of the arrow (plain color required)
+ * Direction is the orientation of the arrow (top, right, bottom, left)
+ * Offset is the position of the arrow on its axis (px / em)
+ * Border-size is the width of the border if there is one (optional; default "0")
+ * Border-color is the color of the border if there is one (optional; default "inherit"); 
+ */
+
+/* Extra
+ * Drop-shadows can be used on the element to create a shadow on the arrow as well 
+ */
+.arrow-mixin {
+	.color(@color, @direction, @border-color: inherit) when (@direction = top) {
+		&:after { border-bottom-color: @color; }
+		&:before { border-bottom-color: @border-color; }
+	}
+
+	.color(@color, @direction, @border-color: inherit) when (@direction = bottom) {
+		&:after { border-top-color: @color; }
+		&:before { border-top-color: @border-color; }
+	}
+
+	.color(@color, @direction, @border-color: inherit) when (@direction = right) {
+		&:after { border-left-color: @color; }
+		&:before { border-left-color: @border-color; }
+	}
+
+	.color(@color, @direction, @border-color: inherit) when (@direction = left) {
+		&:after { border-right-color: @color; }
+		&:before { border-right-color: @border-color; }
+	}
+
+
+	.offset(@offset, @direction) when (@direction = top) and (@offset >= 0) {
+		&:after { left: @offset; }
+		&:before { left: @offset; }
+	}
+	
+	.offset(@offset, @direction) when (@direction = top) and (@offset < 0) {
+		&:after { left: auto; right: abs(@offset); }
+		&:before { left: auto; right: abs(@offset);; }
+	}
+
+	.offset(@offset, @direction) when (@direction = left) and (@offset >= 0) {
+		&:after { top: @offset; }
+		&:before { top: @offset; }
+	}
+	
+	.offset(@offset, @direction) when (@direction = left) and (@offset < 0) {
+		&:after { top: auto; bottom: abs(@offset);; }
+		&:before { top: auto; bottom: abs(@offset);; }
+	}
+
+	.offset(@offset, @direction) when (@direction = bottom) {
+		.arrow-mixin > .offset(@offset, top);
+	}
+
+	.offset(@offset, @direction) when (@direction = right) {
+		.arrow-mixin > .offset(@offset, left);
+	}
+}
+
+.arrow-mixin(@size, @color, @direction, @offset, @border-size: 0, @border-color: inherit) {
+	position: relative;
+
+	&:after, 
+	&:before {
+		content: "";
+		position: absolute;
+		width: 0;
+		height: 0;
+	}
+}
+
+.arrow-mixin(@size, @color, @direction, @offset, @border-size: 0, @border-color: inherit) when (@direction = top) {
+	@m-size: @size + (@border-size*2);
+
+	&:after {
+		bottom: 100%;
+		margin-left: -@size;
+
+		border-left: @size solid transparent;
+		border-right: @size solid transparent;
+		border-bottom: @size solid @color;
+	}
+	
+	&:before {
+		bottom: 100%;
+		margin-left: -@m-size;
+
+		border-left: @m-size solid transparent;
+		border-right: @m-size solid transparent;
+		border-bottom: @m-size solid;
+		border-bottom-color: @border-color;
+	}
+
+	.arrow-mixin > .offset(@offset, @direction);
+}
+
+.arrow-mixin(@size, @color, @direction, @offset, @border-size: 0, @border-color: inherit) when (@direction = bottom) {
+	@m-size: @size + (@border-size*2);
+
+	&:after {
+		top: 100%;
+		margin-left: -@size;
+
+		border-left: @size solid transparent;
+		border-right: @size solid transparent;
+		border-top: @size solid @color;
+	}
+
+	&:before {
+		top: 100%;
+		margin-left: -@m-size;
+
+		border-left: @m-size solid transparent;
+		border-right: @m-size solid transparent;
+		border-top: @m-size solid;
+		border-top-color: @border-color;
+	}
+
+	.arrow-mixin > .offset(@offset, @direction);
+}
+
+.arrow-mixin(@size, @color, @direction, @offset, @border-size: 0, @border-color: inherit) when (@direction = right) {
+	@m-size: @size + (@border-size*2);
+
+	&:after {
+		left: 100%;
+		margin-top: -@size;
+
+		border-top: @size solid transparent;
+		border-bottom: @size solid transparent;
+		border-left: @size solid @color;
+	}
+
+	&:before {
+		left: 100%;
+		margin-top: -@m-size;
+
+		border-top: @m-size solid transparent;
+		border-bottom: @m-size solid transparent;
+		border-left: @m-size solid;
+		border-left-color: @border-color;
+	}
+
+	.arrow-mixin > .offset(@offset, @direction);
+}
+
+.arrow-mixin(@size, @color, @direction, @offset, @border-size: 0, @border-color: inherit) when (@direction = left) {
+	@m-size: @size + (@border-size*2);
+
+	&:after {
+		right: 100%;
+		margin-top: -@size;
+
+		border-top: @size solid transparent;
+		border-bottom: @size solid transparent;
+		border-right: @size solid @color;
+	} 
+
+	&:before {
+		right: 100%;
+		margin-top: -@m-size;
+
+		border-top: @m-size solid transparent;
+		border-bottom: @m-size solid transparent;
+		border-right: @m-size solid;
+		border-right-color: @border-color;
+	}
+
+	.arrow-mixin > .offset(@offset, @direction);
+}

@@ -1,0 +1,222 @@
+
+
+header#header(ng-controller="Header")
+	.row
+		.navbar
+			ul.notify-header.pull-left
+				li.bars
+					a.menu-toggle(ng-click="toggleLeftSidebar()")
+						i.fa.fa-bars
+
+			.search-header
+				input(type="search", placeholder="Search Someting...")
+				i.fa.fa-search
+
+			ul.notify-header.pull-right
+				li.dropdown-submenu(dropdown-menu)
+					a(dropdown-menu-toggle)
+						i.fa.fa-tasks
+						span.badge.bg-warning 1
+
+					.dropdown-menu-tasks.dropdown-menu-head.dropdown-menu.pull-right
+						.dropdown-menu-arrow
+						h5.caption
+							.dropdown-menu-caption-arrow
+							.dropdown-menu-caption-widgets
+								a(title="refresh")
+									i.fa.fa-refresh
+							| You have 4 pending tasks
+						
+						ul.dropdown-list
+							li
+								a
+									.task-info
+										.desc Layout
+										.percent 80%
+
+									.progress.progress-striped.active
+										.progress-bar.progress-bar-green(style="width: 80%")
+											.sr-only 80% Complete
+							li
+								a
+									.task-info
+										.desc UI Element
+										.percent 40%
+
+									.progress.progress-striped.active
+										.progress-bar.progress-bar-cyan(style="width: 40%")
+											.sr-only 40% Complete
+							li
+								a
+									.task-info
+										.desc Forms
+										.percent 10%
+
+									.progress.progress-striped.active
+										.progress-bar.progress-bar-orange(style="width: 10%")
+											.sr-only 10% Complete
+							li
+								a
+									.task-info
+										.desc Table
+										.percent 70%
+
+									.progress.progress-striped.active
+										.progress-bar.progress-bar-red(style="width: 70%")
+											.sr-only 70% Complete
+							li
+								a
+									.task-info
+										.desc Charts
+										.percent 35%
+
+									.progress.progress-striped.active
+										.progress-bar.progress-bar-amethyst(style="width: 35%")
+											.sr-only 35% Complete
+						a.dropdown-more(href, title) Check all tasks...
+
+				li.dropdown-submenu(dropdown-menu)
+					a(dropdown-menu-toggle)
+						i.fa.fa-envelope-o
+						span.badge.bg-warning 2
+
+					.dropdown-menu-message.dropdown-menu-head.dropdown-menu.pull-right
+						.dropdown-menu-arrow
+						h5.caption
+							.dropdown-menu-caption-arrow
+							.dropdown-menu-caption-widgets
+								a(title="refresh")
+									i.fa.fa-refresh
+							| You have 1 new messages
+
+						ul.dropdown-list
+							li
+								a
+									.thumb
+										img(src="")
+
+									.desc.new
+										span.name Draniem Daamul
+											span.badge.badge-green New
+
+										span.msg Lorem ipsum dolor sit amet...
+							li
+								a
+									.thumb
+										img(src="")
+
+									.desc
+										span.name Draniem Daamul
+											span.badge.badge-green New
+
+										span.msg Lorem ipsum dolor sit amet...
+							li
+								a
+									.thumb
+										img(src="")
+
+									.desc
+										span.name Draniem Daamul
+											span.badge.badge-green New
+
+										span.msg Lorem ipsum dolor sit amet...
+							li
+								a
+									.thumb
+										img(src="")
+
+									.desc
+										span.name Draniem Daamul
+											span.badge.badge-green New
+
+										span.msg Lorem ipsum dolor sit amet...
+							li
+								a
+									.thumb
+										img(src="")
+
+									.desc
+										span.name Draniem Daamul
+											span.badge.badge-green New
+
+										span.msg Lorem ipsum dolor sit amet...
+						a.dropdown-more(href, title) Check all message...
+
+				li.dropdown-submenu(dropdown-menu)
+					a(dropdown-menu-toggle)
+						i.fa.fa-bell-o
+						span.badge.bg-warning 7
+
+					.dropdown-menu-notify.dropdown-menu-head.dropdown-menu.pull-right
+						.dropdown-menu-arrow
+						h5.caption
+							.dropdown-menu-caption-arrow
+							.dropdown-menu-caption-widgets
+								a(title="refresh")
+									i.fa.fa-refresh
+							| You have 12 new notifications
+						
+						ul.dropdown-list
+							li
+								a
+									span.label.label-cyan
+										i.fa.fa-user
+									| New user registered.
+									span.small 3 mins
+
+							li
+								a
+									span.label.label-green
+										i.fa.fa-plus
+									| New order.
+									span.small 20 mins
+
+							li
+								a
+									span.label.label-orange
+										i.fa.fa-flash
+									| Server restared.
+									span.small 18 mins
+
+							li
+								a
+									span.label.label-amethyst
+										i.fa.fa-power-off
+									| Server down.
+									span.small 27 mins
+
+							li
+								a
+									span.label.label-red
+										i.fa.fa-bullhorn
+									| Application error.
+									span.small 31 mins
+						a.dropdown-more(href, title) Check all notify...
+
+				li.dropdown-submenu.profile(dropdown-menu)
+					a.avator(dropdown-menu-toggle)
+						img(src="")
+					span.name David Jones
+					
+					ul.dropdown-menu-profile.dropdown-menu.pull-right
+						.dropdown-menu-arrow
+						li
+							a
+								i.fa.fa-user
+								| My Profile
+						li
+							a
+								i.fa.fa-cog
+								| Account Settings
+						li
+							a
+								i.fa.fa-question
+								| Help
+						li
+							a(ng-click="logout()")
+								i.fa.fa-power-off
+								| Log Out
+
+				li
+					a(ng-click="toggleRightSidebar()")
+						i.fa.fa-comments
