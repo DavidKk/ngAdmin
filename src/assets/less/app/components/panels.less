@@ -4,7 +4,7 @@
 	.border-radius(3px);
 
 	margin-bottom: 30px;
-	border: 1px solid @default-panel;
+	border: 1px solid #eee;
 }
 
 .panel > .panel-heading {
@@ -13,30 +13,23 @@
 
 	padding: 0 15px;
 	height: 40px;
-	background-color: @default-panel;
-	border-color: @default-panel;
+	background-color: #fff;
+	border-color: #eee;
 	overflow: hidden;
-	color: rgb(255, 255, 255);
+	color: @flat-black;
 
-	a {
-		cursor: pointer;
-		color: rgba(255, 255, 255, 1);
-	}
+	a { cursor: pointer; }
 }
 
 .panel > .panel-heading > .panel-title {
 	padding: 10px 0;
 	float: left;
 	
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6 {
+	h1, h2, h3, h4, h5, h6 {
+		.text-overflow();
+
 		margin: 0;
 		line-height: 20px;
-		.text-overflow();
 	}
 }
 
@@ -49,20 +42,25 @@
 }
 
 .panel > .panel-collapse {
+	.transition(all .35s);
+
 	display: block;
 	overflow: hidden;
-	.transition(all .35s);
 }
 
 .panel > .panel-collapse > .panel-body {
+	.clearfix();
+
 	padding: 15px;
 	background-color: #fff;
-	.clearfix();
 }
 
 .panel > .panel-collapse.in { max-height: 99999999px; }
 .panel > .panel-collapse > .panel-body.no-padding { padding: 0; }
-
+.panel > .panel-collapse > .panel-body.no-padding > table {
+	margin-bottom: 0;
+	border-width: 0;
+}
 
 .panel-palette(@arr-name, @index: 1) when (@index =< length(@arr-name)) {
 	@token:		e(extract(@arr-name, @index));
@@ -79,14 +77,14 @@
 
 // Bright
 .panel.panel-bright {
-	@border: screen(@default-panel, #ccc);
+	@border: screen(@flat-black, #ccc);
 	border-color: darken(@border, 4%);
 }
 
 .panel.panel-bright > .panel-heading {
-	@bg: screen(@default-panel, #ccc);
+	@bg: screen(@flat-black, #ccc);
 	background-color: @bg;
-	color: @default-panel;
+	color: @flat-black;
 }
 
 

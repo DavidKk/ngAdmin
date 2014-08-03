@@ -1,194 +1,184 @@
 
 
 main#typography-container.content-layout
-	h2 Typography
-	
-	.tile.tile-white
-		.tile-header
-			h3 Headings &amp; Paragraphs
-			.tile-widgets
-				a.refresh
-					i.fa.fa-refresh
-				span.divider
-				a.remove
-					i.fa.fa-times
+	h3 Typography
+	br
 
-		.tile-body
-			table.table.table-bordered
-				thead
-					tr
-						th(width='30%') Type
-						th Live Example
-				tbody
-					tr
-						td
-							| Headings
-						td
-							h6
-								| Heading 6
-								small Secondary text
-							h5
-								| Heading 5
-								small Secondary text
-							h4
-								| Heading 4
-								small Secondary text
-							h3
-								| Heading 3
-								small Secondary text
-							h2
-								| Heading 2
-								small Secondary text
-							h1
-								| Heading 1
-								small Secondary text
-					tr
-						td Paragraphs
-						td
-							p
-								| Of on affixed civilly moments promise explain fertile in. Assurance advantage belonging happiness departure so of. Now improving and one sincerity intention allowance commanded not. Oh an am frankness be necessary earnestly advantage estimable extensive. Five he wife gone ye. Mrs suffering sportsmen earnestly any. In am do giving to afford parish settle easily garret.
-					tr
-						td Text Classes
-						td
-							p.text-muted Fusce dapibus, tellus ac cursus commodo, tortor mauris nibh.
-							p.text-primary Nullam id dolor id nibh ultricies vehicula ut id elit.
-							p.text-success Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-							p.text-info Maecenas sed diam eget risus varius blandit sit amet non magna.
-							p.text-warning Etiam porta sem malesuada magna mollis euismod.
-							p.text-danger Donec ullamcorper nulla non metus auctor fringilla.
-					tr
-						td Text alignment
-						td
-							p.text-left Left aligned text.
-							p.text-center Center aligned text.
-							p.text-right Right aligned text.
-					tr
-						td Horizontal Rule
-						td
-							hr
-							| Horizontal rule markup as
-							code <hr />
-							| will create the above line.
+	.panel
+		.panel-heading
+			.panel-title
+				h5 Headings &amp; Paragraphs
+			.panel-widgets
+				a
+					i.fa.fa-chevron-down
 
-	.notification.notification-green
-		h4 Bootstrap Typography
-		p
-			| Check&nbsp;
-			a(href="http://getbootstrap.com/css/#type", target="_blank") Bootstrap Site
-			| &nbsp;for typography.
+		.panel-collapse.in
+			.panel-body.no-padding
+				table.table.table-bordered
+					thead
+						tr
+							th(width='30%') Type
+							th Live Example
+					tbody
+						tr
+							td
+								| Headings
+							td
+								h6
+									| Heading 6
+									small Secondary text
+								h5
+									| Heading 5
+									small Secondary text
+								h4
+									| Heading 4
+									small Secondary text
+								h3
+									| Heading 3
+									small Secondary text
+								h2
+									| Heading 2
+									small Secondary text
+								h1
+									| Heading 1
+									small Secondary text
+						tr
+							td Paragraphs
+							td
+								p
+									| Of on affixed civilly moments promise explain fertile in. Assurance advantage belonging happiness departure so of. Now improving and one sincerity intention allowance commanded not. Oh an am frankness be necessary earnestly advantage estimable extensive. Five he wife gone ye. Mrs suffering sportsmen earnestly any. In am do giving to afford parish settle easily garret.
+						tr
+							td Text Classes
+							td
+								p.text-muted Fusce dapibus, tellus ac cursus commodo, tortor mauris nibh.
+								p.text-primary Nullam id dolor id nibh ultricies vehicula ut id elit.
+								p.text-success Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+								p.text-info Maecenas sed diam eget risus varius blandit sit amet non magna.
+								p.text-warning Etiam porta sem malesuada magna mollis euismod.
+								p.text-danger Donec ullamcorper nulla non metus auctor fringilla.
+						tr
+							td Text alignment
+							td
+								p.text-left Left aligned text.
+								p.text-center Center aligned text.
+								p.text-right Right aligned text.
+						tr
+							td Horizontal Rule
+							td
+								hr
+								| Horizontal rule markup as
+								code <hr />
+								| will create the above line.
 
 	.row
 		.col-md-6
-			.tile.tile-white
-				.tile-header
-					h3 Headings &amp; Wells
-					.tile-widgets
-						a.refresh
-							i.fa.fa-refresh
-						span.divider
-						a.remove
-							i.fa.fa-times
+			.panel
+				.panel-heading
+					.panel-title
+						h5 Headings &amp; Wells
+					.panel-widgets
+						a
+							i.fa.fa-chevron-down
 
-				.tile-body
-					.well
-						| Look, I'm in a well!
-					.well.well-lg
-						| Look, I'm in a well, but a large well!
-					.well.well-sm
-						| Look, I'm in a small well!
+				.panel-collapse.in
+					.panel-body
+						.well
+							| Look, I'm in a well!
+						.well.well-lg
+							| Look, I'm in a well, but a large well!
+						.well.well-sm
+							| Look, I'm in a small well!
 
 		.col-md-6
-			.tile.tile-white
-				.tile-header
-					h3 Headings &amp; Code
-					.tile-widgets
-						a.refresh
-							i.fa.fa-refresh
-						span.divider
-						a.remove
-							i.fa.fa-times
+			.panel
+				.panel-heading
+					.panel-title
+						h5 Headings &amp; Code
+					.panel-widgets
+						a
+							i.fa.fa-chevron-down
 
-				.tile-body
-					table.table.table-bordered
-						thead
-							tr
-								th(width='50%') PRE Tags
-								th CODE Tags
-						tbody
-							tr
-								td
-									pre= '<p>Sample text here...</p>'
-																	
-								td
-									| For example,
-									code= '<section>'
-									| should be wrapped as inline.
+				.panel-collapse.in
+					.panel-body.no-padding
+						table.table.table-bordered
+							thead
+								tr
+									th(width='50%') PRE Tags
+									th CODE Tags
+							tbody
+								tr
+									td
+										pre= '<p>Sample text here...</p>'
+																		
+									td
+										| For example,
+										code= '<section>'
+										| should be wrapped as inline.
 
-	.tile.tile-white
-		.tile-header
-			h3 Grouped Lists
-			.tile-widgets
-				a.refresh
-					i.fa.fa-refresh
-				span.divider
-				a.remove
-					i.fa.fa-times
+	.panel
+		.panel-heading
+			.panel-title
+				h5 Grouped Lists
+			.panel-widgets
+				a
+					i.fa.fa-chevron-down
 
-		.tile-body
-			table.table.table-bordered
-				thead
-					tr
-						th(width='50%') Simple
-						th With Links
-				tbody
-					tr
-						td.padding-lg
-							ul.list-group
-								li.list-group-item
-									span.badge.badge-default 5
-									| Cras justo odio
-								li.list-group-item
-									span.badge.badge-green 14
-									| Dapibus ac facilisis in
-								li.list-group-item
-									span.badge.badge-cyan 11
-									| Morbi leo risus
-								li.list-group-item
-									span.badge.badge-orange 3
-									| Porta ac consectetur ac
-								li.list-group-item
-									span.badge.badge-red 7
-									| Vestibulum at eros
+		.panel-collapse.in
+			.panel-body.no-padding
+				table.table.table-bordered
+					thead
+						tr
+							th(width='50%') Simple
+							th With Links
+					tbody
+						tr
+							td.padding-lg
+								ul.list-group
+									li.list-group-item
+										span.badge.badge-default 5
+										| Cras justo odio
+									li.list-group-item
+										span.badge.badge-green 14
+										| Dapibus ac facilisis in
+									li.list-group-item
+										span.badge.badge-cyan 11
+										| Morbi leo risus
+									li.list-group-item
+										span.badge.badge-orange 3
+										| Porta ac consectetur ac
+									li.list-group-item
+										span.badge.badge-red 7
+										| Vestibulum at eros
 
-						td.padding-lg
-							.list-group
-								a.list-group-item.active(href='#')
-									span.badge.badge-default 5
-									| Cras justo odio
-								a.list-group-item(href='#')
-									span.badge.badge-green 14
-									| Dapibus ac facilisis in
-								a.list-group-item(href='#')
-									span.badge.badge-red 11
-									| Morbi leo risus
-								a.list-group-item(href='#')
-									span.badge.badge-amethyst 3
-									| Porta ac consectetur ac
-								a.list-group-item(href='#')
-									span.badge.badge-gray 7
-									| Vestibulum at eros
-					tr
-						td.padding-lg(colspan='2')
-							.list-group
-								a.list-group-item.active(href='#')
-									h4.list-group-item-heading Domestic confined any but son
-									p.list-group-item-text
-										| John draw real poor on call my from. May she mrs furnished discourse extremely. Ask doubt noisy shade guest did built her him. Ignorant repeated hastened it do. Consider bachelor he yourself expenses no. Her itself active giving for expect vulgar months. Discovery commanded fat mrs remaining son she principle middleton neglected.
-								a.list-group-item(href='#')
-									h4.list-group-item-heading Why painful the sixteen how minuter
-									p.list-group-item-text
-										| Her extensive perceived may any sincerity extremity. Indeed add rather may pretty see. Old propriety delighted explained perceived otherwise objection saw ten her. Doubt merit sir the right these alone keeps. By sometimes intention smallness he northward. Consisted we otherwise arranging commanded discovery it explained.
-								a.list-group-item(href='#')
-									h4.list-group-item-heading Barton waited twenty always repair
-									p.list-group-item-text
-										| Attention he extremity unwilling on otherwise. Conviction up partiality as delightful is discovered. Yet jennings resolved disposed exertion you off. Left did fond drew fat head poor. So if he into shot half many long. China fully him every fat was world grave.
+							td.padding-lg
+								.list-group
+									a.list-group-item.active(href='#')
+										span.badge.badge-default 5
+										| Cras justo odio
+									a.list-group-item(href='#')
+										span.badge.badge-green 14
+										| Dapibus ac facilisis in
+									a.list-group-item(href='#')
+										span.badge.badge-red 11
+										| Morbi leo risus
+									a.list-group-item(href='#')
+										span.badge.badge-amethyst 3
+										| Porta ac consectetur ac
+									a.list-group-item(href='#')
+										span.badge.badge-gray 7
+										| Vestibulum at eros
+						tr
+							td.padding-lg(colspan='2')
+								.list-group
+									a.list-group-item.active(href='#')
+										h4.list-group-item-heading Domestic confined any but son
+										p.list-group-item-text
+											| John draw real poor on call my from. May she mrs furnished discourse extremely. Ask doubt noisy shade guest did built her him. Ignorant repeated hastened it do. Consider bachelor he yourself expenses no. Her itself active giving for expect vulgar months. Discovery commanded fat mrs remaining son she principle middleton neglected.
+									a.list-group-item(href='#')
+										h4.list-group-item-heading Why painful the sixteen how minuter
+										p.list-group-item-text
+											| Her extensive perceived may any sincerity extremity. Indeed add rather may pretty see. Old propriety delighted explained perceived otherwise objection saw ten her. Doubt merit sir the right these alone keeps. By sometimes intention smallness he northward. Consisted we otherwise arranging commanded discovery it explained.
+									a.list-group-item(href='#')
+										h4.list-group-item-heading Barton waited twenty always repair
+										p.list-group-item-text
+											| Attention he extremity unwilling on otherwise. Conviction up partiality as delightful is discovered. Yet jennings resolved disposed exertion you off. Left did fond drew fat head poor. So if he into shot half many long. China fully him every fat was world grave.

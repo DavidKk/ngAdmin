@@ -1,47 +1,48 @@
 
 
 main#breadcrumbs-container.content-layout
-	h2 Breadcrumbs
-	.tile.tile-white
-		.tile-header
-			h3 Breadcrumb Types
-			.tile-widgets
-				a.refresh
-					i.fa.fa-refresh
-				span.divider
-				a.remove
-					i.fa.fa-times
-						
-		.tile-body
-			ol.breadcrumb.breadcrumb-pure
-				li
-					a(href='#')
-						i.fa.fa-folder
-						| Pure Breadcrumb
-				li
-					a(href='#') Appearance
-				li
-					a(href='#') Plugins
-				li.active Widgets
+	h3 Breadcrumbs
+	br
 
-			ol.breadcrumb
-				li
-					a(href='#')
-						i.fa.fa-folder
-						| Default Breadcrumb
-				li
-					a(href='#') Appearance
-				li
-					a(href='#') Plugins
-				li.active Widgets
+	.panel
+		.panel-heading
+			.panel-title
+				h5 Breadcrumb Types
+			.panel-widgets
+				a
+					i.fa.fa-chevron-down
 
-			ol.breadcrumb.breadcrumb-border
-				li
-					a(href='#')
-						i.fa.fa-folder
-						| Border Breadcrumb
-				li
-					a(href='#') Appearance
-				li
-					a(href='#') Plugins
-				li.active Widgets
+		.panel-collapse.in
+			.panel-body
+				ol.breadcrumb.breadcrumb-pure
+					li
+						a(href='#')
+							i.fa.fa-folder
+							| Pure Breadcrumb
+					li
+						a(href='#') Appearance
+					li
+						a(href='#') Plugins
+					li.active Widgets
+
+				ol.breadcrumb
+					li
+						a(href='#')
+							i.fa.fa-folder
+							| Default Breadcrumb
+					li
+						a(href='#') Appearance
+					li
+						a(href='#') Plugins
+					li.active Widgets
+
+				ol.breadcrumb.breadcrumb-border
+					li
+						a(href='#')
+							i.fa.fa-folder
+							| Border Breadcrumb
+					li
+						a(href='#') Appearance
+					li
+						a(href='#') Plugins
+					li.active Widgets
