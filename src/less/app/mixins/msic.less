@@ -1,5 +1,10 @@
 
 
+// 取反色
+.anti-color(@bg-color) when(lighten(@bg-color, 14%) = #fff) {
+  color: negation(@bg-color, #ccc);
+}
+
 /*
  * Usage:
  * .arrow-mixin(size, color, direction, offset, border-size, border-color); 
@@ -47,7 +52,7 @@
     &:after { left: @offset; }
     &:before { left: @offset; }
   }
-  
+
   .offset(@offset, @direction) when (@direction = top) and (@offset < 0) {
     &:after { left: auto; right: abs(@offset); }
     &:before { left: auto; right: abs(@offset);; }
@@ -57,7 +62,7 @@
     &:after { top: @offset; }
     &:before { top: @offset; }
   }
-  
+
   .offset(@offset, @direction) when (@direction = left) and (@offset < 0) {
     &:after { top: auto; bottom: abs(@offset);; }
     &:before { top: auto; bottom: abs(@offset);; }
@@ -95,7 +100,7 @@
     border-right: @size solid transparent;
     border-bottom: @size solid @color;
   }
-  
+
   &:before {
     bottom: 100%;
     margin-left: -@m-size;

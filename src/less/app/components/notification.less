@@ -3,15 +3,14 @@
 
 .notification {
   // 取最浅色
-  @bg: screen(@default-notification, #eee);
 
   margin-bottom: 15px;
   padding: 15px;
-  background-color: @bg;
-  border-left: 3px solid darken(@bg, 10%);
+  background-color: @gray;
+  border-left: 3px solid darken(@gray, 20%);
   position: relative;
   overflow: hidden;
-  color: darken(@default-notification, 2%);
+  color: darken(@gray, 20%);
   font-size: 15px;
 }
 
@@ -26,8 +25,8 @@
 // Other Style
 .notification-palette(@arr-style, @index: 1) when (@index =< length(@arr-style)) {
   @token:    e(extract(@arr-style, @index));
-  @color:   extract(@arr-style, @index + 1);
-  @bg:     screen(@color, #eee);
+  @color:    extract(@arr-style, @index + 1);
+  @bg:       screen(@color, #eee);
 
   .notification.notification-@{token} {
     border-left-color: darken(@bg, 10%);
@@ -38,4 +37,4 @@
   .notification-palette(@arr-style, @index + 2);
 }
 
-.notification-palette(@arr-notification);
+.notification-palette(@notification-palette);

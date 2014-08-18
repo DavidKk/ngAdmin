@@ -12,188 +12,188 @@ header#header(ng-controller="Header")
         li.dropdown-submenu(dropdown-menu)
           a(dropdown-menu-toggle)
             i.fa.fa-tasks
-            span.badge.bg-warning 1
+            span.badge.badge-info 5
 
-          .dropdown-menu-tasks.dropdown-menu-head.dropdown-menu.pull-right
+          .dropdown-menu-tasks.dropdown-menu.dropdown-menu-head.dropdown-menu-cyan.pull-right
             .dropdown-menu-arrow
+
             h5.caption
               .dropdown-menu-caption-arrow
               .dropdown-menu-caption-widgets
                 a(title="refresh")
                   i.fa.fa-refresh
-              | You have 4 pending tasks
-            
+              | You have 5 pending tasks
+
             ul.dropdown-list
               li
-                a
+                a.task
                   .task-info
-                    .desc Layout
                     .percent 80%
+                    .desc Layout
 
                   .progress.progress-striped.active
                     .progress-bar.progress-bar-green(style="width: 80%")
                       .sr-only 80% Complete
               li
-                a
+                a.task
                   .task-info
-                    .desc UI Element
                     .percent 40%
+                    .desc UI Element
 
                   .progress.progress-striped.active
                     .progress-bar.progress-bar-cyan(style="width: 40%")
                       .sr-only 40% Complete
               li
-                a
+                a.task
                   .task-info
-                    .desc Forms
                     .percent 10%
+                    .desc Forms
 
                   .progress.progress-striped.active
                     .progress-bar.progress-bar-orange(style="width: 10%")
                       .sr-only 10% Complete
               li
-                a
+                a.task
                   .task-info
-                    .desc Table
                     .percent 70%
+                    .desc Table
 
                   .progress.progress-striped.active
                     .progress-bar.progress-bar-red(style="width: 70%")
                       .sr-only 70% Complete
               li
-                a
+                a.task
                   .task-info
-                    .desc Charts
                     .percent 35%
+                    .desc Charts
 
                   .progress.progress-striped.active
                     .progress-bar.progress-bar-amethyst(style="width: 35%")
                       .sr-only 35% Complete
+
             a.dropdown-more(href, title) Check all tasks...
 
         li.dropdown-submenu(dropdown-menu)
           a(dropdown-menu-toggle)
             i.fa.fa-envelope-o
-            span.badge.bg-warning 2
+            span.badge.badge-warning 4
 
-          .dropdown-menu-message.dropdown-menu-head.dropdown-menu.pull-right
+          .dropdown-menu-message.dropdown-menu.dropdown-menu-head.dropdown-menu-orange.pull-right
             .dropdown-menu-arrow
+
             h5.caption
               .dropdown-menu-caption-arrow
               .dropdown-menu-caption-widgets
                 a(title="refresh")
                   i.fa.fa-refresh
-              | You have 1 new messages
+              | You have 4 new messages
 
             ul.dropdown-list
               li
-                a
-                  .thumb
+                .item.message
+                  a.thumb
                     img(src="")
 
-                  .desc.new
-                    span.name Draniem Daamul
+                  a.desc
+                    span.line
+                      strong Draniem Daamul
+                      | &nbsp;- just now
                       span.badge.badge-green New
-
-                    span.msg Lorem ipsum dolor sit amet...
+                    span.line This ain’t our first item, it is the best of the rest. 
               li
-                a
-                  .thumb
+                .item.message
+                  a.thumb
                     img(src="")
 
-                  .desc
-                    span.name Draniem Daamul
+                  a.desc
+                    span.line
+                      strong Draniem Daamul
+                      | &nbsp;- 4 mins ago
                       span.badge.badge-green New
-
-                    span.msg Lorem ipsum dolor sit amet...
+                    span.line Oh he decisively impression attachment friendship so if everything. 
               li
-                a
-                  .thumb
+                .item.message
+                  a.thumb
                     img(src="")
 
-                  .desc
-                    span.name Draniem Daamul
+                  a.desc
+                    span.line
+                      strong Draniem Daamul
+                      | &nbsp;- 4 hours ago
                       span.badge.badge-green New
-
-                    span.msg Lorem ipsum dolor sit amet...
+                    span.line Whose her enjoy chief new young. Felicity if ye required likewise so doubtful. 
               li
-                a
-                  .thumb
+                .item.message
+                  a.thumb
                     img(src="")
 
-                  .desc
-                    span.name Draniem Daamul
+                  a.desc
+                    span.line
+                      strong Draniem Daamul
+                      | &nbsp;- 12 hours ago
                       span.badge.badge-green New
+                    span.line On so attention necessary at by provision otherwise existence direction. 
 
-                    span.msg Lorem ipsum dolor sit amet...
-              li
-                a
-                  .thumb
-                    img(src="")
-
-                  .desc
-                    span.name Draniem Daamul
-                      span.badge.badge-green New
-
-                    span.msg Lorem ipsum dolor sit amet...
-            a.dropdown-more(href, title) Check all message...
+            a.dropdown-more(href, title) All message...
 
         li.dropdown-submenu(dropdown-menu)
           a(dropdown-menu-toggle)
             i.fa.fa-bell-o
-            span.badge.bg-warning 7
+            span.badge.badge-danger 12
 
-          .dropdown-menu-notify.dropdown-menu-head.dropdown-menu.pull-right
+          .dropdown-menu-notify.dropdown-menu.dropdown-menu-head.dropdown-menu-red.pull-right
             .dropdown-menu-arrow
+
             h5.caption
               .dropdown-menu-caption-arrow
               .dropdown-menu-caption-widgets
                 a(title="refresh")
                   i.fa.fa-refresh
               | You have 12 new notifications
-            
+
             ul.dropdown-list
               li
-                a
-                  span.label.label-cyan
+                a.message
+                  span.label.label-info
                     i.fa.fa-user
                   | New user registered.
-                  span.small 3 mins
+                  span.small 3 mins ago
 
               li
-                a
-                  span.label.label-green
+                a.message
+                  span.label.label-warning
                     i.fa.fa-plus
                   | New order.
-                  span.small 20 mins
+                  span.small 20 mins ago
 
               li
-                a
-                  span.label.label-orange
+                a.message
+                  span.label.label-success
                     i.fa.fa-flash
                   | Server restared.
-                  span.small 18 mins
+                  span.small 18 mins ago
 
               li
-                a
-                  span.label.label-amethyst
+                a.message
+                  span.label.label-danger
                     i.fa.fa-power-off
                   | Server down.
-                  span.small 27 mins
+                  span.small 27 mins ago
 
               li
-                a
-                  span.label.label-red
-                    i.fa.fa-bullhorn
+                a.message
+                  span.label.label-danger
+                    i.fa.fa-times
                   | Application error.
-                  span.small 31 mins
+                  span.small 31 mins ago
+
             a.dropdown-more(href, title) Check all notify...
 
         li.dropdown-submenu.profile(dropdown-menu)
           a.avator(dropdown-menu-toggle)
             img(src="")
           span.name David Jones
-          
+
           ul.dropdown-menu-profile.dropdown-menu.pull-right
             .dropdown-menu-arrow
             li

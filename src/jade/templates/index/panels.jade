@@ -1,15 +1,30 @@
 
 
 main#widgets-container.content-layout
-  h2 Basic panels
+  h2 Basic Panels
   .row
     .col-md-6
-      .panel.panel-default
+      .panel.panel-blue
         .panel-heading
           .panel-title
-            h4 panel with Label
+            h4 Panel with Label
           .panel-widgets
             .label.label-green Label
+            span.divider
+            a
+              i.fa.fa-chevron-down
+
+        .panel-collapse.in
+          .panel-body
+            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+
+    .col-md-6
+      .panel.panel-cyan
+        .panel-heading
+          .panel-title
+            h4 Panel with Badge
+          .panel-widgets
+            .badge.badge-orange Badge
             span.divider
             a
               i.fa.fa-chevron-down
@@ -22,22 +37,7 @@ main#widgets-container.content-layout
       .panel.panel-green
         .panel-heading
           .panel-title
-            h4 panel with Badge
-          .panel-widgets
-            .badge.badge-orange Badge
-            span.divider
-            a
-              i.fa.fa-chevron-down
-
-        .panel-collapse.in
-          .panel-body
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
-
-    .col-md-6
-      .panel.panel-orange
-        .panel-heading
-          .panel-title
-            h4 panel with Button
+            h4 Panel with Button
           .panel-widgets
             a.btn.btn-xs.btn-mini.btn-pure.btn-amethyst Button
             span.divider
@@ -49,12 +49,31 @@ main#widgets-container.content-layout
             p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
 
     .col-md-6
-      .panel.panel-cyan
+      .panel.panel-yellow
         .panel-heading
           .panel-title
-            h4 panel with Toggle
+            h4 Panel with Toggle
           .panel-widgets
             //- a.btn.btn-xs.btn-purple Button
+            span.divider
+            a
+              i.fa.fa-chevron-down
+        
+        .panel-collapse.in
+          .panel-body
+            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+
+    .col-md-6
+      .panel.panel-orange
+        .panel-heading
+          .panel-title
+            h4 Panel with Icons
+          .panel-widgets
+            a
+              i.fa.fa-gear
+            span.divider
+            a
+              i.fa.fa-refresh
             span.divider
             a
               i.fa.fa-chevron-down
@@ -67,14 +86,25 @@ main#widgets-container.content-layout
       .panel.panel-red
         .panel-heading
           .panel-title
-            h4 panel with Icons
+            h4 Panel with Tabs
           .panel-widgets
-            a
-              i.fa.fa-gear
+            a.btn.btn-xs.btn-mini.btn-pure.btn-default Tab #1
+            span.divider
+            a.btn.btn-xs.btn-mini.btn-pure.btn-default Tab #2
             span.divider
             a
-              i.fa.fa-refresh
-            span.divider
+              i.fa.fa-chevron-down
+        
+        .panel-collapse.in
+          .panel-body
+            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+
+    .col-md-6
+      .panel.panel-pink
+        .panel-heading
+          .panel-title
+            h4 Pink State
+          .panel-widgets
             a
               i.fa.fa-chevron-down
         
@@ -86,12 +116,21 @@ main#widgets-container.content-layout
       .panel.panel-amethyst
         .panel-heading
           .panel-title
-            h4 panel with Tabs
+            h4 Amethyst State
           .panel-widgets
-            a.btn.btn-xs.btn-mini.btn-pure.btn-default Tab #1
-            span.divider
-            a.btn.btn-xs.btn-mini.btn-pure.btn-default Tab #2
-            span.divider
+            a
+              i.fa.fa-chevron-down
+        
+        .panel-collapse.in
+          .panel-body
+            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+
+    .col-md-6
+      .panel.panel-black
+        .panel-heading
+          .panel-title
+            h4 Black State
+          .panel-widgets
             a
               i.fa.fa-chevron-down
         
@@ -103,7 +142,7 @@ main#widgets-container.content-layout
       .panel.panel-gray
         .panel-heading
           .panel-title
-            h4 Gray panel
+            h4 Gray State
           .panel-widgets
             a
               i.fa.fa-chevron-down
@@ -112,13 +151,13 @@ main#widgets-container.content-layout
           .panel-body
             p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
 
-  h2 Bright panels
+  h2 Light Panels
   .row
     .col-md-6
-      .panel.panel-bright.panel-default
+      .panel.panel-light.panel-blue
         .panel-heading
           .panel-title
-            h4 panel with Label
+            h4 Panel with Label
           .panel-widgets
             .label.label-green Label
             span.divider
@@ -130,10 +169,10 @@ main#widgets-container.content-layout
             p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
 
     .col-md-6
-      .panel.panel-bright.panel-green
+      .panel.panel-light.panel-cyan
         .panel-heading
           .panel-title
-            h4 panel with Badge
+            h4 Panel with Badge
           .panel-widgets
             .badge.badge-orange Badge
             span.divider
@@ -145,10 +184,10 @@ main#widgets-container.content-layout
             p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
 
     .col-md-6
-      .panel.panel-bright.panel-orange
+      .panel.panel-light.panel-green
         .panel-heading
           .panel-title
-            h4 panel with Button
+            h4 Panel with Button
           .panel-widgets
             a.btn.btn-xs.btn-mini.btn-pure.btn-amethyst Button
             span.divider
@@ -160,10 +199,10 @@ main#widgets-container.content-layout
             p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
 
     .col-md-6
-      .panel.panel-bright.panel-cyan
+      .panel.panel-light.panel-yellow
         .panel-heading
           .panel-title
-            h4 panel with Toggle
+            h4 Panel with Toggle
           .panel-widgets
             //- a.btn.btn-xs.btn-purple Button
             span.divider
@@ -175,10 +214,10 @@ main#widgets-container.content-layout
             p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
 
     .col-md-6
-      .panel.panel-bright.panel-red
+      .panel.panel-light.panel-orange
         .panel-heading
           .panel-title
-            h4 panel with Icons
+            h4 Panel with Icons
           .panel-widgets
             a
               i.fa.fa-gear
@@ -194,10 +233,10 @@ main#widgets-container.content-layout
             p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
 
     .col-md-6
-      .panel.panel-bright.panel-amethyst
+      .panel.panel-light.panel-red
         .panel-heading
           .panel-title
-            h4 panel with Tabs
+            h4 Panel with Tabs
           .panel-widgets
             a.btn.btn-xs.btn-mini.btn-pure.btn-default Tab #1
             span.divider
@@ -211,10 +250,49 @@ main#widgets-container.content-layout
             p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
 
     .col-md-6
-      .panel.panel-bright.panel-gray
+      .panel.panel-light.panel-pink
         .panel-heading
           .panel-title
-            h4 Gray panel
+            h4 Pink State
+          .panel-widgets
+            a
+              i.fa.fa-chevron-down
+        
+        .panel-collapse.in
+          .panel-body
+            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+
+    .col-md-6
+      .panel.panel-light.panel-amethyst
+        .panel-heading
+          .panel-title
+            h4 Amethyst State
+          .panel-widgets
+            a
+              i.fa.fa-chevron-down
+        
+        .panel-collapse.in
+          .panel-body
+            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+
+    .col-md-6
+      .panel.panel-light.panel-black
+        .panel-heading
+          .panel-title
+            h4 Black State
+          .panel-widgets
+            a
+              i.fa.fa-chevron-down
+        
+        .panel-collapse.in
+          .panel-body
+            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+
+    .col-md-6
+      .panel.panel-light.panel-gray
+        .panel-heading
+          .panel-title
+            h4 Gray State
           .panel-widgets
             a
               i.fa.fa-chevron-down
@@ -225,21 +303,34 @@ main#widgets-container.content-layout
 
   h2 Notification
   .row
-    .col-md-6
-      .notification
-        h4 Default / Cyan Notification
+    .col-md-12
+      .notification.notification-primary
+        h4 Primary Notification
         p
           | Lorem ipsum dolor sit amet, consectetur 
           b adipiscing 
           | elit. Ut quis tempus libero.
           b Aliquam 
-          | et dui at augue aliquet gravida at at est. Curabitur mattis sem  
+          | et dui at augue aliquet gravida at at est. Curabitur mattis sem 
           b sed dolor sagittis 
           | blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
-
+  
+  .row
     .col-md-6
-      .notification.notification-green
-        h4 Green Notification
+      .notification.notification-success
+        h4 Success Notification
+        p
+          | Lorem ipsum dolor sit amet, consectetur 
+          b adipiscing 
+          | elit. Ut quis tempus libero.
+          b Aliquam 
+          | et dui at augue aliquet gravida at at est. Curabitur mattis sem 
+          b sed dolor sagittis 
+          | blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+    
+    .col-md-6
+      .notification.notification-info
+        h4 Info Notification
         p
           | Lorem ipsum dolor sit amet, consectetur 
           b adipiscing 
@@ -249,9 +340,10 @@ main#widgets-container.content-layout
           b sed dolor sagittis 
           | blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
 
+  .row
     .col-md-6
-      .notification.notification-orange
-        h4 Orange Notification
+      .notification.notification-warning
+        h4 Warning Notification
         p
           | Lorem ipsum dolor sit amet, consectetur 
           b adipiscing 
@@ -260,34 +352,10 @@ main#widgets-container.content-layout
           | et dui at augue aliquet gravida at at est. Curabitur mattis sem 
           b sed dolor sagittis 
           | blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
-
+  
     .col-md-6
-      .notification.notification-red
-        h4 Red Notification
-        p
-          | Lorem ipsum dolor sit amet, consectetur 
-          b adipiscing 
-          | elit. Ut quis tempus libero.
-          b Aliquam 
-          | et dui at augue aliquet gravida at at est. Curabitur mattis sem 
-          b sed dolor sagittis 
-          | blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
-
-    .col-md-6
-      .notification.notification-amethyst
-        h4 Amethyst Notification
-        p
-          | Lorem ipsum dolor sit amet, consectetur 
-          b adipiscing 
-          | elit. Ut quis tempus libero.
-          b Aliquam 
-          | et dui at augue aliquet gravida at at est. Curabitur mattis sem 
-          b sed dolor sagittis 
-          | blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
-
-    .col-md-6
-      .notification.notification-gray
-        h4 Gray Notification
+      .notification.notification-danger
+        h4 Danger Notification
         p
           | Lorem ipsum dolor sit amet, consectetur 
           b adipiscing 

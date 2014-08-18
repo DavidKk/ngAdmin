@@ -59,7 +59,7 @@
   }
 }
 
-#header .navbar ul.notify-header {
+#header .navbar .notify-header {
   margin-bottom: 0;
   padding-left: 0;
   display: block;
@@ -72,6 +72,8 @@
   }
 
   & > li > a {
+    .transition(all .35s);
+
     padding: 25px;
     display: block;
     border-right: 1px solid rgb(238, 238, 238);
@@ -80,31 +82,28 @@
     line-height: 20px;
     color: rgb(128, 128, 128);
     font-size: 25px;
-    .transition(all .35s);
 
     &:hover { background-color: rgb(249, 249, 249); }
   }
 
-  & > li > a > span.badge {
+  & > li > a > .badge {
     position: absolute;
     right: 15px;
     top: 15px;
     z-index: 100;
-    background: rgb(234, 44, 70);
-    .transition(all .25s);
   }
 
-  & > li.bars { display: none; }
-  & > li.bars > a { width: 75px; }
-  & > li.profile { cursor: pointer; }
+  & > .bars { display: none; }
+  & > .bars > a { width: 75px; }
+  & > .profile { cursor: pointer; }
 
-  & > li.profile > a.avator {
+  & > .profile > .avator {
     padding: 12.5px 10px;
     width: 75px;
     float: left;
   }
 
-  & > li.profile > a.avator > img {
+  & > .profile > .avator > img {
     .border-radius(50px);
     .transition(all .25s);
 
@@ -115,23 +114,90 @@
     vertical-align: middle;
   }
 
-  & > li.profile > span.name {
+  & > .profile > span.name {
+    .text-overflow();
+    .transition(all .35s);
+
     padding: 30px 15px 15px 0;
     display: block;
     float: right;
     overflow: hidden;
-    .text-overflow();
     color: rgb(128, 128, 128);
-    .transition(all .35s);
   }
   
-  & > li.profile > a.avator:hover { background-color: transparent; }
-  & > li.profile > a.avator:hover > img { .opacity(.9); }
+  & > .profile > .avator:hover { background-color: transparent; }
+  & > .profile > .avator:hover > img { .opacity(.9); }
 }
 
-#header .navbar ul.notify-header.pull-right {
+#header .navbar .notify-header.pull-right {
   & > li > a {
     border-right-width: 0;
     border-left: 1px solid rgb(238, 238, 238);
+  }
+}
+
+#header .navbar .notify-header .dropdown-menu-tasks {
+  .task > .task-info {
+    margin-bottom: 4px;
+    
+    .percent {
+      float: right;
+    }
+  }
+
+  .task > .progress {
+    height: 6px;
+    margin-bottom: 0;
+  }
+}
+
+#header .navbar .notify-header .dropdown-menu-message {
+  max-width: 500px !important;
+  min-width: 368px !important;
+
+  .message > .thumb {
+    float: right;
+    display: block;
+    margin-left: 10px;
+  }
+
+  .message > .thumb > img {
+    .border-radius(100%);
+
+    border: 1px solid #fff;
+    height: 48px;
+    width: 48px;
+  }
+
+  .message > .desc > .line {
+    .text-overflow();
+    
+    font-weight: bold;
+    display: block;
+    margin-top: 8px;
+  }
+
+  .message > .desc > .line.read {
+    font-weight: normal;
+  }
+
+  .message > .desc > .line + .line {
+    margin-top: 5px;
+    font-weight: normal;
+  }
+}
+
+#header .navbar .notify-header .dropdown-menu-notify {
+  .message > .label {
+    font-size: 14px;
+    float: right;
+    padding: 6px 0;
+    text-align: center;
+    width: 29px;
+    vertical-align: middle;
+  }
+
+  .message > .small {
+    display: block;
   }
 }

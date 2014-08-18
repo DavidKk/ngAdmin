@@ -1,70 +1,107 @@
 
 
 main#tile-container.content-layout
-  h2.caption State Tiles
+  h2.caption State
   br
   .row
     .col-sm-3
-      .tile.tile-state.tile-default
-        div.icon
+      .tile.tile-state.tile-blue
+        .icon
           i.fa.fa-suitcase
-        div.num 83
+        .num 08
+        h3 Documents
+        p so far in our blog, and our website.
+    
+    .col-sm-3
+      .tile.tile-state.tile-cyan
+        .icon
+          i.fa.fa-dashboard
+        .num 24
         h3 Registered users
         p so far in our blog, and our website.
 
     .col-sm-3
       .tile.tile-state.tile-green
-        div.icon
+        .icon
           i.fa.fa-dashboard
-        div.num 83
+        .num 12
         h3 Registered users
         p so far in our blog, and our website.
 
     .col-sm-3
-      .tile.tile-state.tile-cyan
-        div.icon
+      .tile.tile-state.tile-yellow
+        .icon
           i.fa.fa-tag
-        div.num 83
-        h3 Registered users
-        p so far in our blog, and our website.
-
-    .col-sm-3
-      .tile.tile-state.tile-red
-        div.icon
-          i.fa.fa-rocket
-        div.num 83
+        .num 83
         h3 Registered users
         p so far in our blog, and our website.
 
     .col-sm-3
       .tile.tile-state.tile-orange
-        div.icon
-          i.fa.fa-suitcase
-        div.num 83
+        .icon
+          i.fa.fa-space-shuttle
+        .num 83
+        h3 Registered users
+        p so far in our blog, and our website.
+
+    .col-sm-3
+      .tile.tile-state.tile-red
+        .icon
+          i.fa.fa-rocket
+        .num 83
+        h3 Registered users
+        p so far in our blog, and our website.
+
+    .col-sm-3
+      .tile.tile-state.tile-pink
+        .icon
+          i.fa.fa-book
+        .num 83
         h3 Registered users
         p so far in our blog, and our website.
 
     .col-sm-3
       .tile.tile-state.tile-amethyst
-        div.icon
-          i.fa.fa-dashboard
-        div.num 83
+        .icon
+          i.fa.fa-tree
+        .num 83
+        h3 Registered users
+        p so far in our blog, and our website.
+
+    .col-sm-3
+      .tile.tile-state.tile-black
+        .icon
+          i.fa.fa-bullhorn
+        .num 83
         h3 Registered users
         p so far in our blog, and our website.
 
     .col-sm-3
       .tile.tile-state.tile-gray
-        div.icon
-          i.fa.fa-rocket
-        div.num 83
+        .icon
+          i.fa.fa-beer
+        .num 83
         h3 Registered users
         p so far in our blog, and our website.
 
-  h2.caption Progress Bar Tiles
+  h2.caption Progress Bar
   br
   .row
     .col-md-3
-      .tile.tile-progress
+      .tile.tile-progress.tile-blue
+        .tile-header
+          h3 Visitors
+          span so far in our blog, and our website.
+        .tile-progressbar
+          span(data-fill='65.5%', style='width: 65.5%;')
+        .tile-footer
+          h4
+            span.pct-counter 65.5
+            | % increase
+          span so far in our blog and our website
+
+    .col-md-3
+      .tile.tile-progress.tile-cyan
         .tile-header
           h3 Visitors
           span so far in our blog, and our website.
@@ -90,7 +127,7 @@ main#tile-container.content-layout
           span so far in our blog and our website
 
     .col-md-3
-      .tile.tile-progress.tile-cyan
+      .tile.tile-progress.tile-yellow
         .tile-header
           h3 Visitors
           span so far in our blog, and our website.
@@ -129,6 +166,19 @@ main#tile-container.content-layout
           span so far in our blog and our website
 
     .col-md-3
+      .tile.tile-progress.tile-pink
+        .tile-header
+          h3 Visitors
+          span so far in our blog, and our website.
+        .tile-progressbar
+          span(data-fill='65.5%', style='width: 65.5%;')
+        .tile-footer
+          h4
+            span.pct-counter 65.5
+            | % increase
+          span so far in our blog and our website
+
+    .col-md-3
       .tile.tile-progress.tile-amethyst
         .tile-header
           h3 Visitors
@@ -142,7 +192,7 @@ main#tile-container.content-layout
           span so far in our blog and our website
 
     .col-md-3
-      .tile.tile-progress.tile-gray
+      .tile.tile-progress.tile-black
         .tile-header
           h3 Visitors
           span so far in our blog, and our website.
@@ -154,46 +204,9 @@ main#tile-container.content-layout
             | % increase
           span so far in our blog and our website
 
-  h2.caption Block Tiles
+  h2.caption Block
   br
   .row
-    .col-md-3
-      .tile.tile-block
-        .tile-header
-          i.fa.fa-list-ul
-          a(href='#')
-            | Tasks
-            span To do list, tick one.
-        .tile-content
-          input.form-control(type='text', placeholder='Add Task')
-          ul.todo-list
-            li
-              .checkbox.checkbox-replace.color-white.neon-cb-replacement
-                label.cb-wrapper
-                  input(type='checkbox')
-                  .checked
-                label Website Design
-            li
-              .checkbox.checkbox-replace.color-white.neon-cb-replacement.checked
-                label.cb-wrapper
-                  input#task-2(type='checkbox', checked='')
-                  .checked
-                label Slicing
-            li
-              .checkbox.checkbox-replace.color-white.neon-cb-replacement
-                label.cb-wrapper
-                  input#task-3(type='checkbox')
-                  .checked
-                label WordPress Integration
-            li
-              .checkbox.checkbox-replace.color-white.neon-cb-replacement
-                label.cb-wrapper
-                  input#task-4(type='checkbox')
-                  .checked
-                label SEO Optimize
-        .tile-footer
-          a(href='#') View all tasks
-
     .col-md-3
       .tile.tile-block.tile-green
         .tile-header
@@ -201,6 +214,7 @@ main#tile-container.content-layout
           a(href='#')
             | Tasks
             span To do list, tick one.
+
         .tile-content
           input.form-control(type='text', placeholder='Add Task')
           ul.todo-list
@@ -231,83 +245,9 @@ main#tile-container.content-layout
         .tile-footer
           a(href='#') View all tasks
 
-    .col-md-3
+    .col-sm-3
       .tile.tile-block.tile-cyan
         .tile-header
-          i.fa.fa-list-ul
-          a(href='#')
-            | Tasks
-            span To do list, tick one.
-        .tile-content
-          input.form-control(type='text', placeholder='Add Task')
-          ul.todo-list
-            li
-              .checkbox.checkbox-replace.color-white.neon-cb-replacement
-                label.cb-wrapper
-                  input(type='checkbox')
-                  .checked
-                label Website Design
-            li
-              .checkbox.checkbox-replace.color-white.neon-cb-replacement.checked
-                label.cb-wrapper
-                  input#task-2(type='checkbox', checked='')
-                  .checked
-                label Slicing
-            li
-              .checkbox.checkbox-replace.color-white.neon-cb-replacement
-                label.cb-wrapper
-                  input#task-3(type='checkbox')
-                  .checked
-                label WordPress Integration
-            li
-              .checkbox.checkbox-replace.color-white.neon-cb-replacement
-                label.cb-wrapper
-                  input#task-4(type='checkbox')
-                  .checked
-                label SEO Optimize
-        .tile-footer
-          a(href='#') View all tasks
-
-    .col-md-3
-      .tile.tile-block.tile-orange
-        .tile-header
-          i.fa.fa-list-ul
-          a(href='#')
-            | Tasks
-            span To do list, tick one.
-        .tile-content
-          input.form-control(type='text', placeholder='Add Task')
-          ul.todo-list
-            li
-              .checkbox.checkbox-replace.color-white.neon-cb-replacement
-                label.cb-wrapper
-                  input(type='checkbox')
-                  .checked
-                label Website Design
-            li
-              .checkbox.checkbox-replace.color-white.neon-cb-replacement.checked
-                label.cb-wrapper
-                  input#task-2(type='checkbox', checked='')
-                  .checked
-                label Slicing
-            li
-              .checkbox.checkbox-replace.color-white.neon-cb-replacement
-                label.cb-wrapper
-                  input#task-3(type='checkbox')
-                  .checked
-                label WordPress Integration
-            li
-              .checkbox.checkbox-replace.color-white.neon-cb-replacement
-                label.cb-wrapper
-                  input#task-4(type='checkbox')
-                  .checked
-                label SEO Optimize
-        .tile-footer
-          a(href='#') View all tasks
-
-    .col-sm-3
-      .tile.tile-block.tile-red
-        .tile-header
           i.fa.fa-bullhorn
           a(href='#')
             | Subscribe
@@ -317,41 +257,13 @@ main#tile-container.content-layout
             | Pleased him another was settled for. Moreover end horrible endeavor entrance any families.
           input.form-control(type='text', placeholder='Enter your email...')
         .tile-footer
-          button.btn.btn-block.btn-red(type='button') Subscribe
+          button.btn.btn-block(type='button') Subscribe
 
-    .col-sm-3
-      .tile.tile-block.tile-amethyst
-        .tile-header
-          i.fa.fa-bullhorn
-          a(href='#')
-            | Subscribe
-            span Get the latest news!
-        .tile-content
-          p
-            | Pleased him another was settled for. Moreover end horrible endeavor entrance any families.
-          input.form-control(type='text', placeholder='Enter your email...')
-        .tile-footer
-          button.btn.btn-block.btn-amethyst(type='button') Subscribe
-    
-    .col-sm-3
-      .tile.tile-block.tile-gray
-        .tile-header
-          i.fa.fa-bullhorn
-          a(href='#')
-            | Subscribe
-            span Get the latest news!
-        .tile-content
-          p
-            | Pleased him another was settled for. Moreover end horrible endeavor entrance any families.
-          input.form-control(type='text', placeholder='Enter your email...')
-        .tile-footer
-          button.btn.btn-block.btn-gray(type='button') Subscribe
-
-  h2.caption Title Tiles
+  h2.caption Title
   br
   .row
     .col-md-3
-      .tile.tile-title
+      .tile.tile-title.tile-blue
         .icon
           i.fa.fa-leaf
 
@@ -360,7 +272,7 @@ main#tile-container.content-layout
           p so far in our blog, and our website.
 
     .col-md-3
-      .tile.tile-title.tile-green
+      .tile.tile-title.tile-cyan
         .icon
           i.fa.fa-lock
 
@@ -369,7 +281,7 @@ main#tile-container.content-layout
           p so far in our blog, and our website.
 
     .col-md-3
-      .tile.tile-title.tile-cyan
+      .tile.tile-title.tile-green
         .icon
           i.fa.fa-link
 
@@ -378,7 +290,7 @@ main#tile-container.content-layout
           p so far in our blog, and our website.
 
     .col-md-3
-      .tile.tile-title.tile-orange
+      .tile.tile-title.tile-yellow
         .icon
           i.fa.fa-heart
 
@@ -387,7 +299,7 @@ main#tile-container.content-layout
           p so far in our blog, and our website.
 
     .col-md-3
-      .tile.tile-title.tile-red
+      .tile.tile-title.tile-orange
         .icon
           i.fa.fa-globe
 
@@ -396,7 +308,7 @@ main#tile-container.content-layout
           p so far in our blog, and our website.
 
     .col-md-3
-      .tile.tile-title.tile-amethyst
+      .tile.tile-title.tile-red
         .icon
           i.fa.fa-magnet
 
@@ -405,9 +317,36 @@ main#tile-container.content-layout
           p so far in our blog, and our website.
 
     .col-md-3
-      .tile.tile-title.tile-gray
+      .tile.tile-title.tile-pink
         .icon
           i.fa.fa-puzzle-piece
+
+        .title
+          h3 Big Center Tile
+          p so far in our blog, and our website.
+
+    .col-md-3
+      .tile.tile-title.tile-amethyst
+        .icon
+          i.fa.fa-anchor
+
+        .title
+          h3 Big Center Tile
+          p so far in our blog, and our website.
+
+    .col-md-3
+      .tile.tile-title.tile-black
+        .icon
+          i.fa.fa-cubes
+
+        .title
+          h3 Big Center Tile
+          p so far in our blog, and our website.
+
+    .col-md-3
+      .tile.tile-title.tile-gray
+        .icon
+          i.fa.fa-drupal
 
         .title
           h3 Big Center Tile

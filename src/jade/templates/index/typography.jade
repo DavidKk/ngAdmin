@@ -17,7 +17,7 @@ main#typography-container.content-layout
         table.table.table-bordered
           thead
             tr
-              th(width='30%') Type
+              th(width="30%") Type
               th Live Example
           tbody
             tr
@@ -103,16 +103,18 @@ main#typography-container.content-layout
             table.table.table-bordered
               thead
                 tr
-                  th(width='50%') PRE Tags
+                  th(width="50%") PRE Tags
                   th CODE Tags
               tbody
                 tr
                   td
-                    pre= '<p>Sample text here...</p>'
+                    pre
+                      | <p>Sample text here...</p>
                                     
                   td
                     | For example,
-                    code= '<section>'
+                    code
+                      | <section>
                     | should be wrapped as inline.
 
   .panel
@@ -128,57 +130,57 @@ main#typography-container.content-layout
         table.table.table-bordered
           thead
             tr
-              th(width='50%') Simple
+              th(width="50%") Simple
               th With Links
           tbody
             tr
               td.padding-lg
                 ul.list-group
                   li.list-group-item
-                    span.badge.badge-default 5
+                    span.badge 5
                     | Cras justo odio
                   li.list-group-item
-                    span.badge.badge-green 14
+                    span.badge.badge-primary 14
                     | Dapibus ac facilisis in
                   li.list-group-item
-                    span.badge.badge-cyan 11
+                    span.badge.badge-success 11
                     | Morbi leo risus
                   li.list-group-item
-                    span.badge.badge-orange 3
+                    span.badge.badge-info 3
                     | Porta ac consectetur ac
                   li.list-group-item
-                    span.badge.badge-red 7
+                    span.badge.badge-warning 7
                     | Vestibulum at eros
 
               td.padding-lg
                 .list-group
-                  a.list-group-item.active(href='#')
-                    span.badge.badge-default 5
+                  a.list-group-item.active(href="#")
+                    span.badge 5
                     | Cras justo odio
-                  a.list-group-item(href='#')
-                    span.badge.badge-green 14
+                  a.list-group-item(href="#")
+                    span.badge.badge-primary 14
                     | Dapibus ac facilisis in
-                  a.list-group-item(href='#')
-                    span.badge.badge-red 11
+                  a.list-group-item(href="#")
+                    span.badge.badge-success 11
                     | Morbi leo risus
-                  a.list-group-item(href='#')
-                    span.badge.badge-amethyst 3
+                  a.list-group-item(href="#")
+                    span.badge.badge-info 3
                     | Porta ac consectetur ac
-                  a.list-group-item(href='#')
-                    span.badge.badge-gray 7
+                  a.list-group-item(href="#")
+                    span.badge.badge-warning 7
                     | Vestibulum at eros
             tr
-              td.padding-lg(colspan='2')
+              td.padding-lg(colspan="2")
                 .list-group
-                  a.list-group-item.active(href='#')
+                  a.list-group-item.active(href="#")
                     h4.list-group-item-heading Domestic confined any but son
                     p.list-group-item-text
                       | John draw real poor on call my from. May she mrs furnished discourse extremely. Ask doubt noisy shade guest did built her him. Ignorant repeated hastened it do. Consider bachelor he yourself expenses no. Her itself active giving for expect vulgar months. Discovery commanded fat mrs remaining son she principle middleton neglected.
-                  a.list-group-item(href='#')
+                  a.list-group-item(href="#")
                     h4.list-group-item-heading Why painful the sixteen how minuter
                     p.list-group-item-text
                       | Her extensive perceived may any sincerity extremity. Indeed add rather may pretty see. Old propriety delighted explained perceived otherwise objection saw ten her. Doubt merit sir the right these alone keeps. By sometimes intention smallness he northward. Consisted we otherwise arranging commanded discovery it explained.
-                  a.list-group-item(href='#')
+                  a.list-group-item(href="#")
                     h4.list-group-item-heading Barton waited twenty always repair
                     p.list-group-item-text
                       | Attention he extremity unwilling on otherwise. Conviction up partiality as delightful is discovered. Yet jennings resolved disposed exertion you off. Left did fond drew fat head poor. So if he into shot half many long. China fully him every fat was world grave.

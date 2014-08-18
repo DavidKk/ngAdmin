@@ -1,7 +1,7 @@
 
 
 // Rewrite
-ul.dropdown-menu {
+.dropdown-menu {
   .border-radius(0);
 
   & > li > a { line-height: 20px; }
@@ -16,7 +16,6 @@ ul.dropdown-menu {
     font-size: 14px;
   }
 }
-
 
 // Header Sub Menu
 .dropdown-menu-head {
@@ -37,30 +36,42 @@ ul.dropdown-menu {
 }
 
 .dropdown-menu-head .caption {
+  background-color: @green;
+  border-bottom: 6px solid @black;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
   margin: 0;
   padding: 14px;
-  background-color: @green;
-  color: #fff;
-  font-weight: bold;
-  border-bottom: 6px solid @black;
 
   .dropdown-menu-caption-widgets {
     float: right;
     font-size: 12px;
 
-    & > a { cursor: pointer; color: #fff; }
+    & > a {
+      cursor: pointer;
+      color: #fff;
+      font-size: 16px;
+    }
+
     & > a:hover { text-decoration: underline; }
   }
 
   .dropdown-menu-caption-arrow {
     .arrow-mixin(8px, #fff, top, 26px, 4px, @black);
-    top: 35px;
+    top: 33px;
   }
 }
 
-.dropdown-menu-head .dropdown-menu-arrow { .arrow-mixin(6px, @green, top, 21px); }
-.dropdown-menu-head.pull-right .dropdown-menu-arrow { .arrow-mixin > .offset(-1.5em, top); }
-.dropdown-menu-head ul.dropdown-list {
+.dropdown-menu-head .dropdown-menu-arrow {
+  .arrow-mixin(6px, @green, top, 10%);
+}
+
+.dropdown-menu-head.pull-right .dropdown-menu-arrow {
+  .arrow-mixin > .offset(-1.5em, top);
+}
+
+.dropdown-menu-head .dropdown-list {
   padding-left: 0;
   max-height: 260px;
   list-style: none;
@@ -70,7 +81,8 @@ ul.dropdown-menu {
   & > li { border-bottom: 1px dotted rgba(0, 0, 0, 0.05); }
   & > li:hover { background-color: rgb(252, 252, 252); }
 
-  & > li > a {
+  & > li > a,
+  & > li > .item {
     .transition(all .35s);
 
     padding: 10px !important;
@@ -86,3 +98,22 @@ ul.dropdown-menu {
   }
 }
 
+.dropdown-menu-head-palette(@arr-style, @index: 1) when (@index =< length(@arr-style)) {
+  @token:  e(extract(@arr-style, @index));
+  @color:  extract(@arr-style, @index + 1);
+  
+  .dropdown-menu.dropdown-menu-head.dropdown-menu-@{token} .dropdown-menu-arrow {
+    .arrow-mixin > .color(@color, top);
+  }
+
+  .dropdown-menu.dropdown-menu-head.dropdown-menu-@{token} .caption {
+    background-color: @color;
+    color: #fff;
+
+    .anti-color(@color);
+  }
+
+  .dropdown-menu-head-palette(@arr-style, @index + 2);
+}
+
+.dropdown-menu-head-palette(@dropdown-palette);

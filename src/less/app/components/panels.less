@@ -3,8 +3,8 @@
 .panel {
   .border-radius(3px);
 
-  margin-bottom: 30px;
   border: 1px solid #eee;
+  margin-bottom: 30px;
 }
 
 .panel > .panel-heading {
@@ -16,7 +16,7 @@
   background-color: #fff;
   border-color: #eee;
   overflow: hidden;
-  color: @black;
+  color: @text-color;
 
   a {
     cursor: pointer;
@@ -37,11 +37,12 @@
 }
 
 .panel > .panel-heading > .panel-widgets {
-  margin: 8px 0;
   float: right;
   font-size: 14px;
+  margin: 8px 0;
   
   & > .divider { margin: 0 4px; }
+  & > a:not(.btn) { color: inherit; }
 }
 
 .panel > .panel-collapse {
@@ -59,7 +60,11 @@
 }
 
 .panel > .panel-collapse.in { max-height: 99999999px; }
-.panel > .panel-collapse > .panel-body.no-padding { padding: 0; }
+.panel > .panel-collapse > .panel-body.no-padding {
+  padding: 0;
+  border-width: 0;
+}
+
 .panel > .panel-collapse > .panel-body.no-padding > table {
   margin-bottom: 0;
   border-width: 0;
@@ -67,37 +72,53 @@
 
 .panel-palette(@arr-name, @index: 1) when (@index =< length(@arr-name)) {
   @token:    e(extract(@arr-name, @index));
-  @bg:    extract(@arr-name, @index + 1);
+  @color:    extract(@arr-name, @index + 1);
 
-  .panel.panel-@{token} { border-color: @bg; }
-  .panel.panel-@{token} > .panel-heading { background-color: @bg; }  
+  .panel.panel-@{token} {
+    border-color: @color;
+  }
+
+  .panel.panel-@{token} > .panel-heading {
+    background-color: @color;
+    color: #fff;
+    
+    .anti-color(@color);
+  } 
+
   .panel-palette(@arr-name, @index + 2);
 }
 
-.panel-palette(@arr-panel);
+.panel-palette(@panel-palette);
 
 
-
-// Bright
-.panel.panel-bright {
+// Light State
+.panel.panel-light {
   @border: screen(@black, #ccc);
   border-color: darken(@border, 4%);
 }
 
-.panel.panel-bright > .panel-heading {
-  @bg: screen(@black, #ccc);
-  background-color: @bg;
+.panel.panel-light > .panel-heading {
+  background-color: screen(@black, #ccc);
   color: @black;
 }
 
+.panel-light-palette(@arr-style, @index: 1) when (@index =< length(@arr-style)) {
+  @token:       e(extract(@arr-style, @index));
+  @color:       extract(@arr-style, @index + 1);
+  @bg-color:    screen(@color, #ccc);
 
-.panel-bright-palette(@arr-style, @index: 1) when (@index =< length(@arr-style)) {
-  @token:    e(extract(@arr-style, @index));
-  @bg:    screen(extract(@arr-style, @index + 1), #ccc);
+  .panel.panel-light.panel-@{token} {
+    border-color: darken(@bg-color, 4%);
+  }
 
-  .panel.panel-bright.panel-@{token} { border-color: darken(@bg, 4%); }
-  .panel.panel-bright.panel-@{token} > .panel-heading { background-color: @bg; }
-  .panel-bright-palette(@arr-style, @index + 2);
+  .panel.panel-light.panel-@{token} > .panel-heading {
+    background-color: @bg-color;
+    color: @color;
+
+    .anti-color(@color);
+  }
+
+  .panel-light-palette(@arr-style, @index + 2);
 }
 
-.panel-bright-palette(@arr-panel);
+.panel-light-palette(@panel-palette);
