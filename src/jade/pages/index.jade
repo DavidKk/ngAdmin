@@ -1,0 +1,17 @@
+doctype html
+html(ng-app="index", lang="en-US")
+  head
+    title Index | ngAdmin
+    include ../partial/head
+
+  body
+    .container-layout
+      .sidebar-left-layout(ng-controller="Layout.LeftSidebar")
+        include ../partial/navigation
+
+      .main-layout
+        include ../partial/header
+        ng-view
+
+      .sidebar-right-layout(ng-controller="Layout.RightSidebar")
+        include ../partial/chatbar

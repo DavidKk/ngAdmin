@@ -1,8 +1,8 @@
 
 
 angular.module('index', [
-	'ngRoute', 'ngLibs',
-	'system', 'public',
-	'ui.bootstrap', 'ui',
-	'index.config'
+  'ngRoute', 'ngLibs',
+  'ui.bootstrap', 'ui.app',
+  'config', 'system', 'public',
+  'index.config'
 ])

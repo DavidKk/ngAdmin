@@ -1,0 +1,36 @@
+
+
+.pagination {
+  & > li > a,
+  & > li > span { color: rgb(55, 62, 74); }
+  
+  & > li > a { cursor: pointer; }
+
+  & > .active > a,
+  & > .active > span,
+  & > .active > a:hover,
+  & > .active > span:hover,
+  & > .active > a:focus,
+  & > .active > span:focus {
+    background-color: rgb(48, 54, 65);
+    border-color: rgb(48, 54, 65);
+    cursor: default;
+  }
+
+  & > .disabled > span,
+  & > .disabled > span:hover,
+  & > .disabled > span:focus,
+  & > .disabled > a,
+  & > .disabled > a:hover,
+  & > .disabled > a:focus {
+    color: rgb(153, 153, 153);
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(221, 221, 221);
+    cursor: not-allowed;
+  }
+}
+
+.pager {
+  & > li > a,
+  & > li > span { .border-radius(3px); }
+}

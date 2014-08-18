@@ -1,0 +1,111 @@
+
+
+.calendar {
+  background-color: #f0f0f0;
+  display: block;
+  overflow: auto;
+  position: relative;
+  color: #666;
+}
+
+.calendar > .calendar-scroller {
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+.calendar .event-list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 8;
+}
+
+.calendar .event-list .event {
+  .user-select(none);
+  .text-overflow();
+  .transition(background-color .35s);
+  
+  padding: 0 10px;
+  width: 147px;
+  min-height: 30px;
+  background-color: @cyan;
+  line-height: 30px;
+  position: absolute;
+  top: 30px;
+  z-index: 9;
+  cursor: move;
+  color: #fff;
+
+  &:hover { background-color: darken(@cyan, 4%); }
+}
+
+.calendar table.date-table {
+  min-width: 760px;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  display: table;
+  table-layout: fixed;
+
+  thead > tr > th,
+  tbody > tr > td {
+    padding: 0;
+    border: 1px solid #fff;
+    vertical-align: top;
+    position: relative;
+    text-align: left;
+    font-weight: normal;
+  }
+
+  thead > tr > th:first-child,
+  tbody > tr > td:first-child { border-left-width: 0; }
+
+  thead > tr > th:last-child,
+  tbody > tr > td:last-child { border-right-width: 0; }
+
+  tbody > tr:last-child > td { border-bottom-width: 0; }
+
+  thead > tr > th {
+    padding: 4px;
+    text-align: center;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    color: inherit;
+  }
+}
+
+.calendar table.date-table.date-table-header {
+  border-bottom: 2px solid #fff;
+}
+
+.calendar.month table.date-table {
+  thead > tr > th,
+  tbody > tr > td { width: 100/7%; }
+
+  tbody > tr > td:before {
+    padding-top: 75%;
+    display: block;
+    content: "";
+  }
+
+  tbody > tr > td .date {
+    position: absolute;
+    bottom: 2px;
+    right: 6px;
+    cursor: default;
+    color: #999;
+    font-size: 1.4em;
+    font-family: Georgia;
+    font-weight: normal;
+  }
+
+  tbody > tr > td.future { background-color: #e4e4e4; }
+}
+
+.calendar.week table.date-table {
+  tbody > tr > td {
+    padding: 0 10px;
+    height: 30px;
+    line-height: 30px;
+  }
+}

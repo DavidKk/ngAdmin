@@ -1,0 +1,86 @@
+
+
+.production {
+  .clearfix();
+  padding: 10px;
+  border-bottom: 2px solid darken(rgb(66, 139, 202), 8%);
+  background-color: rgb(66, 139, 202);
+  display: block;
+  cursor: pointer;
+  color: #fff;
+  .transition(background-color .35s);
+
+  & > img.pic {
+    width: 60px;
+    height: 60px;
+    display: inline-block;
+    float: left;
+  }
+
+  &:hover { background-color: darken(rgb(66, 139, 202), 4%); }
+}
+
+.production > .inner-product {
+  .clearfix();
+  margin-left: 70px;
+  position: relative;
+
+  a.open-widgets {
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: rgba(255, 255, 255, .8);
+    font-size: 16px;
+
+    &:hover { color: #fff; }
+    i { color: inherit; }
+  }
+
+  & > span.handle {
+    position: absolute;
+    right: -4px;
+    bottom: -4px;
+  }
+
+  & > span.handle > img {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.production > .inner-product > .left-inner {
+  width: 40%;
+  float: left;
+
+  & > span.name,
+  & > span.number { display: block; }
+  & > span.name {
+    height: 40px;
+    overflow: hidden;
+  }
+}
+
+.production > .inner-product > .middle-inner {
+  width: 40%;
+  float: left;
+}
+
+.production(@arrColor, @arrName) {
+  .loop(@arrColor, @arrName, @index: 1) when (@index =< length(@arrName)) {
+    @token:  e(extract(@arrName, @index));
+    @color:  extract(@arrColor, @index);
+
+    .production.production-@{token} {
+      background-color: @color;
+      border-bottom-color: darken(@color, 8%);
+      &:hover { background-color: darken(@color, 4%); }
+    }
+    .loop(@arrColor, @arrName, @index + 1);
+  }
+
+  .loop(@arrColor, @arrName);
+}
+
+@arr-production-colors: @green @orange @red;
+@arr-production-name: 'make' 'finish' 'error';
+.production(@arr-production-colors, @arr-production-name);

@@ -1,0 +1,291 @@
+
+
+.tile {
+  margin-bottom: 15px;
+  background-color: @default-tile;
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+}
+
+.tile > .tile-header {
+  padding: 15px;
+  padding-bottom: 0;
+  position: relative;
+}
+
+.tile > .tile-header > h1,
+.tile > .tile-header > h2,
+.tile > .tile-header > h3,
+.tile > .tile-header > h4,
+.tile > .tile-header > h5,
+.tile > .tile-header > h6 { margin: 0; }
+
+.tile > .tile-header > .tile-widgets {
+  display: inline-block;
+  position: absolute;
+  right: 8px;
+  top: 6px;
+  z-index: 99;
+
+  a { cursor: pointer; color: #Fff; }
+  .divider { margin: 0 4px; }
+}
+
+.tile > .tile-body {
+  padding: 15px;
+  padding-top: 15px;
+  position: relative;
+}
+
+
+// State
+.tile.tile-state {
+  .border-radius(5px);
+  .transition(all .3s ease-in-out);
+
+  margin-bottom: 10px;
+  padding: 20px;
+  background-color: @default-tile;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  color: #fff;
+}
+
+.tile.tile-state:hover { background-color: darken(@default-tile, 4%); }
+
+.tile.tile-state .num,
+.tile.tile-state h3,
+.tile.tile-state p {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 5;
+  color: #fff;
+}
+
+.tile.tile-state .num {
+  font-size: 38px;
+  font-weight: bold;
+}
+
+.tile.tile-state .icon {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  z-index: 1;
+  color: rgba(0, 0, 0, 0.1);
+
+  i {
+    font-size: 100px;
+    line-height: 0;
+    margin: 0;
+    padding: 0;
+    vertical-align: bottom;
+  }
+}
+
+
+// Progress
+.tile.tile-progress {
+  .border-radius(3px);
+
+  margin-bottom: 20px;
+  background-color: @default-tile;
+  color: #fff;
+}
+
+.tile.tile-progress .tile-header {
+  padding: 15px 20px;
+  padding-bottom: 40px;
+
+  h3,
+  a,
+  span,
+  i { color: #fff; }
+  
+  span {
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 11px;
+  }
+
+  h3,
+  span { display: block; }
+}
+
+.tile.tile-progress .tile-progressbar {
+  .transition(all 1.5s cubic-bezier(0.230,1.000,0.320,1.000));
+
+  margin: 0;
+  height: 2px;
+  background: rgba(0, 0, 0, 0.18);
+
+  span {
+    width: 0;
+    height: 100%;
+    background-color: #fff;
+    display: block;
+  }
+}
+
+.tile.tile-progress .tile-footer {
+  .border-radius(0 0 3px 3px);
+
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.1);
+  text-align: right;
+
+  h4,
+  & > span { color: #fff; }
+
+  h4 {
+    margin: 0;
+    font-size: 14px;
+  }
+
+  & > span {
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 11px;
+  }
+}
+
+
+// Title
+.tile.tile-title {
+  .border-radius(5px);
+  .transition(all 300ms ease-in-out);
+
+  margin-bottom: 10px;
+  background-color: @default-tile;
+  display: block;
+  position: relative;
+
+  &:hover { background-color: darken(@default-tile, 4%); }
+}
+
+.tile.tile-title .icon {
+  text-align: center;
+  padding: 20px;
+
+  i {
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+    line-height: 1;
+    font-size: 60px;
+  }
+}
+
+.tile.tile-title .title {
+  background-color: darken(@default-tile, 4%);
+  text-align: center;
+
+  h3,
+  p {
+    margin: 0;
+    padding: 0 20px;
+    color: #fff;
+  }
+
+  h3 {
+    padding-top: 20px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  p {
+    padding-bottom: 20px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.85);
+  }
+}
+
+
+// Block
+.tile.tile-block {
+  .border-radius(5px);
+
+  margin-bottom: 20px;
+  background-color: @default-tile;
+  color: #fff;
+}
+
+.tile.tile-block .tile-header {
+  padding: 20px;
+  color: #fff;
+  font-size: 17px;
+
+  a,
+  span,
+  & > i { color: #fff; }
+
+  span {
+    margin-top: 4px;
+    display: block;
+    color: #fff;
+    font-size: 11px;
+  }
+
+  & > i {
+    float: right;
+    font-size: 28px;
+    position: relative;
+    top: 4px;
+  }
+}
+
+.tile.tile-block .tile-content {
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.tile.tile-block .tile-footer {
+  .border-radius(0 0 5px 5px);
+
+  padding: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(0, 0, 0, 0.03);
+  color: #fff;
+
+  a { color: #fff; }
+}
+
+.tile-block .form-control + .todo-list,
+.tile-block .btn + .todo-list {
+  margin: 0;
+  margin-top: 20px;
+  padding: 0;
+  list-style: none;
+}
+
+// Other Style
+// 误差 #fff 14% 都取反色 
+.tile-anti-color(@color) when(lighten(@color, 14%) = #fff) {
+  color: negation(@color, #fff);
+  .tile-widgets a { color: #ccc; }
+}
+
+.tile-palette(@arr-style, @index: 1) when (@index =< length(@arr-style)) {
+  @token: e(extract(@arr-style, @index));
+  @bg:  extract(@arr-style, @index + 1);
+
+  .tile.tile-@{token},
+  .tile.tile-state.tile-@{token},
+  .tile.tile-progress.tile-@{token},
+  .tile.tile-title.tile-@{token} {
+    .tile-anti-color(@bg);
+
+    background-color: @bg;
+  }
+
+  .tile.tile-state.tile-@{token}:hover,
+  .tile.tile-title.tile-@{token}:hover,
+  .tile.tile-title.tile-@{token} .title { background-color: darken(@bg, 4%); }
+
+  .tile-palette(@arr-style, @index + 2);
+}
+
+.tile-palette(@arr-tile);

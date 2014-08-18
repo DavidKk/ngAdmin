@@ -1,0 +1,33 @@
+
+
+#colors-container {
+  padding-bottom: 0;
+  height: 100%;
+
+  .demo-color-block {
+    .user-select(none);
+    
+    color: #fff;
+    cursor: pointer;
+    height: 100%;
+    min-height: 200px;
+  }
+
+  .demo-color-block > span {
+    bottom: 6px;
+    font-size: 16px;
+    position: absolute;
+    left: 10px;
+  }
+  
+  .blue       { background-color: @blue; }
+  .cyan       { background-color: @cyan; }
+  .green      { background-color: @green; }
+  .yellow     { background-color: @yellow; }
+  .orange     { background-color: @orange; }
+  .red        { background-color: @red; }
+  .pink       { background-color: @pink; }
+  .amethyst   { background-color: @amethyst; }
+  .black      { background-color: @black; }
+  .gray       { background-color: @gray; color: darken(@gray, 30%); }
+}

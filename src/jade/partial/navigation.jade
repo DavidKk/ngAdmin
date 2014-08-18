@@ -1,0 +1,35 @@
+
+
+aside#navigation-container(ng-controller="Navigation", ng-class='{ "minify": minify }')
+  .brand-sidebar
+    a(href="/", target="_self", title="ngAdmin") ngAdmin
+
+  ul.nav.nav-stacked(slide-menu-group)
+    li.search-sidebar
+      input(ng-model="filter", name="filter", type="search", placeholder="Search something...")
+      a
+        i.fa.fa-search
+
+    li.profile-sidebar
+      .face.dropdown-submenu.pull-left.open
+        a.avator
+          img(src="http://gravatar.duoshuo.com/avatar/4ae64573bf8a8f5bcf2a3654715b1c3a?s=100")
+
+      .info.dropdown-submenu
+        a.name David Jones
+        span.role Administrator
+        a.status ONLINE
+
+    li(ng-repeat="nav in navigations", ng-hide="nav.hidden", ng-class='{ "dropdown-submenu": nav.child }', ng-attr-slide-menu="nav.child", open="{{ nav.key == current[0] }}")
+      a(ng-if="!nav.child", ng-href="{{ nav.url || ('/index/' + nav.key) }}/")
+        i(class="fa fa-{{ nav.icon }}")
+        span {{ nav.name }}
+
+      a(ng-if="nav.child", slide-menu-toggle, title="{{ nav.name }}")
+        i(class="fa fa-{{ nav.icon }}")
+        span {{ nav.name }}
+
+      ul.dropdown-menu-navigation.dropdown-menu(ng-if="nav.child", slide-menu-list)
+        li(ng-repeat="menu in nav.child", ng-hide="menu.hidden", ng-class='{ active: menu.key == current[1] }')
+          a(ng-href="{{ menu.url || ('/index/' + menu.key + '/') }}", target="{{ menu.target }}", title="{{ menu.name }}")
+            | {{ menu.name }}

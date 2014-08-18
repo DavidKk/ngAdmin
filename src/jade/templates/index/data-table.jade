@@ -1,0 +1,19 @@
+
+
+main#data-table-container.content-layout
+  h2 Data Tables
+
+  .table-responsive(dataquilt, ng-controller="TableDemoAController")
+    .table-header(dataquilt-header)
+      table.table.table-bordered
+        thead
+          tr
+            th(ng-repeat="(key, item) in dataTable[0]") {{key}}
+
+    .table-body(dataquilt-body)
+      table.table.table-bordered
+        tbody
+          tr(ng-repeat="row in dataTable")
+            td(ng-repeat="item in row") {{item}}
+
+    .table-footer

@@ -1,5 +1,6 @@
 
 
 angular.module('ngLibs', [
-	'config', 'ngHelper', 'ngDevice', 'ngStack', 'ngDB', 'ngValidate', 'ngWebSocket'
+  'config',
+  'ngHelper', 'ngDevice', 'ngStack', 'ngDB', 'ngValidate', 'ngWebSocket'
 ])

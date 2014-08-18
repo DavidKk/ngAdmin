@@ -1,0 +1,26 @@
+
+
+.badge {
+  background-color: @gray;
+  color: @black;
+  cursor: default;
+  font-weight: bold;
+}
+
+.badge-square {
+  .border-radius(0);
+}
+
+.badge-palette(@arr-style, @index: 1) when (@index =< length(@arr-style)) {
+  @token:  e(extract(@arr-style, @index));
+  @bg:  extract(@arr-style, @index + 1);
+
+  .badge.badge-@{token} {
+    background-color: @bg;
+    color: #fff;
+  }
+
+  .badge-palette(@arr-style, @index + 2);
+}
+
+.badge-palette(@badge-label-palette);

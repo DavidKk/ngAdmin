@@ -1,0 +1,41 @@
+
+
+.timepicker {
+  .clearfix();
+    
+  height: 210px;
+  overflow: hidden;
+}
+
+.timepicker > .date.scrollpicker > .scrollpicker-inner {
+  width: 150px;
+
+  & > .item {
+    padding-top: 12px;
+    line-height: 1;
+    text-align: left;
+  }
+
+  & > .item > .week {
+    margin-bottom: 4px;
+    display: block;
+    line-height: 1;
+    font-size: .6em;
+    font-weight: bold;
+  }
+
+  & > .item > .month,
+  & > .item > .date {
+    margin-right: 4px;
+    display: inline-block;
+    font-family: Arial;
+    font-weight: bolder;
+  }
+
+  & > .item > .month:after { content: "月"; }
+  & > .item > .date:after {
+    content: "号";
+    vertical-align: top;
+    font-size: 12px;
+  }
+}
