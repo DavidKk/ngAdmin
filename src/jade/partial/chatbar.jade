@@ -14,173 +14,58 @@ aside#chatbar-container(ng-controller="Chat")
 
   .tab-content
     .tab-pane.active
-      .search-chat
+      .chat-search
         input(type="search", placeholder="Search Users...")
+        i.fa.fa-search
 
-      .user-chat
-        ul.user-chat-list
-          li
-            a.online
-              .media
-                span.pull-left.media-thumb
-                  img.media-object(src="http://gravatar.duoshuo.com/avatar/4ae64573bf8a8f5bcf2a3654715b1c3a?s=50")
+      .chat-inner
+        .chat-group
+          h6.chat-caption FAVORITES
+          a.user.online(title="Rodrigo E. Lozano")
+            span.status
+            | Rodrigo E. Lozano
+            span.badge.badge-info
+          a.user.online(title="Robert J. Garcia")
+            span.status
+            | Robert J. Garcia
+            span.badge.badge-info
+          a.user.busy(title="Daniel A. Pena")
+            span.status
+            | Daniel A. Pena
+            span.badge.badge-info
+          a.user.idle(title="Abigail")
+            span.status
+            | Abigail
+            span.badge.badge-info
+           a.user(title="Tracy J. Rodriguez")
+            span.status
+            | Tracy J. Rodriguez
+            span.badge.badge-info
 
-                .media-body
-                  span.light
-                  strong Eileen Sideways
-          li
-            a.online
-              .media
-                span.pull-left.media-thumb
-                  img.media-object(src="http://gravatar.duoshuo.com/avatar/4ae64573bf8a8f5bcf2a3654715b1c3a?s=50")
+        .chat-group
+          h6.chat-caption WORK
+          a.user.busy(title="Eileen Sideways")
+            span.status
+            | Eileen Sideways
+          a.user.busy(title="Rodrigo E. Lozano")
+            span.status
+            | Rodrigo E. Lozano
+            span.badge.badge-info
+          a.user(title="Robert J. Garcia")
+            span.status
+            | Robert J. Garcia
+            span.badge.badge-info
 
-                .media-body
-                  span.light
-                  strong Eileen Sideways
-          li
-            a
-              .media
-                span.pull-left.media-thumb
-                  img.media-object(src="http://gravatar.duoshuo.com/avatar/4ae64573bf8a8f5bcf2a3654715b1c3a?s=50")
-
-                .media-body
-                  span.light
-                  strong Eileen Sideways
-          li
-            a
-              .media
-                span.pull-left.media-thumb
-                  img.media-object(src="http://gravatar.duoshuo.com/avatar/4ae64573bf8a8f5bcf2a3654715b1c3a?s=50")
-
-                .media-body
-                  span.light
-                  strong Eileen Sideways
-          li
-            a
-              .media
-                span.pull-left.media-thumb
-                  img.media-object(src="http://gravatar.duoshuo.com/avatar/4ae64573bf8a8f5bcf2a3654715b1c3a?s=50")
-
-                .media-body
-                  span.light
-                  strong Eileen Sideways
-          li
-            a
-              .media
-                span.pull-left.media-thumb
-                  img.media-object(src="http://gravatar.duoshuo.com/avatar/4ae64573bf8a8f5bcf2a3654715b1c3a?s=50")
-
-                .media-body
-                  span.light
-                  strong Eileen Sideways
-          li
-            a
-              .media
-                span.pull-left.media-thumb
-                  img.media-object(src="http://gravatar.duoshuo.com/avatar/4ae64573bf8a8f5bcf2a3654715b1c3a?s=50")
-
-                .media-body
-                  span.light
-                  strong Eileen Sideways
-
-    .tab-pane
-      .user-chat
-        ul.user-chat-list
-          li
-            a.online
-              .media
-                span.pull-left.media-thumb
-                  img.media-object(src="http://gravatar.duoshuo.com/avatar/4ae64573bf8a8f5bcf2a3654715b1c3a?s=50")
-
-                .media-body
-                  span.light
-                  strong Eileen Sideways
-          li
-            a.online
-              .media
-                span.pull-left.media-thumb
-                  img.media-object(src="http://gravatar.duoshuo.com/avatar/4ae64573bf8a8f5bcf2a3654715b1c3a?s=50")
-
-                .media-body
-                  span.light
-                  strong Eileen Sideways
-          li
-            a
-              .media
-                span.pull-left.media-thumb
-                  img.media-object(src="http://gravatar.duoshuo.com/avatar/4ae64573bf8a8f5bcf2a3654715b1c3a?s=50")
-
-                .media-body
-                  span.light
-                  strong Eileen Sideways
-          li
-            a
-              .media
-                span.pull-left.media-thumb
-                  img.media-object(src="http://gravatar.duoshuo.com/avatar/4ae64573bf8a8f5bcf2a3654715b1c3a?s=50")
-
-                .media-body
-                  span.light
-                  strong Eileen Sideways
-          li
-            a
-              .media
-                span.pull-left.media-thumb
-                  img.media-object(src="http://gravatar.duoshuo.com/avatar/4ae64573bf8a8f5bcf2a3654715b1c3a?s=50")
-
-                .media-body
-                  span.light
-                  strong Eileen Sideways
-          li
-            a
-              .media
-                span.pull-left.media-thumb
-                  img.media-object(src="http://gravatar.duoshuo.com/avatar/4ae64573bf8a8f5bcf2a3654715b1c3a?s=50")
-
-                .media-body
-                  span.light
-                  strong Eileen Sideways
-          li
-            a
-              .media
-                span.pull-left.media-thumb
-                  img.media-object(src="http://gravatar.duoshuo.com/avatar/4ae64573bf8a8f5bcf2a3654715b1c3a?s=50")
-
-                .media-body
-                  span.light
-                  strong Eileen Sideways
-
-    .tab-pane
-      .setting-chat
-        ul.setting-chat-list
-          li
-            .toggle
-              .onoffswitch
-                label.onoffswitch-label.checked
-                  .onoffswitch-inner
-                  .onoffswitch-switch
-            label Show Offline Users
-
-          li
-            .toggle
-              .onoffswitch
-                label.onoffswitch-label.checked
-                  .onoffswitch-inner
-                  .onoffswitch-switch
-            label Enable History
-          
-          li
-            .toggle
-              .onoffswitch
-                label.onoffswitch-label
-                  .onoffswitch-inner
-                  .onoffswitch-switch
-            label Show Full Name
-          
-          li
-            .toggle
-              .onoffswitch
-                label.onoffswitch-label
-                  .onoffswitch-inner
-                  .onoffswitch-switch
-            label Show Location
+        .chat-group
+          h6.chat-caption SOCIAL
+          a.user.idle(title="Eileen Sideways")
+            span.status
+            | Eileen Sideways
+          a.user.idle(title="Rodrigo E. Lozano")
+            span.status
+            | Rodrigo E. Lozano
+            span.badge.badge-info
+          a.user(title="Robert J. Garcia")
+            span.status
+            | Robert J. Garcia
+            span.badge.badge-info

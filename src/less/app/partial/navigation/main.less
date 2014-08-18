@@ -37,7 +37,7 @@
   position: relative;
 }
 
-#navigation-container ul.nav {
+#navigation-container .nav {
   @avatorSize: 70px;
   margin: 0;
 
@@ -46,20 +46,19 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
 
-  & > li.dropdown-submenu:before {
+  & > .dropdown-submenu:before {
     .transition(all .15s ease-in-out);
 
-    margin-top: 10px;
-    margin-right: 13px;
     content: '\f105';
     display: inline-block;
-    position: relative;
-    z-index: 9;
-    top: 50%;
     float: right;
-    color: rgb(170, 171, 174);
-    font-family: 'FontAwesome';
     font-size: 15px;
+    font-family: 'FontAwesome';
+    position: relative;
+    margin-top: 10px;
+    margin-right: 13px;
+    top: 50%;
+    z-index: 9;
   }
 
   & > li > a {
@@ -82,23 +81,32 @@
     overflow: hidden;
     text-align: center;
     vertical-align: middle;
-    font-size: 16px;
+    font-size: inherit;
   }
 
   & > li > a > i.fa { margin-top: 2px; }
   
-  & > li.active > a,
-  & > li > a:hover { background-color: rgba(69, 74, 84, 0.3); color: rgb(255, 255, 255); }
-  & > li.dropdown-submenu.open:before { .transform(rotate(90deg)); color: rgb(255, 255, 255); }
-  & > li.dropdown-submenu:hover:before { color: rgb(255, 255, 255); }
+  & > .active > a,
+  & > li > a:hover {
+    background-color: rgba(69, 74, 84, 0.3);
+    color: rgb(255, 255, 255);
+  }
 
-  & > li.profile-sidebar {
+  & > .dropdown-submenu.open:before {
+    .transform(rotate(90deg));
+    color: rgb(255, 255, 255);
+  }
+
+  & > .dropdown-submenu:hover:before {
+    color: rgb(255, 255, 255);
+  }
+
+  & > .profile-sidebar {
     .clearfix();
-
     padding: 20px;
   }
 
-  & > li.profile-sidebar > .face > a.avator {
+  & > .profile-sidebar > .face > a.avator {
     margin-right: 24px;
     padding: 0;
     width: @avatorSize;
@@ -107,7 +115,7 @@
     position: relative;
   }
 
-  & > li.profile-sidebar > .face > a.avator > img {
+  & > .profile-sidebar > .face > a.avator > img {
     .border-radius(@avatorSize);
     .transition(all .25s);
 
@@ -121,19 +129,19 @@
     vertical-align: middle;
   }
 
-  & > li.profile-sidebar > .info > a.name {
+  & > .profile-sidebar > .info > a.name {
     color: #fff;
     font-weight: bold;
     display: block;
   }
 
-  & > li.profile-sidebar > .info > span.role {
+  & > .profile-sidebar > .info > span.role {
     display: block;
     color: rgba(255, 255, 255, 0.5);
     font-size: 12px;
   }
 
-  & > li.profile-sidebar > .info > a.status {
+  & > .profile-sidebar > .info > a.status {
     .transition(opacity .35s);
 
     margin-top: 14px;
@@ -144,21 +152,21 @@
     font-size: 24px;
   }
 
-  & > li.profile-sidebar > .info > a.status:hover { .opacity(.8); }
+  & > .profile-sidebar > .info > a.status:hover { .opacity(.8); }
   
-  & > li.profile-sidebar.away {
+  & > .profile-sidebar.away {
     & > .face > a.avator > img { border-color: @red; }
     & > .face > a.avator:before { border-left-color: @red; }
     & > .info > a.status { color: @red; }
   }
 
-  & > li.profile-sidebar.offline {
+  & > .profile-sidebar.offline {
     & > .face > a.avator > img { border-color: rgb(210, 210, 210); }
     & > .face > a.avator:before { border-left-color: rgb(210, 210, 210); }
     & > .info > a.status { color: rgb(210, 210, 210); }
   }
 
-  & > li.search-sidebar {
+  & > .search-sidebar {
     border-bottom: 0;
 
     & > input {
@@ -188,7 +196,7 @@
   }
 }
 
-#navigation-container ul.dropdown-menu-navigation.dropdown-menu {
+#navigation-container .dropdown-menu-navigation.dropdown-menu {
   .border-radius(0);
   .box-shadow(none);
 
@@ -218,18 +226,18 @@
     font-size: 14px;
   }
   
-  & > li.active a,
+  & > .active a,
   & > li > a:hover { background-color: rgb(45, 50, 61); }
   & > li > a > span { color: rgb(116, 127, 149); }
 }
 
-#navigation-container ul.navigation.nav {
+#navigation-container .navigation.nav {
   height: 100%;
   overflow-y: auto;
 }
 
 @media (max-width: 767px), (min-width: 1170px) {
-  #navigation-container ul.dropdown-menu-navigation {
+  #navigation-container .dropdown-menu-navigation {
     .clearfix();
 
     display: block;
@@ -238,10 +246,10 @@
     & > li > a { color: rgba(116, 127, 149, 0); .transition(color 1.2s); }
   }
 
-  #navigation-container ul.nav > li.dropdown-submenu.open > ul.dropdown-menu-navigation {
+  #navigation-container .nav > .dropdown-submenu.open > .dropdown-menu-navigation {
     & > li > a { color: #aaabae; }
     
-    & > li.active > a,
+    & > .active > a,
     & > li > a:hover { color: #fff; }
   }
 }
