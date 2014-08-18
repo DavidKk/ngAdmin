@@ -91,14 +91,20 @@
     background-color: rgba(69, 74, 84, 0.3);
     color: rgb(255, 255, 255);
   }
+  
+  & > .dropdown-submenu {
+    &:before {
+      color: #aaabae;
+    }
 
-  & > .dropdown-submenu.open:before {
-    .transform(rotate(90deg));
-    color: rgb(255, 255, 255);
-  }
+    &.open:before {
+      .transform(rotate(90deg));
+      color: rgb(255, 255, 255);
+    }
 
-  & > .dropdown-submenu:hover:before {
-    color: rgb(255, 255, 255);
+    &:hover:before {
+      color: rgb(255, 255, 255);
+    }
   }
 
   & > .profile-sidebar {

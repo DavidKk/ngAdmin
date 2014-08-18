@@ -1,34 +1,60 @@
 
 
 // reset
-.form-group { position: relative; }
-.form-group > label { color: #999; }
+.form-group {
+  position: relative;
+}
+
+.form-group > .control-label {
+  color: #999;
+  font-weight: normal;
+}
 
 .form-control {
   .border-radius(0);
   .box-shadow(none);
-  .transition(all .15s);
+  .placeholder(#b5b5b5);
+  .transition(border-color .2s);
 
-  padding: 10px 15px;
-  width: 100%;
-  height: auto;
-  border-width: 0;
   background-image: none;
-  background-color: lighten(#efefef, 4%);
-  display: block;
-  line-height: @line-height-base;
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 4px;
   color: #666;
+  display: block;
   font-size: 14px;
+  line-height: @line-height-base;
+  padding: 8px 15px;
+  width: 100%;
 
   &:focus {
     .box-shadow(none);
     
     background-color: #fefefe;
+    border-color: #bbb;
     outline: 0;
   }
 }
 
-.input-group {}
+.form-control-palette(@arr-style, @index: 1) when (@index =< length(@arr-style)) {
+  @token:     e(extract(@arr-style, @index));
+  @color:     extract(@arr-style, @index + 1);
+  
+  .has-@{token} .control-label {
+    color: @color;
+  }
+
+  .has-@{token} .form-control,
+  .has-@{token} .form-control:focus {
+    .box-shadow(none);
+    border-color: @color;
+  }
+
+  .form-control-palette(@arr-style, @index + 2);
+}
+
+.form-control-palette(@form-control-palette);
+
 
 
 // 输入框提示

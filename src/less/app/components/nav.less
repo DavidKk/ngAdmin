@@ -35,9 +35,9 @@
   border-top: 0;
 }
 
-.nav-tabs.tabs-bottom > li > a   { .border-radius(0 0 4px 4px); }
+.nav-tabs.tabs-bottom > li > a { .border-radius(0 0 4px 4px); }
 .nav-tabs.tabs-left > li > a   { .border-radius(4px 0 0 4px); }
-.nav-tabs.tabs-right > li > a   { .border-radius(0 4px 4px 0); }
+.nav-tabs.tabs-right > li > a  { .border-radius(0 4px 4px 0); }
 .nav-tabs.tabs-left > li {
   display: block;
   float: none;
@@ -61,7 +61,7 @@
   @bg:      extract(@arr-style, @index + 1);
   @color:     extract(@arr-style, @index + 2);
   
-  .nav.nav-@{token} > li.active > a { background-color: @bg; color: @color; }
+  .nav.nav-@{token} > .active > a { background-color: @bg; color: @color; }
   .nav-palette(@arr-style, @index + 3);
 }
 

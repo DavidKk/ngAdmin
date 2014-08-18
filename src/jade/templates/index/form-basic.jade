@@ -1,0 +1,550 @@
+
+
+#form-basic-container.content-layout
+  h3 Basic Form Elements
+  .panel
+    .panel-heading
+      .panel-title
+        h5 Default Form Inputs
+      .panel-widgets
+        a
+          i.fa.fa-chevron-down
+
+    .panel-collapse.in
+      .panel-body
+        form.form-horizontal(role="form")
+          .form-group
+            label.col-sm-3.control-label(for="field-1") Field 1
+            .col-sm-5
+              input#field-1.form-control(type="text", placeholder="Placeholder")
+          .form-group
+            label.col-sm-3.control-label(for="field-2") Disabled
+            .col-sm-5
+              input#field-2.form-control(type="text", placeholder="Placeholder", disabled="")
+          .form-group
+            label.col-sm-3.control-label(for="field-3") Password
+            .col-sm-5
+              input#field-3.form-control(type="password", placeholder="Placeholder (Password)")
+          .form-group
+            label.col-sm-3.control-label(for="field-1") File Field
+            .col-sm-5
+              input#field-file.form-control(type="file", placeholder="Placeholder")
+          .form-group
+            label.col-sm-3.control-label(for="field-ta-1") Textarea
+            .col-sm-5
+              textarea#field-ta-1.form-control(placeholder="Textarea")
+          .form-group
+            label.col-sm-3.control-label(for="field-ta-2") Autogrow
+            .col-sm-5
+              textarea#field-ta-2.form-control.autogrow(placeholder="I will grow as you type new lines.", style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 48px;")
+          .form-group.has-error
+            label.col-sm-3.control-label(for="field-4") Error field
+            .col-sm-5
+              input#field-4.form-control(type="text", placeholder="Placeholder")
+          .form-group.has-warning
+            label.col-sm-3.control-label(for="field-5") Warning field
+            .col-sm-5
+              input#field-5.form-control(type="text", placeholder="Placeholder")
+          .form-group.has-success
+            label.col-sm-3.control-label(for="field-6") Success field
+            .col-sm-5
+              input#field-6.form-control(type="text", placeholder="Placeholder")
+          .form-group
+            label.col-sm-3.control-label Select List
+            .col-sm-5
+              select.form-control
+                option Option 1
+                option Option 2
+                option Option 3
+                option Option 4
+                option Option 5
+          .form-group
+            .col-sm-offset-3.col-sm-5
+              .checkbox
+                label
+                  input(type="checkbox")
+                  | Checkbox 1
+              .checkbox
+                label
+                  input(type="checkbox")
+                  | Checkbox 2
+          .form-group
+            .col-sm-offset-3.col-sm-5
+              .radio
+                label
+                  input#optionsRadios1(type="radio", name="optionsRadios", value="option1", checked)
+                  | Radio Input 1
+              .radio
+                label
+                  input#optionsRadios2(type="radio", name="optionsRadios", value="option2")
+                  | Radio Input 2
+          .form-group
+            .col-sm-offset-3.col-sm-5
+              button.btn.btn-success(type="button", role="button") Sign in
+
+  .panel
+    .panel-heading
+      .panel-title
+        h5 Input Sizes
+      .panel-widgets
+        a
+          i.fa.fa-chevron-down
+
+    .panel-collapse.in
+      .panel-body
+        form.form-horizontal(role="form")
+          .form-group
+            label.col-sm-3.control-label(for="field-1") Large
+            .col-sm-5
+              input#field-1.form-control.input-lg(type="text", placeholder="Large input (.input-lg)")
+          .form-group
+            label.col-sm-3.control-label(for="field-1") Medium
+            .col-sm-5
+              input#field-1.form-control(type="text", placeholder="Normal input")
+          .form-group
+            label.col-sm-3.control-label(for="field-1") Small
+            .col-sm-5
+              input#field-1.form-control.input-sm(type="text", placeholder="Large input (.input-sm)")
+
+  .panel
+    .panel-heading
+      .panel-title
+        h5 Input Groups &amp; Addons
+      .panel-widgets
+        a
+          i.fa.fa-chevron-down
+
+    .panel-collapse.in
+      .panel-body
+        form.form-horizontal(role="form")
+          .form-group
+            label.col-sm-3.control-label Left addon
+            .col-sm-5
+              .input-group
+                span.input-group-addon @
+                input.form-control(type="text", placeholder="Username")
+          .form-group
+            label.col-sm-3.control-label Right addon
+            .col-sm-5
+              .input-group
+                input.form-control(type="text")
+                span.input-group-addon .00
+          .form-group
+            label.col-sm-3.control-label Both addons
+            .col-sm-5
+              .input-group
+                span.input-group-addon $
+                input.form-control(type="text")
+                span.input-group-addon .00
+          .form-group
+            label.col-sm-3.control-label Icon addon
+            .col-sm-5
+              .input-group
+                span.input-group-addon
+                  i.fa.fa-envelope
+                input.form-control(type="email", placeholder="Email")
+          .form-group
+            label.col-sm-3.control-label Minimal type addon
+            .col-sm-5
+              .input-group.minimal
+                span.input-group-addon
+                  i.fa.fa-envelope
+                input.form-control(type="email", placeholder="Email")
+              br
+              .input-group.minimal
+                input.form-control(type="text", placeholder="Username")
+                span.input-group-addon
+                  i.fa.fa-user
+          .form-group
+            label.col-sm-3.control-label Buttons assigned
+            .col-sm-5
+              .input-group
+                span.input-group-btn
+                  button.btn.btn-success(type="button") Go!
+                input.form-control(type="text")
+              br
+              .input-group
+                input.form-control(type="text")
+                span.input-group-btn
+                  button.btn.btn-primary(type="button") Go!
+          .form-group
+            label.col-sm-3.control-label Dropdowns assigned
+            .col-sm-5
+              .input-group
+                .input-group-btn
+                  button.btn.btn-gold.dropdown-toggle(type="button", data-toggle="dropdown")
+                    | Action
+                    span.caret
+                  ul.dropdown-menu.dropdown-gold
+                    li
+                      a(href="#") Action
+                    li
+                      a(href="#") Another action
+                    li
+                      a(href="#") Something else here
+                    li.divider
+                    li
+                      a(href="#") Separated link
+                input.form-control(type="text")
+              br
+              .input-group
+                input.form-control(type="text")
+                .input-group-btn
+                  .btn-group
+                    button.btn.btn-info(type="button") Action
+                    button.btn.btn-info.dropdown-toggle(type="button", data-toggle="dropdown")
+                      i.fa.fa-info
+                    ul.dropdown-menu.dropdown
+                      li
+                        a(href="#") Action
+                      li
+                        a(href="#") Another action
+                      li
+                        a(href="#") Something else here
+                      li.divider
+                      li
+                        a(href="#") Separated link
+
+  .panel
+    .panel-heading
+      .panel-title
+        h5 Replaced Checkboxes &amp; Radio
+      .panel-widgets
+        a
+          i.fa.fa-chevron-down
+
+    .panel-collapse.in
+      .panel-body
+        form.form-horizontal(role="form")
+          .form-group
+            label.col-sm-3.control-label Checkboxes
+            .col-sm-5
+              .checkbox.checkbox-replace.neon-cb-replacement.checked
+                label.cb-wrapper
+                  input#chk-1(type="checkbox", checked)
+                  .checked
+                label Checkbox 1
+              .checkbox.checkbox-replace.neon-cb-replacement
+                label.cb-wrapper
+                  input#chk-2(type="checkbox")
+                  .checked
+                label Checkbox 2
+              .checkbox.checkbox-replace.neon-cb-replacement
+                label.cb-wrapper
+                  input#chk-3(type="checkbox")
+                  .checked
+                label Checkbox 3
+              .checkbox.checkbox-replace.neon-cb-replacement
+                label.cb-wrapper.disabled
+                  input#chk-4(type="checkbox", disabled="")
+                  .checked
+                label Disabled
+              .checkbox.checkbox-replace.neon-cb-replacement.checked
+                label.cb-wrapper.disabled
+                  input#chk-5(type="checkbox", checked, disabled="")
+                  .checked
+                label Checked &amp; Disabled
+          .form-group
+            label.col-sm-3.control-label Radio Inputs
+            .col-sm-5
+              .radio.radio-replace.neon-cb-replacement.checked
+                label.cb-wrapper
+                  input#rd-1(type="radio", name="radio1", checked)
+                  .checked
+                label Radio 1
+              .radio.radio-replace.neon-cb-replacement
+                label.cb-wrapper
+                  input#rd-2(type="radio", name="radio1")
+                  .checked
+                label Radio 2
+              .radio.radio-replace.neon-cb-replacement
+                label.cb-wrapper
+                  input#rd-3(type="radio", name="radio1")
+                  .checked
+                label Radio 3
+              .radio.radio-replace.neon-cb-replacement
+                label.cb-wrapper.disabled
+                  input#rd-4(type="radio", name="radio1", disabled="")
+                  .checked
+                label Disabled
+              .radio.radio-replace.neon-cb-replacement.checked
+                label.cb-wrapper.disabled
+                  input#rd-5(type="radio", name="radio2", checked, disabled="")
+                  .checked
+                label Checked &amp; Disabled
+          .form-group
+            label.col-sm-3.control-label Colors
+            .col-sm-5
+              .checkbox.checkbox-replace.color-primary.neon-cb-replacement.checked
+                label.cb-wrapper
+                  input#chk-20(type="checkbox", checked)
+                  .checked
+                label Checkbox Red
+              .checkbox.checkbox-replace.color-red.neon-cb-replacement
+                label.cb-wrapper
+                  input#chk-21(type="checkbox")
+                  .checked
+                label Checkbox Red
+              .checkbox.checkbox-replace.color-blue.neon-cb-replacement
+                label.cb-wrapper
+                  input#chk-22(type="checkbox")
+                  .checked
+                label Checkbox Blue
+              .checkbox.checkbox-replace.color-green.neon-cb-replacement
+                label.cb-wrapper
+                  input#chk-23(type="checkbox")
+                  .checked
+                label Checkbox Green
+              .checkbox.checkbox-replace.color-gold.neon-cb-replacement
+                label.cb-wrapper
+                  input#chk-24(type="checkbox")
+                  .checked
+                label Checkbox Gold
+
+  .panel
+    .panel-heading
+      .panel-title
+        h5 Switches - Checkbox &amp; Radio
+      .panel-widgets
+        a
+          i.fa.fa-chevron-down
+
+    .panel-collapse.in
+      .panel-body
+        form.form-horizontal(role="form")
+          .form-group
+            label.col-sm-3.control-label Toggle Check
+            .col-sm-5
+              .make-switch.has-switch
+                .switch-animate.switch-on
+                  input(type="checkbox", checked)
+                  span.switch-left ON
+                  label  
+                  span.switch-right OFF
+          .form-group
+            label.col-sm-3.control-label Toggle Sizes
+            .col-sm-5
+              .bs-example
+                .make-switch.switch-large.has-switch
+                  .switch-animate.switch-off
+                    input(type="checkbox")
+                    span.switch-left.switch-large ON
+                    label.switch-large  
+                    span.switch-right.switch-large OFF
+                .make-switch.has-switch
+                  .switch-animate.switch-off
+                    input(type="checkbox")
+                    span.switch-left ON
+                    label  
+                    span.switch-right OFF
+                .make-switch.switch-small.has-switch
+                  .switch-animate.switch-off
+                    input(type="checkbox")
+                    span.switch-left.switch-small ON
+                    label.switch-small  
+                    span.switch-right.switch-small OFF
+                .make-switch.switch-mini.has-switch
+                  .switch-animate.switch-off
+                    input(type="checkbox")
+                    span.switch-left.switch-mini ON
+                    label.switch-mini  
+                    span.switch-right.switch-mini OFF
+          .form-group
+            label.col-sm-3.control-label No Animation
+            .col-sm-5
+              .make-switch.switch-large.has-switch(data-animated="false")
+                .switch-off
+                  input(type="checkbox")
+                  span.switch-left.switch-large ON
+                  label.switch-large  
+                  span.switch-right.switch-large OFF
+          .form-group
+            label.col-sm-3.control-label Disabled
+            .col-sm-5
+              .make-switch.switch-large.has-switch.deactivate
+                .switch-animate.switch-off
+                  input(type="checkbox", disabled="")
+                  span.switch-left.switch-large ON
+                  label.switch-large  
+                  span.switch-right.switch-large OFF
+          .form-group
+            label.col-sm-3.control-label Custom Label
+            .col-sm-5
+              #label-switch.make-switch.has-switch(data-on-label="Ja", data-off-label="Nein")
+                .switch-animate.switch-on
+                  input(type="checkbox", checked)
+                  span.switch-left Ja
+                  label  
+                  span.switch-right Nein
+          .form-group
+            label.col-sm-3.control-label Apply Icon
+            .col-sm-5
+              .make-switch.has-switch(data-on-label='<i class="entypo-check"></i>', data-off-label='<i class="entypo-cancel"></i>')
+                .switch-animate.switch-on
+                  input(type="checkbox", checked)
+                  span.switch-left
+                    i.entypo-check
+                  label  
+                  span.switch-right
+                    i.entypo-cancel
+          .form-group
+            label.col-sm-3.control-label Middle Label
+            .col-sm-5
+              .make-switch.has-switch(data-text-label='<i class="entypo-user"></i>')
+                .switch-animate.switch-on
+                  input(type="checkbox", checked)
+                  span.switch-left ON
+                  label
+                    i.entypo-user
+                  span.switch-right OFF
+          .form-group
+            label.col-sm-3.control-label Colors
+            .col-sm-5
+              .bs-example
+                .make-switch.has-switch(data-on="primary", data-off="info")
+                  .switch-animate.switch-on
+                    input(type="checkbox", checked)
+                    span.switch-left.switch-primary ON
+                    label  
+                    span.switch-right.switch-info OFF
+                .make-switch.has-switch(data-on="info", data-off="success")
+                  .switch-animate.switch-on
+                    input(type="checkbox", checked)
+                    span.switch-left.switch-info ON
+                    label  
+                    span.switch-right.switch-success OFF
+                .make-switch.has-switch(data-on="success", data-off="warning")
+                  .switch-animate.switch-on
+                    input(type="checkbox", checked)
+                    span.switch-left.switch-success ON
+                    label  
+                    span.switch-right.switch-warning OFF
+                .make-switch.has-switch(data-on="warning", data-off="danger")
+                  .switch-animate.switch-on
+                    input(type="checkbox", checked)
+                    span.switch-left.switch-warning ON
+                    label  
+                    span.switch-right.switch-danger OFF
+                .make-switch.has-switch(data-on="danger", data-off="default")
+                  .switch-animate.switch-on
+                    input(type="checkbox", checked)
+                    span.switch-left.switch-danger ON
+                    label  
+                    span.switch-right.switch-default OFF
+                .make-switch.has-switch(data-on="default", data-off="primary")
+                  .switch-animate.switch-on
+                    input(type="checkbox", checked)
+                    span.switch-left.switch-default ON
+                    label  
+                    span.switch-right.switch-primary OFF
+          .form-group
+            label.col-sm-3.control-label Radio
+            .col-sm-5
+              .bs-example
+                .make-switch.is-radio.switch-small.has-switch(data-text-label='<i class="entypo-user"></i>')
+                  .switch-animate.switch-on
+                    input(type="radio", name="radio1", checked)
+                    span.switch-left.switch-small ON
+                    label.switch-small
+                      i.entypo-user
+                    span.switch-right.switch-small OFF
+                .make-switch.is-radio.switch-small.has-switch(data-text-label='<i class="entypo-heart"></i>')
+                  .switch-animate.switch-off
+                    input(type="radio", name="radio1")
+                    span.switch-left.switch-small ON
+                    label.switch-small
+                      i.entypo-heart
+                    span.switch-right.switch-small OFF
+                .make-switch.is-radio.switch-small.has-switch(data-text-label='<i class="entypo-info"></i>')
+                  .switch-animate.switch-off
+                    input(type="radio", name="radio1")
+                    span.switch-left.switch-small ON
+                    label.switch-small
+                      i.entypo-info
+                    span.switch-right.switch-small OFF
+                .make-switch.is-radio.switch-small.has-switch(data-text-label='<i class="entypo-globe"></i>')
+                  .switch-animate.switch-off
+                    input(type="radio", name="radio1")
+                    span.switch-left.switch-small ON
+                    label.switch-small
+                      i.entypo-globe
+                    span.switch-right.switch-small OFF
+
+
+  .panel
+    .panel-heading
+      .panel-title
+        h5 Input Grid
+      .panel-widgets
+        a
+          i.fa.fa-chevron-down
+
+    .panel-collapse.in
+      .panel-body
+        .row
+          .col-md-12
+            input.form-control(type="text", placeholder=".col-md-12")
+          .clear
+          br
+          .col-md-6
+            input.form-control(type="text", placeholder=".col-md-6")
+          .col-md-6
+            input.form-control(type="text", placeholder=".col-md-6")
+          .clear
+          br
+          .col-md-4
+            input.form-control(type="text", placeholder=".col-md-4")
+          .col-md-4
+            input.form-control(type="text", placeholder=".col-md-4")
+          .col-md-4
+            input.form-control(type="text", placeholder=".col-md-4")
+          .clear
+          br
+          .col-md-3
+            input.form-control(type="text", placeholder=".col-md-3")
+          .col-md-3
+            input.form-control(type="text", placeholder=".col-md-3")
+          .col-md-3
+            input.form-control(type="text", placeholder=".col-md-3")
+          .col-md-3
+            input.form-control(type="text", placeholder=".col-md-3")
+          .clear
+          br
+          .col-md-2
+            input.form-control(type="text", placeholder=".col-md-2")
+          .col-md-2
+            input.form-control(type="text", placeholder=".col-md-2")
+          .col-md-2
+            input.form-control(type="text", placeholder=".col-md-2")
+          .col-md-2
+            input.form-control(type="text", placeholder=".col-md-2")
+          .col-md-2
+            input.form-control(type="text", placeholder=".col-md-2")
+          .col-md-2
+            input.form-control(type="text", placeholder=".col-md-2")
+          .clear
+          br
+          .col-md-1
+            input.form-control(type="text", placeholder=".col-md-1")
+          .col-md-1
+            input.form-control(type="text", placeholder=".col-md-1")
+          .col-md-1
+            input.form-control(type="text", placeholder=".col-md-1")
+          .col-md-1
+            input.form-control(type="text", placeholder=".col-md-1")
+          .col-md-1
+            input.form-control(type="text", placeholder=".col-md-1")
+          .col-md-1
+            input.form-control(type="text", placeholder=".col-md-1")
+          .col-md-1
+            input.form-control(type="text", placeholder=".col-md-1")
+          .col-md-1
+            input.form-control(type="text", placeholder=".col-md-1")
+          .col-md-1
+            input.form-control(type="text", placeholder=".col-md-1")
+          .col-md-1
+            input.form-control(type="text", placeholder=".col-md-1")
+          .col-md-1
+            input.form-control(type="text", placeholder=".col-md-1")
+          .col-md-1
+            input.form-control(type="text", placeholder=".col-md-1")
