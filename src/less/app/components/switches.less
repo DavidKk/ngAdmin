@@ -1,0 +1,143 @@
+
+
+.switch {
+  .user-select(none);
+
+  width: 70px;
+  height: 30px;
+  border-radius: 20px;
+  display: inline-block;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    display: none;
+  }
+}
+
+.switch .switch-inner {
+  .transition(margin .3s);
+
+  margin-left: -100%; 
+  width: 200%;
+  height: 100%;
+  
+  .switch-on,
+  .switch-off {
+    .box-sizing(border-box);
+
+    margin: 0;
+    padding: 0;
+    width: 50%;
+    height: 100%;
+    display: table;
+    float: left;
+    color: white;
+    font-size: 1em;
+    font-family: Trebuchet, Arial, sans-serif;
+    font-weight: bold;
+
+    .text {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+
+  .switch-on {
+    padding-left: 7px;
+    background-color: @green;
+    text-align: left;
+    color: #fff;
+  }
+  
+  .switch-off {
+    padding-right: 8px;
+    background-color: @black;
+    text-align: right;
+    color: #fff;
+  }
+}
+
+.switch .switch-switch {
+  .transition(left .3s, margin-left .3s);
+
+  margin: auto 0;
+  width: 22px;
+  height: 22px;
+  background: #fff;
+  border-radius: 100%;
+  position: absolute;
+  top: 0;
+  right: auto;
+  bottom: 0;
+  left: 6px;
+
+  &:before {
+    content: "";
+    padding-right: 100%;
+    display: inline-block;
+  }
+}
+
+.switch input[checked] + .switch-inner {
+  margin-left: 0;
+}
+
+.switch input[checked] + .switch-inner + .switch-switch {
+  background: #fff;
+  margin-left: -28px;
+  left: 100%;
+}
+
+.switch input[disabled] + .switch-inner {
+  .switch-on,
+  .switch-off {
+    .opacity(.6);
+  }
+}
+
+
+.switch-maker(@arr-style, @index: 1) when (@index =< length(@arr-style)) {
+  @token:       e(extract(@arr-style, @index));
+  @width:       extract(@arr-style, @index + 1);
+  @height:      extract(@arr-style, @index + 2);
+  @size:        extract(@arr-style, @index + 3);
+  @padding:     extract(@arr-style, @index + 4);
+  @font-size:   extract(@arr-style, @index + 5);
+
+  .switch.switch-@{token} {
+    width: @width;
+    height: @height;
+
+    .switch-inner {
+      .switch-on,
+      .switch-off {
+        font-size: @font-size;
+      }
+
+      .switch-on {
+        padding-left: @padding;
+      }
+
+      .switch-off {
+        padding-right: @padding;
+      }
+    }
+
+    .switch-switch {
+      width: @size;
+      height: @size;
+      left: @padding;
+    }
+
+    input[checked] + .switch-inner + .switch-switch {
+      margin-left: 0 - (@size + @padding);
+    }
+  }
+
+  .switch-maker(@arr-style, @index + 6);
+}
+
+.switch-maker(@switch-sizes);

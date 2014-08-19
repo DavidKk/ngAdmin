@@ -20,7 +20,7 @@
           .form-group
             label.col-sm-3.control-label(for="field-2") Disabled
             .col-sm-5
-              input#field-2.form-control(type="text", placeholder="Placeholder", disabled="")
+              input#field-2.form-control(type="text", placeholder="Placeholder", disabled)
           .form-group
             label.col-sm-3.control-label(for="field-3") Password
             .col-sm-5
@@ -121,51 +121,51 @@
             label.col-sm-3.control-label Left addon
             .col-sm-5
               .input-group
-                span.input-group-addon @
+                .text.input-group-addon @
                 input.form-control(type="text", placeholder="Username")
           .form-group
             label.col-sm-3.control-label Right addon
             .col-sm-5
               .input-group
                 input.form-control(type="text")
-                span.input-group-addon .00
+                .text.input-group-addon .00
           .form-group
             label.col-sm-3.control-label Both addons
             .col-sm-5
               .input-group
-                span.input-group-addon $
+                .text.input-group-addon $
                 input.form-control(type="text")
-                span.input-group-addon .00
+                .text.input-group-addon .00
           .form-group
             label.col-sm-3.control-label Icon addon
             .col-sm-5
               .input-group
-                span.input-group-addon
+                .text.input-group-addon
                   i.fa.fa-envelope
                 input.form-control(type="email", placeholder="Email")
           .form-group
             label.col-sm-3.control-label Minimal type addon
             .col-sm-5
               .input-group.minimal
-                span.input-group-addon
+                .text.input-group-addon
                   i.fa.fa-envelope
                 input.form-control(type="email", placeholder="Email")
               br
               .input-group.minimal
                 input.form-control(type="text", placeholder="Username")
-                span.input-group-addon
+                .text.input-group-addon
                   i.fa.fa-user
           .form-group
             label.col-sm-3.control-label Buttons assigned
             .col-sm-5
               .input-group
-                span.input-group-btn
+                .text.input-group-btn
                   button.btn.btn-success(type="button") Go!
                 input.form-control(type="text")
               br
               .input-group
                 input.form-control(type="text")
-                span.input-group-btn
+                .text.input-group-btn
                   button.btn.btn-primary(type="button") Go!
           .form-group
             label.col-sm-3.control-label Dropdowns assigned
@@ -174,7 +174,7 @@
                 .input-group-btn
                   button.btn.btn-gold.dropdown-toggle(type="button", data-toggle="dropdown")
                     | Action
-                    span.caret
+                    .text.caret
                   ul.dropdown-menu.dropdown-gold
                     li
                       a(href="#") Action
@@ -215,91 +215,108 @@
 
     .panel-collapse.in
       .panel-body
-        form.form-horizontal(role="form")
+        form.form-horizontal(role="form", role="form")
           .form-group
             label.col-sm-3.control-label Checkboxes
             .col-sm-5
-              .checkbox.checkbox-replace.neon-cb-replacement.checked
-                label.cb-wrapper
-                  input#chk-1(type="checkbox", checked)
-                  .checked
-                label Checkbox 1
-              .checkbox.checkbox-replace.neon-cb-replacement
-                label.cb-wrapper
-                  input#chk-2(type="checkbox")
-                  .checked
-                label Checkbox 2
-              .checkbox.checkbox-replace.neon-cb-replacement
-                label.cb-wrapper
-                  input#chk-3(type="checkbox")
-                  .checked
-                label Checkbox 3
-              .checkbox.checkbox-replace.neon-cb-replacement
-                label.cb-wrapper.disabled
-                  input#chk-4(type="checkbox", disabled="")
-                  .checked
-                label Disabled
-              .checkbox.checkbox-replace.neon-cb-replacement.checked
-                label.cb-wrapper.disabled
-                  input#chk-5(type="checkbox", checked, disabled="")
-                  .checked
-                label Checked &amp; Disabled
+              .clearfix
+                label.checkbox
+                  input(type="checkbox", checked)
+                  .checkbox-icon
+                  .text.checkbox-inner Checkbox 1
+              .clearfix
+                label.checkbox
+                  input(type="checkbox", checked)
+                  .checkbox-icon
+                  .text.checkbox-inner Checkbox 2
+              .clearfix
+                label.checkbox
+                  input(type="checkbox")
+                  .checkbox-icon
+                  .text.checkbox-inner Checkbox 3
+              .clearfix
+                label.checkbox
+                  input(type="checkbox", disabled)
+                  .checkbox-icon
+                  .text.checkbox-inner Checkbox 3
+              .clearfix
+                label.checkbox
+                  input(type="checkbox", disabled, checked)
+                  .checkbox-icon
+                  .text.checkbox-inner Checkbox 3
+
           .form-group
             label.col-sm-3.control-label Radio Inputs
             .col-sm-5
-              .radio.radio-replace.neon-cb-replacement.checked
-                label.cb-wrapper
-                  input#rd-1(type="radio", name="radio1", checked)
-                  .checked
-                label Radio 1
-              .radio.radio-replace.neon-cb-replacement
-                label.cb-wrapper
-                  input#rd-2(type="radio", name="radio1")
-                  .checked
-                label Radio 2
-              .radio.radio-replace.neon-cb-replacement
-                label.cb-wrapper
-                  input#rd-3(type="radio", name="radio1")
-                  .checked
-                label Radio 3
-              .radio.radio-replace.neon-cb-replacement
-                label.cb-wrapper.disabled
-                  input#rd-4(type="radio", name="radio1", disabled="")
-                  .checked
-                label Disabled
-              .radio.radio-replace.neon-cb-replacement.checked
-                label.cb-wrapper.disabled
-                  input#rd-5(type="radio", name="radio2", checked, disabled="")
-                  .checked
-                label Checked &amp; Disabled
+              .clearfix
+                label.radio
+                  input(type="radio", checked)
+                  .radio-icon
+                  .text.radio-inner Radio 1
+              .clearfix
+                label.radio
+                  input(type="radio", checked)
+                  .radio-icon
+                  .text.radio-inner Radio 2
+              .clearfix
+                label.radio
+                  input(type="radio")
+                  .radio-icon
+                  .text.radio-inner Radio 3
+              .clearfix
+                label.radio
+                  input(type="radio", disabled)
+                  .radio-icon
+                  .text.radio-inner Radio 3
+              .clearfix
+                label.radio
+                  input(type="radio", disabled, checked)
+                  .radio-icon
+                  .text.radio-inner Radio 3
+
           .form-group
             label.col-sm-3.control-label Colors
             .col-sm-5
-              .checkbox.checkbox-replace.color-primary.neon-cb-replacement.checked
-                label.cb-wrapper
-                  input#chk-20(type="checkbox", checked)
-                  .checked
-                label Checkbox Red
-              .checkbox.checkbox-replace.color-red.neon-cb-replacement
-                label.cb-wrapper
-                  input#chk-21(type="checkbox")
-                  .checked
-                label Checkbox Red
-              .checkbox.checkbox-replace.color-blue.neon-cb-replacement
-                label.cb-wrapper
-                  input#chk-22(type="checkbox")
-                  .checked
-                label Checkbox Blue
-              .checkbox.checkbox-replace.color-green.neon-cb-replacement
-                label.cb-wrapper
-                  input#chk-23(type="checkbox")
-                  .checked
-                label Checkbox Green
-              .checkbox.checkbox-replace.color-gold.neon-cb-replacement
-                label.cb-wrapper
-                  input#chk-24(type="checkbox")
-                  .checked
-                label Checkbox Gold
+              .clearfix
+                label.radio.radio-blue
+                  input(type="radio")
+                  .radio-icon
+                  .text.radio-inner Radio 1
+              .clearfix
+                label.radio.radio-cyan
+                  input(type="radio", checked)
+                  .radio-icon
+                  .text.radio-inner Radio 2
+              .clearfix
+                label.radio.radio-green
+                  input(type="radio", disabled)
+                  .radio-icon
+                  .text.radio-inner Radio 3
+              .clearfix
+                label.radio.radio-yellow
+                  input(type="radio", checked, disabled)
+                  .radio-icon
+                  .text.radio-inner Radio 4
+              .clearfix
+                label.checkbox.checkbox-orange
+                  input(type="checkbox")
+                  .checkbox-icon
+                  .text.checkbox-inner Checkbox 5
+              .clearfix
+                label.checkbox.checkbox-red
+                  input(type="checkbox", checked)
+                  .checkbox-icon
+                  .text.checkbox-inner Checkbox 6
+              .clearfix
+                label.checkbox.checkbox-pink
+                  input(type="checkbox", disabled)
+                  .checkbox-icon
+                  .text.checkbox-inner Checkbox 7
+              .clearfix
+                label.checkbox.checkbox-amethyst
+                  input(type="checkbox", checked, disabled)
+                  .checkbox-icon
+                  .text.checkbox-inner Checkbox 8
 
   .panel
     .panel-heading
@@ -310,165 +327,89 @@
           i.fa.fa-chevron-down
 
     .panel-collapse.in
-      .panel-body
+      .panel-body.bs-example
         form.form-horizontal(role="form")
           .form-group
             label.col-sm-3.control-label Toggle Check
             .col-sm-5
-              .make-switch.has-switch
-                .switch-animate.switch-on
-                  input(type="checkbox", checked)
-                  span.switch-left ON
-                  label  
-                  span.switch-right OFF
+              label.switch
+                input(type="checkbox")
+                .switch-inner
+                  .switch-on
+                    .text ON
+                  .switch-off
+                    .text OFF
+                .switch-switch
+
           .form-group
             label.col-sm-3.control-label Toggle Sizes
             .col-sm-5
-              .bs-example
-                .make-switch.switch-large.has-switch
-                  .switch-animate.switch-off
-                    input(type="checkbox")
-                    span.switch-left.switch-large ON
-                    label.switch-large  
-                    span.switch-right.switch-large OFF
-                .make-switch.has-switch
-                  .switch-animate.switch-off
-                    input(type="checkbox")
-                    span.switch-left ON
-                    label  
-                    span.switch-right OFF
-                .make-switch.switch-small.has-switch
-                  .switch-animate.switch-off
-                    input(type="checkbox")
-                    span.switch-left.switch-small ON
-                    label.switch-small  
-                    span.switch-right.switch-small OFF
-                .make-switch.switch-mini.has-switch
-                  .switch-animate.switch-off
-                    input(type="checkbox")
-                    span.switch-left.switch-mini ON
-                    label.switch-mini  
-                    span.switch-right.switch-mini OFF
-          .form-group
-            label.col-sm-3.control-label No Animation
-            .col-sm-5
-              .make-switch.switch-large.has-switch(data-animated="false")
-                .switch-off
-                  input(type="checkbox")
-                  span.switch-left.switch-large ON
-                  label.switch-large  
-                  span.switch-right.switch-large OFF
+              label.switch.switch-lg
+                input(type="checkbox", checked)
+                .switch-inner
+                  .switch-on
+                    .text ON
+                  .switch-off
+                    .text OFF
+                .switch-switch
+              label.switch.switch-md
+                input(type="checkbox", checked)
+                .switch-inner
+                  .switch-on
+                    .text ON
+                  .switch-off
+                    .text OFF
+                .switch-switch
+              label.switch.switch-sm
+                input(type="checkbox", checked)
+                .switch-inner
+                  .switch-on
+                    .text ON
+                  .switch-off
+                    .text OFF
+                .switch-switch
+              label.switch.switch-xs
+                input(type="checkbox", checked)
+                .switch-inner
+                  .switch-on
+                    .text ON
+                  .switch-off
+                    .text OFF
+                .switch-switch
+
           .form-group
             label.col-sm-3.control-label Disabled
             .col-sm-5
-              .make-switch.switch-large.has-switch.deactivate
-                .switch-animate.switch-off
-                  input(type="checkbox", disabled="")
-                  span.switch-left.switch-large ON
-                  label.switch-large  
-                  span.switch-right.switch-large OFF
-          .form-group
-            label.col-sm-3.control-label Custom Label
-            .col-sm-5
-              #label-switch.make-switch.has-switch(data-on-label="Ja", data-off-label="Nein")
-                .switch-animate.switch-on
-                  input(type="checkbox", checked)
-                  span.switch-left Ja
-                  label  
-                  span.switch-right Nein
+              label.switch
+                input(type="checkbox", checked, disabled)
+                .switch-inner
+                  .switch-on
+                    .text ON
+                  .switch-off
+                    .text OFF
+                .switch-switch
+              label.switch
+                input(type="checkbox", disabled)
+                .switch-inner
+                  .switch-on
+                    .text ON
+                  .switch-off
+                    .text OFF
+                .switch-switch
+
           .form-group
             label.col-sm-3.control-label Apply Icon
             .col-sm-5
-              .make-switch.has-switch(data-on-label='<i class="entypo-check"></i>', data-off-label='<i class="entypo-cancel"></i>')
-                .switch-animate.switch-on
-                  input(type="checkbox", checked)
-                  span.switch-left
-                    i.entypo-check
-                  label  
-                  span.switch-right
-                    i.entypo-cancel
-          .form-group
-            label.col-sm-3.control-label Middle Label
-            .col-sm-5
-              .make-switch.has-switch(data-text-label='<i class="entypo-user"></i>')
-                .switch-animate.switch-on
-                  input(type="checkbox", checked)
-                  span.switch-left ON
-                  label
-                    i.entypo-user
-                  span.switch-right OFF
-          .form-group
-            label.col-sm-3.control-label Colors
-            .col-sm-5
-              .bs-example
-                .make-switch.has-switch(data-on="primary", data-off="info")
-                  .switch-animate.switch-on
-                    input(type="checkbox", checked)
-                    span.switch-left.switch-primary ON
-                    label  
-                    span.switch-right.switch-info OFF
-                .make-switch.has-switch(data-on="info", data-off="success")
-                  .switch-animate.switch-on
-                    input(type="checkbox", checked)
-                    span.switch-left.switch-info ON
-                    label  
-                    span.switch-right.switch-success OFF
-                .make-switch.has-switch(data-on="success", data-off="warning")
-                  .switch-animate.switch-on
-                    input(type="checkbox", checked)
-                    span.switch-left.switch-success ON
-                    label  
-                    span.switch-right.switch-warning OFF
-                .make-switch.has-switch(data-on="warning", data-off="danger")
-                  .switch-animate.switch-on
-                    input(type="checkbox", checked)
-                    span.switch-left.switch-warning ON
-                    label  
-                    span.switch-right.switch-danger OFF
-                .make-switch.has-switch(data-on="danger", data-off="default")
-                  .switch-animate.switch-on
-                    input(type="checkbox", checked)
-                    span.switch-left.switch-danger ON
-                    label  
-                    span.switch-right.switch-default OFF
-                .make-switch.has-switch(data-on="default", data-off="primary")
-                  .switch-animate.switch-on
-                    input(type="checkbox", checked)
-                    span.switch-left.switch-default ON
-                    label  
-                    span.switch-right.switch-primary OFF
-          .form-group
-            label.col-sm-3.control-label Radio
-            .col-sm-5
-              .bs-example
-                .make-switch.is-radio.switch-small.has-switch(data-text-label='<i class="entypo-user"></i>')
-                  .switch-animate.switch-on
-                    input(type="radio", name="radio1", checked)
-                    span.switch-left.switch-small ON
-                    label.switch-small
-                      i.entypo-user
-                    span.switch-right.switch-small OFF
-                .make-switch.is-radio.switch-small.has-switch(data-text-label='<i class="entypo-heart"></i>')
-                  .switch-animate.switch-off
-                    input(type="radio", name="radio1")
-                    span.switch-left.switch-small ON
-                    label.switch-small
-                      i.entypo-heart
-                    span.switch-right.switch-small OFF
-                .make-switch.is-radio.switch-small.has-switch(data-text-label='<i class="entypo-info"></i>')
-                  .switch-animate.switch-off
-                    input(type="radio", name="radio1")
-                    span.switch-left.switch-small ON
-                    label.switch-small
-                      i.entypo-info
-                    span.switch-right.switch-small OFF
-                .make-switch.is-radio.switch-small.has-switch(data-text-label='<i class="entypo-globe"></i>')
-                  .switch-animate.switch-off
-                    input(type="radio", name="radio1")
-                    span.switch-left.switch-small ON
-                    label.switch-small
-                      i.entypo-globe
-                    span.switch-right.switch-small OFF
+              label.switch
+                input(type="checkbox")
+                .switch-inner
+                  .switch-on
+                    .text
+                      i.fa.fa-check
+                  .switch-off
+                    .text
+                      i.fa.fa-times
+                .switch-switch
 
 
   .panel

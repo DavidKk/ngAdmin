@@ -120,8 +120,8 @@ angular.module('index.config', [])
     when('/index/slide/',                 { templateUrl: TEMPLATE_PATH + 'slide.html', resolve: resolve }).
     when('/index/carousel/',              { templateUrl: TEMPLATE_PATH + 'carousel.html', resolve: resolve }).
 
-    when('/index/form-basic/',            { templateUrl: TEMPLATE_PATH + 'form-components.html', resolve: resolve }).
-    when('/index/form-advanced/',         { templateUrl: TEMPLATE_PATH + 'form-validation.html', resolve: resolve }).
+    when('/index/form-basic/',            { templateUrl: TEMPLATE_PATH + 'form-basic.html', resolve: resolve }).
+    when('/index/form-advanced/',         { templateUrl: TEMPLATE_PATH + 'form-advanced.html', resolve: resolve }).
     when('/index/form-wizard/',           { templateUrl: TEMPLATE_PATH + 'form-wizard.html', resolve: resolve }).
     when('/index/form-input-mask/',       { templateUrl: TEMPLATE_PATH + 'form-input-mask.html', resolve: resolve }).
     when('/index/form-multi-upload/',     { templateUrl: TEMPLATE_PATH + 'form-multi-upload.html', resolve: resolve }).
