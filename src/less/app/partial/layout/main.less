@@ -2,21 +2,7 @@
 
 .container-layout {
   .clearfix();
-  
   width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.container-layout .sidebar-left-layout {
-  .transition(margin-left .25s);
-  .clearfix();
-  
-  width: 280px;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 
 .container-layout .main-layout {
@@ -27,21 +13,68 @@
   position: relative;
 }
 
-.container-layout .main-layout .content-layout { padding: 15px; }
+.container-layout .main-layout .content-layout {
+  padding: 0 15px;
+}
+
+.container-layout .sidebar-left-layout {
+  .transition(margin-left .25s);
+  .clearfix();
+  
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  width: 280px;
+  height: 100%;
+}
+
 .container-layout .sidebar-right-layout {
   .transition(all .25s);
 
+  position: fixed;
+  top: 0;
+  z-index: 4;
+  right: -240px;
   width: 240px;
   height: 100%;
-  position: fixed;
-  overflow-y: auto;
-  overflow-x: hidden;
-  top: 0;
-  right: -240px;
   display: block;
 }
 
-body { .transition(all .25s); }
-body.sidebar-right-shown { margin-right: 0; right: 240px; }
-body.sidebar-right-shown .container-layout .main-layout { margin-left: 0; }
-body.sidebar-right-shown .container-layout .sidebar-right-layout { right: 0; }
+body {
+  .transition(all .25s);
+}
+
+body.sidebar-right-shown {
+  margin-right: 0;
+  right: 240px;
+}
+
+body.sidebar-right-shown .container-layout .main-layout {
+  margin-left: 0;
+}
+
+body.sidebar-right-shown .container-layout .sidebar-right-layout {
+  right: 0;
+}
+
+// Screen height 100% model
+body.fixed-layout {
+  &,
+  .container-layout,
+  .container-layout .main-layout {
+    height: 100%;
+    overflow-y: hidden;
+  }
+
+  .container-layout .main-layout .viewport-layout {
+    height: 100%;
+    display: block;
+    overflow-y: hidden;
+  }
+
+  .container-layout .main-layout .content-layout {
+    height: 100%;
+    overflow-y: auto;
+  }
+}

@@ -1,12 +1,17 @@
 
 
 @media (max-width: @screen-sm-max) {
-  #chatbar-container ul.nav {
+  #chatbar-container > .nav {
     & > li > a {
       padding-top: 18px;
       padding-bottom: 18px;
       height: 50px;
       line-height: 10px;
     }
+  }
+
+  #chatbar-container > .tab-content {
+    margin-top: -50px;
+    padding-top: 50px;
   }
 }

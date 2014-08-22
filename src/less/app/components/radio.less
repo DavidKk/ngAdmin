@@ -1,6 +1,6 @@
 
 
-.radio {
+.radio.radio-replace {
   .user-select(none);
   
   padding-left: 2px;
@@ -14,7 +14,7 @@
   }
 }
 
-.radio .radio-icon {
+.radio.radio-replace .radio-icon {
   .transition(all .2s);
 
   border: 1px solid #d2d2d2;
@@ -48,30 +48,31 @@
   }
 }
 
-.radio:hover .radio-icon {
+.radio.radio-replace:hover .radio-icon {
   .box-shadow(0 0 4px #dedede);
 }
 
-.radio input[checked] + .radio-icon:before {
+.radio.radio-replace input[checked] + .radio-icon:before {
   .opacity(1);
   
   max-width: 10px;
   max-height: 10px;
 }
 
-.radio input[disabled] + .radio-icon {
+.radio.radio-replace input[disabled] + .radio-icon {
   .opacity(.3); 
 }
 
-.radio .radio-inner {
+.radio.radio-replace .radio-inner {
   margin-left: 6px;
+  display: inline-block;
 }
 
 .radio-palette(@arr-style, @index: 1) when (@index =< length(@arr-style)) {
   @token:     e(extract(@arr-style, @index));
   @color:     extract(@arr-style, @index + 1);
   
-  .radio.radio-@{token} .radio-icon {
+  .radio.radio-replace.radio-@{token} .radio-icon {
     border-color: @color;
 
     &:before {

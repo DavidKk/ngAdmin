@@ -1,19 +1,20 @@
 
 
-#header {
+#header-container {
   .border-radius(0);
 
+  position: relative;
+  z-index: 5;
   padding-right: 15px;
   padding-left: 15px;
   border-width: 0;
   border-bottom: 1px solid #eee;
-  width: 100%;
   min-height: 1px;
-  position: relative;
+  width: 100%;
   color: rgb(116, 127, 149);
 }
 
-#header .navbar {
+#header-container .navbar {
   .border-radius(0);
   
   margin-bottom: 0;
@@ -21,7 +22,7 @@
   border-width: 0;
 }
 
-#header .navbar .navbar-header .menu-switch {
+#header-container .navbar .navbar-header .menu-switch {
   padding: 25px;
   display: block;
   cursor: pointer;
@@ -30,7 +31,7 @@
   font-size: 25px;
 }
 
-#header .navbar .search-header {
+#header-container .navbar .search-header {
   padding-left: 10px;
   margin-top: 20px;
   margin-left: 20px;
@@ -59,7 +60,7 @@
   }
 }
 
-#header .navbar .notify-header {
+#header-container .navbar .notify-header {
   margin-bottom: 0;
   padding-left: 0;
   display: block;
@@ -129,14 +130,14 @@
   & > .profile > .avator:hover > img { .opacity(.9); }
 }
 
-#header .navbar .notify-header.pull-right {
+#header-container .navbar .notify-header.pull-right {
   & > li > a {
     border-right-width: 0;
     border-left: 1px solid rgb(238, 238, 238);
   }
 }
 
-#header .navbar .notify-header .dropdown-menu-tasks {
+#header-container .navbar .notify-header .dropdown-menu-tasks {
   .task > .task-info {
     margin-bottom: 4px;
     
@@ -151,7 +152,7 @@
   }
 }
 
-#header .navbar .notify-header .dropdown-menu-message {
+#header-container .navbar .notify-header .dropdown-menu-message {
   max-width: 500px !important;
   min-width: 368px !important;
 
@@ -187,7 +188,7 @@
   }
 }
 
-#header .navbar .notify-header .dropdown-menu-notify {
+#header-container .navbar .notify-header .dropdown-menu-notify {
   .message > .label {
     font-size: 14px;
     float: right;
@@ -200,4 +201,10 @@
   .message > .small {
     display: block;
   }
+}
+
+// 修正
+body.fixed-layout .container-layout .main-layout .viewport-layout {
+  margin-top: -75px;
+  padding-top: 75px !important;
 }

@@ -1,10 +1,10 @@
 
 
 @media (max-width: @screen-sm-max) {
-  #header .navbar .navbar-header { display: none; }
-  #header .navbar .search-header { display: none; }
+  #header-container .navbar .navbar-header { display: none; }
+  #header-container .navbar .search-header { display: none; }
 
-  #header .navbar ul.notify-header {
+  #header-container .navbar ul.notify-header {
     & > li > a {
       padding: 15px;
       line-height: 10px;
@@ -35,5 +35,10 @@
   // 修正
   .dropdown-menu-tasks.dropdown-menu-head > .dropdown-menu-arrow {
     .arrow-mixin > .offset(-10px, top);
+  }
+
+  body.fixed-layout .container-layout .main-layout .viewport-layout {
+    margin-top: -50px;
+    padding-top: 50px !important;
   }
 }

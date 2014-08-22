@@ -7,8 +7,6 @@
   min-height: 100%;
   width: 100%;
   background-color: rgb(48, 54, 65);
-  position: absolute;
-  z-index: 9;
 }
 
 #navigation-container .brand-sidebar {
@@ -258,4 +256,15 @@
     & > .active > a,
     & > li > a:hover { color: #fff; }
   }
+}
+
+// Revision
+body.fixed-layout #navigation-container {
+  height: 100%;
+}
+
+body.fixed-layout #navigation-container .viewport-layout {
+  margin-top: -260px;
+  padding-top: 260px;
+  height: 100%;
 }

@@ -1,5 +1,3 @@
 
 
-angular.module('system', [
-  'sys.user'
-])
+angular.module('system', [])

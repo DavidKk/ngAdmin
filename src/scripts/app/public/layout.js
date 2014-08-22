@@ -22,7 +22,7 @@ angular.module('public.layout', [
 
     $rootScope.$on('layout.toggleLeftSidebar', function(event, isOpen) {
       $scope.isOpen = arguments.length > 1 ? !!isOpen : !$scope.isOpen;
-      $scope.minify = !$scope.isOpen;
+      $scope.minify = $scope.isOpen;
     });
 
     $scope.$watch('isOpen', function(isOpen) {

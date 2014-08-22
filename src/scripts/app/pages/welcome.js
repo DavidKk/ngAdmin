@@ -32,8 +32,7 @@ angular.module('welcome', [
 
 .controller('Welcome.Login', [
   '$rootScope', '$scope',
-  '$user',
-  function($rootScope, $scope, $user) {
+  function($rootScope, $scope) {
     $scope.username = '';
     $scope.password = '';
     $scope.captcha = '';
@@ -42,7 +41,7 @@ angular.module('welcome', [
 
     $scope.newCaptcha = function() {
       if ($scope.disabled) return;
-      $scope.captchaImage = 'http://api.xiaozhisong.com/captcha/?' + Date.now();
+      // $scope.captchaImage = 'http://api.xiaozhisong.com/captcha/?' + Date.now();
     };
 
     $scope.submit = function(event) {
@@ -66,12 +65,6 @@ angular.module('welcome', [
         });
       }
     };
-
-    $user.ready(function(user) {
-      if (! angular.isEmptyObject(user)) {
-        window.location.href = '/index/';
-      }
-    });
 
     $scope.newCaptcha();
   }

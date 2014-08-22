@@ -35,7 +35,6 @@ angular.module('index.config', [])
       { name: 'Tooltips & Popovers', key: 'tooltips-popovers' },
       { name: 'Progress Bars', key: 'progress-bar' },
       { name: 'Modals', key: 'modals' },
-      { name: 'Slider', key: 'slide' },
       { name: 'Carousel', key: 'carousel' }
     ]  
   },
@@ -46,7 +45,8 @@ angular.module('index.config', [])
       { name: 'Advanced', key: 'form-advanced' },
       { name: 'Wizard', key: 'form-wizard' },
       { name: 'Input Mask', key: 'form-input-mask' },
-      { name: 'Multi Upload', key: 'form-multi-upload' }
+      { name: 'Multi Upload', key: 'form-multi-upload' },
+      { name: 'Slider', key: 'slide' },
     ]  
   },
   {
@@ -88,8 +88,8 @@ angular.module('index.config', [])
 
     var resolve = {
       checkin: [
-        '$q', '$user',
-        function($q, $user) {
+        '$q',
+        function($q) {
           var deferred = $q.defer();
           deferred.resolve();
           return deferred.promise;

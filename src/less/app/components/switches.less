@@ -39,9 +39,14 @@
     font-family: Trebuchet, Arial, sans-serif;
     font-weight: bold;
 
-    .text {
+    .inner {
       display: table-cell;
       vertical-align: middle;
+    }
+
+    .inner > i {
+      vertical-align: text-top;
+      font-size: 1.6em;
     }
   }
 
@@ -50,6 +55,10 @@
     background-color: @green;
     text-align: left;
     color: #fff;
+
+    .inner > i {
+      margin-left: 4px;
+    }
   }
   
   .switch-off {
@@ -57,6 +66,10 @@
     background-color: @black;
     text-align: right;
     color: #fff;
+
+    .inner > i {
+      margin-right: 4px;
+    }
   }
 }
 
@@ -97,7 +110,6 @@
     .opacity(.6);
   }
 }
-
 
 .switch-maker(@arr-style, @index: 1) when (@index =< length(@arr-style)) {
   @token:       e(extract(@arr-style, @index));
@@ -141,3 +153,16 @@
 }
 
 .switch-maker(@switch-sizes);
+
+.switch-palette(@arr-style, @index: 1) when (@index =< length(@arr-style)) {
+  @token:     e(extract(@arr-style, @index));
+  @color:     extract(@arr-style, @index + 1);
+  
+  .switch.switch-@{token} .switch-inner .switch-on {
+    background-color: @color;
+  }
+
+  .switch-palette(@arr-style, @index + 2);
+}
+
+.switch-palette(@switch-palette);

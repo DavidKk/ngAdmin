@@ -1,6 +1,6 @@
 
 
-.checkbox {
+.checkbox.checkbox-replace {
   .user-select(none);
   
   padding-left: 2px;
@@ -14,7 +14,7 @@
   }
 }
 
-.checkbox .checkbox-icon {
+.checkbox.checkbox-replace .checkbox-icon {
   .transition(all .2s);
 
   border: 1px solid #d2d2d2;
@@ -48,30 +48,31 @@
   }
 }
 
-.checkbox:hover .checkbox-icon {
+.checkbox.checkbox-replace:hover .checkbox-icon {
   .box-shadow(0 0 4px #dedede);
 }
 
-.checkbox input[checked] + .checkbox-icon:before {
+.checkbox.checkbox-replace input[checked] + .checkbox-icon:before {
   .opacity(1);
   
   max-width: 10px;
   max-height: 10px;
 }
 
-.checkbox input[disabled] + .checkbox-icon {
+.checkbox.checkbox-replace input[disabled] + .checkbox-icon {
   .opacity(.3); 
 }
 
-.checkbox .checkbox-inner {
+.checkbox.checkbox-replace .checkbox-inner {
   margin-left: 6px;
+  display: inline-block;
 }
 
 .checkbox-palette(@arr-style, @index: 1) when (@index =< length(@arr-style)) {
   @token:     e(extract(@arr-style, @index));
   @color:     extract(@arr-style, @index + 1);
   
-  .checkbox.checkbox-@{token} .checkbox-icon {
+  .checkbox.checkbox-replace.checkbox-@{token} .checkbox-icon {
     border-color: @color;
     
     &:before {
