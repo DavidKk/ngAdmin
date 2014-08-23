@@ -39,6 +39,8 @@ angular.module('ui.scroll-bar', [
         $scope.show = false;
         $scope.$digest();
       }, 2000);
+
+      return timer;
     };
   }
 ])
@@ -68,7 +70,8 @@ angular.module('ui.scroll-bar', [
         $scope.sxp = 0;
         $scope.show = false;
 
-        var elbody = (function() {
+        var elbody;
+        (function() {
           var i = 0,
           s = $element.children(),
           l = s.length,
@@ -80,7 +83,8 @@ angular.module('ui.scroll-bar', [
             attrTransclude = $el.attr('ng-transclude');
 
             if (angular.isDefined(attrTransclude)) {
-              return s[i];
+              elbody = s[i];
+              break;
             }
           }
         })();
@@ -104,9 +108,8 @@ angular.module('ui.scroll-bar', [
 
         $element.on('mouseenter', function() {
           ctrl.show();
-        });
-
-        $element.on('wheel', function(event) {
+        })
+        .on('mousewheel', function(event) {
           ctrl.show();
 
           $scope.$apply(function() {
@@ -124,7 +127,47 @@ angular.module('ui.scroll-bar', [
               angular.element(elbody).css('left', -$scope.sw * elbody.clientWidth + 'px');
             }
           });
+        })
+
+        // Mobile
+        var startY, startX, swipeDeltaY, swipeDeltaX, isTouch;
+        $element.on('touchstart', function(event) {
+          isTouch = true;
+          startY = event.touches[0].clientY;
+          startX = event.touches[0].clientX;
+
+          $scope.show = true;
+        })
+        .on('touchmove', function(event) {
+          if (!isTouch) return;
+
+          swipeDeltaY = startY - event.touches[0].clientY;
+          swipeDeltaX = startX - event.touches[0].clientX;
+          startY = event.touches[0].clientY;
+          startX = event.touches[0].clientY;
+
+          $scope.$apply(function() {
+            if (event.wheelDeltaY !== 0) {
+              var maxH = 1 - $scope.shp;
+              $scope.syp += -swipeDeltaY/elbody.clientHeight;
+              $scope.syp = $scope.syp < 0 ? 0 : $scope.syp > maxH ? maxH : $scope.syp;
+              angular.element(elbody).css('top', -$scope.syp * elbody.clientHeight + 'px');
+            }
+
+            if (event.wheelDeltaX !== 0) {
+              var maxW = 1 - $scope.shp;
+              $scope.sxp += -swipeDeltaX/elbody.clientHeight;
+              $scope.sxp = $scope.sxp < 0 ? 0 : $scope.sxp > maxW ? maxW : $scope.sxp;
+              angular.element(elbody).css('left', -$scope.sw * elbody.clientWidth + 'px');
+            }
+          });
+        })
+        .on('touchend', function(event) {
+          isTouch = false;
+          ctrl.show();
         });
+
+        // TODO:Drag Event
       }
     };
   }
