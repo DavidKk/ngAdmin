@@ -23,53 +23,54 @@ header#header-container(ng-controller="Header")
                 a(title="refresh")
                   i.fa.fa-refresh
               | You have 5 pending tasks
+            
+            scroll-bar.scroll-viewport
+              ul.dropdown-list
+                li
+                  a.task
+                    .task-info
+                      .percent 80%
+                      .desc Layout
 
-            ul.dropdown-list
-              li
-                a.task
-                  .task-info
-                    .percent 80%
-                    .desc Layout
+                    .progress.progress-striped.active
+                      .progress-bar.progress-bar-green(style="width: 80%")
+                        .sr-only 80% Complete
+                li
+                  a.task
+                    .task-info
+                      .percent 40%
+                      .desc UI Element
 
-                  .progress.progress-striped.active
-                    .progress-bar.progress-bar-green(style="width: 80%")
-                      .sr-only 80% Complete
-              li
-                a.task
-                  .task-info
-                    .percent 40%
-                    .desc UI Element
+                    .progress.progress-striped.active
+                      .progress-bar.progress-bar-cyan(style="width: 40%")
+                        .sr-only 40% Complete
+                li
+                  a.task
+                    .task-info
+                      .percent 10%
+                      .desc Forms
 
-                  .progress.progress-striped.active
-                    .progress-bar.progress-bar-cyan(style="width: 40%")
-                      .sr-only 40% Complete
-              li
-                a.task
-                  .task-info
-                    .percent 10%
-                    .desc Forms
+                    .progress.progress-striped.active
+                      .progress-bar.progress-bar-orange(style="width: 10%")
+                        .sr-only 10% Complete
+                li
+                  a.task
+                    .task-info
+                      .percent 70%
+                      .desc Table
 
-                  .progress.progress-striped.active
-                    .progress-bar.progress-bar-orange(style="width: 10%")
-                      .sr-only 10% Complete
-              li
-                a.task
-                  .task-info
-                    .percent 70%
-                    .desc Table
+                    .progress.progress-striped.active
+                      .progress-bar.progress-bar-red(style="width: 70%")
+                        .sr-only 70% Complete
+                li
+                  a.task
+                    .task-info
+                      .percent 35%
+                      .desc Charts
 
-                  .progress.progress-striped.active
-                    .progress-bar.progress-bar-red(style="width: 70%")
-                      .sr-only 70% Complete
-              li
-                a.task
-                  .task-info
-                    .percent 35%
-                    .desc Charts
-
-                  .progress.progress-striped.active
-                    .progress-bar.progress-bar-amethyst(style="width: 35%")
-                      .sr-only 35% Complete
+                    .progress.progress-striped.active
+                      .progress-bar.progress-bar-amethyst(style="width: 35%")
+                        .sr-only 35% Complete
 
             a.dropdown-more(href, title) Check all tasks...
 
@@ -87,52 +88,53 @@ header#header-container(ng-controller="Header")
                 a(title="refresh")
                   i.fa.fa-refresh
               | You have 4 new messages
+          
+            scroll-bar.scroll-viewport
+              ul.dropdown-list
+                li
+                  .item.message
+                    a.thumb
+                      img(src="")
 
-            ul.dropdown-list
-              li
-                .item.message
-                  a.thumb
-                    img(src="")
+                    a.desc
+                      span.line
+                        strong Draniem Daamul
+                        | &nbsp;- just now
+                        span.badge.badge-green New
+                      span.line This ain’t our first item, it is the best of the rest. 
+                li
+                  .item.message
+                    a.thumb
+                      img(src="")
 
-                  a.desc
-                    span.line
-                      strong Draniem Daamul
-                      | &nbsp;- just now
-                      span.badge.badge-green New
-                    span.line This ain’t our first item, it is the best of the rest. 
-              li
-                .item.message
-                  a.thumb
-                    img(src="")
+                    a.desc
+                      span.line
+                        strong Draniem Daamul
+                        | &nbsp;- 4 mins ago
+                        span.badge.badge-green New
+                      span.line Oh he decisively impression attachment friendship so if everything. 
+                li
+                  .item.message
+                    a.thumb
+                      img(src="")
 
-                  a.desc
-                    span.line
-                      strong Draniem Daamul
-                      | &nbsp;- 4 mins ago
-                      span.badge.badge-green New
-                    span.line Oh he decisively impression attachment friendship so if everything. 
-              li
-                .item.message
-                  a.thumb
-                    img(src="")
+                    a.desc
+                      span.line
+                        strong Draniem Daamul
+                        | &nbsp;- 4 hours ago
+                        span.badge.badge-green New
+                      span.line Whose her enjoy chief new young. Felicity if ye required likewise so doubtful. 
+                li
+                  .item.message
+                    a.thumb
+                      img(src="")
 
-                  a.desc
-                    span.line
-                      strong Draniem Daamul
-                      | &nbsp;- 4 hours ago
-                      span.badge.badge-green New
-                    span.line Whose her enjoy chief new young. Felicity if ye required likewise so doubtful. 
-              li
-                .item.message
-                  a.thumb
-                    img(src="")
-
-                  a.desc
-                    span.line
-                      strong Draniem Daamul
-                      | &nbsp;- 12 hours ago
-                      span.badge.badge-green New
-                    span.line On so attention necessary at by provision otherwise existence direction. 
+                    a.desc
+                      span.line
+                        strong Draniem Daamul
+                        | &nbsp;- 12 hours ago
+                        span.badge.badge-green New
+                      span.line On so attention necessary at by provision otherwise existence direction. 
 
             a.dropdown-more(href, title) All message...
 
@@ -150,42 +152,43 @@ header#header-container(ng-controller="Header")
                 a(title="refresh")
                   i.fa.fa-refresh
               | You have 12 new notifications
+          
+            scroll-bar.scroll-viewport
+              ul.dropdown-list
+                li
+                  a.message
+                    span.label.label-info
+                      i.fa.fa-user
+                    | New user registered.
+                    span.small 3 mins ago
 
-            ul.dropdown-list
-              li
-                a.message
-                  span.label.label-info
-                    i.fa.fa-user
-                  | New user registered.
-                  span.small 3 mins ago
+                li
+                  a.message
+                    span.label.label-warning
+                      i.fa.fa-plus
+                    | New order.
+                    span.small 20 mins ago
 
-              li
-                a.message
-                  span.label.label-warning
-                    i.fa.fa-plus
-                  | New order.
-                  span.small 20 mins ago
+                li
+                  a.message
+                    span.label.label-success
+                      i.fa.fa-flash
+                    | Server restared.
+                    span.small 18 mins ago
 
-              li
-                a.message
-                  span.label.label-success
-                    i.fa.fa-flash
-                  | Server restared.
-                  span.small 18 mins ago
+                li
+                  a.message
+                    span.label.label-danger
+                      i.fa.fa-power-off
+                    | Server down.
+                    span.small 27 mins ago
 
-              li
-                a.message
-                  span.label.label-danger
-                    i.fa.fa-power-off
-                  | Server down.
-                  span.small 27 mins ago
-
-              li
-                a.message
-                  span.label.label-danger
-                    i.fa.fa-times
-                  | Application error.
-                  span.small 31 mins ago
+                li
+                  a.message
+                    span.label.label-danger
+                      i.fa.fa-times
+                    | Application error.
+                    span.small 31 mins ago
 
             a.dropdown-more(href, title) Check all notify...
 
@@ -193,7 +196,7 @@ header#header-container(ng-controller="Header")
           a.avator(dropdown-menu-toggle)
             img(src="")
           span.name David Jones
-
+        e
           ul.dropdown-menu-profile.dropdown-menu.pull-right
             .dropdown-menu-arrow
             li

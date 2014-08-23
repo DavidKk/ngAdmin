@@ -5,8 +5,8 @@ angular.module('ui.scroll-bar', [
 ])
 
 .controller('ScrollBarController', [
-  '$scope', '$timeout',
-  function($scope, $timeout) {
+  '$scope',
+  function($scope) {
     var exports = this,
     timer = {};
 
@@ -30,13 +30,14 @@ angular.module('ui.scroll-bar', [
     });
 
     exports.show = function() {
-      timer.cancel && timer.cancel();
+      clearTimeout(timer);
 
       $scope.show = true;
       $scope.$digest();
 
-      timer = $timeout(function() {
+      timer = setTimeout(function() {
         $scope.show = false;
+        $scope.$digest();
       }, 2000);
     };
   }
@@ -61,6 +62,11 @@ angular.module('ui.scroll-bar', [
       link: function($scope, $element, $attrs, ctrl, transclude) {'use strict';
         $scope.isVertical = $attrs.$attr.hasOwnProperty('vertical') ? !!$attrs.$attr.vertical : true;
         $scope.isHorizontal = $attrs.$attr.hasOwnProperty('horizontal') ? !!$attrs.$attr.horizontal : false;
+        $scope.isLeft = $attrs.$attr.hasOwnProperty('left') ? !!$attrs.$attr.left : false;
+        $scope.isTop = $attrs.$attr.hasOwnProperty('top') ? !!$attrs.$attr.top : false;
+        $scope.syp = 0;
+        $scope.sxp = 0;
+        $scope.show = false;
 
         var elbody = (function() {
           var i = 0,
@@ -78,10 +84,6 @@ angular.module('ui.scroll-bar', [
             }
           }
         })();
-
-        $scope.syp = 0;
-        $scope.sxp = 0;
-        $scope.show = false;
 
         $scope.$watch(function() { return $element[0].clientHeight + $element[0].clientWidth; }, function() {
           $scope.wh = $element[0].clientHeight;

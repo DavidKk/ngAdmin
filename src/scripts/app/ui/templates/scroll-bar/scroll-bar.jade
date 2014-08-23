@@ -1,10 +1,10 @@
 
 
 .scroll-wrapper(ng-class="{ 'open': show }")
-  .scroll-rails.scroll-left(ng-if="isVertical")
+  .scroll-rails(ng-if="isVertical", ng-class="{ 'scroll-left': isLeft }")
     .scroll-bar(ng-style="{ 'height': shp * 100 + '%', 'top': syp * 100 + '%' }")
 
-  .scroll-rails.scroll-horizontal(ng-if="isHorizontal")
+  .scroll-rails.scroll-horizontal(ng-if="isHorizontal", ng-class="{ 'scroll-bottom': isTop }")
     .scroll-bar(ng-style="{ 'width': swp * 100 + '%', 'left': sxp * 100 + '%' }")
 
   .wrapper(ng-transclude)
