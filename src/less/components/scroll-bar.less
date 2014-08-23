@@ -1,0 +1,46 @@
+
+
+.scroll-wrapper {
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-wrapper .scroll-rails {
+  .opacity(0);
+  .transition(opacity .35s);
+
+  width: 10px;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 100;
+  overflow: hidden;
+  cursor: default;
+}
+
+.scroll-wrapper .scroll-rails .scroll-bar {
+  width: 5px;
+  height: 50%;
+  position: relative;
+  top: 0;
+  left: 1.5px;
+  border: 1px solid rgba(255, 255, 255, .3);
+  border-radius: 2px;
+  background-color: rgba(255, 255, 255, .3);
+  cursor: pointer;
+}
+
+.scroll-wrapper .scroll-rails.scroll-left {
+  left: 0;
+  right: auto;
+}
+
+.scroll-wrapper [ng-transclude] {
+  position: relative;
+}
+
+.scroll-wrapper.open .scroll-rails {
+  .opacity(1);
+}

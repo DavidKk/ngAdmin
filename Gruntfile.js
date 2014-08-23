@@ -4,6 +4,7 @@ module.exports = function(grunt) {
   'use strict';
 
   var mapFilePath = '_build/hashmap.json';
+  var $path = require('path');
 
   var config = {
     pkg: grunt.file.readJSON('package.json'),
@@ -23,7 +24,7 @@ module.exports = function(grunt) {
     less: {
       compile: {
         options: { paths: ['src/less/app/'], compress: true, yuicompress: true },
-        files: { 'assets/css/app.min.css': 'src/less/app/app.less'}
+        files: { 'assets/css/app.min.css': 'src/less/app.less'}
       }
     },
 
@@ -44,15 +45,31 @@ module.exports = function(grunt) {
               'src/scripts/app/modules/*.js',
               'src/scripts/app/ui/app.js',
               'src/scripts/app/ui/modules/*.js',
-              'src/scripts/app/ui/templates/*.js',
+              '_build/scripts/ui/*/*.js',
               'src/scripts/app/public/*.js',
               'src/scripts/app/pages/*.js',
-              'src/scripts/app/pages/*/*.js'
+              'src/scripts/app/pages/*/*.js',
             ]
           }
         ]
       }
     },
+
+    html2js: {
+      ui: {
+        options: {
+          module: null,
+          base: 'src/scripts/app/ui/',
+          rename: function(path) {
+            return path.replace($path.extname(path), '.html');
+          }
+        },
+        files: [
+          { dest: '_build/scripts/ui/', cwd: 'src/scripts/app/ui/templates/', src: ['**/*.jade'], ext: '.html.js', expand: true },
+        ]
+      }
+    },
+
 
     // 压缩脚本文件，发布版本时进行一次脚本压缩
     uglify: {
@@ -154,7 +171,7 @@ module.exports = function(grunt) {
         tasks: ['imagemin', 'copy:panel', 'copy:script']
       },
       less: {
-        files: ['src/less/app/**'],
+        files: ['src/less/**'],
         tasks: ['less:compile']
       },
       jade: {
@@ -163,7 +180,7 @@ module.exports = function(grunt) {
       },
       script: {
         files: ['src/scripts/**'],
-        tasks: ['concat']
+        tasks: ['script']
       }
     }
   };
@@ -178,11 +195,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-html2js');
   grunt.loadNpmTasks('grunt-hashmap');
   grunt.loadNpmTasks('grunt-karma');
 
   grunt.registerTask('style', ['imagemin', 'copy:panel', 'less']);
-  grunt.registerTask('script', ['concat']);
+  grunt.registerTask('script', ['html2js', 'concat']);
   grunt.registerTask('render', ['jade']);
 
   grunt.registerTask('package', ['copy:panel', 'copy:script']);

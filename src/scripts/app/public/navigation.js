@@ -1,7 +1,7 @@
 
 
 angular.module('public.navigation', [
-  'ngRoute', 'ui.bootstrap'
+  'ngRoute', 'ui.bootstrap', 'ui.app'
 ])
 
 .controller('Navigation', [

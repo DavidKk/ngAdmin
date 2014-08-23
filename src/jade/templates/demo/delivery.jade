@@ -1,0 +1,142 @@
+
+
+main#demo-delivery-container.content-layout.no-padding
+  ul.nav-bar
+    li
+      a(title="Idle Parcels") Idle Parcels
+    li
+      a(title="Take Over") Take Over
+    li
+      a(title="History") History
+    .slider(wrapper-slider, number="3", ng-model="part")
+
+  .wrapper.clearfix(wrapper-slider, number="3", ng-model="part")
+    .package-module
+      .list
+        .package.notice-bar(delivery-product)
+          .number 12
+          .package-inner
+            .total Total 3 Products
+            .time 20:32:14 2014/08/22
+
+          ul.widgets-bar
+            li.cyan
+              a(title="Take Over")
+                i.fa.fa-thumb-tack
+
+        .package.notice-bar(delivery-product)
+          .number 12
+          .package-inner
+            .total Total 3 Products
+            .time 20:32:14 2014/08/22
+
+          ul.widgets-bar
+            li.cyan
+              a(title="Take Over")
+                i.fa.fa-thumb-tack
+
+        .package.notice-bar(delivery-product)
+          .number 12
+          .package-inner
+            .total Total 3 Products
+            .time 20:32:14 2014/08/22
+
+          ul.widgets-bar
+            li.cyan
+              a(title="Take Over")
+                i.fa.fa-thumb-tack
+
+        .package.notice-bar(delivery-product)
+          .number 12
+          .package-inner
+            .total Total 3 Products
+            .time 20:32:14 2014/08/22
+
+          ul.widgets-bar
+            li.cyan
+              a(title="Take Over")
+                i.fa.fa-thumb-tack
+
+      //- .no-data(ng-if="packages.length === 0")
+      //-   | 暂无任何可接手的订单&nbsp;
+      //-   span ╮(╯▽╰)╭
+
+    .package-module
+      .list(slide-menu-group)
+        .order.notice-bar(slide-menu, delivery-product, ng-class="{ open: openId == order.id}")
+          .package {{ order.package.id }}
+            i.fa.fa-backward
+
+          .order-inner
+            .address
+              | {{ order.building.name }}, 
+              | F{{ order.address.floor }}, 
+              | {{ order.address.content }}
+
+            .detail {{ order.address.name }}, 
+              a(title="电话") {{ order.address.phone }}
+              | , 
+              span.price {{ order.totalPrice | price }}
+
+          ul.widgets-bar
+            li.green
+              a(title="完成配送")
+                i.fa.fa-upload
+
+            li.orange
+              a(title="致电给客户")
+                i.fa.fa-phone
+
+            li.amethyst
+              a(title="打印相关信息")
+                i.fa.fa-print
+
+          .product-wrapper(slide-menu-list)
+            .product-bar.notice-bar
+              .product-tag {{ detail.seat }}
+              .product-inner
+                .detail {{ detail.productName }} &nbsp;
+                  span.price {{ detail.price | price }}
+                .number {{ detail.num }}
+
+      //- .no-data
+      //-   | 你还没接手任何配送订单&nbsp;
+      //-   span ╮(╯▽╰)╭
+
+    .packages-module
+      .list
+        .order.notice-bar(slide-menu, delivery-product)
+          .package {{ order.package.id }}
+            i.fa.fa-backward
+
+          .order-inner
+            .address
+              | {{ order.building.name }}, 
+              | F{{ order.address.floor }}, 
+              | {{ order.address.content }}
+
+            .detail {{ order.address.name }}, 
+              a(title="电话") {{ order.address.phone }}
+              | , 
+              span.price {{ order.price | price }} 
+
+          ul.widgets-bar
+            li.orange
+              a(title="致电给客户")
+                i.fa.fa-phone
+
+            li.amethyst
+              a(title="打印相关信息")
+                i.fa.fa-print
+
+          .product-wrapper(slide-menu-list)
+            .product-bar.notice-bar
+              .product-tag {{ detail.seat }}
+              .product-inner
+                .detail {{ detail.productName }} &nbsp;
+                  span.price {{ detail.price | price }}
+                .number {{ detail.num }}
+
+      //- .no-data(ng-if="orders.length === 0")
+      //-   | 你还没有完成任何配送订单&nbsp;
+      //-   span ╮(╯▽╰)╭
