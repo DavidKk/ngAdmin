@@ -59,8 +59,8 @@ angular.module('ui.scroll-bar', [
         sxp: '=?'
       },
       link: function($scope, $element, $attrs, ctrl, transclude) {'use strict';
-        var isVertical = $attrs.$attr.hasOwnProperty('vertical') ? !!$attrs.$attr.vertical : true,
-        isHorizontal = $attrs.$attr.hasOwnProperty('horizontal') ? !!$attrs.$attr.horizontal : false;
+        $scope.isVertical = $attrs.$attr.hasOwnProperty('vertical') ? !!$attrs.$attr.vertical : true;
+        $scope.isHorizontal = $attrs.$attr.hasOwnProperty('horizontal') ? !!$attrs.$attr.horizontal : false;
 
         var elbody = (function() {
           var i = 0,
@@ -88,13 +88,13 @@ angular.module('ui.scroll-bar', [
           $scope.ww = $element[0].clientWidth;
         });
 
-        if (isVertical) {
+        if ($scope.isVertical) {
           $scope.$watch(function() { return elbody.clientHeight; }, function(height) {
             $scope.ch = height;
           });
         }
 
-        if (isHorizontal) {
+        if ($scope.isHorizontal) {
           $scope.$watch(function() { return elbody.clientWidth; }, function(width) {
             $scope.cw = width;
           });
