@@ -90,7 +90,7 @@
     color: rgb(255, 255, 255);
   }
   
-  & > .dropdown-submenu {
+  .dropdown-submenu {
     &:before {
       color: #aaabae;
     }
@@ -105,12 +105,12 @@
     }
   }
 
-  & > .profile-sidebar {
+  .profile-sidebar {
     .clearfix();
     padding: 20px;
   }
 
-  & > .profile-sidebar > .face > a.avator {
+  .profile-sidebar .face .avator {
     margin-right: 24px;
     padding: 0;
     width: @avatorSize;
@@ -119,56 +119,72 @@
     position: relative;
   }
 
-  & > .profile-sidebar > .face > a.avator > img {
+  .profile-sidebar .face .avator > img {
     .border-radius(@avatorSize);
     .transition(all .25s);
 
     margin: 0 auto;
     width: @avatorSize;
     height: @avatorSize;
-    border: 3px solid @green;
+    border: 3px solid #999;
     display: block;
     position: relative;
     z-index: 1;
     vertical-align: middle;
   }
 
-  & > .profile-sidebar > .info > a.name {
+  .profile-sidebar .info .name {
     color: #fff;
     font-weight: bold;
     display: block;
   }
 
-  & > .profile-sidebar > .info > span.role {
+  .profile-sidebar .info .role {
     display: block;
     color: rgba(255, 255, 255, 0.5);
     font-size: 12px;
   }
 
-  & > .profile-sidebar > .info > a.status {
+  .profile-sidebar .info .status {
     .transition(opacity .35s);
 
     margin-top: 14px;
     display: block;
     cursor: pointer;
     line-height: 20px;
-    color: @green;
+    color: #999;
     font-size: 24px;
+
+    &:before {
+      content: "OFFLINE";
+    }
   }
 
-  & > .profile-sidebar > .info > a.status:hover { .opacity(.8); }
+  .profile-sidebar .info .status:hover {
+    .opacity(.8);
+  }
+
+  .profile-sidebar-palette(@arr-style, @index: 1) when (@index =< length(@arr-style)) {
+    @token:      e(extract(@arr-style, @index));
+    @color:      extract(@arr-style, @index + 1);
+    @content:    extract(@arr-style, @index + 2);
+
+    .profile-sidebar.@{token} {
+      .face .avator > img   { border-color: @color; }
+      .info .status         { color: @color; }
+      .info .status:before  { content: @content; }
+    }
+
+    .profile-sidebar-palette(@arr-style, @index + 3);
+  }
   
-  & > .profile-sidebar.away {
-    & > .face > a.avator > img { border-color: @red; }
-    & > .face > a.avator:before { border-left-color: @red; }
-    & > .info > a.status { color: @red; }
-  }
-
-  & > .profile-sidebar.offline {
-    & > .face > a.avator > img { border-color: rgb(210, 210, 210); }
-    & > .face > a.avator:before { border-left-color: rgb(210, 210, 210); }
-    & > .info > a.status { color: rgb(210, 210, 210); }
-  }
+  @profile-sidebar-palette:
+    'online'        @green      'ONLINE'
+    'busy'          @red        'BUSY'
+    'idle'          @orange     'IDLE'
+    'offline'       @gray       'OFFLINE'
+  ;
+  .profile-sidebar-palette(@profile-sidebar-palette);
 
   & > .search-sidebar {
     border-bottom: 0;
