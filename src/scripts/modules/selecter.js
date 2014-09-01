@@ -1,9 +1,6 @@
 
 
-angular.module('ui.selecter', [
-  'ngHelper',
-  'ui.dropdownMenu'
-])
+angular.module('ui.selecter', ['ui.helper', 'ui.dropdownMenu'])
 
 .controller('selectpickerController', [
   '$scope', '$document',

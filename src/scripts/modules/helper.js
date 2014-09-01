@@ -1,10 +1,8 @@
 
 
-angular.module('ngHelper', [
-  'config'
-])
+angular.module('ui.helper', [])
 
-.constant('const-css3Transform', function() {
+.constant('css3Transform', function() {
   var style = angular.element('<div>')[0].style,
   modes = ['transform', 'MozTransform', 'WebkitTransform', 'OTransform'],
   i;
@@ -647,26 +645,6 @@ angular.module('ngHelper', [
   }
 ])
 
-.filter('image', [
-  'CDN_PATH',
-  function(CDN_PATH) {'use strict';
-    return function(input, options) {
-      options = options.replace(/^\//, '');
-      if (angular.isString(options)) options = '?imageView2/' + options;
-      if (! angular.isString(input) || /^(http|https):\/\//.test(input)) return input + options;
-      return CDN_PATH + '/' + input.replace(/^\//, '') + options;
-    };
-  }
-])
-
-.filter('price', [
-  function() {'use strict';
-    return function(input) {
-      return (input/100).toFixed(2);
-    };
-  }
-])
-
 /**
  * $transition service provides a consistent interface to trigger CSS 3 transitions and to be informed when they complete.
  * @param  {DOMElement} element  The DOMElement that will be animated.
@@ -676,7 +654,9 @@ angular.module('ngHelper', [
  *   - As a function, it represents a function to be called that will cause the transition to occur.
  * @return {Promise}  A promise that is resolved when the transition finishes.
  */
-.factory('$transition', ['$q', '$timeout', '$rootScope', function($q, $timeout, $rootScope) {
+.factory('$transition', [
+  '$q', '$timeout', '$rootScope',
+  function($q, $timeout, $rootScope) {
 
   var $transition = function(element, trigger, options) {
     options = options || {};

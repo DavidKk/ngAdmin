@@ -1,8 +1,6 @@
 
 
-angular.module('ui.scroll-bar', [
-  'ngHelper'
-])
+angular.module('ui.scrollBar', ['ui.helper'])
 
 .controller('ScrollBarController', [
   '$scope',

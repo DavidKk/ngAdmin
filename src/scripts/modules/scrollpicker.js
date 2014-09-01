@@ -1,8 +1,6 @@
 
 
-angular.module('ui.scrollpicker', [
-  'ngHelper'
-])
+angular.module('ui.scrollpicker', ['ui.helper'])
 
 .controller('ScrollpickerController', [
   '$scope', '$transition',

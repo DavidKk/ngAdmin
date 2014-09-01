@@ -3,4 +3,5 @@ bower_components/*
 views/*
 assets/*
 scripts/*
+dist/*
 _build/*

@@ -1,21 +1,5 @@
 
 
-// .container {
-//   @media (min-width: @screen-sm-min) {
-//     padding-left: @grid-gutter-width-xs/2;
-//     padding-right: @grid-gutter-width-xs/2;
-//     width: @container-sm;
-//   }
-
-//   @media (min-width: @screen-md-min) {
-//     width: @container-md;
-//   }
-
-//   @media (min-width: @screen-lg-min) {
-//     width: @container-lg;
-//   }
-// }
-
 .container.container-sm {
   @media (max-width: @screen-xs-max) {
     width: 100%;
@@ -33,19 +17,3 @@
     width: 100%;
   }
 }
-
-// Override
-.make-grid-columns-gutter(@type, @gutter-width: @grid-gutter-width) {
-  .loop(@index: 1) when (@index =< 12) {
-    .col-@{type}-@{index} {
-      padding-left: @gutter-width;
-      padding-right: @gutter-width;
-    }
-
-    .loop(@index + 1);
-  }
-
-  .loop();
-}
-
-// .make-grid-columns-gutter(xs, @grid-gutter-width-xs);
