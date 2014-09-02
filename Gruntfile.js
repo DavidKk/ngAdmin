@@ -35,7 +35,7 @@ module.exports = function(grunt) {'use strict';
     },
 
     meta: {
-      modules:    'angular.module("ui.ngAdmin", [<%= scripts.srcModules %>]);',
+      modules: 'angular.module("ui.ngAdmin", [<%= scripts.srcModules %>]);',
       tplmodules: 'angular.module("ui.ngAdmin.tpls", [<%= scripts.tplModules %>]);',
       allmodules: 'angular.module("ui.ngAdmin", ["ui.ngAdmin.tpls", <%= scripts.srcModules %>]);',
       banner: ['/*',
@@ -85,11 +85,11 @@ module.exports = function(grunt) {'use strict';
           banner: '<%= meta.banner %>',
           imports: {
             reference: [
-              'variables/bootstrap.less',
-              'variables/ngAdmin.less',
-              'mixins/bootstrap.less',
-              'mixins/lesshat.less',
-              'mixins/msic.less'
+              'src/less/variables/bootstrap.less',
+              'src/less/variables/ngAdmin.less',
+              'src/less/mixins/bootstrap.less',
+              'src/less/mixins/lesshat.less',
+              'src/less/mixins/msic.less'
             ]
           }
         },
@@ -103,7 +103,7 @@ module.exports = function(grunt) {'use strict';
           compress: true,
           yuicompress: true
         },
-        src: ['src/less/app.less'],
+        src: ['src/less/docs.less'],
         dest: 'assets/css/<%= filename %>.css'
       }
     },
@@ -117,8 +117,6 @@ module.exports = function(grunt) {'use strict';
         src: '<%= less.dist.dest %>',
       }
     },
-
-    // TODO: use coffeescript
 
     // Template jade to js file
     html2js: {
@@ -234,6 +232,7 @@ module.exports = function(grunt) {'use strict';
           };
         }
       },
+
       docs: {
         files: [
           { dest: 'views/', cwd: 'src/jade/pages/', src: ['*'], ext: '.html', expand: true }
@@ -247,7 +246,7 @@ module.exports = function(grunt) {'use strict';
     watch: {
       public: {
         files: ['src/ico/**', 'src/images/**', 'src/fonts/**', 'src/scripts/libs/**'],
-        tasks: ['imagemin', 'copy:docs']
+        tasks: ['imagemin:docs', 'copy:docs']
       },
       less: {
         files: ['src/less/**'],
@@ -255,11 +254,11 @@ module.exports = function(grunt) {'use strict';
       },
       jade: {
         files: ['src/jade/**'],
-        tasks: ['jade']
+        tasks: ['jade:docs']
       },
       script: {
         files: ['src/scripts/**'],
-        tasks: ['script']
+        tasks: ['script-custom:dev']
       }
     }
   });
