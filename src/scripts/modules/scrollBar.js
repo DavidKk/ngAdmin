@@ -49,7 +49,7 @@ angular.module('ui.scrollBar', ['ui.helper'])
       restrict: 'EA',
       transclude: true,
       replace: true,
-      templateUrl: 'templates/scroll-bar/scroll-bar.html',
+      templateUrl: 'tpls/scrollBar/scrollBar.html',
       controller: 'ScrollBarController',
       scope: {
         wh: '=?',

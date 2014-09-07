@@ -1,6 +1,6 @@
 
 
-angular.module('ui.wrapper', [])
+angular.module('ui.warpperSlider', [])
 
 .directive('wrapperSlider', [
   '$transition',

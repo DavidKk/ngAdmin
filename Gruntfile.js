@@ -1,9 +1,14 @@
+/*!
+ * ngAdmin's Gruntfile
 
+ * Copyright
+ * Licensed
+ */
 
 module.exports = function(grunt) {'use strict';
 
   grunt.loadNpmTasks('grunt-contrib-imagemin');
-  grunt.loadNpmTasks('assemble-less');
+  grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-jade');
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -19,9 +24,10 @@ module.exports = function(grunt) {'use strict';
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    hashmapFile: '_build/hashmap.json',
-    filename: 'ngAdmin',
-    filenamecustom: '<%= filename %>-custom',
+    filename:         'ngAdmin',
+    filenamecustom:   '<%= filename %>-custom',
+    hashmapFile:      '_build/hashmap.json',
+    customStyleFile:  '_build/less/app.less',
 
     scripts: {
       modules: [],
@@ -30,8 +36,9 @@ module.exports = function(grunt) {'use strict';
     },
 
     styles: {
-      components: [],
-      srcComponents: []
+      modules: [],
+      imports: [],
+      files: []
     },
 
     meta: {
@@ -46,79 +53,70 @@ module.exports = function(grunt) {'use strict';
                ' */\n'].join('\n')
     },
 
-    // Clean temp files or documents.
     clean: {
       dist: ['./dist', './assets', './scripts', './views'],
       build: ['./_build']
     },
 
-    // Copy files to dist.
     copy: {
       docs: {
         files: [
-          { dest: 'assets/fonts/', cwd: 'src/fonts/', src: ['**'], expand: true },
-          { dest: 'assets/ico/', cwd: 'src/ico/', src: ['**'], expand: true },
-          { dest: 'assets/css/', cwd: 'src/css/', src: ['**'], expand: true },
-          { dest: 'scripts/', cwd: 'src/scripts/libs/', src: ['*.js'], expand: true }
+          { dest: 'assets/fonts/', cwd: 'docs/fonts/', src: ['**'], expand: true },
+          { dest: 'assets/css/', cwd: 'docs/css/', src: ['**'], expand: true },
+          { dest: 'assets/svg/', cwd: 'docs/svg/', src: ['**'], expand: true },
+          { dest: 'scripts/', cwd: 'docs/scripts/libs/', src: ['**'], expand: true }
         ]
       }
     },
 
-    // Compress images.
     imagemin: {
       docs: {
         options: { optimizationLevel: 3 },
         files: [
-          { dest: 'assets/ico/', cwd: 'src/ico/', src: ['*.{png,jpg,gif}'], expand: true },
-          { dest: 'assets/images/', cwd: 'src/images/', src: ['*.{png,jpg,gif}'], expand: true }
+          { dest: 'assets/ico/', cwd: 'docs/ico/', src: ['*.{png,jpg,gif}'], expand: true },
+          { dest: 'assets/images/', cwd: 'docs/images/', src: ['*.{png,jpg,gif}'], expand: true }
         ]
       }
     },
 
-    // Complie less files
     less: {
       options: {
-        paths: ['src/less/']
+        paths: ['src/less/'],
+        banner: '<%= meta.banner %>'
       },
       dist: {
-        options: {
-          banner: '<%= meta.banner %>',
-          imports: {
-            reference: [
-              'src/less/variables/bootstrap.less',
-              'src/less/variables/ngAdmin.less',
-              'src/less/mixins/bootstrap.less',
-              'src/less/mixins/lesshat.less',
-              'src/less/mixins/msic.less'
-            ]
-          }
-        },
         src: ['src/less/app.less'],
         dest: 'dist/<%= filename %>-<%= pkg.version %>.css'
       },
+      customizer: {
+        src: ['<%= customStyleFile %>'],
+        dest: 'dist/<%= filenamecustom %>-<%= pkg.version %>.css'
+      },
 
-      // Demo style
       docs: {
         options: {
           compress: true,
           yuicompress: true
         },
-        src: ['src/less/docs.less'],
-        dest: 'assets/css/<%= filename %>.css'
+        src: ['<%= customStyleFile %>'],
+        dest: 'assets/css/<%= filename %>-<%= pkg.version %>.min.css'
       }
     },
 
     cssmin: {
+      options: {
+        banner: '<%= meta.banner %>'
+      },
       dist: {
-        options: {
-          banner: '<%= meta.banner %>'
-        },
         dest: 'dist/<%= filename %>-<%= pkg.version %>.min.css',
         src: '<%= less.dist.dest %>',
+      },
+      customizer: {
+        dest: 'dist/<%= filenamecustom %>-<%= pkg.version %>.min.css',
+        src: '<%= less.customizer.dest %>',
       }
     },
 
-    // Template jade to js file
     html2js: {
       dist: {
         options: {
@@ -136,7 +134,68 @@ module.exports = function(grunt) {'use strict';
       }
     },
 
-    // Concat js files, 
+    hashmap: {
+      options: {
+        keep: false,
+        output: '<%= hashmapFile %>',
+        rename: '#{= dirname}/#{= basename}.#{= hash}#{= extname}'
+      },
+
+      // docs file hash
+      docs: {
+        dest: './',
+        cwd: './',
+        src: ['scripts/**', 'assets/css/**']
+      }
+    },
+
+    jade: {
+      dist: {
+        dest: 'dist/tpls/',
+        cwd: 'src/scripts/tpls/',
+        src: ['*/*.jade'],
+        ext: '.html',
+        expand: true
+      },
+
+      docs: {
+        options: {
+          data: function() {
+            var mapFilePath = grunt.config('hashmapFile'), map;
+            if (grunt.file.exists(mapFilePath)) map = grunt.file.readJSON(mapFilePath);
+            else map = {};
+
+            return {
+              pkg: grunt.config('pkg'),
+              makeVersion: function(file) {
+                var token, hash, reg, ext, dir, name, path;
+                for (token in map) {
+                  reg = new RegExp(token + '$');
+
+                  // 匹配文件名称，将 hash 值作为版本号添加入路径中
+                  if (reg.test(file)) {
+                    dir = file.replace(reg, '');
+                    ext = /[.]/.exec(file) ? /[^.]+$/.exec(file) : undefined;
+                    name = token.replace(new RegExp('.' + ext + '$'), '');
+                    hash = map[token];                  
+                    path = dir + name + '.' + hash + '.' + ext;
+                    break;
+                  }
+                }
+
+                return path || file;
+              }
+            };
+          }
+        },
+        dest: 'views/',
+        cwd: 'docs/jade/pages/',
+        src: ['*/*.jade'],
+        ext: '.html',
+        expand: true
+      }
+    },
+
     concat: {
       options: {
         separator: ';'
@@ -156,14 +215,13 @@ module.exports = function(grunt) {'use strict';
         dest: 'dist/<%= filename %>-<%= pkg.version %>.tpls.js'
       },
 
-      // Demo
+      // docs compile
       docs: {
         src: [],
-        dest: 'scripts/<%= filename %>.js'
+        dest: 'scripts/<%= filename %>-<%= pkg.version %>.tpls.docs.js'
       }
     },
 
-    // Minfily js files.
     uglify: {
       dist: {
         options: {
@@ -180,69 +238,14 @@ module.exports = function(grunt) {'use strict';
         dest: 'dist/<%= filename %>-<%= pkg.version %>.tpls.min.js'
       },
 
-      // Demo
+      // docs compression
       docs: {
         src: ['<%= concat.docs.dest %>'],
-        dest: 'scripts/<%= filename %>.min.js'
-      }
-    },
-
-    // Get files hash code.
-    hashmap: {
-      options: {
-        keep: false,
-        output: '<%= hashmapFile %>',
-        rename: '#{= dirname}/#{= basename}.#{= hash}#{= extname}'
-      },
-      version: {
-        files: [
-          { dest: './', cwd: './', src: ['scripts/**', 'assets/css/**'] }
-        ]
-      }
-    },
-
-    // Complie jade file to html.
-    jade: {
-      options: {
-        data: function() {
-          var mapFilePath = grunt.config('hashmapFile'), map;
-          if (grunt.file.exists(mapFilePath)) map = grunt.file.readJSON(mapFilePath);
-          else map = {};
-
-          return {
-            pkg: grunt.config('pkg'),
-            makeVersion: function(file) {
-              var token, hash, reg, ext, dir, name, path;
-              for (token in map) {
-                reg = new RegExp(token + '$');
-
-                // 匹配文件名称，将 hash 值作为版本号添加入路径中
-                if (reg.test(file)) {
-                  dir = file.replace(reg, '');
-                  ext = /[.]/.exec(file) ? /[^.]+$/.exec(file) : undefined;
-                  name = token.replace(new RegExp('.' + ext + '$'), '');
-                  hash = map[token];                  
-                  path = dir + name + '.' + hash + '.' + ext;
-                  break;
-                }
-              }
-
-              return path || file;
-            }
-          };
-        }
-      },
-
-      docs: {
-        files: [
-          { dest: 'views/', cwd: 'src/jade/pages/', src: ['*'], ext: '.html', expand: true }
-        ]
+        dest: 'scripts/<%= filename %>.docs.min.js'
       }
     },
 
     // TODO: unit test.
-
-    // Watch files changed and auto run tasks.
     watch: {
       public: {
         files: ['src/ico/**', 'src/images/**', 'src/fonts/**', 'src/scripts/libs/**'],
@@ -313,18 +316,17 @@ module.exports = function(grunt) {'use strict';
   }
 
   var foundStyleComponents = {};
-  function findStyleComponents(name) {
-    if (foundStyleComponents[name]) return;
-    foundStyleComponents[name] = true;
+  function findStyle(file) {
+    if (foundStyleComponents[file]) return;
+    foundStyleComponents[file] = true;
 
     var module = {
-      name:           name,
-      componentsName: enquote(name),
-      displayName:    ucwords(breakup(name, ' ')),
-      srcFiles:       'src/less/components/' + name + '.less'
+      name:     path.basename(file),
+      import:   '@import ' + enquote(file.replace(grunt.config('less.options.paths')[0], '')) + ';',
+      file:     file + '.less'
     };
 
-    grunt.file.exists(module.srcFiles) && grunt.config('styles.components', grunt.config('styles.components').concat(module));
+    grunt.file.exists(module.file) && grunt.config('styles.modules', grunt.config('styles.modules').concat(module));
   }
 
   function breakup(text, separator) {
@@ -343,33 +345,42 @@ module.exports = function(grunt) {'use strict';
     return '"' + str + '"';
   }
 
-  grunt.registerTask('style-custom', 'Create custom css components files.', function(a) {
+  // task for building customizer
+  grunt.registerTask('build-style-customizer', 'Add style files to customizer.', function() {
     var _ = grunt.util._;
+    grunt.file.expand(['src/less/components/*.less'])
+    .forEach(function(file) {
+      findStyle(file.replace(path.extname(file), ''));
+    });
 
-    //If arguments define what modules to build, build those. Else, everything
-    if (this.args.length && a !== 'dev') {
-      this.args.forEach(findStyleComponents);
-      grunt.config('filename', grunt.config('filenamecustom'));
-    }
-    else {
-      grunt.file.expand('src/less/components/*.less').forEach(function(file) {
-        findStyleComponents(path.basename(file).replace(path.extname(file), ''));
+    var modules = grunt.config('styles.modules'),
+    imports = _.pluck(modules, 'import'),
+    moduleName = _.pluck(modules, 'name'),
+    index = 0;
+
+    var args = this.args;
+    if (args.length) {
+      var source = grunt.file.read('src/less/app.less'),
+      index;
+
+      args.forEach(function(module) {
+        index = moduleName.indexOf(module);
+        -1 !== index && imports.splice(index, 1);
       });
+
+      imports.forEach(function(filter) {
+        source = source.replace(filter, '');
+      });
+
+      grunt.file.write(grunt.config('customStyleFile'), source);
+      grunt.task.run(['less:customizer', 'cssmin:customizer', 'clean:build']);
     }
-
-    var components = grunt.config('styles.components');
-    var srcFiles = _.pluck(components, 'srcFiles');
-    grunt.config('less.dist.src', grunt.config('less.dist.src').concat(srcFiles));
-
-    grunt.task.run(['less:dist', 'cssmin:dist']);
+    else grunt.task.run(['less:dist', 'cssmin:dist', 'clean:build']);
   });
 
-  grunt.registerTask('script-custom', 'Create custom scripts files.', function(a) {
+  grunt.registerTask('_build-script-customizer', 'Add scripts files to customizer.', function() {
     var _ = grunt.util._;
-    var type;
-
-    //If arguments define what modules to build, build those. Else, everything
-    if (this.args.length && a !== 'dev') {
+    if (this.args.length) {
       this.args.forEach(findScriptModules);
       grunt.config('filename', grunt.config('filenamecustom'));
     }
@@ -385,27 +396,56 @@ module.exports = function(grunt) {'use strict';
     
     var srcFiles = _.pluck(modules, 'srcFiles');
     var tpljsFiles = _.pluck(modules, 'tpljsFiles');
-
-    // Develop mode
-    if (a === 'dev') {
-      grunt.config('concat.docs.src', grunt.config('concat.docs.src').concat(srcFiles));
-      grunt.task.run(['html2js', 'concat:docs']);
-    }
-    // Custom modules
-    else {
-      grunt.config('concat.dist.src', grunt.config('concat.dist.src').concat(srcFiles));
-      grunt.config('concat.distTpls.src', grunt.config('concat.distTpls.src').concat(srcFiles).concat(tpljsFiles));
-      grunt.task.run(['html2js', 'concat:dist', 'concat:distTpls', 'uglify:dist', 'uglify:distTpls']);
-    }
+    grunt.config('concat.dist.src', grunt.config('concat.dist.src').concat(srcFiles));
+    grunt.config('concat.distTpls.src', grunt.config('concat.distTpls.src').concat(srcFiles).concat(tpljsFiles));
+    grunt.task.run(['concat:dist', 'concat:distTpls', 'uglify:dist', 'uglify:distTpls', 'clean:build']);
   });
 
-  grunt.registerTask('test',      []);
-  grunt.registerTask('dev',       ['clean', 'copy:docs', 'less:docs', 'script-custom:dev', 'jade', 'watch']);
-  grunt.registerTask('release',   ['clean', 'copy:docs', 'less:docs', 'script-custom:dev', 'uglify:docs', 'hashmap', 'jade']);
-  grunt.registerTask('build', 'Create custom files.', function() {
+  grunt.registerTask('build-script-customizer', 'Add scripts files to customizer.', function() {
     var args = this.args.length ? ':' + this.args.join(':') : '';
-    grunt.task.run(['clean', 'style-custom' + args, 'script-custom' + args, 'clean:build']);
+    grunt.task.run(['jade:dist', 'html2js:dist', '_build-script-customizer' + args, 'clean:build']);
   });
 
-  grunt.registerTask('default',   ['dev']);
+  // task for building docs
+  grunt.registerTask('build-style-docs', 'Add style files to docs.', function() {
+    var _ = grunt.util._;
+    grunt.file.expand(['docs/less/pages/*/*.less', 'docs/less/pages/*/*/*.less'])
+    .forEach(function(file) {
+      findStyle(file.replace(path.extname(file), ''));
+    });
+
+    var modules = grunt.config('styles.modules'),
+    imports = _.pluck(modules, 'import'),
+    moduleName = _.pluck(modules, 'name'),
+    index = 0;
+
+    var source = grunt.file.read('docs/less/app.less');
+    source += ('\n\n\/\/ Pages\n' + imports.join('\n'));
+
+    grunt.file.write(grunt.config('customStyleFile'), source);
+    grunt.task.run(['less:docs', 'clean:build']);
+  });
+
+  grunt.registerTask('build-script-docs', 'Add scripts files to docs.', function() {
+    var _ = grunt.util._;
+    grunt.file.expand(['src/docs/scripts/*/*.js', 'src/docs/scripts/*/*/*.js'])
+    .forEach(function(file) {
+      findScriptModules(path.basename(file).replace(path.extname(file), ''));
+    });
+
+    var modules = grunt.config('scripts.modules');
+    grunt.config('scripts.srcModules', _.pluck(modules, 'moduleName'));
+    grunt.config('scripts.tplModules', _.pluck(modules, 'tplModules').filter(function(tpls) { return tpls.length > 0; }));
+    
+    var srcFiles = _.pluck(modules, 'srcFiles');
+    var tpljsFiles = _.pluck(modules, 'tpljsFiles');
+    grunt.config('concat.docs.src', grunt.config('concat.docs.src').concat(srcFiles));
+    grunt.task.run(['concat:docs', 'uglify:docs', 'clean:build']);
+  });
+
+  var buildDocs = ['copy:docs', 'imagemin:docs', 'build-style-docs', 'html2js:dist', 'build-script-docs'];
+  grunt.registerTask('build', ['build-style-customizer', 'build-script-customizer']);
+  grunt.registerTask('build-dev', buildDocs.concat(['jade:docs', 'clean:build']));
+  grunt.registerTask('build-docs', buildDocs.concat(['hashmap:docs', 'jade:docs', 'clean:build']));
+  grunt.registerTask('default', ['clean', 'build', 'build-docs']);
 };
