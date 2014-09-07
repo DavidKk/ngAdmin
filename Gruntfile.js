@@ -62,11 +62,11 @@ module.exports = function(grunt) {'use strict';
       docs: {
         files: [
           { dest: 'assets/fonts/', cwd: 'docs/fonts/', src: ['**'], expand: true },
-          { dest: 'assets/css/', cwd: 'docs/css/', src: ['**'], expand: true },
-          { dest: 'assets/svg/', cwd: 'docs/svg/', src: ['**'], expand: true },
+          { dest: 'assets/css/', cwd: 'docs/css/', src: ['*.css'], expand: true },
+          { dest: 'assets/svg/', cwd: 'docs/svg/', src: ['*.svg'], expand: true },
           { dest: 'scripts/', cwd: 'docs/scripts/libs/', src: ['**'], expgand: true },
           { dest: 'assets/css/', cwd: 'dist/', src: ['*.css'], expand: true },
-          { dest: 'scripts/', cwd: 'dist/', src: ['*.js'], expand: true }
+          // { dest: 'scripts/', cwd: 'dist/', src: ['*.js'], expand: true }
         ]
       }
     },
@@ -453,9 +453,9 @@ module.exports = function(grunt) {'use strict';
     grunt.task.run(['concat:docs', 'uglify:docs', 'clean:build']);
   });
 
-  var buildDocs = ['copy:docs', 'imagemin:docs', 'build-style-docs', 'html2js:dist', 'build-script-docs'];
+  var buildDocs = ['imagemin:docs', 'build-style-docs', 'html2js:dist', 'build-script-docs'];
   grunt.registerTask('build-full', ['build-style-customizer', 'build-script-customizer']);
   grunt.registerTask('build-dev', buildDocs.concat(['jade:docs', 'jade:docs-template', 'clean:build']));
   grunt.registerTask('build-docs', buildDocs.concat(['hashmap:docs', 'jade:docs', 'jade:docs-template', 'clean:build']));
-  grunt.registerTask('default', ['clean', 'build-full', 'build-docs']);
+  grunt.registerTask('default', ['clean', 'copy:docs', 'build-full', 'build-docs']);
 };
