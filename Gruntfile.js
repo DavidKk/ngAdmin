@@ -68,7 +68,9 @@ module.exports = function(grunt) {'use strict';
           { dest: 'assets/css/', cwd: 'dist/', src: ['*.css'], expand: true },
           { dest: 'scripts/', cwd: 'dist/', src: ['*.js'], expand: true }
         ]
-      }
+      },
+      'docs-style': { dest: 'assets/css/', cwd: 'dist/', src: ['*.css'], expand: true },
+      'docs-scripts': { dest: 'scripts/', cwd: 'dist/', src: ['*.js'], expand: true }
     },
 
     imagemin: {
@@ -97,6 +99,7 @@ module.exports = function(grunt) {'use strict';
 
       docs: {
         options: {
+          paths: ['docs/less/'],
           compress: true,
           yuicompress: true
         },
@@ -256,21 +259,13 @@ module.exports = function(grunt) {'use strict';
 
     // TODO: unit test.
     watch: {
-      public: {
-        files: ['src/ico/**', 'src/images/**', 'src/fonts/**', 'src/scripts/libs/**'],
-        tasks: ['imagemin:docs', 'copy:docs']
-      },
       less: {
         files: ['src/less/**'],
-        tasks: ['less:docs']
+        tasks: ['build-style-customizer', 'copy:docs-style']
       },
-      jade: {
-        files: ['src/jade/**'],
-        tasks: ['jade:docs']
-      },
-      script: {
+      scripts: {
         files: ['src/scripts/**'],
-        tasks: ['script-custom:dev']
+        tasks: ['build-script-customizer', 'copy:docs-scripts']
       }
     }
   });
@@ -418,6 +413,7 @@ module.exports = function(grunt) {'use strict';
   // task for building docs
   grunt.registerTask('build-style-docs', 'Add style files to docs.', function() {
     var _ = grunt.util._;
+    grunt.config('styles.modules', []);
     grunt.file.expand(['docs/less/pages/*/*.less', 'docs/less/pages/*/*/*.less'])
     .forEach(function(file) {
       findStyle(file.replace(path.extname(file), ''));
@@ -437,9 +433,10 @@ module.exports = function(grunt) {'use strict';
 
   grunt.registerTask('build-script-docs', ['concat:docs', 'uglify:docs', 'clean:build']);
 
-  var buildDocs = ['imagemin:docs', 'build-style-docs', 'html2js:dist', 'build-script-docs'];
+  // task's groups
+  var buildTasks = ['clean', 'build-full', 'copy:docs', 'imagemin:docs', 'build-style-docs', 'html2js:dist', 'build-script-docs'];
   grunt.registerTask('build-full', ['build-style-customizer', 'build-script-customizer']);
-  grunt.registerTask('build-dev', buildDocs.concat(['jade:docs', 'jade:docs-template', 'clean:build']));
-  grunt.registerTask('build-docs', buildDocs.concat(['hashmap:docs', 'jade:docs', 'jade:docs-template', 'clean:build']));
-  grunt.registerTask('default', ['clean', 'build-full', 'copy:docs', 'build-dev']);
+  grunt.registerTask('build-dev', buildTasks.concat(['jade:docs', 'jade:docs-template', 'clean:build', 'watch']));
+  grunt.registerTask('build-release', buildTasks.concat(['hashmap:docs', 'jade:docs', 'jade:docs-template', 'clean:build']));
+  grunt.registerTask('default', ['build-dev']);
 };
