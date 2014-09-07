@@ -1,32 +1,41 @@
 {
-	"name": "ngAdmin",
-	"version": "0.0.1",
-	"description": "A set boostrap admin ui with angular.",
-	"keywords": "angular,admin,ui,customer,boostrap",
-	"homepage": "https://github.com/DavidKk/ngAdmin",
-	"author": {
-		"name": "David Jonse",
-		"profile": "http://www.davidkk.com",
-		"blog": "http://blog.davidkk.com"
-	},
-	"devDependencies": {
-		"grunt": "0.4.1",
-		"grunt-contrib-clean": "0.4.0",
-		"grunt-contrib-less": "0.8.1",
-		"grunt-contrib-concat": "0.3.0",
-		"grunt-contrib-copy": "0.4.1",
-		"grunt-contrib-imagemin": "0.3.0",
-		"grunt-contrib-jade": "0.8.0",
-		"grunt-contrib-uglify": "0.2.5",
-		"grunt-contrib-watch": "*",
+  "name": "ngAdmin",
+  "version": "0.0.1",
+  "description": "A set boostrap admin ui with angular.",
+  "keywords": "angular,admin,ui,customer,boostrap",
+  "homepage": "http://a.davidkk.com",
+  "author": {
+    "name": "David Jonse",
+    "profile": "http://www.davidkk.com",
+    "blog": "http://blog.davidkk.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DavidKk/ngAdmin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DavidKk/ngAdmin/issues"
+  },
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "devDependencies": {
+    "grunt": "0.4.1",
+    "grunt-contrib-clean": "0.4.0",
+    "grunt-contrib-less": "0.8.1",
+    "grunt-contrib-cssmin": "0.10.0",
+    "grunt-contrib-concat": "0.3.0",
+    "grunt-contrib-copy": "0.4.1",
+    "grunt-contrib-imagemin": "0.3.0",
+    "grunt-contrib-jade": "0.8.0",
+    "grunt-contrib-uglify": "0.2.5",
+    "grunt-contrib-watch": "*",
 
-		"grunt-ngmin": "0.0.3",
-		"grunt-hashmap": "0.1.5",
-		"grunt-html2js": "~0.2.0",
-
-		"grunt-karma": "0.8.0",
-		"karma-chrome-launcher": "~0.1",
-		"karma-firefox-launcher": "~0.1",
-		"karma-jasmine": "~0.1"
-	}
+    "grunt-hashmap": "0.1.5",
+    "grunt-html2js": "~0.2.0",
+    "grunt-karma": "0.8.0",
+    "karma-chrome-launcher": "~0.1",
+    "karma-firefox-launcher": "~0.1",
+    "karma-jasmine": "~0.1"
+  }
 }
