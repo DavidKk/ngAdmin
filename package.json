@@ -6,8 +6,8 @@
 	"homepage": "https://github.com/DavidKk/ngAdmin",
 	"author": {
 		"name": "David Jonse",
-		"profile": "",
-		"blog": ""
+		"profile": "http://www.davidkk.com",
+		"blog": "http://blog.davidkk.com"
 	},
 	"devDependencies": {
 		"grunt": "0.4.1",
