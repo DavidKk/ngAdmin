@@ -64,9 +64,9 @@ module.exports = function(grunt) {'use strict';
           { dest: 'assets/fonts/', cwd: 'docs/fonts/', src: ['**'], expand: true },
           { dest: 'assets/css/', cwd: 'docs/css/', src: ['*.css'], expand: true },
           { dest: 'assets/svg/', cwd: 'docs/svg/', src: ['*.svg'], expand: true },
-          { dest: 'scripts/', cwd: 'docs/scripts/libs/', src: ['**'], expgand: true },
+          { dest: 'scripts/', cwd: 'docs/scripts/libs/', src: ['**'], expand: true },
           { dest: 'assets/css/', cwd: 'dist/', src: ['*.css'], expand: true },
-          // { dest: 'scripts/', cwd: 'dist/', src: ['*.js'], expand: true }
+          { dest: 'scripts/', cwd: 'dist/', src: ['*.js'], expand: true }
         ]
       }
     },
@@ -143,7 +143,6 @@ module.exports = function(grunt) {'use strict';
         rename: '#{= dirname}/#{= basename}.#{= hash}#{= extname}'
       },
 
-      // docs file hash
       docs: {
         dest: './',
         cwd: './',
@@ -228,7 +227,7 @@ module.exports = function(grunt) {'use strict';
       // docs compile
       docs: {
         src: [],
-        dest: 'scripts/<%= filename %>-<%= pkg.version %>.tpls.docs.js'
+        dest: 'scripts/<%= filename %>-<%= pkg.version %>.docs.js'
       }
     },
 
@@ -251,7 +250,7 @@ module.exports = function(grunt) {'use strict';
       // docs compression
       docs: {
         src: ['<%= concat.docs.dest %>'],
-        dest: 'scripts/<%= filename %>-<%= pkg.version %>.tpls.docs.min.js'
+        dest: 'scripts/<%= filename %>-<%= pkg.version %>.docs.min.js'
       }
     },
 
@@ -457,5 +456,5 @@ module.exports = function(grunt) {'use strict';
   grunt.registerTask('build-full', ['build-style-customizer', 'build-script-customizer']);
   grunt.registerTask('build-dev', buildDocs.concat(['jade:docs', 'jade:docs-template', 'clean:build']));
   grunt.registerTask('build-docs', buildDocs.concat(['hashmap:docs', 'jade:docs', 'jade:docs-template', 'clean:build']));
-  grunt.registerTask('default', ['clean', 'copy:docs', 'build-full', 'build-docs']);
+  grunt.registerTask('default', ['clean', 'build-full', 'copy:docs', 'build-docs']);
 };
