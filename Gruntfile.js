@@ -197,7 +197,7 @@ module.exports = function(grunt) {'use strict';
       },
       'docs-template': {
         options: '<%= jade.docs.options %>',
-        dest: 'views/',
+        dest: 'assets/templates/',
         cwd: 'docs/jade/templates/',
         src: ['*/*.jade'],
         ext: '.html',
@@ -226,7 +226,7 @@ module.exports = function(grunt) {'use strict';
 
       // docs compile
       docs: {
-        src: [],
+        src: ['docs/scripts/app/partials/*.js', 'docs/scripts/app/pages/*.js'],
         dest: 'scripts/<%= filename %>-<%= pkg.version %>.docs.js'
       }
     },
@@ -435,26 +435,11 @@ module.exports = function(grunt) {'use strict';
     grunt.task.run(['less:docs', 'clean:build']);
   });
 
-  grunt.registerTask('build-script-docs', 'Add scripts files to docs.', function() {
-    var _ = grunt.util._;
-    grunt.file.expand(['src/docs/scripts/*/*.js', 'src/docs/scripts/*/*/*.js'])
-    .forEach(function(file) {
-      findScriptModules(path.basename(file).replace(path.extname(file), ''));
-    });
-
-    var modules = grunt.config('scripts.modules');
-    grunt.config('scripts.srcModules', _.pluck(modules, 'moduleName'));
-    grunt.config('scripts.tplModules', _.pluck(modules, 'tplModules').filter(function(tpls) { return tpls.length > 0; }));
-    
-    var srcFiles = _.pluck(modules, 'srcFiles');
-    var tpljsFiles = _.pluck(modules, 'tpljsFiles');
-    grunt.config('concat.docs.src', grunt.config('concat.docs.src').concat(srcFiles));
-    grunt.task.run(['concat:docs', 'uglify:docs', 'clean:build']);
-  });
+  grunt.registerTask('build-script-docs', ['concat:docs', 'uglify:docs', 'clean:build']);
 
   var buildDocs = ['imagemin:docs', 'build-style-docs', 'html2js:dist', 'build-script-docs'];
   grunt.registerTask('build-full', ['build-style-customizer', 'build-script-customizer']);
   grunt.registerTask('build-dev', buildDocs.concat(['jade:docs', 'jade:docs-template', 'clean:build']));
   grunt.registerTask('build-docs', buildDocs.concat(['hashmap:docs', 'jade:docs', 'jade:docs-template', 'clean:build']));
-  grunt.registerTask('default', ['clean', 'build-full', 'copy:docs', 'build-docs']);
+  grunt.registerTask('default', ['clean', 'build-full', 'copy:docs', 'build-dev']);
 };
