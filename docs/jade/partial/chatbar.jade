@@ -1,0 +1,106 @@
+
+
+aside#chatbar-container(ng-controller="Chat")
+  ul.nav.nav-tabs.nav-justified
+    li.active
+      a(title="Contact")
+        i.fa.fa-users
+    li
+      a(title="Recent")
+        i.fa.fa-clock-o
+    li
+      a(title="Setting")
+        i.fa.fa-gear
+
+  .tab-content
+    .tab-pane.active
+      .chat-search
+        input(type="search", placeholder="Search Users...")
+        i.fa.fa-search
+
+      .chat-inner
+        scroll-bar.chat-wrapper
+          .chat-group
+            h6.chat-caption FAVORITES
+            a.user.online(title="Rodrigo E. Lozano")
+              span.status
+              | Rodrigo E. Lozano
+              span.badge.badge-info
+            a.user.online(title="Robert J. Garcia")
+              span.status
+              | Robert J. Garcia
+              span.badge.badge-info
+            a.user.busy(title="Daniel A. Pena")
+              span.status
+              | Daniel A. Pena
+              span.badge.badge-info
+            a.user.idle(title="Abigail")
+              span.status
+              | Abigail
+              span.badge.badge-info
+             a.user(title="Tracy J. Rodriguez")
+              span.status
+              | Tracy J. Rodriguez
+              span.badge.badge-info
+
+          .chat-group
+            h6.chat-caption WORK
+            a.user.busy(title="Eileen Sideways")
+              span.status
+              | Eileen Sideways
+            a.user.busy(title="Rodrigo E. Lozano")
+              span.status
+              | Rodrigo E. Lozano
+              span.badge.badge-info
+            a.user(title="Robert J. Garcia")
+              span.status
+              | Robert J. Garcia
+              span.badge.badge-info
+
+          .chat-group
+            h6.chat-caption SOCIAL
+            a.user.idle(title="Eileen Sideways")
+              span.status
+              | Eileen Sideways
+            a.user.idle(title="Rodrigo E. Lozano")
+              span.status
+              | Rodrigo E. Lozano
+              span.badge.badge-info
+            a.user(title="Robert J. Garcia")
+              span.status
+              | Robert J. Garcia
+              span.badge.badge-info
+
+  .chat-conversation
+    .conversation-header
+      a.conversation-close
+        i.fa.fa-times
+      span.user-status.online
+      span.user-name Catherine J. Watkins
+      small Online
+
+    .conversation-body
+      ul.conversation-messages
+        li
+          .user Art Ramadani
+          p Are you here?
+          span.time 09:00
+        li
+          .user Catherine J. Watkins
+          p This message is pre-queued.
+          span.time 09:00
+        li
+          .user Catherine J. Watkins
+          p Whohoo!
+          span.time 09:00
+        li
+          .user Catherine J. Watkins
+          p Do you like it?
+          span.time 09:00
+        li
+          .user Art Ramadani
+          p Do you like it?
+          span.time 09:00
+
+    .conversation-input
+      textarea.form-control(placeholder="Type your message")

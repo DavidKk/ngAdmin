@@ -1,0 +1,101 @@
+
+
+main#demo-role-container.content-layout
+  .widgets-bar.clearfix
+    button.btn.btn-info(type="button", role="button", title="Crate new role")
+      i.fa.fa-plus
+      | &nbsp;New
+
+    form.search-form.pull-right(role="form")
+      label
+        input(type="search", placeholder="Search...")
+        i.fa.fa-search
+
+  .row
+    .col-md-5
+      table.role-list.table
+        thead
+          tr
+            th Role Name
+            th Status
+            th Operation
+        tbody
+          tr
+            td
+              a(href, title="Administrator") Administrator
+            td Normal
+            td
+              a(title="edit") Edit
+              | |
+              a(title="delete") Delete
+          tr
+            td
+              a(href, title="Guest") Guest
+            td Normal
+            td
+              a(title="edit") Edit
+              | |
+              a(title="delete") Delete
+
+    .col-md-7
+      ul.permissions-list
+        li.name
+          span.p Permissions
+          input(type="checkbox")
+
+        li
+          a.collapse(title="Expand")
+            i.fa.fa-folder-o
+
+          label Administrator
+            input(type="checkbox")
+          
+          ul.sub-permissions-list
+            li
+              span.collapse
+                i.fa.fa-gavel
+              label View User
+                input(type="checkbox")
+            li
+              span.collapse
+                i.fa.fa-gavel
+              label Add User
+                input(type="checkbox")
+            li
+              span.collapse
+                i.fa.fa-gavel
+              label Edit User
+                input(type="checkbox")
+            li
+              span.collapse
+                i.fa.fa-gavel
+              label Delete User
+                input(type="checkbox")
+
+        li.permissions-list
+          a.collapse(title="Expand")
+            i.fa.fa-folder-o
+          label Stock
+            input(type="checkbox")
+
+          ul.sub-permissions-list
+            li
+              span.collapse
+                i.fa.fa-gavel
+              label View Stock
+                input(type="checkbox")
+            li
+              span.collapse
+                i.fa.fa-gavel
+              label Add Stock
+                input(type="checkbox")
+            li
+              span.collapse
+                i.fa.fa-gavel
+              label Edit Stock
+                input(type="checkbox")
+            li
+              span.collapse
+                i.fa.fa-gavel
+              label Delete Stock
+                input(type="checkbox")

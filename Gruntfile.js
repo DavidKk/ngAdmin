@@ -64,7 +64,9 @@ module.exports = function(grunt) {'use strict';
           { dest: 'assets/fonts/', cwd: 'docs/fonts/', src: ['**'], expand: true },
           { dest: 'assets/css/', cwd: 'docs/css/', src: ['**'], expand: true },
           { dest: 'assets/svg/', cwd: 'docs/svg/', src: ['**'], expand: true },
-          { dest: 'scripts/', cwd: 'docs/scripts/libs/', src: ['**'], expand: true }
+          { dest: 'scripts/', cwd: 'docs/scripts/libs/', src: ['**'], expgand: true },
+          { dest: 'assets/css/', cwd: 'dist/', src: ['*.css'], expand: true },
+          { dest: 'scripts/', cwd: 'dist/', src: ['*.js'], expand: true }
         ]
       }
     },
@@ -99,7 +101,7 @@ module.exports = function(grunt) {'use strict';
           yuicompress: true
         },
         src: ['<%= customStyleFile %>'],
-        dest: 'assets/css/<%= filename %>-<%= pkg.version %>.min.css'
+        dest: 'assets/css/<%= filename %>-<%= pkg.version %>.docs.min.css'
       }
     },
 
@@ -190,6 +192,14 @@ module.exports = function(grunt) {'use strict';
         },
         dest: 'views/',
         cwd: 'docs/jade/pages/',
+        src: ['*.jade'],
+        ext: '.html',
+        expand: true
+      },
+      'docs-template': {
+        options: '<%= jade.docs.options %>',
+        dest: 'views/',
+        cwd: 'docs/jade/templates/',
         src: ['*/*.jade'],
         ext: '.html',
         expand: true
@@ -241,7 +251,7 @@ module.exports = function(grunt) {'use strict';
       // docs compression
       docs: {
         src: ['<%= concat.docs.dest %>'],
-        dest: 'scripts/<%= filename %>.docs.min.js'
+        dest: 'scripts/<%= filename %>-<%= pkg.version %>.tpls.docs.min.js'
       }
     },
 
@@ -444,8 +454,8 @@ module.exports = function(grunt) {'use strict';
   });
 
   var buildDocs = ['copy:docs', 'imagemin:docs', 'build-style-docs', 'html2js:dist', 'build-script-docs'];
-  grunt.registerTask('build', ['build-style-customizer', 'build-script-customizer']);
-  grunt.registerTask('build-dev', buildDocs.concat(['jade:docs', 'clean:build']));
-  grunt.registerTask('build-docs', buildDocs.concat(['hashmap:docs', 'jade:docs', 'clean:build']));
-  grunt.registerTask('default', ['clean', 'build', 'build-docs']);
+  grunt.registerTask('build-full', ['build-style-customizer', 'build-script-customizer']);
+  grunt.registerTask('build-dev', buildDocs.concat(['jade:docs', 'jade:docs-template', 'clean:build']));
+  grunt.registerTask('build-docs', buildDocs.concat(['hashmap:docs', 'jade:docs', 'jade:docs-template', 'clean:build']));
+  grunt.registerTask('default', ['clean', 'build-full', 'build-docs']);
 };
