@@ -259,13 +259,26 @@ module.exports = function(grunt) {'use strict';
 
     // TODO: unit test.
     watch: {
-      less: {
+      'dist-less': {
         files: ['src/less/**'],
         tasks: ['build-style-customizer', 'copy:docs-style']
       },
-      scripts: {
+      'dist-scripts': {
         files: ['src/scripts/**'],
         tasks: ['build-script-customizer', 'copy:docs-scripts']
+      },
+
+      'docs-jade': {
+        files: ['docs/jade/**'],
+        tasks: ['jade:docs', 'jade:docs-template']
+      },
+      'docs-less': {
+        files: ['docs/less/**'],
+        tasks: ['build-style-docs']
+      },
+      'docs-scripts': {
+        files: ['docs/scripts/**'],
+        tasks: ['build-script-docs']
       }
     }
   });

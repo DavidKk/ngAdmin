@@ -3,7 +3,8 @@
 angular.module('index', [
   'ngRoute',
   'ui.bootstrap', 'ui.ngAdmin',
-  'chat', 'header', 'navigation'
+  'chat', 'header', 'navigation',
+  'charts'
 ])
 
 .constant('TEMPLATE_PATH', '//' + window.location.host + '/assets/templates/')

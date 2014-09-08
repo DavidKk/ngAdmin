@@ -1,6 +1,7 @@
 
 
 angular.module('ui.layout', [])
+
 .controller('Layout.LeftSidebar', [
   '$rootScope', '$scope',
   function($rootScope, $scope) {

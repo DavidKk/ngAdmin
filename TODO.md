@@ -6,3 +6,4 @@ TODO
 - add jshint
 - add test
 - review exists ui modules
+- add requirejs to docs
