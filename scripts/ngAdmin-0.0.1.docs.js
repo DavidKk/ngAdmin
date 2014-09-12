@@ -198,54 +198,54 @@ angular.module('index', [
     };
 
     $routeProvider.
-    when('ngAdmin/',                             { templateUrl: TEMPLATE_PATH + 'index/dashboard.html', resolve: resolve }).
-    when('ngAdmin/index/',                       { templateUrl: TEMPLATE_PATH + 'index/dashboard.html', resolve: resolve }).
-    when('ngAdmin/index/dashboard/',             { templateUrl: TEMPLATE_PATH + 'index/dashboard.html', resolve: resolve }).
+    when('/ngAdmin/',                             { templateUrl: TEMPLATE_PATH + 'index/dashboard.html', resolve: resolve }).
+    when('/ngAdmin/index/',                       { templateUrl: TEMPLATE_PATH + 'index/dashboard.html', resolve: resolve }).
+    when('/ngAdmin/index/dashboard/',             { templateUrl: TEMPLATE_PATH + 'index/dashboard.html', resolve: resolve }).
 
-    when('ngAdmin/index/colors/',                { templateUrl: TEMPLATE_PATH + 'index/colors.html', resolve: resolve }).
-    when('ngAdmin/index/buttons/',               { templateUrl: TEMPLATE_PATH + 'index/buttons.html', resolve: resolve }).
-    when('ngAdmin/index/typography/',            { templateUrl: TEMPLATE_PATH + 'index/typography.html', resolve: resolve }).
-    when('ngAdmin/index/badges-label/',          { templateUrl: TEMPLATE_PATH + 'index/badges-label.html', resolve: resolve }).
-    when('ngAdmin/index/blockquotes/',           { templateUrl: TEMPLATE_PATH + 'index/blockquotes.html', resolve: resolve }).
-    when('ngAdmin/index/alert/',                 { templateUrl: TEMPLATE_PATH + 'index/alert.html', resolve: resolve }).
-    when('ngAdmin/index/navbars/',               { templateUrl: TEMPLATE_PATH + 'index/navbars.html', resolve: resolve }).
-    when('ngAdmin/index/pagination/',            { templateUrl: TEMPLATE_PATH + 'index/pagination.html', resolve: resolve }).
-    when('ngAdmin/index/breadcrumbs/',           { templateUrl: TEMPLATE_PATH + 'index/breadcrumbs.html', resolve: resolve }).
+    when('/ngAdmin/index/colors/',                { templateUrl: TEMPLATE_PATH + 'index/colors.html', resolve: resolve }).
+    when('/ngAdmin/index/buttons/',               { templateUrl: TEMPLATE_PATH + 'index/buttons.html', resolve: resolve }).
+    when('/ngAdmin/index/typography/',            { templateUrl: TEMPLATE_PATH + 'index/typography.html', resolve: resolve }).
+    when('/ngAdmin/index/badges-label/',          { templateUrl: TEMPLATE_PATH + 'index/badges-label.html', resolve: resolve }).
+    when('/ngAdmin/index/blockquotes/',           { templateUrl: TEMPLATE_PATH + 'index/blockquotes.html', resolve: resolve }).
+    when('/ngAdmin/index/alert/',                 { templateUrl: TEMPLATE_PATH + 'index/alert.html', resolve: resolve }).
+    when('/ngAdmin/index/navbars/',               { templateUrl: TEMPLATE_PATH + 'index/navbars.html', resolve: resolve }).
+    when('/ngAdmin/index/pagination/',            { templateUrl: TEMPLATE_PATH + 'index/pagination.html', resolve: resolve }).
+    when('/ngAdmin/index/breadcrumbs/',           { templateUrl: TEMPLATE_PATH + 'index/breadcrumbs.html', resolve: resolve }).
 
-    when('ngAdmin/index/tiles/',                 { templateUrl: TEMPLATE_PATH + 'index/tiles.html', resolve: resolve }).
-    when('ngAdmin/index/panels/',                { templateUrl: TEMPLATE_PATH + 'index/panels.html', resolve: resolve }).
-    when('ngAdmin/index/tabs-accordions/',       { templateUrl: TEMPLATE_PATH + 'index/tabs-accordions.html', resolve: resolve }).
-    when('ngAdmin/index/tooltips-popovers/',     { templateUrl: TEMPLATE_PATH + 'index/tooltips-popovers.html', resolve: resolve }).
-    when('ngAdmin/index/progress-bar/',          { templateUrl: TEMPLATE_PATH + 'index/progress-bar.html', resolve: resolve }).
-    when('ngAdmin/index/modals/',                { templateUrl: TEMPLATE_PATH + 'index/modals.html', resolve: resolve }).
-    when('ngAdmin/index/slide/',                 { templateUrl: TEMPLATE_PATH + 'index/slide.html', resolve: resolve }).
-    when('ngAdmin/index/carousel/',              { templateUrl: TEMPLATE_PATH + 'index/carousel.html', resolve: resolve }).
+    when('/ngAdmin/index/tiles/',                 { templateUrl: TEMPLATE_PATH + 'index/tiles.html', resolve: resolve }).
+    when('/ngAdmin/index/panels/',                { templateUrl: TEMPLATE_PATH + 'index/panels.html', resolve: resolve }).
+    when('/ngAdmin/index/tabs-accordions/',       { templateUrl: TEMPLATE_PATH + 'index/tabs-accordions.html', resolve: resolve }).
+    when('/ngAdmin/index/tooltips-popovers/',     { templateUrl: TEMPLATE_PATH + 'index/tooltips-popovers.html', resolve: resolve }).
+    when('/ngAdmin/index/progress-bar/',          { templateUrl: TEMPLATE_PATH + 'index/progress-bar.html', resolve: resolve }).
+    when('/ngAdmin/index/modals/',                { templateUrl: TEMPLATE_PATH + 'index/modals.html', resolve: resolve }).
+    when('/ngAdmin/index/slide/',                 { templateUrl: TEMPLATE_PATH + 'index/slide.html', resolve: resolve }).
+    when('/ngAdmin/index/carousel/',              { templateUrl: TEMPLATE_PATH + 'index/carousel.html', resolve: resolve }).
 
-    when('ngAdmin/index/form-basic/',            { templateUrl: TEMPLATE_PATH + 'index/form-basic.html', resolve: resolve }).
-    when('ngAdmin/index/form-advanced/',         { templateUrl: TEMPLATE_PATH + 'index/form-advanced.html', resolve: resolve }).
-    when('ngAdmin/index/form-wizard/',           { templateUrl: TEMPLATE_PATH + 'index/form-wizard.html', resolve: resolve }).
-    when('ngAdmin/index/form-input-mask/',       { templateUrl: TEMPLATE_PATH + 'index/form-input-mask.html', resolve: resolve }).
-    when('ngAdmin/index/form-multi-upload/',     { templateUrl: TEMPLATE_PATH + 'index/form-multi-upload.html', resolve: resolve }).
+    when('/ngAdmin/index/form-basic/',            { templateUrl: TEMPLATE_PATH + 'index/form-basic.html', resolve: resolve }).
+    when('/ngAdmin/index/form-advanced/',         { templateUrl: TEMPLATE_PATH + 'index/form-advanced.html', resolve: resolve }).
+    when('/ngAdmin/index/form-wizard/',           { templateUrl: TEMPLATE_PATH + 'index/form-wizard.html', resolve: resolve }).
+    when('/ngAdmin/index/form-input-mask/',       { templateUrl: TEMPLATE_PATH + 'index/form-input-mask.html', resolve: resolve }).
+    when('/ngAdmin/index/form-multi-upload/',     { templateUrl: TEMPLATE_PATH + 'index/form-multi-upload.html', resolve: resolve }).
 
-    when('ngAdmin/index/basic-table/',           { templateUrl: TEMPLATE_PATH + 'index/basic-table.html', resolve: resolve }).
-    when('ngAdmin/index/data-table/',            { templateUrl: TEMPLATE_PATH + 'index/data-table.html', resolve: resolve }).
+    when('/ngAdmin/index/basic-table/',           { templateUrl: TEMPLATE_PATH + 'index/basic-table.html', resolve: resolve }).
+    when('/ngAdmin/index/data-table/',            { templateUrl: TEMPLATE_PATH + 'index/data-table.html', resolve: resolve }).
 
-    when('ngAdmin/index/inbox/',                 { templateUrl: TEMPLATE_PATH + 'index/inbox.html', resolve: resolve }).
-    when('ngAdmin/index/compose-mail/',          { templateUrl: TEMPLATE_PATH + 'index/compose-mail.html', resolve: resolve }).
+    when('/ngAdmin/index/inbox/',                 { templateUrl: TEMPLATE_PATH + 'index/inbox.html', resolve: resolve }).
+    when('/ngAdmin/index/compose-mail/',          { templateUrl: TEMPLATE_PATH + 'index/compose-mail.html', resolve: resolve }).
 
-    when('ngAdmin/index/charts/',                { templateUrl: TEMPLATE_PATH + 'index/charts.html', resolve: resolve }).
+    when('/ngAdmin/index/charts/',                { templateUrl: TEMPLATE_PATH + 'index/charts.html', resolve: resolve }).
    
-    when('ngAdmin/index/role/',                  { templateUrl: TEMPLATE_PATH + 'demo/role.html', resolve: resolve }).
-    when('ngAdmin/index/user/',                  { templateUrl: TEMPLATE_PATH + 'demo/user.html', resolve: resolve }).
-    when('ngAdmin/index/delivery/',              { templateUrl: TEMPLATE_PATH + 'demo/delivery.html', resolve: resolve }).
+    when('/ngAdmin/index/role/',                  { templateUrl: TEMPLATE_PATH + 'demo/role.html', resolve: resolve }).
+    when('/ngAdmin/index/user/',                  { templateUrl: TEMPLATE_PATH + 'demo/user.html', resolve: resolve }).
+    when('/ngAdmin/index/delivery/',              { templateUrl: TEMPLATE_PATH + 'demo/delivery.html', resolve: resolve }).
 
-    when('ngAdmin/index/thanks/',                { templateUrl: TEMPLATE_PATH + 'index/thanks.html', resolve: resolve }).
+    when('/ngAdmin/index/thanks/',                { templateUrl: TEMPLATE_PATH + 'index/thanks.html', resolve: resolve }).
     otherwise({
       resolve: {
         redirect: [
           '$route', '$location',
           function($route, $location) {
-            if (/^\/index(.html)?/.test($location.$$path)) $location.path('ngAdmin/index/delivery/');
+            if (/^\/index(.html)?/.test($location.$$path)) $location.path('/ngAdmin/index/delivery/');
             else window.location.replace($location.$$path);
           }
         ]
