@@ -197,62 +197,62 @@ angular.module('index', [
       ]
     };
 
-    $routeProvider.
-    when('/',                             { templateUrl: TEMPLATE_PATH + 'index/dashboard.html', resolve: resolve }).
-    when('/index/',                       { templateUrl: TEMPLATE_PATH + 'index/dashboard.html', resolve: resolve }).
-    when('/index/dashboard/',             { templateUrl: TEMPLATE_PATH + 'index/dashboard.html', resolve: resolve }).
+    $routeProvider
+    .when('/',                             { templateUrl: TEMPLATE_PATH + 'index/dashboard.html', resolve: resolve })
+    .when('/index/',                       { templateUrl: TEMPLATE_PATH + 'index/dashboard.html', resolve: resolve })
+    .when('/index/dashboard/',             { templateUrl: TEMPLATE_PATH + 'index/dashboard.html', resolve: resolve })
 
-    when('/index/colors/',                { templateUrl: TEMPLATE_PATH + 'index/colors.html', resolve: resolve }).
-    when('/index/buttons/',               { templateUrl: TEMPLATE_PATH + 'index/buttons.html', resolve: resolve }).
-    when('/index/typography/',            { templateUrl: TEMPLATE_PATH + 'index/typography.html', resolve: resolve }).
-    when('/index/badges-label/',          { templateUrl: TEMPLATE_PATH + 'index/badges-label.html', resolve: resolve }).
-    when('/index/blockquotes/',           { templateUrl: TEMPLATE_PATH + 'index/blockquotes.html', resolve: resolve }).
-    when('/index/alert/',                 { templateUrl: TEMPLATE_PATH + 'index/alert.html', resolve: resolve }).
-    when('/index/navbars/',               { templateUrl: TEMPLATE_PATH + 'index/navbars.html', resolve: resolve }).
-    when('/index/pagination/',            { templateUrl: TEMPLATE_PATH + 'index/pagination.html', resolve: resolve }).
-    when('/index/breadcrumbs/',           { templateUrl: TEMPLATE_PATH + 'index/breadcrumbs.html', resolve: resolve }).
+    .when('/index/colors/',                { templateUrl: TEMPLATE_PATH + 'index/colors.html', resolve: resolve })
+    .when('/index/buttons/',               { templateUrl: TEMPLATE_PATH + 'index/buttons.html', resolve: resolve })
+    .when('/index/typography/',            { templateUrl: TEMPLATE_PATH + 'index/typography.html', resolve: resolve })
+    .when('/index/badges-label/',          { templateUrl: TEMPLATE_PATH + 'index/badges-label.html', resolve: resolve })
+    .when('/index/blockquotes/',           { templateUrl: TEMPLATE_PATH + 'index/blockquotes.html', resolve: resolve })
+    .when('/index/alert/',                 { templateUrl: TEMPLATE_PATH + 'index/alert.html', resolve: resolve })
+    .when('/index/navbars/',               { templateUrl: TEMPLATE_PATH + 'index/navbars.html', resolve: resolve })
+    .when('/index/pagination/',            { templateUrl: TEMPLATE_PATH + 'index/pagination.html', resolve: resolve })
+    .when('/index/breadcrumbs/',           { templateUrl: TEMPLATE_PATH + 'index/breadcrumbs.html', resolve: resolve })
 
-    when('/index/tiles/',                 { templateUrl: TEMPLATE_PATH + 'index/tiles.html', resolve: resolve }).
-    when('/index/panels/',                { templateUrl: TEMPLATE_PATH + 'index/panels.html', resolve: resolve }).
-    when('/index/tabs-accordions/',       { templateUrl: TEMPLATE_PATH + 'index/tabs-accordions.html', resolve: resolve }).
-    when('/index/tooltips-popovers/',     { templateUrl: TEMPLATE_PATH + 'index/tooltips-popovers.html', resolve: resolve }).
-    when('/index/progress-bar/',          { templateUrl: TEMPLATE_PATH + 'index/progress-bar.html', resolve: resolve }).
-    when('/index/modals/',                { templateUrl: TEMPLATE_PATH + 'index/modals.html', resolve: resolve }).
-    when('/index/slide/',                 { templateUrl: TEMPLATE_PATH + 'index/slide.html', resolve: resolve }).
-    when('/index/carousel/',              { templateUrl: TEMPLATE_PATH + 'index/carousel.html', resolve: resolve }).
+    .when('/index/tiles/',                 { templateUrl: TEMPLATE_PATH + 'index/tiles.html', resolve: resolve })
+    .when('/index/panels/',                { templateUrl: TEMPLATE_PATH + 'index/panels.html', resolve: resolve })
+    .when('/index/tabs-accordions/',       { templateUrl: TEMPLATE_PATH + 'index/tabs-accordions.html', resolve: resolve })
+    .when('/index/tooltips-popovers/',     { templateUrl: TEMPLATE_PATH + 'index/tooltips-popovers.html', resolve: resolve })
+    .when('/index/progress-bar/',          { templateUrl: TEMPLATE_PATH + 'index/progress-bar.html', resolve: resolve })
+    .when('/index/modals/',                { templateUrl: TEMPLATE_PATH + 'index/modals.html', resolve: resolve })
+    .when('/index/slide/',                 { templateUrl: TEMPLATE_PATH + 'index/slide.html', resolve: resolve })
+    .when('/index/carousel/',              { templateUrl: TEMPLATE_PATH + 'index/carousel.html', resolve: resolve })
 
-    when('/index/form-basic/',            { templateUrl: TEMPLATE_PATH + 'index/form-basic.html', resolve: resolve }).
-    when('/index/form-advanced/',         { templateUrl: TEMPLATE_PATH + 'index/form-advanced.html', resolve: resolve }).
-    when('/index/form-wizard/',           { templateUrl: TEMPLATE_PATH + 'index/form-wizard.html', resolve: resolve }).
-    when('/index/form-input-mask/',       { templateUrl: TEMPLATE_PATH + 'index/form-input-mask.html', resolve: resolve }).
-    when('/index/form-multi-upload/',     { templateUrl: TEMPLATE_PATH + 'index/form-multi-upload.html', resolve: resolve }).
+    .when('/index/form-basic/',            { templateUrl: TEMPLATE_PATH + 'index/form-basic.html', resolve: resolve })
+    .when('/index/form-advanced/',         { templateUrl: TEMPLATE_PATH + 'index/form-advanced.html', resolve: resolve })
+    .when('/index/form-wizard/',           { templateUrl: TEMPLATE_PATH + 'index/form-wizard.html', resolve: resolve })
+    .when('/index/form-input-mask/',       { templateUrl: TEMPLATE_PATH + 'index/form-input-mask.html', resolve: resolve })
+    .when('/index/form-multi-upload/',     { templateUrl: TEMPLATE_PATH + 'index/form-multi-upload.html', resolve: resolve })
 
-    when('/index/basic-table/',           { templateUrl: TEMPLATE_PATH + 'index/basic-table.html', resolve: resolve }).
-    when('/index/data-table/',            { templateUrl: TEMPLATE_PATH + 'index/data-table.html', resolve: resolve }).
+    .when('/index/basic-table/',           { templateUrl: TEMPLATE_PATH + 'index/basic-table.html', resolve: resolve })
+    .when('/index/data-table/',            { templateUrl: TEMPLATE_PATH + 'index/data-table.html', resolve: resolve })
 
-    when('/index/inbox/',                 { templateUrl: TEMPLATE_PATH + 'index/inbox.html', resolve: resolve }).
-    when('/index/compose-mail/',          { templateUrl: TEMPLATE_PATH + 'index/compose-mail.html', resolve: resolve }).
+    .when('/index/inbox/',                 { templateUrl: TEMPLATE_PATH + 'index/inbox.html', resolve: resolve })
+    .when('/index/compose-mail/',          { templateUrl: TEMPLATE_PATH + 'index/compose-mail.html', resolve: resolve })
 
-    when('/index/charts/',                { templateUrl: TEMPLATE_PATH + 'index/charts.html', resolve: resolve }).
+    .when('/index/charts/',                { templateUrl: TEMPLATE_PATH + 'index/charts.html', resolve: resolve })
    
-    when('/index/role/',                  { templateUrl: TEMPLATE_PATH + 'demo/role.html', resolve: resolve }).
-    when('/index/user/',                  { templateUrl: TEMPLATE_PATH + 'demo/user.html', resolve: resolve }).
-    when('/index/delivery/',              { templateUrl: TEMPLATE_PATH + 'demo/delivery.html', resolve: resolve }).
+    .when('/index/role/',                  { templateUrl: TEMPLATE_PATH + 'demo/role.html', resolve: resolve })
+    .when('/index/user/',                  { templateUrl: TEMPLATE_PATH + 'demo/user.html', resolve: resolve })
+    .when('/index/delivery/',              { templateUrl: TEMPLATE_PATH + 'demo/delivery.html', resolve: resolve })
 
-    when('/index/thanks/',                { templateUrl: TEMPLATE_PATH + 'index/thanks.html', resolve: resolve }).
-    otherwise({
+    .when('/index/thanks/',                { templateUrl: TEMPLATE_PATH + 'index/thanks.html', resolve: resolve })
+    .otherwise({
       resolve: {
         redirect: [
           '$route', '$location',
           function($route, $location) {
-            if (/^\/index(.html)?/.test($location.$$path)) $location.path('/index/delivery/');
+            if (/^\/index(.html)?/.test($location.$$path)) $location.path('/');
             else window.location.replace($location.$$path);
           }
         ]
       }
     });
 
-    $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(false);
   }
 ]);
 
