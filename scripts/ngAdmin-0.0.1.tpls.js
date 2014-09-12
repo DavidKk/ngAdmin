@@ -2,7 +2,7 @@
  * ngAdmin
  * http://a.davidkk.com
 
- * Version: 0.0.1 - 2014-09-12
+ * Version: 0.0.1 - 2014-09-13
  * License: 
  */
 angular.module("ui.ngAdmin", ["ui.ngAdmin.tpls", "ui.dropdownMenu","ui.helper","ui.layout","ui.promptBox","ui.scrollBar","ui.scrollpicker","ui.selecter","ui.slideMenu","ui.tabs","ui.timepicker","ui.warpperSlider","ui.zeroclipboard"]);
