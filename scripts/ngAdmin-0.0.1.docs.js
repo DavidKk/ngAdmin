@@ -100,7 +100,7 @@ angular.module('index', [
   'charts'
 ])
 
-.constant('TEMPLATE_PATH', '//' + window.location.host + '/assets/templates/')
+.constant('TEMPLATE_PATH', './assets/templates/')
 
 .constant('NAVIGATION', [
   {
