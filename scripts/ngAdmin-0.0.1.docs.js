@@ -252,7 +252,7 @@ angular.module('index', [
       }
     });
 
-    $locationProvider.html5Mode(false);
+    $locationProvider.html5Mode(true);
   }
 ]);
 
