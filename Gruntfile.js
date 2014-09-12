@@ -312,8 +312,8 @@ module.exports = function(grunt) {'use strict';
     grunt.file.expand('src/' + name + '/*.js')
     .map(grunt.file.read)
     .forEach(function(contents) {
-      //Strategy: find where module is declared,
-      //and from there get everything inside the [] and split them by comma
+      // Strategy: find where module is declared,
+      // and from there get everything inside the [] and split them by comma
       var moduleDeclIndex = contents.indexOf('angular.module(');
       var depArrayStart = contents.indexOf('[', moduleDeclIndex);
       var depArrayEnd = contents.indexOf(']', depArrayStart);
@@ -323,7 +323,7 @@ module.exports = function(grunt) {'use strict';
           var depName = dep.trim().replace('ui.','').replace(/['"]/g,'');
           if (deps.indexOf(depName) < 0) {
             deps.push(depName);
-            //Get dependencies for this new dependency
+            // Get dependencies for this new dependency
             deps = deps.concat(dependenciesForModule(depName));
           }
         }
