@@ -1,7 +1,5 @@
 node_modules/*
 bower_components/*
 dist/*
-assets/*
-scripts/*
-views/*
+demo/*
 _build/*

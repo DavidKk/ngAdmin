@@ -24,10 +24,10 @@ module.exports = function(grunt) {'use strict';
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    filename:         'ngAdmin',
-    filenamecustom:   '<%= filename %>-custom',
-    hashmapFile:      '_build/hashmap.json',
-    customStyleFile:  '_build/less/app.less',
+    filename: 'ngAdmin',
+    filenamecustom: '<%= filename %>-custom',
+    hashmapFile: '_build/hashmap.json',
+    customStyleFile: '_build/less/app.less',
 
     scripts: {
       modules: [],
@@ -44,7 +44,7 @@ module.exports = function(grunt) {'use strict';
     meta: {
       modules: 'angular.module("ui.ngAdmin", [<%= scripts.srcModules %>]);',
       tplmodules: 'angular.module("ui.ngAdmin.tpls", [<%= scripts.tplModules %>]);',
-      allmodules: 'angular.module("ui.ngAdmin", ["ui.ngAdmin.tpls", <%= scripts.srcModules %>]);',
+      fullmodules: 'angular.module("ui.ngAdmin", ["ui.ngAdmin.tpls", <%= scripts.srcModules %>]);',
       banner: ['/*',
                ' * <%= pkg.name %>',
                ' * <%= pkg.homepage %>\n',
@@ -61,24 +61,24 @@ module.exports = function(grunt) {'use strict';
     copy: {
       docs: {
         files: [
-          { dest: 'assets/fonts/', cwd: 'docs/fonts/', src: ['**'], expand: true },
-          { dest: 'assets/css/', cwd: 'docs/css/', src: ['*.css'], expand: true },
-          { dest: 'assets/svg/', cwd: 'docs/svg/', src: ['*.svg'], expand: true },
-          { dest: 'scripts/', cwd: 'docs/scripts/libs/', src: ['**'], expand: true },
-          { dest: 'assets/css/', cwd: 'dist/', src: ['*.css'], expand: true },
-          { dest: 'scripts/', cwd: 'dist/', src: ['*.js'], expand: true }
+          { dest: 'demo/assets/fonts/', cwd: 'docs/fonts/', src: ['**'], expand: true },
+          { dest: 'demo/assets/css/', cwd: 'docs/css/', src: ['*.css'], expand: true },
+          { dest: 'demo/assets/svg/', cwd: 'docs/svg/', src: ['*.svg'], expand: true },
+          { dest: 'demo/scripts/', cwd: 'docs/scripts/libs/', src: ['**'], expand: true },
+          { dest: 'demo/assets/css/', cwd: 'dist/', src: ['*.css'], expand: true },
+          { dest: 'demo/scripts/', cwd: 'dist/', src: ['*.js'], expand: true }
         ]
       },
-      'docs-style': { dest: 'assets/css/', cwd: 'dist/', src: ['*.css'], expand: true },
-      'docs-scripts': { dest: 'scripts/', cwd: 'dist/', src: ['*.js'], expand: true }
+      'docs-style': { dest: 'demo/assets/css/', cwd: 'dist/', src: ['*.css'], expand: true },
+      'docs-scripts': { dest: 'demo/scripts/', cwd: 'dist/', src: ['*.js'], expand: true }
     },
 
     imagemin: {
       docs: {
         options: { optimizationLevel: 3 },
         files: [
-          { dest: 'assets/ico/', cwd: 'docs/ico/', src: ['*.{png,jpg,gif}'], expand: true },
-          { dest: 'assets/images/', cwd: 'docs/images/', src: ['*.{png,jpg,gif}'], expand: true }
+          { dest: 'demo/assets/ico/', cwd: 'docs/ico/', src: ['*.{png,jpg,gif}'], expand: true },
+          { dest: 'demo/assets/images/', cwd: 'docs/images/', src: ['*.{png,jpg,gif}'], expand: true }
         ]
       }
     },
@@ -104,7 +104,7 @@ module.exports = function(grunt) {'use strict';
           yuicompress: true
         },
         src: ['<%= customStyleFile %>'],
-        dest: 'assets/css/<%= filename %>-<%= pkg.version %>.docs.min.css'
+        dest: 'demo/assets/css/<%= filename %>-<%= pkg.version %>.docs.min.css'
       }
     },
 
@@ -149,7 +149,7 @@ module.exports = function(grunt) {'use strict';
       docs: {
         dest: './',
         cwd: './',
-        src: ['scripts/**', 'assets/css/**']
+        src: ['demo/scripts/**', 'demo/assets/css/**']
       }
     },
 
@@ -192,7 +192,7 @@ module.exports = function(grunt) {'use strict';
             };
           }
         },
-        dest: 'views/',
+        dest: 'demo/',
         cwd: 'docs/jade/pages/',
         src: ['*.jade'],
         ext: '.html',
@@ -200,7 +200,7 @@ module.exports = function(grunt) {'use strict';
       },
       'docs-template': {
         options: '<%= jade.docs.options %>',
-        dest: 'assets/templates/',
+        dest: 'demo/assets/templates/',
         cwd: 'docs/jade/templates/',
         src: ['*/*.jade'],
         ext: '.html',
@@ -221,7 +221,7 @@ module.exports = function(grunt) {'use strict';
       },
       distTpls: {
         options: {
-          banner: '<%= meta.banner %><%= meta.allmodules %>\n<%= meta.tplmodules %>\n'
+          banner: '<%= meta.banner %><%= meta.fullmodules %>\n<%= meta.tplmodules %>\n'
         },
         src: [],
         dest: 'dist/<%= filename %>-<%= pkg.version %>.tpls.js'
@@ -230,7 +230,7 @@ module.exports = function(grunt) {'use strict';
       // docs compile
       docs: {
         src: ['docs/scripts/app/partials/*.js', 'docs/scripts/app/pages/*.js'],
-        dest: 'scripts/<%= filename %>-<%= pkg.version %>.docs.js'
+        dest: 'demo/scripts/<%= filename %>-<%= pkg.version %>.docs.js'
       }
     },
 
@@ -253,7 +253,7 @@ module.exports = function(grunt) {'use strict';
       // docs compression
       docs: {
         src: ['<%= concat.docs.dest %>'],
-        dest: 'scripts/<%= filename %>-<%= pkg.version %>.docs.min.js'
+        dest: 'demo/scripts/<%= filename %>-<%= pkg.version %>.docs.min.js'
       }
     },
 
