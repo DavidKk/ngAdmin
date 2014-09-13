@@ -166,7 +166,7 @@ angular.module('index', [
     name: 'Pages', key: 'tables', icon: 'folder-open-o',
     child: [
       { name: 'Frontend', key: 'front-end', url: '/front-end.html', target: '_self' },
-      { name: 'welcome', key: 'welcome', url: '/welcome.html', target: '_self' },
+      { name: 'Welcome', key: 'welcome', url: '/welcome.html', target: '_self' },
       { name: '404', key: '404', url: '/404.html', target: '_self' }
     ]
   },
@@ -246,7 +246,7 @@ angular.module('index', [
           '$route', '$location',
           function($route, $location) {
             if (/^\/index(.html)?/.test($location.$$path)) $location.path('/');
-            else window.location.replace($location.$$path);
+            else window.location.replace('./' + $location.$$path);
           }
         ]
       }
