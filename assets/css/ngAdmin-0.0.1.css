@@ -4989,7 +4989,7 @@ body.fixed-layout .container-layout .main-layout .content-layout {
   border-radius: 0px;
   background-clip: padding-box;
   position: relative;
-  z-index: 5;
+  z-index: 6;
   padding-right: 15px;
   padding-left: 15px;
   border-width: 0;
