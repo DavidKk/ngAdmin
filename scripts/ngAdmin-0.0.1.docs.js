@@ -165,9 +165,9 @@ angular.module('index', [
   {
     name: 'Pages', key: 'tables', icon: 'folder-open-o',
     child: [
-      { name: 'Frontend', key: 'front-end', url: '/front-end/', target: '_self' },
-      { name: 'welcome', key: 'welcome', url: '/welcome/', target: '_self' },
-      { name: '404', key: '404', url: '/404/', target: '_self' }
+      { name: 'Frontend', key: 'front-end', url: '/front-end.html', target: '_self' },
+      { name: 'welcome', key: 'welcome', url: '/welcome.html', target: '_self' },
+      { name: '404', key: '404', url: '/404.html', target: '_self' }
     ]
   },
   {
