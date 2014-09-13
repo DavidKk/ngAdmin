@@ -246,7 +246,7 @@ angular.module('index', [
           '$route', '$location',
           function($route, $location) {
             if (/^\/index(.html)?/.test($location.$$path)) $location.path('/');
-            else window.location.replace('./' + $location.$$path);
+            else window.location.replace($location.$$path);
           }
         ]
       }
