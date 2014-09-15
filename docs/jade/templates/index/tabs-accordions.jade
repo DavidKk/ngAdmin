@@ -4,15 +4,15 @@ main#tabs-accordions-container.content-layout
   h2 Tab &amp; Accordion
   .row
     .col-md-12
-      .panel
+      .panel(ng-controller="CollapseDemoCtrl")
         .panel-heading
           .panel-title
             h5 Basic Tabs Example
           .panel-widgets
-            a
+            a(ng-click="isCollapsed = !isCollapsed")
               i.fa.fa-chevron-down
 
-        .panel-collapse.in
+        .panel-collapse.in(collapse="isCollapsed")
           .panel-body
             .row
               .col-md-6
@@ -43,15 +43,15 @@ main#tabs-accordions-container.content-layout
                   .tab-pane.fade.active.in
                     p Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.
 
-      .panel
+      .panel(ng-controller="CollapseDemoCtrl")
         .panel-heading
           .panel-title
             h5 Stacked Pills Example
           .panel-widgets
-            a
+            a(ng-click="isCollapsed = !isCollapsed")
               i.fa.fa-chevron-down
 
-        .panel-collapse.in
+        .panel-collapse.in(collapse="isCollapsed")
           .panel-body
             .row
               .col-sm-3

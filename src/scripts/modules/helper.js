@@ -3,12 +3,15 @@
 angular.module('ui.helper', [])
 
 .constant('css3Transform', function() {'use strict';
-  var style = angular.element('<div>')[0].style,
+  var style = document.createElement('div').style,
   modes = ['transform', 'MozTransform', 'WebkitTransform', 'OTransform'],
-  i;
+  i = 0, len = modes.length;
 
-  for (i = 0; i < modes.length; i ++) {
-    if (modes[i] in style) return modes[i];
+  while(i < len) {
+    if (modes[i] in style) {
+      return modes[i];
+    }
+    i ++;
   }
 
   return false;
@@ -118,7 +121,8 @@ angular.module('ui.helper', [])
     'transition': 'animationend'
   };
   function findEndEventName(endEventNames) {
-    for (var name in endEventNames){
+    var name;
+    for (name in endEventNames){
       if (transElement.style[name] !== undefined) {
         return endEventNames[name];
       }
@@ -285,7 +289,6 @@ angular.module('ui.helper', [])
 
       while ((pm === 1 && fromDate <= toDate) || (pm === -1 && fromDate >= toDate)) {
         if (callback.call(bind, fromDate, i, beginDate, endDate) === false) break;
-
         i += step;
         angular.dateAdjust(fromDate, part, step*pm);
       }

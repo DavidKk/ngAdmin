@@ -4,15 +4,15 @@ main#badge-label-container.content-layout
   h3 Badges &amp; Labels
   br
 
-  .panel
+  .panel(ng-controller="CollapseDemoCtrl")
     .panel-heading
       .panel-title
         h5 Badges
       .panel-widgets
-        a
+        a(ng-click="isCollapsed = !isCollapsed")
           i.fa.fa-chevron-down
 
-    .panel-collapse.in
+    .panel-collapse.in(collapse="isCollapsed")
       .panel-body.no-padding
         table.table.table-bordered
           thead
@@ -23,65 +23,65 @@ main#badge-label-container.content-layout
             tr
               td.padding-lg
                 p
-                  a(href="")
+                  a
                     span.badge 1
                     | &nbsp;Plain
                 p
-                  a(href="")
+                  a
                     span.badge.badge-primary 2
                     | &nbsp;Primary
                 p
-                  a(href="")
+                  a
                     span.badge.badge-success 3
                     | &nbsp;Success
                 p
-                  a(href="")
+                  a
                     span.badge.badge-info 4
                     | &nbsp;Info
                 p
-                  a(href="")
+                  a
                     span.badge.badge-warning 5
                     | &nbsp;Warning
                 p
-                  a(href="")
+                  a
                     span.badge.badge-danger 6
                     | &nbsp;Danger
 
               td.padding-lg
                 p
-                  a(href="")
+                  a
                     span.badge.badge-square 1
                     | &nbsp;Plain
                 p
-                  a(href="")
+                  a
                     span.badge.badge-square.badge-primary 2
                     | &nbsp;Primary
                 p
-                  a(href="")
+                  a
                     span.badge.badge-square.badge-success 3
                     | &nbsp;Success
                 p
-                  a(href="")
+                  a
                     span.badge.badge-square.badge-info 4
                     | &nbsp;Info
                 p
-                  a(href="")
+                  a
                     span.badge.badge-square.badge-warning 5
                     | &nbsp;Warning
                 p
-                  a(href="")
+                  a
                     span.badge.badge-square.badge-danger 6
                     | &nbsp;Danger
 
-  .panel
+  .panel(ng-controller="CollapseDemoCtrl")
     .panel-heading
       .panel-title
         h5 Labels
       .panel-widgets
-        a
+        a(ng-click="isCollapsed = !isCollapsed")
           i.fa.fa-chevron-down
 
-    .panel-collapse.in
+    .panel-collapse.in(collapse="isCollapsed")
       .panel-body.no-padding
         table.table.table-bordered
           thead

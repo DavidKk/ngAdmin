@@ -2,15 +2,15 @@
 
 #form-basic-container.content-layout
   h3 Basic Form Elements
-  .panel
+  .panel(ng-controller="CollapseDemoCtrl")
     .panel-heading
       .panel-title
         h5 Default Form Inputs
       .panel-widgets
-        a
+        a(ng-click="isCollapsed = !isCollapsed")
           i.fa.fa-chevron-down
 
-    .panel-collapse.in
+    .panel-collapse.in(collapse="isCollapsed")
       .panel-body
         form.form-horizontal(role="form")
           .form-group
@@ -82,15 +82,15 @@
             .col-sm-offset-3.col-sm-5
               button.btn.btn-success(type="button", role="button") Sign in
 
-  .panel
+  .panel(ng-controller="CollapseDemoCtrl")
     .panel-heading
       .panel-title
         h5 Input Sizes
       .panel-widgets
-        a
+        a(ng-click="isCollapsed = !isCollapsed")
           i.fa.fa-chevron-down
 
-    .panel-collapse.in
+    .panel-collapse.in(collapse="isCollapsed")
       .panel-body
         form.form-horizontal(role="form")
           .form-group
@@ -106,15 +106,15 @@
             .col-sm-5
               input#field-1.form-control.input-sm(type="text", placeholder="Large input (.input-sm)")
 
-  .panel
+  .panel(ng-controller="CollapseDemoCtrl")
     .panel-heading
       .panel-title
         h5 Input Groups &amp; Addons
       .panel-widgets
-        a
+        a(ng-click="isCollapsed = !isCollapsed")
           i.fa.fa-chevron-down
 
-    .panel-collapse.in
+    .panel-collapse.in(collapse="isCollapsed")
       .panel-body
         form.form-horizontal(role="form")
           .form-group
@@ -177,14 +177,14 @@
                     span.caret
                   ul.dropdown-menu.dropdown-gold
                     li
-                      a(href="#") Action
+                      a Action
                     li
-                      a(href="#") Another action
+                      a Another action
                     li
-                      a(href="#") Something else here
+                      a Something else here
                     li.divider
                     li
-                      a(href="#") Separated link
+                      a Separated link
                 input.form-control(type="text")
               br
               .input-group
@@ -196,24 +196,24 @@
                       i.fa.fa-info
                     ul.dropdown-menu.dropdown
                       li
-                        a(href="#") Action
+                        a Action
                       li
-                        a(href="#") Another action
+                        a Another action
                       li
-                        a(href="#") Something else here
+                        a Something else here
                       li.divider
                       li
-                        a(href="#") Separated link
+                        a Separated link
 
-  .panel
+  .panel(ng-controller="CollapseDemoCtrl")
     .panel-heading
       .panel-title
         h5 Replaced Checkboxes &amp; Radio
       .panel-widgets
-        a
+        a(ng-click="isCollapsed = !isCollapsed")
           i.fa.fa-chevron-down
 
-    .panel-collapse.in
+    .panel-collapse.in(collapse="isCollapsed")
       .panel-body
         form.form-horizontal(role="form", role="form")
           .form-group
@@ -318,15 +318,15 @@
                   .checkbox-icon
                   .checkbox-inner Checkbox 8
 
-  .panel
+  .panel(ng-controller="CollapseDemoCtrl")
     .panel-heading
       .panel-title
         h5 Switches - Checkbox &amp; Radio
       .panel-widgets
-        a
+        a(ng-click="isCollapsed = !isCollapsed")
           i.fa.fa-chevron-down
 
-    .panel-collapse.in
+    .panel-collapse.in(collapse="isCollapsed")
       .panel-body.bs-example
         form.form-horizontal(role="form")
           .form-group
@@ -549,15 +549,15 @@
                       i.fa.fa-times
                 .switch-switch
 
-  .panel
+  .panel(ng-controller="CollapseDemoCtrl")
     .panel-heading
       .panel-title
         h5 Input Grid
       .panel-widgets
-        a
+        a(ng-click="isCollapsed = !isCollapsed")
           i.fa.fa-chevron-down
 
-    .panel-collapse.in
+    .panel-collapse.in(collapse="isCollapsed")
       .panel-body.bs-example
         .row
           .col-md-12

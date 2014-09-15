@@ -54,13 +54,14 @@ module.exports = function(grunt) {'use strict';
     },
 
     clean: {
-      dist: ['./dist', './assets', './scripts', './views'],
+      dist: ['./dist'],
       build: ['./_build']
     },
 
     copy: {
       docs: {
         files: [
+          { dest: 'demo/assets/ico/', cwd: 'docs/ico/', src: ['*.ico'], expand: true },
           { dest: 'demo/assets/fonts/', cwd: 'docs/fonts/', src: ['**'], expand: true },
           { dest: 'demo/assets/css/', cwd: 'docs/css/', src: ['*.css'], expand: true },
           { dest: 'demo/assets/svg/', cwd: 'docs/svg/', src: ['*.svg'], expand: true },

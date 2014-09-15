@@ -2,15 +2,15 @@
 
 #modals-container.content-layout
   h2 Modals Triggering
-  .panel
+  .panel(ng-controller="CollapseDemoCtrl")
     .panel-heading
       .panel-title
         h5 Modals Examples
       .panel-widgets
-        a
+        a(ng-click="isCollapsed = !isCollapsed")
           i.fa.fa-chevron-down
 
-    .panel-collapse.in
+    .panel-collapse.in(collapse="isCollapsed")
       .panel-body.bs-example
         button.btn.btn-primary(type="button", role="button") Modal Basic
         button.btn.btn-success(type="button", role="button") Modal Confirm

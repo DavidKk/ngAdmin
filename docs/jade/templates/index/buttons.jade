@@ -4,15 +4,15 @@ main#buttons-container.content-layout
   h3 Buttons
   br
 
-  .panel
+  .panel(ng-controller="CollapseDemoCtrl")
     .panel-heading
       .panel-title
         h5 Buttons Variations
       .panel-widgets
-        a
+        a(ng-click="isCollapsed = !isCollapsed")
           i.fa.fa-chevron-down
 
-    .panel-collapse.in
+    .panel-collapse.in(collapse="isCollapsed")
       .panel-body.bs-example
         h4 Variations
         button.btn(type="button", role="button") Default
@@ -71,15 +71,15 @@ main#buttons-container.content-layout
         button.btn.btn-success.btn-block(type="button", role="button") Block 2
         button.btn.btn-danger.btn-block(type="button", role="button") Block 3
 
-  .panel
+  .panel(ng-controller="CollapseDemoCtrl")
     .panel-heading
       .panel-title
         h5 Button Groups
       .panel-widgets
-        a
+        a(ng-click="isCollapsed = !isCollapsed")
           i.fa.fa-chevron-down
 
-    .panel-collapse.in
+    .panel-collapse.in(collapse="isCollapsed")
       .panel-body.bs-example
         h4 Button Group Basic
         .btn-group
@@ -126,14 +126,14 @@ main#buttons-container.content-layout
             i.fa.fa-info
           ul.dropdown-menu(role="menu")
             li
-              a(href="#") Action
+              a Action
             li
-              a(href="#") Another Action
+              a Another Action
             li
-              a(href="#") Something else here
+              a Something else here
             li.divider
             li
-              a(href="#") Separated link
+              a Separated link
 
         .btn-group(dropdown-menu)
           button.btn.btn-info(type="button", role="button") Download
@@ -141,14 +141,14 @@ main#buttons-container.content-layout
             i.fa.fa-download
           ul.dropdown-menu(role="menu")
             li
-              a(href="#") PSD Format
+              a PSD Format
             li
-              a(href="#") Markdown Format
+              a Markdown Format
             li
-              a(href="#") HTML Format
+              a HTML Format
             li.divider
             li
-              a(href="#") Add to download list
+              a Add to download list
         hr
 
         h4 Button with Icons

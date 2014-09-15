@@ -2,15 +2,15 @@
 
 #tooltips-popovers-container.content-layout
   h2 Popovers and Tooltips
-  .panel
+  .panel(ng-controller="CollapseDemoCtrl")
     .panel-heading
       .panel-title
         h5 Popovers and Tooltips
       .panel-widgets
-        a
+        a(ng-click="isCollapsed = !isCollapsed")
           i.fa.fa-chevron-down
 
-    .panel-collapse.in
+    .panel-collapse.in(collapse="isCollapsed")
       .panel-body.bs-example
         h4 Popovers
         p

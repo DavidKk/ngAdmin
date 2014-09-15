@@ -4,15 +4,15 @@ main#breadcrumbs-container.content-layout
   h3 Breadcrumbs
   br
 
-  .panel
+  .panel(ng-controller="CollapseDemoCtrl")
     .panel-heading
       .panel-title
         h5 Breadcrumb Types
       .panel-widgets
-        a
+        a(ng-click="isCollapsed = !isCollapsed")
           i.fa.fa-chevron-down
 
-    .panel-collapse.in
+    .panel-collapse.in(collapse="isCollapsed")
       .panel-body
         ol.breadcrumb.breadcrumb-pure
           li
