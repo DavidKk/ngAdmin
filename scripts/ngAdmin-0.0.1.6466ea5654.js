@@ -2,11 +2,10 @@
  * ngAdmin
  * http://a.davidkk.com
 
- * Version: 0.0.1 - 2014-09-13
+ * Version: 0.0.1 - 2014-09-15
  * License: 
  */
-angular.module("ui.ngAdmin", ["ui.ngAdmin.tpls", "ui.dropdownMenu","ui.helper","ui.layout","ui.promptBox","ui.scrollBar","ui.scrollpicker","ui.selecter","ui.slideMenu","ui.tabs","ui.timepicker","ui.warpperSlider","ui.zeroclipboard"]);
-angular.module("ui.ngAdmin.tpls", ["tpls/scrollBar/scrollBar.html","tpls/selecter/selecter.html"]);
+angular.module("ui.ngAdmin", ["ui.dropdownMenu","ui.helper","ui.layout","ui.promptBox","ui.scrollBar","ui.scrollpicker","ui.selecter","ui.slideMenu","ui.tabs","ui.timepicker","ui.warpperSlider","ui.zeroclipboard"]);
 
 
 angular.module('ui.dropdownMenu', [])
@@ -290,12 +289,15 @@ angular.module('ui.dropdownMenu', [])
 angular.module('ui.helper', [])
 
 .constant('css3Transform', function() {'use strict';
-  var style = angular.element('<div>')[0].style,
+  var style = document.createElement('div').style,
   modes = ['transform', 'MozTransform', 'WebkitTransform', 'OTransform'],
-  i;
+  i = 0, len = modes.length;
 
-  for (i = 0; i < modes.length; i ++) {
-    if (modes[i] in style) return modes[i];
+  while(i < len) {
+    if (modes[i] in style) {
+      return modes[i];
+    }
+    i ++;
   }
 
   return false;
@@ -405,7 +407,8 @@ angular.module('ui.helper', [])
     'transition': 'animationend'
   };
   function findEndEventName(endEventNames) {
-    for (var name in endEventNames){
+    var name;
+    for (name in endEventNames){
       if (transElement.style[name] !== undefined) {
         return endEventNames[name];
       }
@@ -572,7 +575,6 @@ angular.module('ui.helper', [])
 
       while ((pm === 1 && fromDate <= toDate) || (pm === -1 && fromDate >= toDate)) {
         if (callback.call(bind, fromDate, i, beginDate, endDate) === false) break;
-
         i += step;
         angular.dateAdjust(fromDate, part, step*pm);
       }
@@ -2071,30 +2073,4 @@ angular.module('ui.zeroclipboard', [])
       }
     };
   }
-]);angular.module("tpls/scrollBar/scrollBar.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("tpls/scrollBar/scrollBar.html",
-    "<div ng-class=\"{ 'open': show }\" class=\"scroll-wrapper\">\n" +
-    "  <div ng-if=\"isVertical\" ng-class=\"{ 'scroll-left': isLeft }\" class=\"scroll-rails\">\n" +
-    "    <div ng-style=\"{ 'height': shp * 100 + '%', 'top': syp * 100 + '%' }\" class=\"scroll-bar\"></div>\n" +
-    "  </div>\n" +
-    "  <div ng-if=\"isHorizontal\" ng-class=\"{ 'scroll-bottom': isTop }\" class=\"scroll-rails scroll-horizontal\">\n" +
-    "    <div ng-style=\"{ 'width': swp * 100 + '%', 'left': sxp * 100 + '%' }\" class=\"scroll-bar\"></div>\n" +
-    "  </div>\n" +
-    "  <div ng-transclude=\"ng-transclude\" class=\"wrapper\"></div>\n" +
-    "</div>");
-}]);
-;angular.module("tpls/selecter/selecter.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("tpls/selecter/selecter.html",
-    "<selectpicker>\n" +
-    "  <div dropdown-menu=\"dropdown-menu\" class=\"selectpicker\"><a dropdown-menu-toggle=\"dropdown-menu-toggle\" class=\"dropdown-toggle\">{{ selected.text || selected.value || '' }}</a>\n" +
-    "    <div dropdown-menu-dialog=\"dropdown-menu-dialog\" class=\"dropdown-menu\">\n" +
-    "      <div class=\"filter-bar\"><i class=\"fa fa-search\"></i>\n" +
-    "        <input dropdown-menu-filter=\"dropdown-menu-filter\" type=\"search\" placeholder=\"Search...\" class=\"form-control\"/>\n" +
-    "      </div>\n" +
-    "      <ul dropdown-menu-list=\"dropdown-menu-list\" class=\"menu-list\">\n" +
-    "        <li ng-repeat=\"item in options\"><a ng-click=\"select(item.value)\" title=\"item.text\">{{ item.text }}</a></li>\n" +
-    "      </ul>\n" +
-    "    </div>\n" +
-    "  </div>\n" +
-    "</selectpicker>");
-}]);
+])

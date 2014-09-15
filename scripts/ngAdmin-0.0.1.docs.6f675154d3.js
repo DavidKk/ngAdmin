@@ -254,6 +254,13 @@ angular.module('index', [
 
     $locationProvider.html5Mode(false);
   }
+])
+
+.controller('CollapseDemoCtrl', [
+  '$scope',
+  function($scope) {
+    
+  }
 ]);
 
 angular.module('welcome', [
