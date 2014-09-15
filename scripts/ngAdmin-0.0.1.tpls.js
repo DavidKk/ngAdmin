@@ -2,7 +2,7 @@
  * ngAdmin
  * http://a.davidkk.com
 
- * Version: 0.0.1 - 2014-09-15
+ * Version: 0.0.1 - 2014-09-16
  * License: 
  */
 angular.module("ui.ngAdmin", ["ui.ngAdmin.tpls", "ui.dropdownMenu","ui.helper","ui.layout","ui.promptBox","ui.scrollBar","ui.scrollpicker","ui.selecter","ui.slideMenu","ui.tabs","ui.timepicker","ui.warpperSlider","ui.zeroclipboard"]);
@@ -728,48 +728,75 @@ angular.module('ui.helper', [])
 angular.module('ui.layout', [])
 
 .controller('AsidebarCtrl', [
-  '$rootScope', '$scope',
-  function($rootScope, $scope) {
+  '$scope',
+  function($scope) {
     var exports = this;
-
     $scope.isOpen = false;
-    $scope.minify = true;
-
-    exports.show = function() {
-      angular.element(document.body).addClass('sidebar-left-shown');
-    };
-
-    exports.hide = function() {
-      angular.element(document.body).removeClass('sidebar-left-shown');
-    };
-
-    // $rootScope.$on('layout.toggleLeftSidebar', function(event, isOpen) {
-    //   $scope.isOpen = arguments.length > 1 ? !!isOpen : !$scope.isOpen;
-    //   $scope.minify = $scope.isOpen;
-    // });
-
-    $scope.$watch('isOpen', function(isOpen) {
-      isOpen ? exports.show() : exports.hide();
-    });  
+    exports.show = exports.hide = angular.noop;
   }
 ])
 
-.directive('asidebar', [
-  function() {
+.directive('fixedbar', [
+  '$rootScope',
+  function($rootScope) {
     return {
       restrict: 'EA',
       controller: 'AsidebarCtrl',
       scope: {
-        isOpen: '=?',
-        minify: '=?'
+        isOpen: '=?'
       },
       link: function($scope, $element, $attrs, ctrl) {
-        $scope.isOpen = !!$attrs.isopen;
+        ctrl.open = function() {
+          $element.removeClass('minify');
+          angular.element(document.body).addClass('fixedbar-shown');
+        };
+
+        ctrl.close = function() {
+          $element.addClass('minify');
+          angular.element(document.body).removeClass('fixedbar-shown');
+        };
+
+        $rootScope.$on('layout.toggleLeftSidebar', function(event, isOpen) {
+          $scope.isOpen = arguments.length > 1 ? !!isOpen : !$scope.isOpen;
+          $scope.isOpen ? ctrl.open() : ctrl.close();
+        });
+
+        $scope.isOpen = !!$attrs.open;
+        $scope.isOpen ? ctrl.open() : ctrl.close();
       }
     };
   }
 ])
-;
+
+.directive('slidebar', [
+  '$rootScope',
+  function($rootScope) {
+    return {
+      restrict: 'EA',
+      controller: 'AsidebarCtrl',
+      scope: {
+        isOpen: '=?'
+      },
+      link: function($scope, $element, $attrs, ctrl) {
+        ctrl.open = function() {
+          angular.element(document.body).addClass('slidebar-shown');
+        };
+
+        ctrl.close = function() {
+          angular.element(document.body).removeClass('slidebar-shown');
+        };
+
+        $rootScope.$on('layout.toggleRightSidebar', function(event, isOpen) {
+          $scope.isOpen = arguments.length > 1 ? !!isOpen : !$scope.isOpen;
+          $scope.isOpen ? ctrl.open() : ctrl.close();
+        });
+
+        $scope.isOpen = !!$attrs.open;
+        $scope.isOpen ? ctrl.open() : ctrl.close();
+      }
+    };
+  }
+]);
 
 angular.module('ui.promptBox', [])
 
