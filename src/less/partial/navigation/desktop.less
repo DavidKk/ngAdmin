@@ -1,12 +1,16 @@
 
 
 @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
-  #navigation-container > .brand-sidebar { display: none; }
-  #navigation-container.minify {
+  #navigation-container > .brand-sidebar {
+    display: none;
+  }
+  
+  // Minify Mode
+  .minify #navigation-container {
     width: 75px;
   }
 
-  #navigation-container.minify ul.nav {
+  .minify #navigation-container ul.nav {
     & > li.dropdown-submenu:before { display: none; }
     & > li.search-sidebar { display: none; }
     & > li.profile-sidebar { display: none; }
@@ -33,7 +37,7 @@
     & > li.dropdown-submenu:hover > .dropdown-menu { display: block; }
   }
   
-  #navigation-container.minify ul.dropdown-menu-navigation {
+  .minify #navigation-container ul.dropdown-menu-navigation {
     .border-radius(4px);
     .box-shadow(0 6px 12px rgba(0, 0, 0, 0.176));
 

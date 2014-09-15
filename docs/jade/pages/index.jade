@@ -4,14 +4,14 @@ html(ng-app="index", lang="en-US")
     title Index | ngAdmin
     include ../partial/head
 
-  body.fixed-layout
+  body.fixed-left.slide-right.fixed-layout
     .container-layout
-      .sidebar-left-layout(ng-controller="Layout.LeftSidebar")
+      fixedbar.fixedbar-left-layout
         include ../partial/navigation
 
       .main-layout
         include ../partial/header
         ng-view.viewport-layout
 
-      .sidebar-right-layout(ng-controller="Layout.RightSidebar")
+      slidebar.slidebar-right-layout
         include ../partial/chatbar

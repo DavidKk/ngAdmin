@@ -2,54 +2,73 @@
 
 angular.module('ui.layout', [])
 
-.controller('Layout.LeftSidebar', [
-  '$rootScope', '$scope',
-  function($rootScope, $scope) {
+.controller('AsidebarCtrl', [
+  '$scope',
+  function($scope) {
     var exports = this;
-
     $scope.isOpen = false;
-    $scope.minify = true;
-
-    exports.show = function() {
-      angular.element(document.body).addClass('sidebar-left-shown');
-    };
-
-    exports.hide = function() {
-      angular.element(document.body).removeClass('sidebar-left-shown');
-    };
-
-    $rootScope.$on('layout.toggleLeftSidebar', function(event, isOpen) {
-      $scope.isOpen = arguments.length > 1 ? !!isOpen : !$scope.isOpen;
-      $scope.minify = $scope.isOpen;
-    });
-
-    $scope.$watch('isOpen', function(isOpen) {
-      isOpen ? exports.show() : exports.hide();
-    });  
+    exports.show = exports.hide = angular.noop;
   }
 ])
 
-.controller('Layout.RightSidebar', [
-  '$rootScope', '$scope',
-  function($rootScope, $scope) {
-    var exports = this;
+.directive('fixedbar', [
+  '$rootScope',
+  function($rootScope) {
+    return {
+      restrict: 'EA',
+      controller: 'AsidebarCtrl',
+      scope: {
+        isOpen: '=?'
+      },
+      link: function($scope, $element, $attrs, ctrl) {
+        ctrl.open = function() {
+          $element.removeClass('minify');
+          angular.element(document.body).addClass('fixedbar-shown');
+        };
 
-    $scope.isOpen = false;
+        ctrl.close = function() {
+          $element.addClass('minify');
+          angular.element(document.body).removeClass('fixedbar-shown');
+        };
 
-    exports.show = function() {
-      angular.element(document.body).addClass('sidebar-right-shown');
+        $rootScope.$on('layout.toggleLeftSidebar', function(event, isOpen) {
+          $scope.isOpen = arguments.length > 1 ? !!isOpen : !$scope.isOpen;
+          $scope.isOpen ? ctrl.open() : ctrl.close();
+        });
+
+        $scope.isOpen = !!$attrs.open;
+        $scope.isOpen ? ctrl.open() : ctrl.close();
+      }
     };
+  }
+])
 
-    exports.hide = function() {
-      angular.element(document.body).removeClass('sidebar-right-shown');
+.directive('slidebar', [
+  '$rootScope',
+  function($rootScope) {
+    return {
+      restrict: 'EA',
+      controller: 'AsidebarCtrl',
+      scope: {
+        isOpen: '=?'
+      },
+      link: function($scope, $element, $attrs, ctrl) {
+        ctrl.open = function() {
+          angular.element(document.body).addClass('slidebar-shown');
+        };
+
+        ctrl.close = function() {
+          angular.element(document.body).removeClass('slidebar-shown');
+        };
+
+        $rootScope.$on('layout.toggleRightSidebar', function(event, isOpen) {
+          $scope.isOpen = arguments.length > 1 ? !!isOpen : !$scope.isOpen;
+          $scope.isOpen ? ctrl.open() : ctrl.close();
+        });
+
+        $scope.isOpen = !!$attrs.open;
+        $scope.isOpen ? ctrl.open() : ctrl.close();
+      }
     };
-
-    $rootScope.$on('layout.toggleRightSidebar', function(event, isOpen) {
-      $scope.isOpen = arguments.length > 1 ? !!isOpen : !$scope.isOpen;
-    });
-
-    $scope.$watch('isOpen', function(isOpen) {
-      isOpen ? exports.show() : exports.hide();
-    });  
   }
 ])

@@ -17,7 +17,8 @@
   padding: 0 15px;
 }
 
-.container-layout .sidebar-left-layout {
+// fixedbar
+.container-layout .fixedbar-left-layout {
   .transition(margin-left .25s);
   .clearfix();
   
@@ -29,8 +30,9 @@
   height: 100%;
 }
 
-.container-layout .sidebar-right-layout {
-  .transition(all .25s);
+// slidebar
+.container-layout .slidebar-right-layout {
+  .transition(right .25s);
 
   position: fixed;
   top: 0;
@@ -41,24 +43,12 @@
   display: block;
 }
 
-body {
-  .transition(all .25s);
-}
+body.slide-right { .transition(right .25s); right: 0; }
+body.slide-right.slidebar-shown { margin-right: 0; right: 240px; }
+body.slide-right.slidebar-shown .container-layout .main-layout { margin-left: 0; }
+body.slide-right.slidebar-shown .container-layout .slidebar-right-layout { right: 0; }
 
-body.sidebar-right-shown {
-  margin-right: 0;
-  right: 240px;
-}
-
-body.sidebar-right-shown .container-layout .main-layout {
-  margin-left: 0;
-}
-
-body.sidebar-right-shown .container-layout .sidebar-right-layout {
-  right: 0;
-}
-
-// Screen height 100% model
+// screen height 100% model
 body.fixed-layout {
   &,
   .container-layout,
