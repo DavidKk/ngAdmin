@@ -4992,22 +4992,18 @@ body.fixed-layout .container-layout .main-layout .content-layout {
 }
 @media (max-width: 767px) {
   .container-layout .fixedbar-left-layout {
-    margin-left: -290px;
+    margin-left: -280px;
     padding-top: 0;
   }
   .container-layout .main-layout .content-layout {
     margin-left: 0;
   }
-  body.fixed-left.fixedbar-shown .container-layout .main-layout {
-    padding-left: 280px;
-  }
-  body.fixed-left.fixedbar-shown .container-layout .fixedbar-left-layout {
-    -webkit-transform: translate3d(290px, 0, 0);
-    -moz-transform: translate3d(290px, 0, 0);
-    -o-transform: translate3d(290px, 0, 0);
-    -ms-transform: translate3d(290px, 0, 0);
-    transform: translate3d(290px, 0, 0);
-    margin-top: 0;
+  body.fixed-left.fixedbar-shown {
+    -webkit-transform: translate3d(280px, 0, 0);
+    -moz-transform: translate3d(280px, 0, 0);
+    -o-transform: translate3d(280px, 0, 0);
+    -ms-transform: translate3d(280px, 0, 0);
+    transform: translate3d(280px, 0, 0);
   }
 }
 #header-container {
