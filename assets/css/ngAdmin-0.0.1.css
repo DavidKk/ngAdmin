@@ -4940,17 +4940,16 @@ lesshat-selector {
   display: block;
 }
 body.slide-right {
-  -webkit-transition: right 0.25s ease;
-  -moz-transition: right 0.25s ease;
-  -o-transition: right 0.25s ease;
-  transition: right 0.25s ease;
+  -webkit-transition: transform 0.25s ease;
+  transition: transform 0.25s ease;
+  -webkit-transition: -webkit-transform 0.25s ease;
+  -moz-transition: -moz-transform 0.25s ease;
+  -o-transition: -o-transform 0.25s ease;
+  transition: -webkit-transform 0.25s ease,-moz-transform 0.25s ease,-o-transform 0.25s ease,transform 0.25s ease;
   right: 0;
 }
 body.slide-right.slidebar-shown {
   margin-right: 0;
-  right: 240px;
-}
-body.slide-right.slidebar-shown .container-layout .slidebar-right-layout {
   -webkit-transform: translate3d(-240px, 0, 0);
   -moz-transform: translate3d(-240px, 0, 0);
   -o-transform: translate3d(-240px, 0, 0);
