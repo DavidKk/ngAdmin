@@ -4883,10 +4883,10 @@ lesshat-selector {
   clear: both;
 }
 .container-layout .main-layout {
-  -webkit-transition: all 0.25s;
-  -moz-transition: all 0.25s;
-  -o-transition: all 0.25s;
-  transition: all 0.25s;
+  -webkit-transition: padding-left 0.25s ease;
+  -moz-transition: padding-left 0.25s ease;
+  -o-transition: padding-left 0.25s ease;
+  transition: padding-left 0.25s ease;
   padding-left: 280px;
   width: 100%;
   position: relative;
@@ -4895,10 +4895,12 @@ lesshat-selector {
   padding: 0 15px;
 }
 .container-layout .fixedbar-left-layout {
-  -webkit-transition: margin-left 0.25s;
-  -moz-transition: margin-left 0.25s;
-  -o-transition: margin-left 0.25s;
-  transition: margin-left 0.25s;
+  -webkit-transition: transform 0.25s ease;
+  transition: transform 0.25s ease;
+  -webkit-transition: -webkit-transform 0.25s ease;
+  -moz-transition: -moz-transform 0.25s ease;
+  -o-transition: -o-transform 0.25s ease;
+  transition: -webkit-transform 0.25s ease,-moz-transform 0.25s ease,-o-transform 0.25s ease,transform 0.25s ease;
   position: absolute;
   top: 0;
   left: 0;
@@ -4923,10 +4925,12 @@ lesshat-selector {
   clear: both;
 }
 .container-layout .slidebar-right-layout {
-  -webkit-transition: right 0.25s;
-  -moz-transition: right 0.25s;
-  -o-transition: right 0.25s;
-  transition: right 0.25s;
+  -webkit-transition: transform 0.25s ease;
+  transition: transform 0.25s ease;
+  -webkit-transition: -webkit-transform 0.25s ease;
+  -moz-transition: -moz-transform 0.25s ease;
+  -o-transition: -o-transform 0.25s ease;
+  transition: -webkit-transform 0.25s ease,-moz-transform 0.25s ease,-o-transform 0.25s ease,transform 0.25s ease;
   position: fixed;
   top: 0;
   z-index: 4;
@@ -4936,21 +4940,22 @@ lesshat-selector {
   display: block;
 }
 body.slide-right {
-  -webkit-transition: right 0.25s;
-  -moz-transition: right 0.25s;
-  -o-transition: right 0.25s;
-  transition: right 0.25s;
+  -webkit-transition: right 0.25s ease;
+  -moz-transition: right 0.25s ease;
+  -o-transition: right 0.25s ease;
+  transition: right 0.25s ease;
   right: 0;
 }
 body.slide-right.slidebar-shown {
   margin-right: 0;
   right: 240px;
 }
-body.slide-right.slidebar-shown .container-layout .main-layout {
-  margin-left: 0;
-}
 body.slide-right.slidebar-shown .container-layout .slidebar-right-layout {
-  right: 0;
+  -webkit-transform: translate3d(-240px, 0, 0);
+  -moz-transform: translate3d(-240px, 0, 0);
+  -o-transform: translate3d(-240px, 0, 0);
+  -ms-transform: translate3d(-240px, 0, 0);
+  transform: translate3d(-240px, 0, 0);
 }
 body.fixed-layout,
 body.fixed-layout .container-layout,
@@ -4995,10 +5000,14 @@ body.fixed-layout .container-layout .main-layout .content-layout {
     margin-left: 0;
   }
   body.fixed-left.fixedbar-shown .container-layout .main-layout {
-    margin-left: 280px;
+    padding-left: 280px;
   }
   body.fixed-left.fixedbar-shown .container-layout .fixedbar-left-layout {
-    margin-left: 0;
+    -webkit-transform: translate3d(290px, 0, 0);
+    -moz-transform: translate3d(290px, 0, 0);
+    -o-transform: translate3d(290px, 0, 0);
+    -ms-transform: translate3d(290px, 0, 0);
+    transform: translate3d(290px, 0, 0);
     margin-top: 0;
   }
 }
