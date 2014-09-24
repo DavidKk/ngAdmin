@@ -882,6 +882,9 @@ angular.module('ui.iscroll', ['ui.helper'])
 
         $element
         .on('touchstart', function(event) {
+          event.preventDefault();
+          event.stopPropagation();
+
           var touch = event.touches ? event.touches[0] : event,
           $content = ctrl.getContent();
           $content.css($css3Style.prefixStyle('transition'), '');
@@ -891,7 +894,7 @@ angular.module('ui.iscroll', ['ui.helper'])
           startTime = Date.now();
 
           var move = function(event) {
-            ctrl.showRails();
+            // ctrl.showRails();
 
             var touch = event.touches ? event.touches[0] : event;
             endX = touch.pageX;
