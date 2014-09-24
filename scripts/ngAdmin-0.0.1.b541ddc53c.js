@@ -2,10 +2,10 @@
  * ngAdmin
  * http://a.davidkk.com
 
- * Version: 0.0.1 - 2014-09-16
+ * Version: 0.0.1 - 2014-09-24
  * License: 
  */
-angular.module("ui.ngAdmin", ["ui.dropdownMenu","ui.helper","ui.layout","ui.promptBox","ui.scrollBar","ui.scrollpicker","ui.selecter","ui.slideMenu","ui.tabs","ui.timepicker","ui.warpperSlider","ui.zeroclipboard"]);
+angular.module("ui.ngAdmin", ["ui.dropdownMenu","ui.helper","ui.iscroll","ui.layout","ui.promptBox","ui.scrollpicker","ui.selecter","ui.slideMenu","ui.tabs","ui.timepicker","ui.warpperSlider","ui.zeroclipboard"]);
 
 
 angular.module('ui.dropdownMenu', [])
@@ -288,21 +288,6 @@ angular.module('ui.dropdownMenu', [])
 
 angular.module('ui.helper', [])
 
-.constant('css3Transform', function() {'use strict';
-  var style = document.createElement('div').style,
-  modes = ['transform', 'MozTransform', 'WebkitTransform', 'OTransform'],
-  i = 0, len = modes.length;
-
-  while(i < len) {
-    if (modes[i] in style) {
-      return modes[i];
-    }
-    i ++;
-  }
-
-  return false;
-}())
-
 .filter('range', [
   function() {'use strict';
     return function(input, from, to, step) {
@@ -334,6 +319,31 @@ angular.module('ui.helper', [])
     };
   }
 ])
+
+.service('$css3Style', function() {'use strict';
+  var exports = this,
+      _elementStyle = document.createElement('div').style,
+      _vendor = (function() {
+        var vendors = ['OT', 'msT', 'MozT', 'webkit', 't'],
+            transform,
+            l = vendors.length;
+
+        for (; l > 0; l --) {
+          transform = vendors[l] + 'ransform';
+          if (transform in _elementStyle) {
+            return vendors[l].substr(0, vendors[l].length -1);
+          }
+        }
+
+        return false;
+      })();
+
+  this.prefixStyle = function(style) {
+    if (_vendor === false) return false;
+    if (_vendor === '') return style;
+    return _vendor + style.charAt(0).toUpperCase() + style.substr(1);
+  };
+})
 
 /**
  * $transition service provides a consistent interface to trigger CSS 3 transitions and to be informed when they complete.
@@ -420,21 +430,14 @@ angular.module('ui.helper', [])
 }])
 
 .run(function() {'use strict';
-  if (! angular.isFunction(angular.clone)) {
-    angular.clone = function(a) {
-      if (angular.isObject(a)) return angular.fromJson(angular.toJson(a));
-      return a;
-    };
-  }
-  
-  // Number Helper
+  // number helper
   if (!angular.isFunction(angular.isNumeric)) {
     angular.isNumeric = function(number) {
       return !isNaN(parseFloat(number)) && isFinite(number);
     };
   }
 
-  // Object Helper
+  // object helper
   if (!angular.isFunction(angular.isEmptyObject)) {
     angular.isEmptyObject = function(o) {
       var i;
@@ -443,7 +446,40 @@ angular.module('ui.helper', [])
     };
   }
 
-  // Array Helper
+  if (! angular.isFunction(angular.namespace)) {
+    angular.namespace = function(query, space, token) {
+      if ('string' !== typeof query) return undefined;
+
+      var i = 0, re = space, ns = query.split(token || '.');
+      for (; i < ns.length; i ++) {
+        if ('undefined' === typeof re[ns[i]]) return undefined;
+        re = re[ns[i]];
+      }
+
+      return 'undefined' === typeof re ? undefined : re;
+    };
+  }
+
+  if (! angular.isFunction(angular.make)) {
+    angular.make = function(query, space, value, token) {
+      var i = 0,
+      ori = space || {},
+      re = ori,
+      ns = query.split(token || '.');
+
+      for (; i < ns.length; i ++) {
+        if (i == ns.length -1) re[ns[i]] = value;
+        else {
+          if (! (re.hasOwnProperty(ns[i]) && angular.isObject(re[ns[i]]))) re[ns[i]] = {};
+          re = re[ns[i]];
+        }
+      }
+
+      return ori;
+    };
+  }
+
+  // array helper
   if (!angular.isFunction(angular.inArray)) {
     angular.inArray = function(value, array) {
       if (Array.prototype.indexOf && angular.isFunction(array.indexOf)) {
@@ -473,40 +509,9 @@ angular.module('ui.helper', [])
     };
   }
 
-  // Url Helper
-  if (!angular.isFunction(angular.parseUrl)) {
-    angular.parseUrl = function(url) {
-      var aoMatch = /^(?:([^:\/?#]+):)?(?:\/\/()(?:(?:()(?:([^:@]*):?([^:@]*))?@)?([^:\/?#]*)(?::(\d*))?))?()(?:(()(?:(?:[^?#\/]*\/)*)()(?:[^?#]*))(?:\?([^#]*))?(?:#(.*))?)/.exec(url),
-      aoKeys = [
-        'source', 'scheme', 'authority', 'userInfo',
-        'user', 'pass', 'host', 'port', 'relative', 'path', 'directory',
-        'file', 'query', 'fragment'
-      ];
-
-      for (var i = aoKeys.length, oURI = { url: url }; i > 0; i --) {
-        if (aoMatch[i]) {
-          oURI[aoKeys[i]] = aoMatch[i];
-        }
-      }
-
-      var oDomain = url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
-      if (oDomain) {
-        var aoRootDomain = oDomain[1].split('.'),
-        nLen = aoRootDomain.length;
-
-        oURI.domain = oDomain[1];
-        oURI.rootDomain = aoRootDomain.slice(nLen-2, nLen).join('.');
-      }
-
-      if (oURI.scheme) oURI.scheme = oURI.scheme.toLowerCase();
-      if (oURI.host) oURI.host = oURI.host.toLowerCase();
-
-      return oURI;
-    };
-  }
-
-  if (!angular.isFunction(angular.parseObject)) {
-    angular.parseObject = function(str) {
+  // url helper
+  if (!angular.isFunction(angular.stringToParams)) {
+    angular.stringToParams = function(str) {
       if (! ('string' === typeof str && str.length > 0)) return {};
       for (var i = 0, aoMatch = str.split('&'), oArgs = {}, n, key, value, num; i < aoMatch.length; i ++) {
         n = aoMatch[i].split('=');
@@ -519,8 +524,8 @@ angular.module('ui.helper', [])
     };
   }
 
-  if (!angular.isFunction(angular.parseString)) {
-    angular.parseString = function(params) {
+  if (!angular.isFunction(angular.paramsToString)) {
+    angular.paramsToString = function(params) {
       var paramsToString = function(params, pre){
         var arr = [], i;
         if (!angular.isObject(params)) return;
@@ -543,7 +548,7 @@ angular.module('ui.helper', [])
     };
   }
 
-  // Date Helper
+  // date helper
   if (!angular.isFunction(angular.dateAdjust)) {
     angular.dateAdjust = function(date, part, amount) {
       part = part.toLowerCase();
@@ -581,7 +586,7 @@ angular.module('ui.helper', [])
     };
   }
 
-  // Sort Helper
+  // sort helper
   if (!angular.isFunction(angular.quickSort)) {
     angular.quickSort = (function() {
       var INSERT_SORT_THRESHOLD = 10,
@@ -689,40 +694,279 @@ angular.module('ui.helper', [])
     })();
   }
 
-  // Other Helper
-  if (! angular.isFunction(angular.namespace)) {
-    angular.namespace = function(query, space, token) {
-      if ('string' !== typeof query) return undefined;
+  // other helper
+  if (!angular.isObject(angular.browser)) {
+    angular.browser = (function() {
+      var matched, browser,
+      uaMatch = function( ua ) {
+        ua = ua.toLowerCase();
 
-      var i = 0, re = space, ns = query.split(token || '.');
-      for (; i < ns.length; i ++) {
-        if ('undefined' === typeof re[ns[i]]) return undefined;
-        re = re[ns[i]];
+        var match = /(opr)[\/]([\w.]+)/.exec( ua ) ||
+          /(chrome)[ \/]([\w.]+)/.exec( ua ) ||
+          /(version)[ \/]([\w.]+).*(safari)[ \/]([\w.]+)/.exec(ua) ||
+          /(webkit)[ \/]([\w.]+)/.exec( ua ) ||
+          /(opera)(?:.*version|)[ \/]([\w.]+)/.exec( ua ) ||
+          /(msie) ([\w.]+)/.exec( ua ) ||
+          ua.indexOf("trident") >= 0 && /(rv)(?::| )([\w.]+)/.exec( ua ) ||
+          ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec( ua ) ||
+          [];
+
+        var platform_match = /(ipad)/.exec( ua ) ||
+          /(iphone)/.exec( ua ) ||
+          /(android)/.exec( ua ) ||
+          /(windows phone)/.exec(ua) ||
+          /(win)/.exec( ua ) ||
+          /(mac)/.exec( ua ) ||
+          /(linux)/.exec( ua ) ||
+          [];
+
+        return {
+          browser: match[ 3 ] || match[ 1 ] || "",
+          version: match[ 2 ] || "0",
+          platform: platform_match[0] || ""
+        };
+      };
+
+      matched = uaMatch(window.navigator.userAgent);
+      browser = {};
+
+      if (matched.browser) {
+        browser[ matched.browser] = true;
+        browser.version = matched.version;
+          browser.versionNumber = parseInt(matched.version);
       }
 
-      return 'undefined' === typeof re ? undefined : re;
-    };
-  }
-
-  if (! angular.isFunction(angular.make)) {
-    angular.make = function(query, space, value, token) {
-      var i = 0,
-      ori = space || {},
-      re = ori,
-      ns = query.split(token || '.');
-
-      for (; i < ns.length; i ++) {
-        if (i == ns.length -1) re[ns[i]] = value;
-        else {
-          if (! (re.hasOwnProperty(ns[i]) && angular.isObject(re[ns[i]]))) re[ns[i]] = {};
-          re = re[ns[i]];
-        }
+      if (matched.platform) {
+        browser[ matched.platform] = true;
       }
 
-      return ori;
-    };
+      // Chrome, Opera 15+ and Safari are webkit based browsers
+      if (browser.chrome || browser.opr || browser.safari) {
+        browser.webkit = true;
+      }
+
+      // IE11 has a new token so we will assign it msie to avoid breaking changes
+      if (browser.rv) {
+        var ie = 'msie';
+        matched.browser = ie;
+        browser[ie] = true;
+      }
+
+      // Opera 15+ are identified as opr
+      if (browser.opr) {
+        var opera = 'opera';
+        matched.browser = opera;
+        browser[opera] = true;
+      }
+
+      // Stock Android browsers are marked as safari on Android.
+      if (browser.safari && browser.android) {
+        var android = 'android';
+        matched.browser = android;
+        browser[android] = true;
+      }
+
+      // Assign the name and platform variable
+      browser.name = matched.browser;
+      browser.platform = matched.platform;
+      return browser;
+    })();
+
+    angular.browser.device = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
   }
 });
+
+angular.module('ui.iscroll', ['ui.helper'])
+
+.controller('iscrollCtrl', [
+  '$scope', '$timeout',
+  function($scope, $timeout) {'use strict';
+    var exports = this,
+    timeoutId;
+
+    $scope.screenW   = 0;      // wrapper height
+    $scope.screenH   = 0;      // wrapper width
+    $scope.railsWP   = 0;      // rails width per
+    $scope.railsHP   = 0;      // rails height per
+    $scope.railsXP   = 0;      // rails left per
+    $scope.railsYP   = 0;      // rails top per
+    $scope.showRails = false;  // show rails
+
+    exports.showRails = function() {
+      timeoutId && $timeout.cancel(timeoutId);
+      $scope.showRails = true;
+      $scope.$digest();
+
+      return timeoutId = $timeout(function() {
+        $scope.showRails = false;
+      }, 2000);
+    };
+  }
+])
+
+.directive('iscroll', [
+  '$css3Style',
+  function($css3Style) {
+    return {
+      restrict: 'EA',
+      transclude: true,
+      replace: true,
+      templateUrl: 'tpls/iscroll/iscroll.html',
+      controller: 'iscrollCtrl',
+      scope: {
+        screenW:  '=?',
+        screenH:  '=?',
+        railsX:   '=?',
+        railsY:   '=?',
+        railsXP:  '=?',
+        railsYP:  '=?'
+      },
+      link: function($scope, $element, $attrs, ctrl) {'use strict';
+        $scope.isVertical = $attrs.$attr.hasOwnProperty('vertical') ? !!$attrs.$attr.vertical : true;
+        $scope.isHorizontal = $attrs.$attr.hasOwnProperty('horizontal') ? !!$attrs.$attr.horizontal : false;
+        $scope.isFixedLeft = $attrs.$attr.hasOwnProperty('fixedLeft') ? !!$attrs.$attr.fixedLeft : false;
+        $scope.isFixedTop = $attrs.$attr.hasOwnProperty('fixedTop') ? !!$attrs.$attr.fixedTop : false;
+
+        $scope.$watch(function() {
+          var size = ctrl.getContentSize(),
+              el = $element[0];
+          return JSON.stringify(angular.extend(size, { vwidth: el.clientWidth, vheight: el.clientHeight }));
+        },
+        function() {
+          var el = $element[0];
+          $scope.screenW = el.clientWidth;
+          $scope.screenH = el.clientHeight;
+
+          var size = ctrl.getContentSize(),
+              radioW = $scope.screenW/size.width,
+              radioH = $scope.screenH/size.height;
+
+          $scope.railsWP = angular.isNumeric(radioW) ? radioW : 1;
+          $scope.railsWP = $scope.railsWP > 1 ? 1 : $scope.railsWP < 0 ? 0 : $scope.railsWP;
+          
+          $scope.railsHP = angular.isNumeric(radioH) ? radioH : 1;
+          $scope.railsHP = $scope.railsHP > 1 ? 1 : $scope.railsHP < 0 ? 0 : $scope.railsHP;
+        });
+
+        // pc mouse wheel
+        $element
+        .on('mouseenter', function() {
+          ctrl.showRails();
+        })
+        .on('mousewheel', function(event) {
+          ctrl.showRails();
+          var size = ctrl.getContentSize(),
+              $el = ctrl.getContent();
+
+          if ($scope.isHorizontal && event.wheelDeltaX !== 0) {
+            var maxRailsWP = 1 - $scope.railsWP;
+            $scope.railsXP += -event.wheelDeltaX/size.width;
+            $scope.railsXP = $scope.railsXP < 0 ? 0 : $scope.railsXP > maxRailsWP ? maxRailsWP : $scope.railsXP;
+          }
+
+          if ($scope.isVertical && event.wheelDeltaY !== 0) {
+            var maxRailsHP = 1 - $scope.railsHP;
+            $scope.railsYP += -event.wheelDeltaY/size.height;
+            $scope.railsYP = $scope.railsYP < 0 ? 0 : $scope.railsYP > maxRailsHP ? maxRailsHP : $scope.railsYP;
+          }
+          
+          $el.css($css3Style.prefixStyle('transform'), 'translate(' + (-$scope.railsXP * size.width) + 'px,' + (-$scope.railsYP * size.height) + 'px)');
+        });
+
+        var startY, endY, deltaY, absDeltaY, speedY, destinationY,
+            startX, endX, deltaX, absDeltaX, speedX, destinationX,
+            startTime, deceleration, duration;
+
+        $element.on('touchstart', function(event) {
+          var touch = event.touches ? event.touches[0] : event,
+          $el = ctrl.getContent();
+
+          startX = touch.pageX;
+          startY = touch.pageY;
+          startTime = Date.now();
+
+          var move = function(event) {
+            ctrl.showRails();
+
+            var touch = event.touches ? event.touches[0] : event;
+            endX = touch.pageX;
+            endY = touch.pageY;
+            deltaX = endX - startX;
+            deltaY = endY - startY;
+
+            var size = ctrl.getContentSize(),
+                maxRailsWP = 1 - $scope.railsWP,
+                maxRailsHP = 1 - $scope.railsHP;
+
+            if ($scope.isHorizontal) {
+              $scope.railsXP += -deltaY/size.width;
+              $scope.railsXP = $scope.railsXP < 0 ? 0 : $scope.railsXP > maxRailsWP ? maxRailsWP : $scope.railsXP;
+            }
+
+            if ($scope.isVertical) {
+              $scope.railsYP += -deltaY/size.height;
+              $scope.railsYP = $scope.railsYP < 0 ? 0 : $scope.railsYP > maxRailsHP ? maxRailsHP : $scope.railsYP;
+            }
+
+            $el.css($css3Style.prefixStyle('transform'), 'translate(' + (-$scope.railsXP * size.height) + ',' + (-$scope.railsYP * size.height) + 'px)');
+          };
+
+          var end = function(event) {
+            var size = ctrl.getContentSize(),
+                absDeltaX = Math.abs(deltaX),
+                absDeltaY = Math.abs(deltaY),
+                deltaTime = Date.now() - startTime;
+
+            deceleration = 0.0006;
+            speedX = absDeltaX / deltaTime;
+            speedY = absDeltaY / deltaTime;
+            destinationX = (endX + (speedX * speedX) / (2 * deceleration)) * (deltaX < 0 ? -1 : 1);
+            destinationY = (endY + (speedY * speedY) / (2 * deceleration)) * (deltaY < 0 ? -1 : 1);
+            duration = (absDeltaX > absDeltaY ? speedX : speedY) / deceleration;
+
+            destinationX = Math.min(Math.max(destinationX, -(size.width - $scope.screenW)), 0);
+            destinationY = Math.min(Math.max(destinationY, -(size.height - $scope.screenH)), 0);
+            $el.css($css3Style.prefixStyle('transition'), 'cubic-bezier(.1,.57,.1,1) ' + duration + 'ms')
+            .css($css3Style.prefixStyle('transform'), 'translate(' + destinationX + 'px,' + destinationY + 'px)');
+
+            angular.element(window)
+            .off('touchmove', move)
+            .off('touchend', end);
+          };
+
+          angular.element(window)
+          .on('touchmove', move)
+          .on('touchend', end);
+        });
+
+        // TODO:Drag Event
+      }
+    };
+  }
+])
+
+.directive('iscrollWrapper', [
+  function() {
+    return {
+      restrict: 'EA',
+      require: '?^iscroll',
+      link: function($scope, $element, $attrs, ctrl) {'use strict';
+
+        ctrl.getContentSize = function() {
+          var el = $element[0];
+          return {
+            width: el.clientWidth,
+            height: el.clientHeight
+          };
+        };
+
+        ctrl.getContent = function() {
+          return $element;
+        };
+      }
+    };
+  }
+]);
 
 angular.module('ui.layout', [])
 
@@ -904,177 +1148,6 @@ angular.module('ui.promptBox', [])
         then(function() {
           $element.triggerHandler('mouseleave');
         });
-      }
-    };
-  }
-]);
-
-angular.module('ui.scrollBar', ['ui.helper'])
-
-.controller('ScrollBarController', [
-  '$scope',
-  function($scope) {
-    var exports = this,
-    timer = {};
-
-    $scope.wh = 0;    // screen height
-    $scope.ww = 0;    // screen width
-    $scope.ch = 0;    // content height
-    $scope.cw = 0;    // content width
-    $scope.shp = 0;   // scroller height per
-    $scope.swp = 0;   // scroller width per
-    $scope.syp = 0;   // scroller top per
-    $scope.sxp = 0;   // scroller left per
-
-    $scope.$watch('wh/ch', function(value) {
-      $scope.shp = angular.isNumeric(value) ? value : 1;
-      $scope.shp = $scope.shp > 1 ? 1 : $scope.shp < 0 ? 0 : $scope.shp;
-    });
-
-    $scope.$watch('ww/cw', function(value) {
-      $scope.swp = angular.isNumeric(value) ? value : 1;
-      $scope.swp = $scope.swp > 1 ? 1 : $scope.swp < 0 ? 0 : $scope.swp;
-    });
-
-    exports.show = function() {
-      clearTimeout(timer);
-
-      $scope.show = true;
-      $scope.$digest();
-
-      timer = setTimeout(function() {
-        $scope.show = false;
-        $scope.$digest();
-      }, 2000);
-
-      return timer;
-    };
-  }
-])
-
-.directive('scrollBar', [
-  function() {
-    return {
-      restrict: 'EA',
-      transclude: true,
-      replace: true,
-      templateUrl: 'tpls/scrollBar/scrollBar.html',
-      controller: 'ScrollBarController',
-      scope: {
-        wh: '=?',
-        ww: '=?',
-        ch: '=?',
-        cw: '=?',
-        syp: '=?',
-        sxp: '=?'
-      },
-      link: function($scope, $element, $attrs, ctrl, transclude) {'use strict';
-        $scope.isVertical = $attrs.$attr.hasOwnProperty('vertical') ? !!$attrs.$attr.vertical : true;
-        $scope.isHorizontal = $attrs.$attr.hasOwnProperty('horizontal') ? !!$attrs.$attr.horizontal : false;
-        $scope.isLeft = $attrs.$attr.hasOwnProperty('left') ? !!$attrs.$attr.left : false;
-        $scope.isTop = $attrs.$attr.hasOwnProperty('top') ? !!$attrs.$attr.top : false;
-        $scope.syp = 0;
-        $scope.sxp = 0;
-        $scope.show = false;
-
-        var elbody;
-        (function() {
-          var i = 0,
-          s = $element.children(),
-          l = s.length,
-          $el,
-          attrTransclude;
-
-          for (; i < l; i ++) {
-            $el = angular.element(s[i]);
-            attrTransclude = $el.attr('ng-transclude');
-
-            if (angular.isDefined(attrTransclude)) {
-              elbody = s[i];
-              break;
-            }
-          }
-        })();
-
-        $scope.$watch(function() { return $element[0].clientHeight + $element[0].clientWidth; }, function() {
-          $scope.wh = $element[0].clientHeight;
-          $scope.ww = $element[0].clientWidth;
-        });
-
-        if ($scope.isVertical) {
-          $scope.$watch(function() { return elbody.clientHeight; }, function(height) {
-            $scope.ch = height;
-          });
-        }
-
-        if ($scope.isHorizontal) {
-          $scope.$watch(function() { return elbody.clientWidth; }, function(width) {
-            $scope.cw = width;
-          });
-        }
-
-        $element.on('mouseenter', function() {
-          ctrl.show();
-        })
-        .on('mousewheel', function(event) {
-          ctrl.show();
-
-          $scope.$apply(function() {
-            if (event.wheelDeltaY !== 0) {
-              var maxH = 1 - $scope.shp;
-              $scope.syp += -event.wheelDeltaY/elbody.clientHeight;
-              $scope.syp = $scope.syp < 0 ? 0 : $scope.syp > maxH ? maxH : $scope.syp;
-              angular.element(elbody).css('top', -$scope.syp * elbody.clientHeight + 'px');
-            }
-
-            if (event.wheelDeltaX !== 0) {
-              var maxW = 1 - $scope.shp;
-              $scope.sxp += -event.wheelDeltaX/elbody.clientHeight;
-              $scope.sxp = $scope.sxp < 0 ? 0 : $scope.sxp > maxW ? maxW : $scope.sxp;
-              angular.element(elbody).css('left', -$scope.sw * elbody.clientWidth + 'px');
-            }
-          });
-        })
-
-        // Mobile
-        var startY, startX, swipeDeltaY, swipeDeltaX, isTouch;
-        $element.on('touchstart', function(event) {
-          isTouch = true;
-          startY = event.touches[0].clientY;
-          startX = event.touches[0].clientX;
-
-          $scope.show = true;
-        })
-        .on('touchmove', function(event) {
-          if (!isTouch) return;
-
-          swipeDeltaY = startY - event.touches[0].clientY;
-          swipeDeltaX = startX - event.touches[0].clientX;
-          startY = event.touches[0].clientY;
-          startX = event.touches[0].clientY;
-
-          $scope.$apply(function() {
-            if (event.wheelDeltaY !== 0) {
-              var maxH = 1 - $scope.shp;
-              $scope.syp += -swipeDeltaY/elbody.clientHeight;
-              $scope.syp = $scope.syp < 0 ? 0 : $scope.syp > maxH ? maxH : $scope.syp;
-              angular.element(elbody).css('top', -$scope.syp * elbody.clientHeight + 'px');
-            }
-
-            if (event.wheelDeltaX !== 0) {
-              var maxW = 1 - $scope.shp;
-              $scope.sxp += -swipeDeltaX/elbody.clientHeight;
-              $scope.sxp = $scope.sxp < 0 ? 0 : $scope.sxp > maxW ? maxW : $scope.sxp;
-              angular.element(elbody).css('left', -$scope.sw * elbody.clientWidth + 'px');
-            }
-          });
-        })
-        .on('touchend', function(event) {
-          isTouch = false;
-          ctrl.show();
-        });
-
-        // TODO:Drag Event
       }
     };
   }
