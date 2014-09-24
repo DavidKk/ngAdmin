@@ -2,21 +2,6 @@
 
 angular.module('ui.helper', [])
 
-.constant('css3Transform', function() {'use strict';
-  var style = document.createElement('div').style,
-  modes = ['transform', 'MozTransform', 'WebkitTransform', 'OTransform'],
-  i = 0, len = modes.length;
-
-  while(i < len) {
-    if (modes[i] in style) {
-      return modes[i];
-    }
-    i ++;
-  }
-
-  return false;
-}())
-
 .filter('range', [
   function() {'use strict';
     return function(input, from, to, step) {
@@ -48,6 +33,31 @@ angular.module('ui.helper', [])
     };
   }
 ])
+
+.service('$css3Style', function() {'use strict';
+  var exports = this,
+      _elementStyle = document.createElement('div').style,
+      _vendor = (function() {
+        var vendors = ['OT', 'msT', 'MozT', 'webkit', 't'],
+            transform,
+            l = vendors.length;
+
+        for (; l > 0; l --) {
+          transform = vendors[l] + 'ransform';
+          if (transform in _elementStyle) {
+            return vendors[l].substr(0, vendors[l].length -1);
+          }
+        }
+
+        return false;
+      })();
+
+  this.prefixStyle = function(style) {
+    if (_vendor === false) return false;
+    if (_vendor === '') return style;
+    return _vendor + style.charAt(0).toUpperCase() + style.substr(1);
+  };
+})
 
 /**
  * $transition service provides a consistent interface to trigger CSS 3 transitions and to be informed when they complete.
@@ -134,21 +144,14 @@ angular.module('ui.helper', [])
 }])
 
 .run(function() {'use strict';
-  if (! angular.isFunction(angular.clone)) {
-    angular.clone = function(a) {
-      if (angular.isObject(a)) return angular.fromJson(angular.toJson(a));
-      return a;
-    };
-  }
-  
-  // Number Helper
+  // number helper
   if (!angular.isFunction(angular.isNumeric)) {
     angular.isNumeric = function(number) {
       return !isNaN(parseFloat(number)) && isFinite(number);
     };
   }
 
-  // Object Helper
+  // object helper
   if (!angular.isFunction(angular.isEmptyObject)) {
     angular.isEmptyObject = function(o) {
       var i;
@@ -157,7 +160,40 @@ angular.module('ui.helper', [])
     };
   }
 
-  // Array Helper
+  if (! angular.isFunction(angular.namespace)) {
+    angular.namespace = function(query, space, token) {
+      if ('string' !== typeof query) return undefined;
+
+      var i = 0, re = space, ns = query.split(token || '.');
+      for (; i < ns.length; i ++) {
+        if ('undefined' === typeof re[ns[i]]) return undefined;
+        re = re[ns[i]];
+      }
+
+      return 'undefined' === typeof re ? undefined : re;
+    };
+  }
+
+  if (! angular.isFunction(angular.make)) {
+    angular.make = function(query, space, value, token) {
+      var i = 0,
+      ori = space || {},
+      re = ori,
+      ns = query.split(token || '.');
+
+      for (; i < ns.length; i ++) {
+        if (i == ns.length -1) re[ns[i]] = value;
+        else {
+          if (! (re.hasOwnProperty(ns[i]) && angular.isObject(re[ns[i]]))) re[ns[i]] = {};
+          re = re[ns[i]];
+        }
+      }
+
+      return ori;
+    };
+  }
+
+  // array helper
   if (!angular.isFunction(angular.inArray)) {
     angular.inArray = function(value, array) {
       if (Array.prototype.indexOf && angular.isFunction(array.indexOf)) {
@@ -187,40 +223,9 @@ angular.module('ui.helper', [])
     };
   }
 
-  // Url Helper
-  if (!angular.isFunction(angular.parseUrl)) {
-    angular.parseUrl = function(url) {
-      var aoMatch = /^(?:([^:\/?#]+):)?(?:\/\/()(?:(?:()(?:([^:@]*):?([^:@]*))?@)?([^:\/?#]*)(?::(\d*))?))?()(?:(()(?:(?:[^?#\/]*\/)*)()(?:[^?#]*))(?:\?([^#]*))?(?:#(.*))?)/.exec(url),
-      aoKeys = [
-        'source', 'scheme', 'authority', 'userInfo',
-        'user', 'pass', 'host', 'port', 'relative', 'path', 'directory',
-        'file', 'query', 'fragment'
-      ];
-
-      for (var i = aoKeys.length, oURI = { url: url }; i > 0; i --) {
-        if (aoMatch[i]) {
-          oURI[aoKeys[i]] = aoMatch[i];
-        }
-      }
-
-      var oDomain = url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
-      if (oDomain) {
-        var aoRootDomain = oDomain[1].split('.'),
-        nLen = aoRootDomain.length;
-
-        oURI.domain = oDomain[1];
-        oURI.rootDomain = aoRootDomain.slice(nLen-2, nLen).join('.');
-      }
-
-      if (oURI.scheme) oURI.scheme = oURI.scheme.toLowerCase();
-      if (oURI.host) oURI.host = oURI.host.toLowerCase();
-
-      return oURI;
-    };
-  }
-
-  if (!angular.isFunction(angular.parseObject)) {
-    angular.parseObject = function(str) {
+  // url helper
+  if (!angular.isFunction(angular.stringToParams)) {
+    angular.stringToParams = function(str) {
       if (! ('string' === typeof str && str.length > 0)) return {};
       for (var i = 0, aoMatch = str.split('&'), oArgs = {}, n, key, value, num; i < aoMatch.length; i ++) {
         n = aoMatch[i].split('=');
@@ -233,8 +238,8 @@ angular.module('ui.helper', [])
     };
   }
 
-  if (!angular.isFunction(angular.parseString)) {
-    angular.parseString = function(params) {
+  if (!angular.isFunction(angular.paramsToString)) {
+    angular.paramsToString = function(params) {
       var paramsToString = function(params, pre){
         var arr = [], i;
         if (!angular.isObject(params)) return;
@@ -257,7 +262,7 @@ angular.module('ui.helper', [])
     };
   }
 
-  // Date Helper
+  // date helper
   if (!angular.isFunction(angular.dateAdjust)) {
     angular.dateAdjust = function(date, part, amount) {
       part = part.toLowerCase();
@@ -295,7 +300,7 @@ angular.module('ui.helper', [])
     };
   }
 
-  // Sort Helper
+  // sort helper
   if (!angular.isFunction(angular.quickSort)) {
     angular.quickSort = (function() {
       var INSERT_SORT_THRESHOLD = 10,
@@ -403,37 +408,84 @@ angular.module('ui.helper', [])
     })();
   }
 
-  // Other Helper
-  if (! angular.isFunction(angular.namespace)) {
-    angular.namespace = function(query, space, token) {
-      if ('string' !== typeof query) return undefined;
+  // other helper
+  if (!angular.isObject(angular.browser)) {
+    angular.browser = (function() {
+      var matched, browser,
+      uaMatch = function( ua ) {
+        ua = ua.toLowerCase();
 
-      var i = 0, re = space, ns = query.split(token || '.');
-      for (; i < ns.length; i ++) {
-        if ('undefined' === typeof re[ns[i]]) return undefined;
-        re = re[ns[i]];
+        var match = /(opr)[\/]([\w.]+)/.exec( ua ) ||
+          /(chrome)[ \/]([\w.]+)/.exec( ua ) ||
+          /(version)[ \/]([\w.]+).*(safari)[ \/]([\w.]+)/.exec(ua) ||
+          /(webkit)[ \/]([\w.]+)/.exec( ua ) ||
+          /(opera)(?:.*version|)[ \/]([\w.]+)/.exec( ua ) ||
+          /(msie) ([\w.]+)/.exec( ua ) ||
+          ua.indexOf("trident") >= 0 && /(rv)(?::| )([\w.]+)/.exec( ua ) ||
+          ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec( ua ) ||
+          [];
+
+        var platform_match = /(ipad)/.exec( ua ) ||
+          /(iphone)/.exec( ua ) ||
+          /(android)/.exec( ua ) ||
+          /(windows phone)/.exec(ua) ||
+          /(win)/.exec( ua ) ||
+          /(mac)/.exec( ua ) ||
+          /(linux)/.exec( ua ) ||
+          [];
+
+        return {
+          browser: match[ 3 ] || match[ 1 ] || "",
+          version: match[ 2 ] || "0",
+          platform: platform_match[0] || ""
+        };
+      };
+
+      matched = uaMatch(window.navigator.userAgent);
+      browser = {};
+
+      if (matched.browser) {
+        browser[ matched.browser] = true;
+        browser.version = matched.version;
+          browser.versionNumber = parseInt(matched.version);
       }
 
-      return 'undefined' === typeof re ? undefined : re;
-    };
-  }
-
-  if (! angular.isFunction(angular.make)) {
-    angular.make = function(query, space, value, token) {
-      var i = 0,
-      ori = space || {},
-      re = ori,
-      ns = query.split(token || '.');
-
-      for (; i < ns.length; i ++) {
-        if (i == ns.length -1) re[ns[i]] = value;
-        else {
-          if (! (re.hasOwnProperty(ns[i]) && angular.isObject(re[ns[i]]))) re[ns[i]] = {};
-          re = re[ns[i]];
-        }
+      if (matched.platform) {
+        browser[ matched.platform] = true;
       }
 
-      return ori;
-    };
+      // Chrome, Opera 15+ and Safari are webkit based browsers
+      if (browser.chrome || browser.opr || browser.safari) {
+        browser.webkit = true;
+      }
+
+      // IE11 has a new token so we will assign it msie to avoid breaking changes
+      if (browser.rv) {
+        var ie = 'msie';
+        matched.browser = ie;
+        browser[ie] = true;
+      }
+
+      // Opera 15+ are identified as opr
+      if (browser.opr) {
+        var opera = 'opera';
+        matched.browser = opera;
+        browser[opera] = true;
+      }
+
+      // Stock Android browsers are marked as safari on Android.
+      if (browser.safari && browser.android) {
+        var android = 'android';
+        matched.browser = android;
+        browser[android] = true;
+      }
+
+      // Assign the name and platform variable
+      browser.name = matched.browser;
+      browser.platform = matched.platform;
+      return browser;
+    })();
+
+    angular.browser.device = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
   }
 })

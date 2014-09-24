@@ -40,7 +40,8 @@ angular.module('index', [
       { name: 'Tooltips & Popovers', key: 'tooltips-popovers' },
       { name: 'Progress Bars', key: 'progress-bar' },
       { name: 'Modals', key: 'modals' },
-      { name: 'Carousel', key: 'carousel' }
+      { name: 'Carousel', key: 'carousel' },
+      { name: 'iScroll', key: 'iscroll' }
     ]
   },
   {
@@ -127,6 +128,7 @@ angular.module('index', [
     .when('/index/modals/',                { templateUrl: TEMPLATE_PATH + 'index/modals.html', resolve: resolve })
     .when('/index/slide/',                 { templateUrl: TEMPLATE_PATH + 'index/slide.html', resolve: resolve })
     .when('/index/carousel/',              { templateUrl: TEMPLATE_PATH + 'index/carousel.html', resolve: resolve })
+    .when('/index/iscroll/',               { templateUrl: TEMPLATE_PATH + 'index/iscroll.html', resolve: resolve })
 
     .when('/index/form-basic/',            { templateUrl: TEMPLATE_PATH + 'index/form-basic.html', resolve: resolve })
     .when('/index/form-advanced/',         { templateUrl: TEMPLATE_PATH + 'index/form-advanced.html', resolve: resolve })

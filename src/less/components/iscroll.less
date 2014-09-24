@@ -1,12 +1,12 @@
 
 
-.scroll-wrapper {
+.iscroll {
   height: 100%;
   position: relative;
   overflow: hidden;
 }
 
-.scroll-wrapper .scroll-rails {
+.iscroll .scroll-rails {
   .opacity(0);
   .transition(opacity .35s);
 
@@ -22,7 +22,7 @@
   cursor: default;
 }
 
-.scroll-wrapper .scroll-rails .scroll-bar {
+.iscroll .scroll-rails .scroll-bar {
   margin-top: 3px;
   margin-bottom: 3px;
   width: 5px;
@@ -36,7 +36,7 @@
   cursor: pointer;
 }
 
-.scroll-wrapper .scroll-rails.scroll-horizontal {
+.iscroll .scroll-rails.scroll-horizontal {
   width: 100%;
   height: 10px;
   left: 0;
@@ -45,28 +45,29 @@
   top: auto; 
 }
 
-.scroll-wrapper .scroll-rails.scroll-horizontal .scroll-bar {
+.iscroll .scroll-rails.scroll-horizontal .scroll-bar {
   width: 50%;
   height: 5px;
   left: 0;
   top: 1.5px;
 }
 
-.scroll-wrapper .scroll-rails.scroll-left {
+.iscroll .scroll-rails.scroll-left {
   left: 0;
   right: auto;
 }
 
-.scroll-wrapper .scroll-rails.scroll-top {
+.iscroll .scroll-rails.scroll-top {
   top: 0;
   bottom: auto;
 }
 
-.scroll-wrapper [ng-transclude] {
+.iscroll [ng-transclude] {
+  display: block;
   position: relative;
 }
 
-.scroll-wrapper.open .scroll-rails,
-.scroll-wrapper .scroll-rails:hover {
+.iscroll.open .scroll-rails,
+.iscroll .scroll-rails:hover {
   .opacity(1);
 }
