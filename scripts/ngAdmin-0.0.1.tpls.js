@@ -830,13 +830,13 @@ angular.module('ui.iscroll', ['ui.helper'])
 
         $scope.$watch(function() {
           var size = ctrl.getContentSize(),
-              el = $element[0];
-          return JSON.stringify(angular.extend(size, { vwidth: el.clientWidth, vheight: el.clientHeight }));
+              element = $element[0];
+          return JSON.stringify(angular.extend(size, { vwidth: element.clientWidth, vheight: element.clientHeight }));
         },
         function() {
-          var el = $element[0];
-          $scope.screenW = el.clientWidth;
-          $scope.screenH = el.clientHeight;
+          var element = $element[0];
+          $scope.screenW = element.clientWidth;
+          $scope.screenH = element.clientHeight;
 
           var size = ctrl.getContentSize(),
               radioW = $scope.screenW/size.width,
@@ -844,7 +844,7 @@ angular.module('ui.iscroll', ['ui.helper'])
 
           $scope.railsWP = angular.isNumeric(radioW) ? radioW : 1;
           $scope.railsWP = $scope.railsWP > 1 ? 1 : $scope.railsWP < 0 ? 0 : $scope.railsWP;
-          
+
           $scope.railsHP = angular.isNumeric(radioH) ? radioH : 1;
           $scope.railsHP = $scope.railsHP > 1 ? 1 : $scope.railsHP < 0 ? 0 : $scope.railsHP;
         });
@@ -857,7 +857,7 @@ angular.module('ui.iscroll', ['ui.helper'])
         .on('mousewheel', function(event) {
           ctrl.showRails();
           var size = ctrl.getContentSize(),
-              $el = ctrl.getContent();
+              $content = ctrl.getContent();
 
           if ($scope.isHorizontal && event.wheelDeltaX !== 0) {
             var maxRailsWP = 1 - $scope.railsWP;
@@ -870,20 +870,24 @@ angular.module('ui.iscroll', ['ui.helper'])
             $scope.railsYP += -event.wheelDeltaY/size.height;
             $scope.railsYP = $scope.railsYP < 0 ? 0 : $scope.railsYP > maxRailsHP ? maxRailsHP : $scope.railsYP;
           }
-          
-          $el.css($css3Style.prefixStyle('transform'), 'translate(' + (-$scope.railsXP * size.width) + 'px,' + (-$scope.railsYP * size.height) + 'px)');
+
+          $content.css($css3Style.prefixStyle('transform'), 'translate(' + (-$scope.railsXP * size.width) + 'px,' + (-$scope.railsYP * size.height) + 'px)');
+          $scope.$digest();
         });
 
-        var startY, endY, deltaY, absDeltaY, speedY, destinationY,
-            startX, endX, deltaX, absDeltaX, speedX, destinationX,
+        // mobile touch
+        var beginX, startX, endX, deltaX, absDeltaX, speedX, destinationX,
+            beginY, startY, endY, deltaY, absDeltaY, speedY, destinationY,
             startTime, deceleration, duration;
 
-        $element.on('touchstart', function(event) {
+        $element
+        .on('touchstart', function(event) {
           var touch = event.touches ? event.touches[0] : event,
-          $el = ctrl.getContent();
+          $content = ctrl.getContent();
+          $content.css($css3Style.prefixStyle('transition'), '');
 
-          startX = touch.pageX;
-          startY = touch.pageY;
+          beginX = startX = touch.pageX;
+          beginY = startY = touch.pageY;
           startTime = Date.now();
 
           var move = function(event) {
@@ -894,27 +898,36 @@ angular.module('ui.iscroll', ['ui.helper'])
             endY = touch.pageY;
             deltaX = endX - startX;
             deltaY = endY - startY;
+            startX = endX;
+            startY = endY;
 
             var size = ctrl.getContentSize(),
                 maxRailsWP = 1 - $scope.railsWP,
                 maxRailsHP = 1 - $scope.railsHP;
 
             if ($scope.isHorizontal) {
-              $scope.railsXP += -deltaY/size.width;
-              $scope.railsXP = $scope.railsXP < 0 ? 0 : $scope.railsXP > maxRailsWP ? maxRailsWP : $scope.railsXP;
+              $scope.railsXP += -deltaX/size.width;
+              $scope.railsXP = Math.min(Math.max($scope.railsXP, 0), maxRailsWP);
             }
 
             if ($scope.isVertical) {
               $scope.railsYP += -deltaY/size.height;
-              $scope.railsYP = $scope.railsYP < 0 ? 0 : $scope.railsYP > maxRailsHP ? maxRailsHP : $scope.railsYP;
+              $scope.railsYP = Math.min(Math.max($scope.railsYP, 0), maxRailsHP);
             }
 
-            $el.css($css3Style.prefixStyle('transform'), 'translate(' + (-$scope.railsXP * size.height) + ',' + (-$scope.railsYP * size.height) + 'px)');
+            $content.css($css3Style.prefixStyle('transform'), 'translate(' + (-$scope.railsXP * size.width) + 'px,' + (-$scope.railsYP * size.height) + 'px)');
           };
 
           var end = function(event) {
-            var size = ctrl.getContentSize(),
-                absDeltaX = Math.abs(deltaX),
+            var touch = event.changedTouches ? event.changedTouches[0] : event,
+                size = ctrl.getContentSize();
+
+            endX = touch.pageX;
+            endY = touch.pageY;
+            deltaX = endX - beginX;
+            deltaY = endY - beginY;
+
+            var absDeltaX = Math.abs(deltaX),
                 absDeltaY = Math.abs(deltaY),
                 deltaTime = Date.now() - startTime;
 
@@ -927,7 +940,9 @@ angular.module('ui.iscroll', ['ui.helper'])
 
             destinationX = Math.min(Math.max(destinationX, -(size.width - $scope.screenW)), 0);
             destinationY = Math.min(Math.max(destinationY, -(size.height - $scope.screenH)), 0);
-            $el.css($css3Style.prefixStyle('transition'), 'cubic-bezier(.1,.57,.1,1) ' + duration + 'ms')
+
+            $content
+            .css($css3Style.prefixStyle('transition'), 'cubic-bezier(.1,.57,.1,1) ' + duration + 'ms')
             .css($css3Style.prefixStyle('transform'), 'translate(' + destinationX + 'px,' + destinationY + 'px)');
 
             angular.element(window)
@@ -939,8 +954,6 @@ angular.module('ui.iscroll', ['ui.helper'])
           .on('touchmove', move)
           .on('touchend', end);
         });
-
-        // TODO:Drag Event
       }
     };
   }
@@ -952,7 +965,6 @@ angular.module('ui.iscroll', ['ui.helper'])
       restrict: 'EA',
       require: '?^iscroll',
       link: function($scope, $element, $attrs, ctrl) {'use strict';
-
         ctrl.getContentSize = function() {
           var el = $element[0];
           return {
@@ -964,6 +976,38 @@ angular.module('ui.iscroll', ['ui.helper'])
         ctrl.getContent = function() {
           return $element;
         };
+      }
+    };
+  }
+])
+
+.directive('iscrollSlider', [
+  function() {
+    return {
+      restrict: 'EA',
+      require: '?^iscroll',
+      link: function($scope, $element, $attrs, ctrl) {'use strict';
+        var startY, deltaY;
+
+        $element
+        .on('mousedown', function(event) {
+          startY = event.pageY;
+
+          var move = function(event) {
+
+          };
+
+          var end = function(event) {
+
+            angular.element(window)
+            .off('mousemove', move)
+            .off('end');
+          };
+
+          angular.element(window)
+          .on('mousemove', move)
+          .on('mouseup', end);
+        });
       }
     };
   }
@@ -2170,10 +2214,10 @@ angular.module('ui.zeroclipboard', [])
   $templateCache.put("tpls/iscroll/iscroll.html",
     "<div ng-class=\"{ 'open': showRails }\" class=\"iscroll\">\n" +
     "  <div ng-if=\"isVertical\" ng-class=\"{ 'scroll-left': isFixedLeft }\" class=\"scroll-rails\">\n" +
-    "    <div ng-style=\"{ 'height': shp * 100 + '%', 'top': syp * 100 + '%' }\" class=\"scroll-bar\"></div>\n" +
+    "    <iscroll-slider ng-style=\"{ 'height': railsHP * 100 + '%' }\" class=\"scroll-slider\"></iscroll-slider>\n" +
     "  </div>\n" +
     "  <div ng-if=\"isHorizontal\" ng-class=\"{ 'scroll-bottom': isFixedTop }\" class=\"scroll-rails scroll-horizontal\">\n" +
-    "    <div ng-style=\"{ 'width': swp * 100 + '%', 'left': sxp * 100 + '%' }\" class=\"scroll-bar\"></div>\n" +
+    "    <iscroll-slider ng-style=\"{ 'width': railsWP * 100 + '%' }\" class=\"scroll-slider\"></iscroll-slider>\n" +
     "  </div>\n" +
     "  <iscroll-wrapper ng-transclude=\"ng-transclude\" class=\"scroll-inner\"></iscroll-wrapper>\n" +
     "</div>");

@@ -3810,7 +3810,7 @@ lesshat-selector {
   overflow: hidden;
   cursor: default;
 }
-.iscroll .scroll-rails .scroll-bar {
+.iscroll .scroll-rails .scroll-slider {
   margin-top: 3px;
   margin-bottom: 3px;
   width: 5px;
@@ -3831,7 +3831,7 @@ lesshat-selector {
   bottom: 0;
   top: auto;
 }
-.iscroll .scroll-rails.scroll-horizontal .scroll-bar {
+.iscroll .scroll-rails.scroll-horizontal .scroll-slider {
   width: 50%;
   height: 5px;
   left: 0;
