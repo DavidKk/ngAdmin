@@ -875,8 +875,8 @@ angular.module('ui.iscroll', ['ui.helper'])
         });
 
         // mobile touch
-        var beginX, startX, endX, deltaX, absDeltaX, speedX, destinationX,
-            beginY, startY, endY, deltaY, absDeltaY, speedY, destinationY,
+        var beginX, startX, endX, deltaX, absDeltaX, speedX, destinationX, x,
+            beginY, startY, endY, deltaY, absDeltaY, speedY, destinationY, y,
             startTime, deceleration, duration;
 
         $element
@@ -914,7 +914,9 @@ angular.module('ui.iscroll', ['ui.helper'])
               $scope.railsYP = Math.min(Math.max($scope.railsYP, 0), maxRailsHP);
             }
 
-            $content.css($css3Style.prefixStyle('transform'), 'translate(' + (-$scope.railsXP * size.width) + 'px,' + (-$scope.railsYP * size.height) + 'px)');
+            x = -$scope.railsXP * size.width;
+            y = -$scope.railsYP * size.height;
+            $content.css($css3Style.prefixStyle('transform'), 'translate(' + x + 'px,' + y + 'px)');
           };
 
           var end = function(event) {
@@ -923,8 +925,8 @@ angular.module('ui.iscroll', ['ui.helper'])
 
             endX = touch.pageX;
             endY = touch.pageY;
-            deltaX = endX - beginX;
-            deltaY = endY - beginY;
+            deltaX = x - beginX;
+            deltaY = y - beginY;
 
             var absDeltaX = Math.abs(deltaX),
                 absDeltaY = Math.abs(deltaY),

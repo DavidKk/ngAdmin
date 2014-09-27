@@ -829,9 +829,9 @@ fieldset[disabled] .btn.btn-danger.active {
 .dropdown-menu-head {
   padding-top: 0;
   padding-bottom: 0;
-  max-width: 300px !important;
-  min-width: 160px !important;
-  width: 260px !important;
+  max-width: 300px;
+  min-width: 160px;
+  width: 260px;
 }
 .dropdown-menu-head a.dropdown-more {
   -webkit-transition: all 0.35s;
@@ -4866,6 +4866,7 @@ lesshat-selector {
 }
 .container-layout {
   width: 100%;
+  overflow-x: hidden;
 }
 .container-layout:before,
 .container-layout:after {
@@ -4952,6 +4953,14 @@ body.slide-right {
 body.slide-right {
   margin-right: 0;
 }
+body.slide-right.slidebar-shown .container-layout .slidebar-right-layout,
+body.slide-right.slidebar-shown .container-layout .main-layout {
+  -webkit-transform: translate3d(-240px, 0, 0);
+  -moz-transform: translate3d(-240px, 0, 0);
+  -o-transform: translate3d(-240px, 0, 0);
+  -ms-transform: translate3d(-240px, 0, 0);
+  transform: translate3d(-240px, 0, 0);
+}
 body.fixed-layout,
 body.fixed-layout .container-layout,
 body.fixed-layout .container-layout .main-layout {
@@ -4959,10 +4968,10 @@ body.fixed-layout .container-layout .main-layout {
   overflow-y: hidden;
 }
 body.fixed-layout .container-layout .main-layout {
-  -webkit-transition: all 0.35s;
-  -moz-transition: all 0.35s;
-  -o-transition: all 0.35s;
-  transition: all 0.35s;
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  transition: all 0.25s ease;
 }
 body.fixed-layout .container-layout .main-layout .viewport-layout {
   height: 100%;
