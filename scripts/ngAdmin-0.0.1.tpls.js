@@ -914,27 +914,43 @@ angular.module('ui.iscroll', ['ui.helper'])
             $content.css($css3Style.prefixStyle('transform'), 'translate(' + x + 'px,' + y + 'px)');
           };
 
+          var momentum = function(current, start, deltaTime, wrapperSize) {
+            var distance = current - start,
+                speed = Math.abs(distance) / deltaTime,
+                deceleration = 0.0006,
+                destination, absDestination, duration;
+                
+            destination = current + (speed * speed) / (2 * deceleration) * (distance < 0 ? -1 : 1);
+            duration = speed / deceleration;
+
+            if (destination < 0) {
+              destination = -(wrapperSize / 2.5 * (speed / 8));
+              distance = Math.abs(destination - current);
+              duration = distance / speed;
+            }
+            else if (destination > 0) {
+              destination = wrapperSize / 2.5 * (speed / 8);
+              distance = Math.abs(current) + destination;
+              duration = distance / speed;
+            }
+
+            return {
+              destination: Math.round(destination),
+              duration: duration
+            };
+          }
+
           var end = function(event) {
             var size = ctrl.getContentSize(),
-                deltaX = x - beginX,
-                deltaY = y - beginY,
-                absDeltaX = Math.abs(deltaX),
-                absDeltaY = Math.abs(deltaY),
                 deltaTime = Date.now() - startTime,
-                speedX = absDeltaX / deltaTime,
-                speedY = absDeltaY / deltaTime,
-                deceleration = 0.0006,
-                destinationX = (x + (speedX * speedX) / (2 * deceleration)) * (deltaX < 0 ? -1 : 1),
-                destinationY = (y + (speedY * speedY) / (2 * deceleration)) * (deltaY < 0 ? -1 : 1),
-                duration = (absDeltaX > absDeltaY ? speedX : speedY) / deceleration;
+                momentumX = momentum(x, beginX, deltaTime, size.width),
+                momentumY = momentum(y, beginY, deltaTime, size.height),
+                destinationX = momentumX.destination,
+                destinationY = momentumY.destination,
+                duration = Math.max(momentumX.duration, momentumY.duration);
 
-            // if (absDeltaX < 100) destinationX = x;
-            // else
-              destinationX = Math.min(Math.max(destinationX, -(size.width - $scope.screenW)), 0);
-
-            // if (absDeltaY < 100) destinationY = y;
-            // else
-              destinationY = Math.min(Math.max(destinationY, -(size.height - $scope.screenH)), 0);
+            destinationX = Math.min(Math.max(destinationX, -(size.width - $scope.screenW)), 0);
+            destinationY = Math.min(Math.max(destinationY, -(size.height - $scope.screenH)), 0);
 
             $content
             .css($css3Style.prefixStyle('transition'), 'cubic-bezier(.1,.57,.1,1) ' + duration + 'ms')
