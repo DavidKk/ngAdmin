@@ -882,9 +882,6 @@ angular.module('ui.iscroll', ['ui.helper'])
 
         $element
         .on('touchstart', function(event) {
-          event.preventDefault();
-          event.stopPropagation();
-
           var touch = event.touches ? event.touches[0] : event,
           $content = ctrl.getContent();
           $content.css($css3Style.prefixStyle('transition'), '');
