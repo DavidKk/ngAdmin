@@ -877,9 +877,8 @@ angular.module('ui.iscroll', ['ui.helper'])
 
         // mobile touch
         var element = $element[0],
-            x = element.scrollLeft, beginX, startX, endX, deltaX, absDeltaX, speedX, destinationX,
-            y = element.scrollTop, beginY, startY, endY, deltaY, absDeltaY, speedY, destinationY,
-            deceleration = 0.0006, startTime, duration;
+            x = element.scrollLeft,
+            y = element.scrollTop;
 
         $element
         .on('touchstart', function(event) {
@@ -888,23 +887,25 @@ angular.module('ui.iscroll', ['ui.helper'])
 
           var touch = event.touches ? event.touches[0] : event,
               $content = ctrl.getContent();
+
           $content.css($css3Style.prefixStyle('transition'), '');
 
-          startTime = Date.now();
-          beginX = startX = touch.pageX;
-          beginY = startY = touch.pageY;
+          var startTime = Date.now(),
+              startX = touch.pageX,
+              startY = touch.pageY,
+              beginX = x,
+              beginY = y;
 
           var move = function(event) {
             var touch = event.touches ? event.touches[0] : event,
-                size = ctrl.getContentSize();
+                size = ctrl.getContentSize(),
+                endX = touch.pageX,
+                endY = touch.pageY,
+                deltaX = endX - startX,
+                deltaY = endY - startY;
 
-            endX = touch.pageX;
-            endY = touch.pageY;
-            deltaX = endX - startX;
-            deltaY = endY - startY;
             startX = endX;
             startY = endY;
-
             x += deltaX;
             y += deltaY;
             x = Math.min(Math.max(x, -(size.width - $scope.screenW)), 0);
@@ -915,18 +916,25 @@ angular.module('ui.iscroll', ['ui.helper'])
 
           var end = function(event) {
             var size = ctrl.getContentSize(),
-                absDeltaX = Math.abs(x - beginX),
-                absDeltaY = Math.abs(y - beginY),
-                deltaTime = Date.now() - startTime;
+                deltaX = x - beginX,
+                deltaY = y - beginY,
+                absDeltaX = Math.abs(deltaX),
+                absDeltaY = Math.abs(deltaY),
+                deltaTime = Date.now() - startTime,
+                speedX = absDeltaX / deltaTime,
+                speedY = absDeltaY / deltaTime,
+                deceleration = 0.0006,
+                destinationX = (x + (speedX * speedX) / (2 * deceleration)) * (deltaX < 0 ? -1 : 1),
+                destinationY = (y + (speedY * speedY) / (2 * deceleration)) * (deltaY < 0 ? -1 : 1),
+                duration = (absDeltaX > absDeltaY ? speedX : speedY) / deceleration;
 
-            speedX = absDeltaX / deltaTime;
-            speedY = absDeltaY / deltaTime;
-            destinationX = (x + (speedX * speedX) / (2 * deceleration)) * (deltaX < 0 ? -1 : 1);
-            destinationY = (y + (speedY * speedY) / (2 * deceleration)) * (deltaY < 0 ? -1 : 1);
-            duration = (absDeltaX > absDeltaY ? speedX : speedY) / deceleration;
+            // if (absDeltaX < 100) destinationX = x;
+            // else
+              destinationX = Math.min(Math.max(destinationX, -(size.width - $scope.screenW)), 0);
 
-            destinationX = Math.min(Math.max(destinationX, -(size.width - $scope.screenW)), 0);
-            destinationY = Math.min(Math.max(destinationY, -(size.height - $scope.screenH)), 0);
+            // if (absDeltaY < 100) destinationY = y;
+            // else
+              destinationY = Math.min(Math.max(destinationY, -(size.height - $scope.screenH)), 0);
 
             $content
             .css($css3Style.prefixStyle('transition'), 'cubic-bezier(.1,.57,.1,1) ' + duration + 'ms')
