@@ -875,24 +875,28 @@ angular.module('ui.iscroll', ['ui.helper'])
         });
 
         // mobile touch
-        var beginX, startX, endX, deltaX, absDeltaX, speedX, destinationX, x,
-            beginY, startY, endY, deltaY, absDeltaY, speedY, destinationY, y,
-            startTime, deceleration, duration;
+        var element = $element[0],
+            x = element.scrollLeft, beginX, startX, endX, deltaX, absDeltaX, speedX, destinationX,
+            y = element.scrollTop, beginY, startY, endY, deltaY, absDeltaY, speedY, destinationY,
+            deceleration = 0.0006, startTime, duration;
 
         $element
         .on('touchstart', function(event) {
+          event.preventDefault();
+          event.stopPropagation();
+
           var touch = event.touches ? event.touches[0] : event,
-          $content = ctrl.getContent();
+              $content = ctrl.getContent();
           $content.css($css3Style.prefixStyle('transition'), '');
 
+          startTime = Date.now();
           beginX = startX = touch.pageX;
           beginY = startY = touch.pageY;
-          startTime = Date.now();
 
           var move = function(event) {
-            // ctrl.showRails();
+            var touch = event.touches ? event.touches[0] : event,
+                size = ctrl.getContentSize();
 
-            var touch = event.touches ? event.touches[0] : event;
             endX = touch.pageX;
             endY = touch.pageY;
             deltaX = endX - startX;
@@ -900,43 +904,24 @@ angular.module('ui.iscroll', ['ui.helper'])
             startX = endX;
             startY = endY;
 
-            var size = ctrl.getContentSize(),
-                maxRailsWP = 1 - $scope.railsWP,
-                maxRailsHP = 1 - $scope.railsHP;
+            x += deltaX;
+            y += deltaY;
+            x = Math.min(Math.max(x, -(size.width - $scope.screenW)), 0);
+            y = Math.min(Math.max(y, -(size.height - $scope.screenH)), 0);
 
-            if ($scope.isHorizontal) {
-              $scope.railsXP += -deltaX/size.width;
-              $scope.railsXP = Math.min(Math.max($scope.railsXP, 0), maxRailsWP);
-            }
-
-            if ($scope.isVertical) {
-              $scope.railsYP += -deltaY/size.height;
-              $scope.railsYP = Math.min(Math.max($scope.railsYP, 0), maxRailsHP);
-            }
-
-            x = -$scope.railsXP * size.width;
-            y = -$scope.railsYP * size.height;
             $content.css($css3Style.prefixStyle('transform'), 'translate(' + x + 'px,' + y + 'px)');
           };
 
           var end = function(event) {
-            var touch = event.changedTouches ? event.changedTouches[0] : event,
-                size = ctrl.getContentSize();
-
-            endX = touch.pageX;
-            endY = touch.pageY;
-            deltaX = x - beginX;
-            deltaY = y - beginY;
-
-            var absDeltaX = Math.abs(deltaX),
-                absDeltaY = Math.abs(deltaY),
+            var size = ctrl.getContentSize(),
+                absDeltaX = Math.abs(x - beginX),
+                absDeltaY = Math.abs(y - beginY),
                 deltaTime = Date.now() - startTime;
 
-            deceleration = 0.0006;
             speedX = absDeltaX / deltaTime;
             speedY = absDeltaY / deltaTime;
-            destinationX = (endX + (speedX * speedX) / (2 * deceleration)) * (deltaX < 0 ? -1 : 1);
-            destinationY = (endY + (speedY * speedY) / (2 * deceleration)) * (deltaY < 0 ? -1 : 1);
+            destinationX = (x + (speedX * speedX) / (2 * deceleration)) * (deltaX < 0 ? -1 : 1);
+            destinationY = (y + (speedY * speedY) / (2 * deceleration)) * (deltaY < 0 ? -1 : 1);
             duration = (absDeltaX > absDeltaY ? speedX : speedY) / deceleration;
 
             destinationX = Math.min(Math.max(destinationX, -(size.width - $scope.screenW)), 0);
