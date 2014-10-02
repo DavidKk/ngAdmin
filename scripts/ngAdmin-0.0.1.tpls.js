@@ -864,10 +864,10 @@ angular.module('ui.iscroll', ['ui.helper'])
 
     $scope.showRails = false;
 
-    exports.showRails = function() {
+    exports.showRails = function(digest) {
       timeoutId && $timeout.cancel(timeoutId);
       $scope.showRails = true;
-      $scope.$digest();
+      digest !== false && $scope.$digest();
 
       return timeoutId = $timeout(function() {
         $scope.showRails = false;
@@ -949,7 +949,7 @@ angular.module('ui.iscroll', ['ui.helper'])
           railsHP = Math.max(Math.min(railsHP, 1), 0);
           $vertSlider.css('height', railsHP * 100 + '%');
 
-          ctrl.showRails();
+          ctrl.showRails(false);
         });
     
         function transition(trans) {
@@ -1089,6 +1089,9 @@ angular.module('ui.iscroll', ['ui.helper'])
         // mobile touch
         $element
         .on(events.start, function(event) {
+          event.preventDefault();
+          event.stopPropagation();
+
           var touch = event.touches ? event.touches[0] : event,
               startX = touch.pageX,
               startY = touch.pageY,
@@ -1102,9 +1105,6 @@ angular.module('ui.iscroll', ['ui.helper'])
           translate(beginX, beginY);
 
           var move = function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-
             var touch = event.touches ? event.touches[0] : event,
                 size = ctrl.getScrollerSize(),
                 endX = touch.pageX,
