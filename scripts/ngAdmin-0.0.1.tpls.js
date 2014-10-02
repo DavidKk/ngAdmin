@@ -1195,7 +1195,7 @@ angular.module('ui.iscroll', ['ui.helper'])
 .directive('iscrollWrapper', [
   function() {
     return {
-      restrict: 'EA',
+      restrict: 'A',
       require: '?^iscroll',
       link: function($scope, $element, $attrs, ctrl) {'use strict';
         ctrl.getScrollerSize = function() {
@@ -1217,10 +1217,8 @@ angular.module('ui.iscroll', ['ui.helper'])
 .directive('iscrollSlider', [
   function() {
     return {
-      restrict: 'EA',
+      restrict: 'A',
       require: '?^iscroll',
-      replace: true,
-      template: '<div></div>',
       link: function($scope, $element, $attrs, ctrl) {'use strict';
         var isHorizontal = $attrs.$attr.hasOwnProperty('horizontal'),
             isVertical = $attrs.$attr.hasOwnProperty('vertical'),
@@ -1234,6 +1232,8 @@ angular.module('ui.iscroll', ['ui.helper'])
             return $element;
           };
         }
+
+        // TODO: drag scroll
       }
     };
   }
@@ -2440,12 +2440,12 @@ angular.module('ui.zeroclipboard', [])
   $templateCache.put("tpls/iscroll/iscroll.html",
     "<div ng-class=\"{ 'open': showRails }\" class=\"iscroll\">\n" +
     "  <div ng-show=\"isVertical\" ng-class=\"{ 'scroll-left': isFixedLeft }\" class=\"scroll-rails\">\n" +
-    "    <iscroll-slider vertical=\"vertical\" class=\"scroll-slider\"></iscroll-slider>\n" +
+    "    <div iscroll-slider=\"iscroll-slider\" vertical=\"vertical\" class=\"scroll-slider\"></div>\n" +
     "  </div>\n" +
     "  <div ng-show=\"isHorizontal\" ng-class=\"{ 'scroll-bottom': isFixedTop }\" class=\"scroll-rails scroll-horizontal\">\n" +
-    "    <iscroll-slider horizontal=\"horizontal\" class=\"scroll-slider\"></iscroll-slider>\n" +
+    "    <div iscroll-slider=\"iscroll-slider\" horizontal=\"horizontal\" class=\"scroll-slider\"></div>\n" +
     "  </div>\n" +
-    "  <iscroll-wrapper ng-transclude=\"ng-transclude\" class=\"scroll-inner\"></iscroll-wrapper>\n" +
+    "  <div iscroll-wrapper=\"iscroll-wrapper\" ng-transclude=\"ng-transclude\" class=\"scroll-inner\"></div>\n" +
     "</div>");
 }]);
 ;angular.module("tpls/layout/asidebar.html", []).run(["$templateCache", function($templateCache) {

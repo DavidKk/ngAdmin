@@ -1194,7 +1194,7 @@ angular.module('ui.iscroll', ['ui.helper'])
 .directive('iscrollWrapper', [
   function() {
     return {
-      restrict: 'EA',
+      restrict: 'A',
       require: '?^iscroll',
       link: function($scope, $element, $attrs, ctrl) {'use strict';
         ctrl.getScrollerSize = function() {
@@ -1216,10 +1216,8 @@ angular.module('ui.iscroll', ['ui.helper'])
 .directive('iscrollSlider', [
   function() {
     return {
-      restrict: 'EA',
+      restrict: 'A',
       require: '?^iscroll',
-      replace: true,
-      template: '<div></div>',
       link: function($scope, $element, $attrs, ctrl) {'use strict';
         var isHorizontal = $attrs.$attr.hasOwnProperty('horizontal'),
             isVertical = $attrs.$attr.hasOwnProperty('vertical'),
@@ -1233,6 +1231,8 @@ angular.module('ui.iscroll', ['ui.helper'])
             return $element;
           };
         }
+
+        // TODO: drag scroll
       }
     };
   }
