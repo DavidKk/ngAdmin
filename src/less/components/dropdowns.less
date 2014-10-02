@@ -21,9 +21,9 @@
 .dropdown-menu-head {
   padding-top: 0;
   padding-bottom: 0;
-  max-width: 300px !important;
-  min-width: 160px !important;
-  width: 260px !important;
+  max-width: 300px;
+  min-width: 160px;
+  width: 260px;
 
   a.dropdown-more {
     .transition(all .35s);
@@ -120,6 +120,11 @@
 
 .dropdown-menu-head-palette(@dropdown-palette);
 
+@media (max-width: @screen-xs-max) {
+  .dropdown-menu-head {
+    
+  }
+}
 
 // Revision
 .dropdown-menu-head .scroll-viewport.scroll-wrapper {

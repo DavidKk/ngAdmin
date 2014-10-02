@@ -1,10 +1,10 @@
 
 
 .iscroll(ng-class="{ 'open': showRails }")
-  .scroll-rails(ng-if="isVertical", ng-class="{ 'scroll-left': isFixedLeft }")
-    .scroll-bar(ng-style="{ 'height': shp * 100 + '%', 'top': syp * 100 + '%' }")
+  .scroll-rails(ng-show="isVertical", ng-class="{ 'scroll-left': isFixedLeft }")
+    .scroll-slider(iscroll-slider, vertical)
 
-  .scroll-rails.scroll-horizontal(ng-if="isHorizontal", ng-class="{ 'scroll-bottom': isFixedTop }")
-    .scroll-bar(ng-style="{ 'width': swp * 100 + '%', 'left': sxp * 100 + '%' }")
+  .scroll-rails.scroll-horizontal(ng-show="isHorizontal", ng-class="{ 'scroll-bottom': isFixedTop }")
+    .scroll-slider(iscroll-slider, horizontal)
 
-  iscroll-wrapper.scroll-inner(ng-transclude)
+  .scroll-inner(iscroll-wrapper, ng-transclude)

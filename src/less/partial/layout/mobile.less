@@ -1,9 +1,14 @@
 
 
 @media (max-width: @screen-xs-max) {
-  .container-layout .fixedbar-left-layout { margin-left: -280px; padding-top: 0; }
+  .container-layout .fixedbar-left-layout {
+    .transform(translate3d(-280px, 0, 0));
+    padding-top: 0;
+  }
+
   .container-layout .main-layout .content-layout { margin-left: 0; }
-  
+
   // fixedbar
-  body.fixed-left.fixedbar-shown { .transform(translate3d(280px, 0, 0)); }
+  body.fixed-left.fixedbar-shown .container-layout .fixedbar-left-layout { .transform(translate3d(0, 0, 0)); }
+  body.fixed-left.fixedbar-shown .container-layout .main-layout { .transform(translate3d(280px, 0, 0)); }
 }

@@ -22,7 +22,9 @@
   cursor: default;
 }
 
-.iscroll .scroll-rails .scroll-bar {
+.iscroll .scroll-rails .scroll-slider {
+  .transition(height .35s, width .35s);
+
   margin-top: 3px;
   margin-bottom: 3px;
   width: 5px;
@@ -45,7 +47,7 @@
   top: auto; 
 }
 
-.iscroll .scroll-rails.scroll-horizontal .scroll-bar {
+.iscroll .scroll-rails.scroll-horizontal .scroll-slider {
   width: 50%;
   height: 5px;
   left: 0;

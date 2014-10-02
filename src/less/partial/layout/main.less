@@ -3,6 +3,7 @@
 .container-layout {
   .clearfix();
   width: 100%;
+  overflow-x: hidden;
 }
 
 .container-layout .main-layout {
@@ -44,7 +45,9 @@
 }
 
 body.slide-right { .transition(transform .25s ease); right: 0; }
-body.slide-right.slidebar-shown { margin-right: 0; .transform(translate3d(-240px, 0, 0)); }
+body.slide-right { margin-right: 0; }
+body.slide-right.slidebar-shown .container-layout .slidebar-right-layout,
+body.slide-right.slidebar-shown .container-layout .main-layout { .transform(translate3d(-240px, 0, 0)); }
 
 // screen height 100% model
 body.fixed-layout {
@@ -55,6 +58,7 @@ body.fixed-layout {
     overflow-y: hidden;
   }
 
+  .container-layout .main-layout { .transition(all .25s ease); }
   .container-layout .main-layout .viewport-layout {
     height: 100%;
     display: block;
