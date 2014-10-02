@@ -2,7 +2,7 @@
  * ngAdmin
  * http://a.davidkk.com
 
- * Version: 0.0.1 - 2014-10-02
+ * Version: 0.0.1 - 2014-10-03
  * License: 
  */
 angular.module("ui.ngAdmin", ["ui.ngAdmin.tpls", "ui.dropdownMenu","ui.helper","ui.iscroll","ui.layout","ui.promptBox","ui.scrollpicker","ui.selecter","ui.slideMenu","ui.tabs","ui.timepicker","ui.warpperSlider","ui.zeroclipboard"]);
@@ -1089,9 +1089,6 @@ angular.module('ui.iscroll', ['ui.helper'])
         // mobile touch
         $element
         .on(events.start, function(event) {
-          event.preventDefault();
-          event.stopPropagation();
-
           var touch = event.touches ? event.touches[0] : event,
               startX = touch.pageX,
               startY = touch.pageY,
@@ -1105,6 +1102,9 @@ angular.module('ui.iscroll', ['ui.helper'])
           translate(beginX, beginY);
 
           var move = function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+
             var touch = event.touches ? event.touches[0] : event,
                 size = ctrl.getScrollerSize(),
                 endX = touch.pageX,
