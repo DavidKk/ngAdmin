@@ -326,18 +326,21 @@ angular.module('ui.helper', [])
 
   exports.ease = {
     quadratic: {
+      name: 'quadratic',
       style: 'cubic-bezier(.25, .46, .45, .94)',
       fn: function(k) {
         return k * (2 - k);
       }
     },
     circular: {
+      name: 'circular',
       style: 'cubic-bezier(.1, .57, .1, 1)', // Not properly "circular" but this looks better, it should be (.075, .82, .165, 1)
       fn: function(k) {
         return Math.sqrt(1 - (-- k * k));
       }
     },
     back: {
+      name: 'back',
       style: 'cubic-bezier(.175, .885, .32, 1.275)',
       fn: function(k) {
         var b = 4;
@@ -345,6 +348,7 @@ angular.module('ui.helper', [])
       }
     },
     bounce: {
+      name: 'bounce',
       style: '',
       time: 600,
       fn: function(k) {
@@ -355,6 +359,7 @@ angular.module('ui.helper', [])
       }
     },
     elastic: {
+      name: 'elastic',
       style: '',
       fn: function(k) {
         var f = 0.22,
@@ -409,6 +414,12 @@ angular.module('ui.helper', [])
     if (_vendor === '') return style;
     return _vendor + style.charAt(0).toUpperCase() + style.substr(1);
   };
+})
+
+.service('$device', function() {'use strict';
+  var exports = this;
+
+  exports.isBadAndroid = /Android /.test(window.navigator.appVersion) && !(/Chrome\/\d/.test(window.navigator.appVersion));
 })
 
 /**
@@ -842,6 +853,7 @@ angular.module('ui.helper', [])
   }
 });
 
+
 angular.module('ui.iscroll', ['ui.helper'])
 
 .controller('iscrollCtrl', [
@@ -850,10 +862,6 @@ angular.module('ui.iscroll', ['ui.helper'])
     var exports = this,
     timeoutId;
 
-    $scope.railsWP   = 0;      // rails width per
-    $scope.railsHP   = 0;      // rails height per
-    $scope.railsXP   = 0;      // rails left per
-    $scope.railsYP   = 0;      // rails top per
     $scope.showRails = false;  // show rails
 
     exports.showRails = function() {
@@ -870,32 +878,38 @@ angular.module('ui.iscroll', ['ui.helper'])
 
 .directive('iscroll', [
   '$q',
-  '$css3Style', '$animation',
-  function($q, $css3Style, $animation) {
+  '$css3Style', '$animation', '$device',
+  function($q, $css3Style, $animation, $device) {
     return {
       restrict: 'EA',
       transclude: true,
       replace: true,
       templateUrl: 'tpls/iscroll/iscroll.html',
       controller: 'iscrollCtrl',
-      scope: {
-        railsX:   '=?',
-        railsY:   '=?',
-        railsXP:  '=?',
-        railsYP:  '=?'
-      },
+      scope: {},
       link: function($scope, $element, $attrs, ctrl) {'use strict';
-        var $scroller = ctrl.getScroller(),
-            ease = $animation.ease,
-            easeType = $attrs.$attr.hasOwnProperty('ease') || 'bounce',
-            _transition = $css3Style.prefixStyle('transition'),
-            _transform = $css3Style.prefixStyle('transform'),
-            _size, screenW, screenH, maxScrollX, maxScrollY, curX, curY;
-
         $scope.isHorizontal = $attrs.$attr.hasOwnProperty('horizontal') ? !!$attrs.$attr.horizontal : false;
         $scope.isVertical = $attrs.$attr.hasOwnProperty('vertical') ? !!$attrs.$attr.vertical : true;
         $scope.isFixedLeft = $attrs.$attr.hasOwnProperty('fixedLeft') ? !!$attrs.$attr.fixedLeft : false;
         $scope.isFixedTop = $attrs.$attr.hasOwnProperty('fixedTop') ? !!$attrs.$attr.fixedTop : false;
+
+        var $scroller = ctrl.getScroller(),
+            events = {
+              start: 'touchstart pointerdown MSPointerDown mousedown',
+              move: 'touchmove pointermove MSPointerMove mousemove',
+              end: 'touchend pointerup MSPointerUp mouseup touchcancel pointercancel MSPointerCancel mousecancel'
+            },
+            ease = $animation.ease,
+            easeType = $attrs.$attr.hasOwnProperty('ease') || 'bounce',
+            _transition = $css3Style.prefixStyle('transition'),
+            _transitionTimingFunction = $css3Style.prefixStyle('transitionTimingFunction'),
+            _transitionDuration = $css3Style.prefixStyle('transitionDuration'),
+            _transform = $css3Style.prefixStyle('transform'),
+            _size, screenW, screenH, maxScrollX, maxScrollY, curX, curY,
+
+            // for pc wheel.
+            railsXP = 0, railsYP = 0,
+            railsWP, railsHP;
 
         $scope.$watch(function() {
           var size = ctrl.getScrollerSize(),
@@ -914,21 +928,44 @@ angular.module('ui.iscroll', ['ui.helper'])
           var element = $element[0],
               scrollerW = _size.scrollerW,
               scrollerH = _size.scrollerH,
-              radioW = screenW/scrollerW,
-              radioH = screenH/scrollerH;
+              radioW, radioH;
 
           screenW = element.clientWidth;
           screenH = element.clientHeight;
+          radioW = screenW/scrollerW;
+          radioH = screenH/scrollerH;
+
           maxScrollX = -(scrollerW - screenW);
           maxScrollY = -(scrollerH - screenH);
 
-          $scope.railsWP = angular.isNumeric(radioW) ? radioW : 1;
-          $scope.railsWP = $scope.railsWP > 1 ? 1 : $scope.railsWP < 0 ? 0 : $scope.railsWP;
+          railsWP = angular.isNumeric(radioW) ? radioW : 1;
+          railsWP = Math.max(Math.min(railsWP, 1), 0);
 
-          $scope.railsHP = angular.isNumeric(radioH) ? radioH : 1;
-          $scope.railsHP = $scope.railsHP > 1 ? 1 : $scope.railsHP < 0 ? 0 : $scope.railsHP;
+          railsHP = angular.isNumeric(radioH) ? radioH : 1;
+          railsHP = Math.max(Math.min(railsHP, 1), 0);
         });
+    
+        function transition(trans) {
+          $scroller.css(_transition, trans);
+        }
 
+        function transitionTimingFunction(easing) {
+          $scroller.css(_transitionTimingFunction, easing);
+        }
+
+        function transitionTime(time) {
+          time = time || 0;
+          $scroller.css(_transitionDuration, time + 'ms');
+          !time && $device.isBadAndroid && $scroller.css(_transitionDuration, '0.001s');
+        } 
+
+        function translate(destX, destY) {
+          $scroller.css(_transform, 'translate(' + destX + 'px,' + destY + 'px)');
+          curX = destX;
+          curY = destY;
+        }
+
+        // get scroller position which is scrolling.
         function getComputedPosition() {
           var matrix = window.getComputedStyle($scroller[0], null),
               x, y;
@@ -944,6 +981,7 @@ angular.module('ui.iscroll', ['ui.helper'])
           return {};
         }
 
+        // physics deceleration, dest = s0 + vper^2 * 1/2a
         function momentum(current, start, deltaTime, lowerMargin, wrapperSize) {
           var distance = current - start,
               speed = Math.abs(distance) / deltaTime,
@@ -953,13 +991,13 @@ angular.module('ui.iscroll', ['ui.helper'])
           destination = current + (speed * speed) / (2 * deceleration) * (distance < 0 ? -1 : 1);
           duration = speed / deceleration;
 
-          if ( destination < lowerMargin ) {
-            destination = wrapperSize ? lowerMargin - ( wrapperSize / 2.5 * ( speed / 8 ) ) : lowerMargin;
+          if (destination < lowerMargin) {
+            destination = wrapperSize ? lowerMargin - (wrapperSize / 2.5 * (speed / 8)) : lowerMargin;
             distance = Math.abs(destination - current);
             duration = distance / speed;
           }
-          else if ( destination > 0 ) {
-            destination = wrapperSize ? wrapperSize / 2.5 * ( speed / 8 ) : 0;
+          else if (destination > 0) {
+            destination = wrapperSize ? wrapperSize / 2.5 * (speed / 8) : 0;
             distance = Math.abs(current) + destination;
             duration = distance / speed;
           }
@@ -970,14 +1008,10 @@ angular.module('ui.iscroll', ['ui.helper'])
           };
         }
 
-        function translate(destX, destY) {
-          $scroller.css(_transform, 'translate(' + destX + 'px,' + destY + 'px)');
-          curX = destX;
-          curY = destY;
-        }
-
+        var animationPromise = {};
         function animation(destX, destY, duration, easingFn, promise) {
           easingFn = easingFn || ease[easeType].fn;
+          transition('');
 
           var startX = curX,
               startY = curY,
@@ -1022,8 +1056,11 @@ angular.module('ui.iscroll', ['ui.helper'])
 
         function scrollTo(destX, destY, duration, easing, promise) {
           easing = easing || ease[easeType];
+          duration = easing.name === 'bounce' ? ease.bounce.time : duration;
+
           if (!duration || easing.style) {
-            $scroller.css(_transition, easing.style + ' ' + duration + 'ms');
+            transitionTimingFunction(easing.style);
+            transitionTime(duration);
             translate(destX, destY);
 
             destX = Math.min(Math.max(destX, maxScrollX), 0);
@@ -1031,10 +1068,9 @@ angular.module('ui.iscroll', ['ui.helper'])
 
             if (destX !== curX || destY !== curY) {
               setTimeout(function() {
-                $scroller.css(_transition, '');
                 destX = Math.min(Math.max(destX, maxScrollX), 0);
                 destY = Math.min(Math.max(destY, maxScrollY), 0);
-                animation(destX, destY, ease.bounce.time, undefined, promise);
+                scrollTo(destX, destY, duration, undefined, promise);
               }, duration);
             }
           }
@@ -1043,36 +1079,9 @@ angular.module('ui.iscroll', ['ui.helper'])
           }
         }
 
-        // pc mouse wheel
-        $element
-        .on('mouseenter', function() {
-          ctrl.showRails();
-        })
-        .on('mousewheel', function(event) {
-          ctrl.showRails();
-          var size = ctrl.getScrollerSize();
-
-          if ($scope.isHorizontal && event.wheelDeltaX !== 0) {
-            var maxRailsWP = 1 - $scope.railsWP;
-            $scope.railsXP += -event.wheelDeltaX/size.width;
-            $scope.railsXP = $scope.railsXP < 0 ? 0 : $scope.railsXP > maxRailsWP ? maxRailsWP : $scope.railsXP;
-          }
-
-          if ($scope.isVertical && event.wheelDeltaY !== 0) {
-            var maxRailsHP = 1 - $scope.railsHP;
-            $scope.railsYP += -event.wheelDeltaY/size.height;
-            $scope.railsYP = $scope.railsYP < 0 ? 0 : $scope.railsYP > maxRailsHP ? maxRailsHP : $scope.railsYP;
-          }
-
-          $scroller.css(_transform, 'translate(' + (-$scope.railsXP * size.width) + 'px,' + (-$scope.railsYP * size.height) + 'px)');
-          $scope.$digest();
-        });
-
-
-        var promise = {};
         // mobile touch
         $element
-        .on('touchstart', function(event) {
+        .on(events.start, function(event) {
           event.preventDefault();
           event.stopPropagation();
 
@@ -1084,8 +1093,8 @@ angular.module('ui.iscroll', ['ui.helper'])
               beginY = parseInt(point.y) || 0,
               startTime = Date.now();
 
-          $scroller.css(_transition, '');
-          promise.stop && promise.stop();
+          animationPromise.stop && animationPromise.stop();
+          transition('');
           translate(beginX, beginY);
 
           var move = function(event) {
@@ -1120,18 +1129,58 @@ angular.module('ui.iscroll', ['ui.helper'])
                 duration = Math.max(momentumX.duration, momentumY.duration);
               }
 
-              scrollTo(destX, destY, duration, ease.quadratic, promise);
+              scrollTo(destX, destY, duration, ease.quadratic, animationPromise);
             }
-            else scrollTo(destX, destY, duration, undefined, promise);
+            else {
+              // at the top/bottom of scroller
+              scrollTo(destX, destY, duration, undefined, animationPromise);
+            }
 
             angular.element(window)
-            .off('touchmove', move)
-            .off('touchend', end);
+            .off(events.move, move)
+            .off(events.end, end);
           };
 
           angular.element(window)
-          .on('touchmove', move)
-          .on('touchend', end);
+          .on(events.move, move)
+          .on(events.end, end);
+        });
+
+        // pc mouse wheel, not drag
+        $element
+        .on('mouseenter', ctrl.showRails)
+        .on('mousewheel', function(event) {
+          ctrl.showRails();
+
+          var scrollerW = _size.scrollerW,
+              scrollerH = _size.scrollerH,
+              point = getComputedPosition(event),
+              beginX = parseInt(point.x) || 0,
+              beginY = parseInt(point.y) || 0;
+
+          animationPromise.stop && animationPromise.stop();
+          transition('');
+          translate(beginX, beginY);
+
+          if ($scope.isHorizontal && event.wheelDeltaX !== 0) {
+            var maxRailsWP = 1 - railsWP,
+                $hSlider = $scope.isVertical && ctrl.getHorizontalSlider && ctrl.getHorizontalSlider();
+
+            railsXP -= event.wheelDeltaX/scrollerW;
+            railsXP = Math.max(Math.min(railsXP, maxRailsWP), 0);
+            $hSlider && $hSlider.css(_transform, 'translate(' + railsXP * screenW + 'px, 0)');
+          }
+
+          if ($scope.isVertical && event.wheelDeltaY !== 0) {
+            var maxRailsHP = 1 - railsHP,
+                $vSlider = $scope.isVertical && ctrl.getVerticalSlider && ctrl.getVerticalSlider();
+
+            railsYP -= event.wheelDeltaY/scrollerH;
+            railsYP = Math.max(Math.min(railsYP, maxRailsHP), 0);
+            $vSlider && $vSlider.css(_transform, 'translate(0,' + railsYP * screenH + 'px)');
+          }
+
+          translate(-railsXP * scrollerW, -railsYP * scrollerH);
         });
       }
     };
@@ -1165,28 +1214,21 @@ angular.module('ui.iscroll', ['ui.helper'])
     return {
       restrict: 'EA',
       require: '?^iscroll',
+      replace: true,
+      template: '<div></div>',
       link: function($scope, $element, $attrs, ctrl) {'use strict';
-        var startY, deltaY;
+        var isHorizontal = $attrs.$attr.hasOwnProperty('horizontal'),
+            isVertical = $attrs.$attr.hasOwnProperty('vertical'),
+            method;
 
-        $element
-        .on('mousedown', function(event) {
-          startY = event.pageY;
+        if (isHorizontal) method = 'getHorizontalSlider';
+        else if (isVertical) method = 'getVerticalSlider';
 
-          var move = function(event) {
-
+        if (method) {
+          ctrl[method] = function() {
+            return $element;
           };
-
-          var end = function(event) {
-
-            angular.element(window)
-            .off('mousemove', move)
-            .off('end');
-          };
-
-          angular.element(window)
-          .on('mousemove', move)
-          .on('mouseup', end);
-        });
+        }
       }
     };
   }
@@ -2393,10 +2435,10 @@ angular.module('ui.zeroclipboard', [])
   $templateCache.put("tpls/iscroll/iscroll.html",
     "<div ng-class=\"{ 'open': showRails }\" class=\"iscroll\">\n" +
     "  <div ng-if=\"isVertical\" ng-class=\"{ 'scroll-left': isFixedLeft }\" class=\"scroll-rails\">\n" +
-    "    <iscroll-slider ng-style=\"{ 'height': railsHP * 100 + '%' }\" class=\"scroll-slider\"></iscroll-slider>\n" +
+    "    <iscroll-slider ng-style=\"{ 'height': railsHP * 100 + '%' }\" vertical=\"vertical\" class=\"scroll-slider\"></iscroll-slider>\n" +
     "  </div>\n" +
     "  <div ng-if=\"isHorizontal\" ng-class=\"{ 'scroll-bottom': isFixedTop }\" class=\"scroll-rails scroll-horizontal\">\n" +
-    "    <iscroll-slider ng-style=\"{ 'width': railsWP * 100 + '%' }\" class=\"scroll-slider\"></iscroll-slider>\n" +
+    "    <iscroll-slider ng-style=\"{ 'width': railsWP * 100 + '%' }\" horizontal=\"horizontal\" class=\"scroll-slider\"></iscroll-slider>\n" +
     "  </div>\n" +
     "  <iscroll-wrapper ng-transclude=\"ng-transclude\" class=\"scroll-inner\"></iscroll-wrapper>\n" +
     "</div>");
