@@ -3811,6 +3811,10 @@ lesshat-selector {
   cursor: default;
 }
 .iscroll .scroll-rails .scroll-slider {
+  -webkit-transition: height 0.35s, width 0.35s;
+  -moz-transition: height 0.35s, width 0.35s;
+  -o-transition: height 0.35s, width 0.35s;
+  transition: height 0.35s, width 0.35s;
   margin-top: 3px;
   margin-bottom: 3px;
   width: 5px;

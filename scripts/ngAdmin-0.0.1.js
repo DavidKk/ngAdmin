@@ -861,7 +861,7 @@ angular.module('ui.iscroll', ['ui.helper'])
     var exports = this,
     timeoutId;
 
-    $scope.showRails = false;  // show rails
+    $scope.showRails = false;
 
     exports.showRails = function() {
       timeoutId && $timeout.cancel(timeoutId);
@@ -893,10 +893,13 @@ angular.module('ui.iscroll', ['ui.helper'])
         $scope.isFixedTop = $attrs.$attr.hasOwnProperty('fixedTop') ? !!$attrs.$attr.fixedTop : false;
 
         var $scroller = ctrl.getScroller(),
+            $horzSlider = ctrl.getHorizontalSlider(),
+            $vertSlider = ctrl.getVerticalSlider(),
             events = {
-              start: 'touchstart pointerdown MSPointerDown mousedown',
-              move: 'touchmove pointermove MSPointerMove mousemove',
-              end: 'touchend pointerup MSPointerUp mouseup touchcancel pointercancel MSPointerCancel mousecancel'
+              start: 'touchstart pointerdown MSPointerDown',
+              move: 'touchmove pointermove MSPointerMove',
+              end: 'touchend pointerup MSPointerUp',
+              cancel: 'touchcancel pointercancel MSPointerCancel'
             },
             ease = $animation.ease,
             easeType = $attrs.$attr.hasOwnProperty('ease') || 'bounce',
@@ -939,9 +942,13 @@ angular.module('ui.iscroll', ['ui.helper'])
 
           railsWP = angular.isNumeric(radioW) ? radioW : 1;
           railsWP = Math.max(Math.min(railsWP, 1), 0);
+          $horzSlider.css('width', railsWP * 100 + '%');
 
           railsHP = angular.isNumeric(radioH) ? radioH : 1;
           railsHP = Math.max(Math.min(railsHP, 1), 0);
+          $vertSlider.css('height', railsHP * 100 + '%');
+
+          ctrl.showRails();
         });
     
         function transition(trans) {
@@ -1137,12 +1144,12 @@ angular.module('ui.iscroll', ['ui.helper'])
 
             angular.element(window)
             .off(events.move, move)
-            .off(events.end, end);
+            .off(events.end + ' ' + events.cancel, end);
           };
 
           angular.element(window)
           .on(events.move, move)
-          .on(events.end, end);
+          .on(events.end + ' ' + events.cancel, end);
         });
 
         // pc mouse wheel, not drag
@@ -1162,21 +1169,19 @@ angular.module('ui.iscroll', ['ui.helper'])
           translate(beginX, beginY);
 
           if ($scope.isHorizontal && event.wheelDeltaX !== 0) {
-            var maxRailsWP = 1 - railsWP,
-                $hSlider = $scope.isVertical && ctrl.getHorizontalSlider && ctrl.getHorizontalSlider();
+            var maxRailsWP = 1 - railsWP;
 
             railsXP -= event.wheelDeltaX/scrollerW;
             railsXP = Math.max(Math.min(railsXP, maxRailsWP), 0);
-            $hSlider && $hSlider.css(_transform, 'translate(' + railsXP * screenW + 'px, 0)');
+            $horzSlider.css(_transform, 'translate(' + railsXP * screenW + 'px, 0)');
           }
 
           if ($scope.isVertical && event.wheelDeltaY !== 0) {
-            var maxRailsHP = 1 - railsHP,
-                $vSlider = $scope.isVertical && ctrl.getVerticalSlider && ctrl.getVerticalSlider();
+            var maxRailsHP = 1 - railsHP;
 
             railsYP -= event.wheelDeltaY/scrollerH;
             railsYP = Math.max(Math.min(railsYP, maxRailsHP), 0);
-            $vSlider && $vSlider.css(_transform, 'translate(0,' + railsYP * screenH + 'px)');
+            $vertSlider.css(_transform, 'translate(0,' + railsYP * screenH + 'px)');
           }
 
           translate(-railsXP * scrollerW, -railsYP * scrollerH);
