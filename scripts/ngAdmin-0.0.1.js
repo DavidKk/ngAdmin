@@ -2,7 +2,7 @@
  * ngAdmin
  * http://a.davidkk.com
 
- * Version: 0.0.1 - 2014-09-27
+ * Version: 0.0.1 - 2014-10-02
  * License: 
  */
 angular.module("ui.ngAdmin", ["ui.dropdownMenu","ui.helper","ui.iscroll","ui.layout","ui.promptBox","ui.scrollpicker","ui.selecter","ui.slideMenu","ui.tabs","ui.timepicker","ui.warpperSlider","ui.zeroclipboard"]);
@@ -319,6 +319,71 @@ angular.module('ui.helper', [])
     };
   }
 ])
+
+.service('$animation', function() {'use strict';
+  var exports = this;
+
+  exports.ease = {
+    quadratic: {
+      style: 'cubic-bezier(.25, .46, .45, .94)',
+      fn: function(k) {
+        return k * (2 - k);
+      }
+    },
+    circular: {
+      style: 'cubic-bezier(.1, .57, .1, 1)', // Not properly "circular" but this looks better, it should be (.075, .82, .165, 1)
+      fn: function(k) {
+        return Math.sqrt(1 - (-- k * k));
+      }
+    },
+    back: {
+      style: 'cubic-bezier(.175, .885, .32, 1.275)',
+      fn: function(k) {
+        var b = 4;
+        return (k = k - 1) * k * ((b + 1) * k + b) + 1;
+      }
+    },
+    bounce: {
+      style: '',
+      time: 600,
+      fn: function(k) {
+        if ((k /= 1) < (1/2.75)) return 7.5625 * k * k;
+        if (k < (2/2.75)) return 7.5625 * (k -= (1.5/2.75)) * k + 0.75;
+        if (k < (2.5/2.75)) return 7.5625 * (k -= (2.25/2.75 )) * k + 0.9375;
+        return 7.5625 * (k -= (2.625/2.75)) * k + 0.984375;
+      }
+    },
+    elastic: {
+      style: '',
+      fn: function(k) {
+        var f = 0.22,
+            e = 0.4;
+
+        if ( k === 0 ) return 0;
+        if ( k == 1 ) return 1;
+        return (e * Math.pow(2, - 10*k) * Math.sin((k - f/4) * (2 * Math.PI) / f) + 1);
+      }
+    }
+  };
+
+  exports.rAF = (window.requestAnimationFrame && window.requestAnimationFrame.bind(window)) ||
+    (window.webkitRequestAnimationFrame && window.webkitRequestAnimationFrame.bind(window)) ||
+    (window.mozRequestAnimationFrame && window.mozRequestAnimationFrame.bind(window)) ||
+    (window.oRequestAnimationFrame && window.oRequestAnimationFrame.bind(window)) ||
+    (window.msRequestAnimationFrame && window.msRequestAnimationFrame.bind(window)) ||
+    function (callback) {
+      return window.setTimeout(callback, 1000 / 60);
+    };
+
+  exports.cAF = (window.cancelAnimationFrame && window.cancelAnimationFrame.bind(window)) ||
+    (window.webkitCancelAnimationFrame && window.webkitCancelAnimationFrame.bind(window)) ||
+    (window.mozCancelAnimationFrame && window.mozCancelAnimationFrame.bind(window)) ||
+    (window.oCancelAnimationFrame && window.oCancelAnimationFrame.bind(window)) ||
+    (window.msCancelAnimationFrame && window.msCancelAnimationFrame.bind(window)) ||
+    function(id) {
+      return clearTimeout(id);
+    };
+})
 
 .service('$css3Style', function() {'use strict';
   var exports = this,
@@ -784,8 +849,6 @@ angular.module('ui.iscroll', ['ui.helper'])
     var exports = this,
     timeoutId;
 
-    $scope.screenW   = 0;      // wrapper height
-    $scope.screenH   = 0;      // wrapper width
     $scope.railsWP   = 0;      // rails width per
     $scope.railsHP   = 0;      // rails height per
     $scope.railsXP   = 0;      // rails left per
@@ -805,8 +868,9 @@ angular.module('ui.iscroll', ['ui.helper'])
 ])
 
 .directive('iscroll', [
-  '$css3Style',
-  function($css3Style) {
+  '$q',
+  '$css3Style', '$animation',
+  function($q, $css3Style, $animation) {
     return {
       restrict: 'EA',
       transclude: true,
@@ -814,32 +878,48 @@ angular.module('ui.iscroll', ['ui.helper'])
       templateUrl: 'tpls/iscroll/iscroll.html',
       controller: 'iscrollCtrl',
       scope: {
-        screenW:  '=?',
-        screenH:  '=?',
         railsX:   '=?',
         railsY:   '=?',
         railsXP:  '=?',
         railsYP:  '=?'
       },
       link: function($scope, $element, $attrs, ctrl) {'use strict';
-        $scope.isVertical = $attrs.$attr.hasOwnProperty('vertical') ? !!$attrs.$attr.vertical : true;
+        var $scroller = ctrl.getScroller(),
+            ease = $animation.ease,
+            easeType = $attrs.$attr.hasOwnProperty('ease') || 'bounce',
+            _transition = $css3Style.prefixStyle('transition'),
+            _transform = $css3Style.prefixStyle('transform'),
+            _size, screenW, screenH, maxScrollX, maxScrollY, curX, curY;
+
         $scope.isHorizontal = $attrs.$attr.hasOwnProperty('horizontal') ? !!$attrs.$attr.horizontal : false;
+        $scope.isVertical = $attrs.$attr.hasOwnProperty('vertical') ? !!$attrs.$attr.vertical : true;
         $scope.isFixedLeft = $attrs.$attr.hasOwnProperty('fixedLeft') ? !!$attrs.$attr.fixedLeft : false;
         $scope.isFixedTop = $attrs.$attr.hasOwnProperty('fixedTop') ? !!$attrs.$attr.fixedTop : false;
 
         $scope.$watch(function() {
-          var size = ctrl.getContentSize(),
+          var size = ctrl.getScrollerSize(),
               element = $element[0];
-          return JSON.stringify(angular.extend(size, { vwidth: element.clientWidth, vheight: element.clientHeight }));
+
+          _size = {
+            scrollerW: size.width,
+            scrollerH: size.height,
+            viewW: element.clientWidth,
+            viewHeight: element.clientHeight
+          };
+
+          return JSON.stringify(_size);
         },
         function() {
-          var element = $element[0];
-          $scope.screenW = element.clientWidth;
-          $scope.screenH = element.clientHeight;
+          var element = $element[0],
+              scrollerW = _size.scrollerW,
+              scrollerH = _size.scrollerH,
+              radioW = screenW/scrollerW,
+              radioH = screenH/scrollerH;
 
-          var size = ctrl.getContentSize(),
-              radioW = $scope.screenW/size.width,
-              radioH = $scope.screenH/size.height;
+          screenW = element.clientWidth;
+          screenH = element.clientHeight;
+          maxScrollX = -(scrollerW - screenW);
+          maxScrollY = -(scrollerH - screenH);
 
           $scope.railsWP = angular.isNumeric(radioW) ? radioW : 1;
           $scope.railsWP = $scope.railsWP > 1 ? 1 : $scope.railsWP < 0 ? 0 : $scope.railsWP;
@@ -848,6 +928,120 @@ angular.module('ui.iscroll', ['ui.helper'])
           $scope.railsHP = $scope.railsHP > 1 ? 1 : $scope.railsHP < 0 ? 0 : $scope.railsHP;
         });
 
+        function getComputedPosition() {
+          var matrix = window.getComputedStyle($scroller[0], null),
+              x, y;
+
+          matrix = matrix[_transform];
+          if (matrix && matrix !== 'none') {
+            matrix = matrix.split(')')[0].split(', ');
+            x = +(matrix[12] || matrix[4]);
+            y = +(matrix[13] || matrix[5]);
+            return { x: x, y: y };
+          }
+
+          return {};
+        }
+
+        function momentum(current, start, deltaTime, lowerMargin, wrapperSize) {
+          var distance = current - start,
+              speed = Math.abs(distance) / deltaTime,
+              deceleration = 0.0006,
+              destination, duration;
+
+          destination = current + (speed * speed) / (2 * deceleration) * (distance < 0 ? -1 : 1);
+          duration = speed / deceleration;
+
+          if ( destination < lowerMargin ) {
+            destination = wrapperSize ? lowerMargin - ( wrapperSize / 2.5 * ( speed / 8 ) ) : lowerMargin;
+            distance = Math.abs(destination - current);
+            duration = distance / speed;
+          }
+          else if ( destination > 0 ) {
+            destination = wrapperSize ? wrapperSize / 2.5 * ( speed / 8 ) : 0;
+            distance = Math.abs(current) + destination;
+            duration = distance / speed;
+          }
+
+          return {
+            destination: Math.round(destination),
+            duration: duration
+          };
+        }
+
+        function translate(destX, destY) {
+          $scroller.css(_transform, 'translate(' + destX + 'px,' + destY + 'px)');
+          curX = destX;
+          curY = destY;
+        }
+
+        function animation(destX, destY, duration, easingFn, promise) {
+          easingFn = easingFn || ease[easeType].fn;
+
+          var startX = curX,
+              startY = curY,
+              startTime = Date.now(),
+              destTime = startTime + duration,
+              isAnimating = true,
+              rids = [];
+
+          !(function step() {
+            var now = Date.now(),
+                destinationX, destinationY, easing;
+
+            if (now >= destTime) {
+              isAnimating = false;
+              translate(destX, destY);
+
+              destX = Math.min(Math.max(destX, maxScrollX), 0);
+              destY = Math.min(Math.max(destY, maxScrollY), 0);
+
+              destX !== curX || destY !== curY && animation(destX, destY, ease.bounce.time, easingFn, promise);
+              rids.splice(0, rids.length);
+            }
+            else {
+              now = (now - startTime)/duration;
+              easing = easingFn(now);
+              destinationX = (destX - startX) * easing + startX;
+              destinationY = (destY - startY) * easing + startY;
+              translate(destinationX, destinationY);
+              isAnimating && rids.push($animation.rAF(step));
+            }
+          })();
+
+          promise.stop = function() {
+            angular.forEach(rids, function(id) {
+              $animation.cAF(id);
+            });
+
+            isAnimating = undefined;
+            rids.splice(0, rids.length);
+          };
+        }
+
+        function scrollTo(destX, destY, duration, easing, promise) {
+          easing = easing || ease[easeType];
+          if (!duration || easing.style) {
+            $scroller.css(_transition, easing.style + ' ' + duration + 'ms');
+            translate(destX, destY);
+
+            destX = Math.min(Math.max(destX, maxScrollX), 0);
+            destY = Math.min(Math.max(destY, maxScrollY), 0);
+
+            if (destX !== curX || destY !== curY) {
+              setTimeout(function() {
+                $scroller.css(_transition, '');
+                destX = Math.min(Math.max(destX, maxScrollX), 0);
+                destY = Math.min(Math.max(destY, maxScrollY), 0);
+                animation(destX, destY, ease.bounce.time, undefined, promise);
+              }, duration);
+            }
+          }
+          else if (easing.fn) {
+            animation(destX, destY, duration, easing.fn, promise);
+          }
+        }
+
         // pc mouse wheel
         $element
         .on('mouseenter', function() {
@@ -855,8 +1049,7 @@ angular.module('ui.iscroll', ['ui.helper'])
         })
         .on('mousewheel', function(event) {
           ctrl.showRails();
-          var size = ctrl.getContentSize(),
-              $content = ctrl.getContent();
+          var size = ctrl.getScrollerSize();
 
           if ($scope.isHorizontal && event.wheelDeltaX !== 0) {
             var maxRailsWP = 1 - $scope.railsWP;
@@ -870,90 +1063,65 @@ angular.module('ui.iscroll', ['ui.helper'])
             $scope.railsYP = $scope.railsYP < 0 ? 0 : $scope.railsYP > maxRailsHP ? maxRailsHP : $scope.railsYP;
           }
 
-          $content.css($css3Style.prefixStyle('transform'), 'translate(' + (-$scope.railsXP * size.width) + 'px,' + (-$scope.railsYP * size.height) + 'px)');
+          $scroller.css(_transform, 'translate(' + (-$scope.railsXP * size.width) + 'px,' + (-$scope.railsYP * size.height) + 'px)');
           $scope.$digest();
         });
 
-        // mobile touch
-        var element = $element[0],
-            x = element.scrollLeft,
-            y = element.scrollTop;
 
+        var promise = {};
+        // mobile touch
         $element
         .on('touchstart', function(event) {
           event.preventDefault();
           event.stopPropagation();
 
           var touch = event.touches ? event.touches[0] : event,
-              $content = ctrl.getContent();
-
-          $content.css($css3Style.prefixStyle('transition'), '');
-
-          var startTime = Date.now(),
               startX = touch.pageX,
               startY = touch.pageY,
-              beginX = x,
-              beginY = y;
+              point = getComputedPosition(event),
+              beginX = parseInt(point.x) || 0,
+              beginY = parseInt(point.y) || 0,
+              startTime = Date.now();
+
+          $scroller.css(_transition, '');
+          promise.stop && promise.stop();
+          translate(beginX, beginY);
 
           var move = function(event) {
             var touch = event.touches ? event.touches[0] : event,
-                size = ctrl.getContentSize(),
+                size = ctrl.getScrollerSize(),
                 endX = touch.pageX,
                 endY = touch.pageY,
                 deltaX = endX - startX,
                 deltaY = endY - startY;
 
+            translate($scope.isHorizontal ? curX + deltaX : 0, $scope.isVertical ? curY + deltaY : 0);
             startX = endX;
             startY = endY;
-            x += deltaX;
-            y += deltaY;
-            x = Math.min(Math.max(x, -(size.width - $scope.screenW)), 0);
-            y = Math.min(Math.max(y, -(size.height - $scope.screenH)), 0);
-
-            $content.css($css3Style.prefixStyle('transform'), 'translate(' + x + 'px,' + y + 'px)');
           };
 
-          var momentum = function(current, start, deltaTime, wrapperSize) {
-            var distance = current - start,
-                speed = Math.abs(distance) / deltaTime,
-                deceleration = 0.0006,
-                destination, absDestination, duration;
-                
-            destination = current + (speed * speed) / (2 * deceleration) * (distance < 0 ? -1 : 1);
-            duration = speed / deceleration;
-
-            if (destination < 0) {
-              destination = -(wrapperSize / 2.5 * (speed / 8));
-              distance = Math.abs(destination - current);
-              duration = distance / speed;
-            }
-            else if (destination > 0) {
-              destination = wrapperSize / 2.5 * (speed / 8);
-              distance = Math.abs(current) + destination;
-              duration = distance / speed;
-            }
-
-            return {
-              destination: Math.round(destination),
-              duration: duration
-            };
-          }
-
           var end = function(event) {
-            var size = ctrl.getContentSize(),
-                deltaTime = Date.now() - startTime,
-                momentumX = momentum(x, beginX, deltaTime, size.width),
-                momentumY = momentum(y, beginY, deltaTime, size.height),
-                destinationX = momentumX.destination,
-                destinationY = momentumY.destination,
+            var duration = Date.now() - startTime,
+                absDeltaX = Math.abs(curX - beginX),
+                absDeltaY = Math.abs(curY - beginY),
+                destX = curX,
+                destY = curY,
+                momentumX, momentumY;
+
+            destX = Math.min(Math.max(destX, maxScrollX), 0);
+            destY = Math.min(Math.max(destY, maxScrollY), 0);
+            if (destX === curX && destY === curY) {
+              if (duration < 300) {
+                momentumX = $scope.isHorizontal ? momentum(curX, beginX, duration, maxScrollX, screenW) : { destination: curX, duration: 0 };
+                momentumY = $scope.isVertical ? momentum(curY, beginY, duration, maxScrollY, screenH) : { destination: curY, duration: 0 };
+                destX = momentumX.destination;
+                destY = momentumY.destination;
                 duration = Math.max(momentumX.duration, momentumY.duration);
+              }
 
-            destinationX = Math.min(Math.max(destinationX, -(size.width - $scope.screenW)), 0);
-            destinationY = Math.min(Math.max(destinationY, -(size.height - $scope.screenH)), 0);
-
-            $content
-            .css($css3Style.prefixStyle('transition'), 'cubic-bezier(.1,.57,.1,1) ' + duration + 'ms')
-            .css($css3Style.prefixStyle('transform'), 'translate(' + destinationX + 'px,' + destinationY + 'px)');
+              scrollTo(destX, destY, duration, ease.quadratic, promise);
+            }
+            else scrollTo(destX, destY, duration, undefined, promise);
 
             angular.element(window)
             .off('touchmove', move)
@@ -975,7 +1143,7 @@ angular.module('ui.iscroll', ['ui.helper'])
       restrict: 'EA',
       require: '?^iscroll',
       link: function($scope, $element, $attrs, ctrl) {'use strict';
-        ctrl.getContentSize = function() {
+        ctrl.getScrollerSize = function() {
           var el = $element[0];
           return {
             width: el.clientWidth,
@@ -983,7 +1151,7 @@ angular.module('ui.iscroll', ['ui.helper'])
           };
         };
 
-        ctrl.getContent = function() {
+        ctrl.getScroller = function() {
           return $element;
         };
       }
