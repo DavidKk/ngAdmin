@@ -1,7 +1,8 @@
 
 
-
-angular.module('ui.iscroll', ['ui.helper'])
+angular.module('ui.iscroll', [
+  'ui.helper', 'ui.style'
+])
 
 .controller('iscrollCtrl', [
   '$scope', '$timeout',
@@ -11,10 +12,10 @@ angular.module('ui.iscroll', ['ui.helper'])
 
     $scope.showRails = false;
 
-    exports.showRails = function() {
+    exports.showRails = function(digest) {
       timeoutId && $timeout.cancel(timeoutId);
       $scope.showRails = true;
-      $scope.$digest();
+      digest !== false && $scope.$digest();
 
       return timeoutId = $timeout(function() {
         $scope.showRails = false;
@@ -24,9 +25,8 @@ angular.module('ui.iscroll', ['ui.helper'])
 ])
 
 .directive('iscroll', [
-  '$q',
-  '$css3Style', '$animation', '$device',
-  function($q, $css3Style, $animation, $device) {
+  '$q', '$device', 'easing', '$prefixStyle', '$animateFrame',
+  function($q, $device, easing, $prefixStyle, $animateFrame) {
     return {
       restrict: 'EA',
       transclude: true,
@@ -49,12 +49,12 @@ angular.module('ui.iscroll', ['ui.helper'])
               end: 'touchend pointerup MSPointerUp',
               cancel: 'touchcancel pointercancel MSPointerCancel'
             },
-            ease = $animation.ease,
+            ease = easing,
             easeType = $attrs.$attr.hasOwnProperty('ease') || 'bounce',
-            _transition = $css3Style.prefixStyle('transition'),
-            _transitionTimingFunction = $css3Style.prefixStyle('transitionTimingFunction'),
-            _transitionDuration = $css3Style.prefixStyle('transitionDuration'),
-            _transform = $css3Style.prefixStyle('transform'),
+            _transition = $prefixStyle('transition'),
+            _transitionTimingFunction = $prefixStyle('transitionTimingFunction'),
+            _transitionDuration = $prefixStyle('transitionDuration'),
+            _transform = $prefixStyle('transform'),
             _size, screenW, screenH, maxScrollX, maxScrollY, curX, curY,
 
             // for pc wheel.
@@ -96,7 +96,7 @@ angular.module('ui.iscroll', ['ui.helper'])
           railsHP = Math.max(Math.min(railsHP, 1), 0);
           $vertSlider.css('height', railsHP * 100 + '%');
 
-          ctrl.showRails();
+          ctrl.showRails(false);
         });
     
         function transition(trans) {
@@ -171,8 +171,7 @@ angular.module('ui.iscroll', ['ui.helper'])
               startY = curY,
               startTime = Date.now(),
               destTime = startTime + duration,
-              isAnimating = true,
-              rids = [];
+              isAnimating = true;
 
           !(function step() {
             var now = Date.now(),
@@ -186,7 +185,6 @@ angular.module('ui.iscroll', ['ui.helper'])
               destY = Math.min(Math.max(destY, maxScrollY), 0);
 
               destX !== curX || destY !== curY && animation(destX, destY, ease.bounce.time, easingFn, promise);
-              rids.splice(0, rids.length);
             }
             else {
               now = (now - startTime)/duration;
@@ -194,17 +192,12 @@ angular.module('ui.iscroll', ['ui.helper'])
               destinationX = (destX - startX) * easing + startX;
               destinationY = (destY - startY) * easing + startY;
               translate(destinationX, destinationY);
-              isAnimating && rids.push($animation.rAF(step));
+              isAnimating && $animateFrame.rAF(step);
             }
           })();
 
           promise.stop = function() {
-            angular.forEach(rids, function(id) {
-              $animation.cAF(id);
-            });
-
             isAnimating = undefined;
-            rids.splice(0, rids.length);
           };
         }
 
@@ -236,9 +229,6 @@ angular.module('ui.iscroll', ['ui.helper'])
         // mobile touch
         $element
         .on(events.start, function(event) {
-          event.preventDefault();
-          event.stopPropagation();
-
           var touch = event.touches ? event.touches[0] : event,
               startX = touch.pageX,
               startY = touch.pageY,
@@ -381,6 +371,33 @@ angular.module('ui.iscroll', ['ui.helper'])
         }
 
         // TODO: drag scroll
+        $element
+        .on('mousedown', function(event) {
+          var point = getComputedPosition(event),
+              beginX = parseInt(point.x) || 0,
+              beginY = parseInt(point.y) || 0;
+
+          console.log(beginY)
+
+          var move = function(event) {
+            endX = event.pageX;
+            endY = event.pageY;
+            deltaX = endX - startX;
+            deltaY = endY - startY;
+          };
+
+          var end = function(event) {
+
+
+            $element
+            .off('mousemove', move)
+            .off('mouseup', end);
+          };
+
+          $element
+          .on('mousemove', move)
+          .on('mouseup', end);
+        });
       }
     };
   }

@@ -1,6 +1,7 @@
 
 
-// Rewrite
+@import "bootstrap/dropdowns";
+
 .dropdown-menu {
   .border-radius(0);
 
@@ -18,7 +19,7 @@
 }
 
 // Header Sub Menu
-.dropdown-menu-head {
+.dropdown-menu-modal {
   padding-top: 0;
   padding-bottom: 0;
   max-width: 300px;
@@ -35,7 +36,7 @@
   }
 }
 
-.dropdown-menu-head .caption {
+.dropdown-menu-modal .caption {
   background-color: @green;
   border-bottom: 6px solid @black;
   color: #fff;
@@ -63,20 +64,20 @@
   }
 }
 
-.dropdown-menu-head .dropdown-menu-arrow {
+.dropdown-menu-modal .dropdown-menu-arrow {
   .arrow-mixin(6px, @green, top, 10%);
 }
 
-.dropdown-menu-head.pull-right .dropdown-menu-arrow {
+.dropdown-menu-modal.pull-right .dropdown-menu-arrow {
   .arrow-mixin > .offset(-1.5em, top);
 }
 
-.dropdown-menu-head .scroll-viewport {
+.dropdown-menu-modal .scroll-viewport {
   max-height: 260px;
   overflow: hidden;
 }
 
-.dropdown-menu-head .scroll-viewport .dropdown-list {
+.dropdown-menu-modal .scroll-viewport .dropdown-list {
   padding-left: 0;
   list-style: none;
 
@@ -100,38 +101,31 @@
   }
 }
 
-.dropdown-menu-head-palette(@arr-style, @index: 1) when (@index =< length(@arr-style)) {
+.dropdown-menu-modal-palette(@arr-style, @index: 1) when (@index =< length(@arr-style)) {
   @token:  e(extract(@arr-style, @index));
   @color:  extract(@arr-style, @index + 1);
   
-  .dropdown-menu.dropdown-menu-head.dropdown-menu-@{token} .dropdown-menu-arrow {
+  .dropdown-menu.dropdown-menu-modal.dropdown-menu-@{token} .dropdown-menu-arrow {
     .arrow-mixin > .color(@color, top);
   }
 
-  .dropdown-menu.dropdown-menu-head.dropdown-menu-@{token} .caption {
+  .dropdown-menu.dropdown-menu-modal.dropdown-menu-@{token} .caption {
     background-color: @color;
     color: #fff;
 
     .anti-color(@color);
   }
 
-  .dropdown-menu-head-palette(@arr-style, @index + 2);
+  .dropdown-menu-modal-palette(@arr-style, @index + 2);
 }
 
-.dropdown-menu-head-palette(@dropdown-palette);
+.dropdown-menu-modal-palette(@dropdown-palette);
 
-@media (max-width: @screen-xs-max) {
-  .dropdown-menu-head {
-    
-  }
-}
-
-// Revision
-.dropdown-menu-head .scroll-viewport.scroll-wrapper {
+.dropdown-menu-modal .scroll-viewport.scroll-wrapper {
   padding-right: 8px;
 }
 
-.dropdown-menu-head .scroll-viewport.scroll-wrapper .scroll-rails .scroll-bar {
+.dropdown-menu-modal .scroll-viewport.scroll-wrapper .scroll-rails .scroll-bar {
   border-color: #d4d4d4;
   background-color: #d4d4d4;
 }

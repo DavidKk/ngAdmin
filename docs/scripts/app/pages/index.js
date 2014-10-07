@@ -1,8 +1,7 @@
 
 
 angular.module('index', [
-  'ngRoute',
-  'ui.bootstrap', 'ui.ngAdmin',
+  'ngRoute', 'ui.ngAdmin',
   'chat', 'header', 'navigation',
   'charts'
 ])
@@ -169,5 +168,12 @@ angular.module('index', [
   '$scope',
   function($scope) {
     
+  }
+])
+
+.controller('TabsDemoCtrl', [
+  '$scope',
+  function($scope) {
+
   }
 ])

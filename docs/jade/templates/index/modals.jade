@@ -14,4 +14,17 @@
       .panel-body.bs-example
         button.btn.btn-primary(type="button", role="button") Modal Basic
         button.btn.btn-success(type="button", role="button") Modal Confirm
-                
+
+.modal
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal')
+          span(aria-hidden='true') ×
+          span.sr-only Close
+        h4.modal-title Modal title
+      .modal-body
+        p One fine body…
+      .modal-footer
+        button.btn.btn-default(type='button', data-dismiss='modal') Close
+        button.btn.btn-primary(type='button') Save changes

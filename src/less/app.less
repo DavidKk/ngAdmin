@@ -1,57 +1,82 @@
 
 
-// Config
-@import "variables/bootstrap";
+// Extend bootstrap v3.2.0
+// =======================
+
+// Variables
+@import "bootstrap/variables";
 @import "variables/ngAdmin";
 
 // Mixins
-@import "mixins/bootstrap";
 @import "mixins/lesshat";
-@import "mixins/msic";
+@import "bootstrap/mixins";
+@import "mixins/palette";
+@import "mixins/arrows";
+
+// Reset
+@import "reset/normalize";
+@import "reset/print";
 
 // Core
+@import "core/scaffolding";
+@import "core/type";
+@import "core/code";
 @import "core/grid";
+@import "core/tables";
+@import "core/forms";
+@import "core/buttons";
 
 // Effects
 @import "effects/animation";
 
-// Reset
-@import "reset/print";
-
 // Compontents
-@import "components/alert";
-@import "components/badges";
-@import "components/blockquote";
+@import "components/animations";
+@import "components/dropdowns";
+@import "components/button-groups";
+@import "components/input-groups";
+@import "components/navs";
+@import "components/navbar";
 @import "components/breadcrumbs";
-@import "components/buttons";
-@import "components/button-group";
-@import "components/calendar";
+@import "components/pagination";
+@import "components/pager";
+@import "components/labels";
+@import "components/badges";
+@import "components/jumbotron";
+@import "components/thumbnails";
+@import "components/alerts";
+@import "components/progress-bars";
+@import "components/media";
+@import "components/list-group";
+@import "components/panels";
+@import "components/responsive-embed";
+@import "components/wells";
+@import "components/close";
+@import "components/loading";
+@import "components/blockquote";
+@import "components/notification";
+@import "components/tiles";
+// @import "components/notice-bar";
+
+// Components w/ JavaScript
+@import "components/modals";
+@import "components/tooltip";
+@import "components/popovers";
 @import "components/carousel";
 @import "components/checkbox";
-@import "components/dropdowns";
-@import "components/form";
-@import "components/input-group";
-@import "components/labels";
-@import "components/list-group";
-@import "components/loading";
-@import "components/nav";
-@import "components/navbars";
-@import "components/notice-bar";
-@import "components/notification";
-@import "components/onoffswitch";
-@import "components/pace";
-@import "components/pagination";
-@import "components/panels";
-@import "components/progress-bars";
-@import "components/prompts";
 @import "components/radio";
-@import "components/scrollpicker";
-@import "components/iscroll";
+@import "components/onoffswitch";
+@import "components/calendar";
+@import "components/pace";
+@import "components/prompts";
 @import "components/selectpicker";
-@import "components/switches";
-@import "components/tables";
-@import "components/tiles";
 @import "components/timepicker";
+@import "components/scrollpicker";
+@import "components/switches";
+@import "components/iscroll";
+
+// Utility classes
+@import "utility/utilities";
+@import "utility/responsive-utilities";
 
 // Partials
 @import "partial/layout/main";

@@ -46,8 +46,9 @@
 
 body.slide-right { .transition(transform .25s ease); right: 0; }
 body.slide-right { margin-right: 0; }
-body.slide-right.slidebar-shown .container-layout .slidebar-right-layout,
-body.slide-right.slidebar-shown .container-layout .main-layout { .transform(translate3d(-240px, 0, 0)); }
+body.slide-right.slidebar-shown .container-layout .fixedbar-left-layout,
+body.slide-right.slidebar-shown .container-layout .main-layout,
+body.slide-right.slidebar-shown .container-layout .slidebar-right-layout { .transform(translate3d(-240px, 0, 0)); }
 
 // screen height 100% model
 body.fixed-layout {

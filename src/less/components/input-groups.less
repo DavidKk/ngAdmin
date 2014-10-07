@@ -1,0 +1,53 @@
+
+
+@import "bootstrap/input-groups";
+
+.input-group > .input-group-addon {
+  .border-radius(0);
+
+  background-color: @gray;
+  border-width: 0;
+  color: #999;
+  font-size: 14px;
+  max-width: 40px;
+  min-width: 40px;
+  padding: 0;
+}
+
+.input-group .form-control {
+  &:focus {
+    border-color: @gray;
+  }
+
+  &:last-child:not(:first-child) {
+    border-left: 0;
+  }
+
+  &:first-child:not(:last-child) {
+    border-right: 0;
+  }
+}
+
+.input-group.minimal .input-group-addon {
+  background-color: transparent;
+  border: 1px solid @gray;
+  border-radius: 4px;
+  
+  &:first-child {
+    border-right: 0;
+  }
+
+  &:last-child {
+    border-left: 0;
+  }
+}
+
+.input-group.minimal .form-control {
+  &:first-child:not(:last-child) {
+    padding-right: 0;
+  }
+
+  &:last-child:not(:first-child) {
+    padding-left: 0;
+  }
+}

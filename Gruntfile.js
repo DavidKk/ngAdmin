@@ -54,7 +54,7 @@ module.exports = function(grunt) {'use strict';
     },
 
     clean: {
-      dist: ['./dist'],
+      dist: ['./dist', './demo/*', '!./demo/.git/', '!./demo/.DS_Store'],
       build: ['./_build']
     },
 
