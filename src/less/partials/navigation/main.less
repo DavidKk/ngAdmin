@@ -1,5 +1,27 @@
 
 
+// Rewrite layout
+.container-layout .main-layout {
+  padding-left: 280px;
+}
+
+.container-layout .navigation-layout {
+  width: 280px;
+
+  &,
+  &.pull-left {
+    left: 0;
+    right: auto;
+  }
+
+  &.pull-right {
+    left: auto;
+    right: 0;
+  }
+}
+
+
+// Main
 #navigation-container {
   .transition(all .25s);
 
@@ -14,6 +36,9 @@
 
   padding: 35px;
   width: 100%;
+  background-color: inherit;
+  position: relative;
+  z-index: 1;
 
   a {
     display: block;
@@ -26,25 +51,19 @@
   }
 }
 
-#navigation-container .navigation-wraper {
-  margin-top: -259px;
-  padding-top: 259px;
-  width: 295px;
-  height: 100%;
-  display: block;
-  position: relative;
-}
-
 #navigation-container .nav {
   @avatorSize: 70px;
   margin: 0;
+  background-color: inherit;
+  position: relative;
+  z-index: 1;
 
-  & > li {
+  > li {
     margin-top: 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
 
-  & > .dropdown-submenu:before {
+  li.dropdown-submenu:before {
     .transition(all .15s ease-in-out);
 
     content: '\f105';
@@ -59,7 +78,7 @@
     z-index: 9;
   }
 
-  & > li > a {
+  > li > a {
     .transition(background-color .35s, color .35s);
 
     padding: 10px 20px;
@@ -72,7 +91,7 @@
     font-size: 14px;
   }
 
-  & > li > a > i {
+  > li > a > i {
     margin-right: 10px;
     float: left;
     position: relative;
@@ -82,14 +101,16 @@
     font-size: inherit;
   }
 
-  & > li > a > i.fa { margin-top: 2px; }
+  > li > a > i.fa {
+    margin-top: 2px;
+  }
   
-  & > .active > a,
-  & > li > a:hover {
+  > .active > a,
+  > li > a:hover {
     background-color: rgba(69, 74, 84, 0.3);
     color: rgb(255, 255, 255);
   }
-  
+
   .dropdown-submenu {
     &:before {
       color: #aaabae;
@@ -184,12 +205,13 @@
     'idle'          @orange     'IDLE'
     'offline'       @gray       'OFFLINE'
   ;
+
   .profile-sidebar-palette(@profile-sidebar-palette);
 
-  & > .search-sidebar {
+  > .search-sidebar {
     border-bottom: 0;
 
-    & > input {
+    > input {
       .transition(350ms opacity ease-in-out);
       
       padding: 15px 20px;
@@ -202,7 +224,7 @@
       outline: none;
     }
 
-    & > a {
+    > a {
       margin-top: -7px;
       padding: 0 !important;
       background-color: transparent !important;
@@ -216,7 +238,7 @@
   }
 }
 
-#navigation-container .dropdown-menu-navigation.dropdown-menu {
+#navigation-container .dropdown-menu-navigation {
   .border-radius(0);
   .box-shadow(none);
 
@@ -230,8 +252,11 @@
   float: none;
   list-style: none;
   
-  & > li { line-height: @line-height-base; }
-  & > li > a {
+  > li {
+    line-height: @line-height-base;
+  }
+
+  > li > a {
     .transition(all .35s);
     
     padding-top: 10px;
@@ -246,9 +271,14 @@
     font-size: 14px;
   }
   
-  & > .active a,
-  & > li > a:hover { background-color: rgb(45, 50, 61); }
-  & > li > a > span { color: rgb(116, 127, 149); }
+  > .active a,
+  > li > a:hover {
+    background-color: rgb(45, 50, 61);
+  }
+
+  > li > a > span {
+    color: rgb(116, 127, 149);
+  }
 }
 
 #navigation-container .navigation.nav {
@@ -262,25 +292,37 @@
 
     display: block;
     overflow-y: hidden;
-    
-    & > li > a { color: rgba(116, 127, 149, 0); .transition(color 1.2s); }
+
+    > li > a {
+      .transition(color 1.2s);
+      color: rgba(116, 127, 149, 0);
+    }
   }
 
   #navigation-container .nav > .dropdown-submenu.open > .dropdown-menu-navigation {
-    & > li > a { color: #aaabae; }
-    
-    & > .active > a,
-    & > li > a:hover { color: #fff; }
+    > li > a {
+      color: #aaabae;
+    }
+
+    > .active > a,
+    > li > a:hover {
+      color: #fff;
+    }
   }
 }
 
 // Revision
 body.fixed-layout #navigation-container {
   height: 100%;
+  
+  .scroll-viewport {
+    margin-top: -260px;
+    padding-top: 260px;
+    height: 100%;
+  }
 }
 
-body.fixed-layout #navigation-container .scroll-viewport {
-  margin-top: -260px;
-  padding-top: 260px;
-  height: 100%;
+// Break the scroller
+#navigation-container .scroll-viewport .iscroll {
+  overflow: visible;
 }

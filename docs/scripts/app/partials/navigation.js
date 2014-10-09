@@ -2,6 +2,34 @@
 
 angular.module('navigation', [])
 
+.directive('navLayout', [
+  '$rootScope',
+  function($rootScope) {
+    return {
+      restrict: 'A',
+      link: function($scope, $element, $attrs, ctrl) {'use strict';
+        function open() {
+          $element.removeClass('minify');
+          angular.element(document.body).addClass('show-nav');
+        }
+
+        function close() {
+          $element.addClass('minify');
+          angular.element(document.body).removeClass('show-nav');
+        }
+
+        $rootScope.$on('layout.toggle.navigation', function(event, isOpen) {
+          $scope.isOpen = arguments.length > 1 ? !!isOpen : !$scope.isOpen;
+          $scope.isOpen ? open() : close();
+        });
+
+        $scope.isOpen = !!$attrs.open;
+        $scope.isOpen ? open() : close();
+      }
+    };
+  }
+])
+
 .controller('Navigation', [
   '$scope', '$http', '$route', '$location',
   'NAVIGATION',

@@ -66,13 +66,13 @@
   display: block;
   list-style: none;
   
-  & > li {
+  > li {
     float: left;
     position: relative;
     display: block;
   }
 
-  & > li > a {
+  > li > a {
     .transition(all .35s);
 
     padding: 25px;
@@ -87,24 +87,24 @@
     &:hover { background-color: rgb(249, 249, 249); }
   }
 
-  & > li > a > .badge {
+  > li > a > .badge {
     position: absolute;
     right: 15px;
     top: 15px;
     z-index: 100;
   }
 
-  & > .bars { display: none; }
-  & > .bars > a { width: 75px; }
-  & > .profile { cursor: pointer; }
+  > .bars { display: none; }
+  > .bars > a { width: 75px; }
+  > .profile { cursor: pointer; }
 
-  & > .profile > .avator {
+  > .profile > .avator {
     padding: 12.5px 10px;
     width: 75px;
     float: left;
   }
 
-  & > .profile > .avator > img {
+  > .profile > .avator > img {
     .border-radius(50px);
     .transition(all .25s);
 
@@ -115,7 +115,7 @@
     vertical-align: middle;
   }
 
-  & > .profile > span.name {
+  > .profile > span.name {
     .text-overflow();
     .transition(all .35s);
 
@@ -126,12 +126,12 @@
     color: rgb(128, 128, 128);
   }
   
-  & > .profile > .avator:hover { background-color: transparent; }
-  & > .profile > .avator:hover > img { .opacity(.9); }
+  > .profile > .avator:hover { background-color: transparent; }
+  > .profile > .avator:hover > img { .opacity(.9); }
 }
 
 #header-container .navbar .notify-header.pull-right {
-  & > li > a {
+  > li > a {
     border-right-width: 0;
     border-left: 1px solid rgb(238, 238, 238);
   }

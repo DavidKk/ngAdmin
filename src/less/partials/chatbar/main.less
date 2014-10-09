@@ -1,6 +1,33 @@
 
 
-#chatbar-container {
+// Rewrite layout
+.container-layout .chat-layout {
+  width: 240px;
+
+  &,
+  &.pull-right {
+    left: auto;
+    right: -240px;
+  }
+
+  &.pull-left {
+    left: -240px;
+    right: auto;
+  }
+}
+
+body.show-chat {
+  .container-layout .chat-layout,
+  .container-layout .main-layout,
+  .container-layout .navigation-layout {
+    .transform(translate3d(-240px, 0, 0));
+  }
+}
+
+
+
+// Main
+#chat-container {
   width: 100%;
   height: 100%;
   background-color: #303641;
@@ -10,19 +37,19 @@
   color: rgba(255, 255, 255, 0.5);
 }
 
-#chatbar-container > .nav {
+#chat-container > .nav {
   .border-radius(0);
 
   background: #303641;
   margin-bottom: 0;
   width: 240px;
 
-  & > li {
+  > li {
     display: table-cell;
     width: 1%;
   }
 
-  & > li > a {
+  > li > a {
     .border-radius(0);
     .transition(all .25s);
 
@@ -36,14 +63,14 @@
     text-align: center;
   }
   
-  & > li.active a,
-  & > li > a:hover {
+  > li.active a,
+  > li > a:hover {
     background-color: #262b34;
     color: rgb(255, 255, 255);
   }
 }
 
-#chatbar-container > .tab-content {
+#chat-container > .tab-content {
   margin-top: -75px;
   padding-top: 75px;
 
@@ -53,10 +80,10 @@
   }
 }
 
-#chatbar-container .chat-search {
+#chat-container .chat-search {
   position: relative;
 
-  & > input {
+  > input {
     .placeholder(#aaabae);
 
     background-color: #262b34;
@@ -70,7 +97,7 @@
     width: 100%;
   }
 
-  & > input + i.fa.fa-search {
+  > input + i.fa.fa-search {
     color: #aaabae;
     position: absolute;
     right: 15px;
@@ -78,7 +105,7 @@
   }
 }
 
-#chatbar-container .chat-inner {
+#chat-container .chat-inner {
   margin-top: -47px;
   padding-top: 47px;
 
@@ -88,7 +115,7 @@
   }
 }
 
-#chatbar-container .chat-inner .chat-wrapper .chat-group {
+#chat-container .chat-inner .chat-wrapper .chat-group {
   padding-top: 30px;
 
   &:last-child {
@@ -138,8 +165,8 @@
 }
 
 
-// Popover
-#chatbar-container .chat-conversation {
+// Chat popover
+#chat-container .chat-conversation {
   min-width: 340px;
   position: absolute;
   top: 100px;
@@ -148,7 +175,7 @@
   display: none;
 }
 
-#chatbar-container .chat-conversation .conversation-header {
+#chat-container .chat-conversation .conversation-header {
   .clearfix();
   padding: 20px 24px;
   position: relative;
@@ -191,7 +218,7 @@
   }
 }
 
-#chatbar-container .chat-conversation .conversation-body {
+#chat-container .chat-conversation .conversation-body {
   height: 250px;
   overflow: hidden;
 
@@ -227,7 +254,7 @@
   }
 }
 
-#chatbar-container .chat-conversation .conversation-input {
+#chat-container .chat-conversation .conversation-input {
   padding: 20px 24px;
   border-top: 1px solid @black;
   position: relative;

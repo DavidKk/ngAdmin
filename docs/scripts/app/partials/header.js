@@ -6,11 +6,11 @@ angular.module('header', [])
   '$rootScope', '$scope',
   function($rootScope, $scope) {
     $scope.toggleLeftSidebar = function() {
-      $rootScope.$broadcast('layout.toggleLeftSidebar');
+      $rootScope.$broadcast('layout.toggle.navigation');
     };
 
     $scope.toggleRightSidebar = function() {
-      $rootScope.$broadcast('layout.toggleRightSidebar');
+      $rootScope.$broadcast('layout.toggle.chat');
     };
 
     $scope.logout = function() {

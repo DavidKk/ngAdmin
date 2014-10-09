@@ -22,8 +22,8 @@
   right: -100%;
   list-style: none;
 
-  & > li { float: left; }
-  & > li > a {
+  > li { float: left; }
+  > li > a {
     .box-shadow(inset 0 5px 10px rgba(100, 100, 100, 0.2));
     .transition(background-color .35s);
 
@@ -38,17 +38,17 @@
     font-size: 16px;
   }
 
-  & > li.amethyst > a       { background-color: @amethyst; }
-  & > li.cyan > a         { background-color: @cyan; }
-  & > li.green > a         { background-color: @green; }
-  & > li.orange > a         { background-color: @orange; }
-  & > li.red > a           { background-color: @red; }
+  > li.amethyst > a       { background-color: @amethyst; }
+  > li.cyan > a         { background-color: @cyan; }
+  > li.green > a         { background-color: @green; }
+  > li.orange > a         { background-color: @orange; }
+  > li.red > a           { background-color: @red; }
   
-  & > li.amethyst > a:hover     { background-color: lighten(@amethyst, 4%); }
-  & > li.cyan > a:hover       { background-color: lighten(@cyan, 4%); }
-  & > li.green > a:hover       { background-color: lighten(@green, 4%); }
-  & > li.orange > a:hover     { background-color: lighten(@orange, 4%); }
-  & > li.red > a:hover       { background-color: lighten(@red, 4%); }
+  > li.amethyst > a:hover     { background-color: lighten(@amethyst, 4%); }
+  > li.cyan > a:hover       { background-color: lighten(@cyan, 4%); }
+  > li.green > a:hover       { background-color: lighten(@green, 4%); }
+  > li.orange > a:hover     { background-color: lighten(@orange, 4%); }
+  > li.red > a:hover       { background-color: lighten(@red, 4%); }
 }
 
 .notice-bar.active > ul.widgets-bar { right: 0; }
