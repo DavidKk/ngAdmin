@@ -2,11 +2,11 @@
  * ngAdmin
  * http://a.davidkk.com
 
- * Version: 0.0.1 - 2014-10-03
+ * Version: 0.0.1 - 2014-10-09
  * License: 
  */
-angular.module("ui.ngAdmin", ["ui.ngAdmin.tpls", "ui.dropdownMenu","ui.helper","ui.iscroll","ui.layout","ui.promptBox","ui.scrollpicker","ui.selecter","ui.slideMenu","ui.tabs","ui.timepicker","ui.warpperSlider","ui.zeroclipboard"]);
-angular.module("ui.ngAdmin.tpls", ["tpls/iscroll/iscroll.html","tpls/layout/asidebar.html","tpls/selecter/selecter.html"]);
+angular.module("ui.ngAdmin", ["ui.ngAdmin.tpls", "ui.dropdownMenu","ui.helper","ui.iscroll","ui.promptBox","ui.scrollpicker","ui.selecter","ui.slideMenu","ui.style","ui.timepicker","ui.warpperSlider","ui.zeroclipboard"]);
+angular.module("ui.ngAdmin.tpls", ["tpls/iscroll/iscroll.html","tpls/selecter/selecter.html"]);
 
 
 angular.module('ui.dropdownMenu', [])
@@ -321,190 +321,11 @@ angular.module('ui.helper', [])
   }
 ])
 
-.service('$animation', function() {'use strict';
-  var exports = this;
-
-  exports.ease = {
-    quadratic: {
-      name: 'quadratic',
-      style: 'cubic-bezier(.25, .46, .45, .94)',
-      fn: function(k) {
-        return k * (2 - k);
-      }
-    },
-    circular: {
-      name: 'circular',
-      style: 'cubic-bezier(.1, .57, .1, 1)', // Not properly "circular" but this looks better, it should be (.075, .82, .165, 1)
-      fn: function(k) {
-        return Math.sqrt(1 - (-- k * k));
-      }
-    },
-    back: {
-      name: 'back',
-      style: 'cubic-bezier(.175, .885, .32, 1.275)',
-      fn: function(k) {
-        var b = 4;
-        return (k = k - 1) * k * ((b + 1) * k + b) + 1;
-      }
-    },
-    bounce: {
-      name: 'bounce',
-      style: '',
-      time: 600,
-      fn: function(k) {
-        if ((k /= 1) < (1/2.75)) return 7.5625 * k * k;
-        if (k < (2/2.75)) return 7.5625 * (k -= (1.5/2.75)) * k + 0.75;
-        if (k < (2.5/2.75)) return 7.5625 * (k -= (2.25/2.75 )) * k + 0.9375;
-        return 7.5625 * (k -= (2.625/2.75)) * k + 0.984375;
-      }
-    },
-    elastic: {
-      name: 'elastic',
-      style: '',
-      fn: function(k) {
-        var f = 0.22,
-            e = 0.4;
-
-        if ( k === 0 ) return 0;
-        if ( k == 1 ) return 1;
-        return (e * Math.pow(2, - 10*k) * Math.sin((k - f/4) * (2 * Math.PI) / f) + 1);
-      }
-    }
-  };
-
-  exports.rAF = (window.requestAnimationFrame && window.requestAnimationFrame.bind(window)) ||
-    (window.webkitRequestAnimationFrame && window.webkitRequestAnimationFrame.bind(window)) ||
-    (window.mozRequestAnimationFrame && window.mozRequestAnimationFrame.bind(window)) ||
-    (window.oRequestAnimationFrame && window.oRequestAnimationFrame.bind(window)) ||
-    (window.msRequestAnimationFrame && window.msRequestAnimationFrame.bind(window)) ||
-    function (callback) {
-      return window.setTimeout(callback, 1000 / 60);
-    };
-
-  exports.cAF = (window.cancelAnimationFrame && window.cancelAnimationFrame.bind(window)) ||
-    (window.webkitCancelAnimationFrame && window.webkitCancelAnimationFrame.bind(window)) ||
-    (window.mozCancelAnimationFrame && window.mozCancelAnimationFrame.bind(window)) ||
-    (window.oCancelAnimationFrame && window.oCancelAnimationFrame.bind(window)) ||
-    (window.msCancelAnimationFrame && window.msCancelAnimationFrame.bind(window)) ||
-    function(id) {
-      return clearTimeout(id);
-    };
-})
-
-.service('$css3Style', function() {'use strict';
-  var exports = this,
-      _elementStyle = document.createElement('div').style,
-      _vendor = (function() {
-        var vendors = ['OT', 'msT', 'MozT', 'webkit', 't'],
-            transform,
-            l = vendors.length;
-
-        for (; l > 0; l --) {
-          transform = vendors[l] + 'ransform';
-          if (transform in _elementStyle) {
-            return vendors[l].substr(0, vendors[l].length -1);
-          }
-        }
-
-        return false;
-      })();
-
-  this.prefixStyle = function(style) {
-    if (_vendor === false) return false;
-    if (_vendor === '') return style;
-    return _vendor + style.charAt(0).toUpperCase() + style.substr(1);
-  };
-})
-
 .service('$device', function() {'use strict';
   var exports = this;
 
   exports.isBadAndroid = /Android /.test(window.navigator.appVersion) && !(/Chrome\/\d/.test(window.navigator.appVersion));
 })
-
-/**
- * $transition service provides a consistent interface to trigger CSS 3 transitions and to be informed when they complete.
- * @param  {DOMElement} element  The DOMElement that will be animated.
- * @param  {string|object|function} trigger  The thing that will cause the transition to start:
- *   - As a string, it represents the css class to be added to the element.
- *   - As an object, it represents a hash of style attributes to be applied to the element.
- *   - As a function, it represents a function to be called that will cause the transition to occur.
- * @return {Promise}  A promise that is resolved when the transition finishes.
- */
-.factory('$transition', [
-  '$q', '$timeout', '$rootScope',
-  function($q, $timeout, $rootScope) {'use strict';
-
-  var $transition = function(element, trigger, options) {
-    options = options || {};
-    var deferred = $q.defer();
-    var endEventName = $transition[options.animation ? "animationEndEventName" : "transitionEndEventName"];
-
-    var transitionEndHandler = function(event) {
-      $rootScope.$apply(function() {
-        element.unbind(endEventName, transitionEndHandler);
-        deferred.resolve(element);
-      });
-    };
-
-    if (endEventName) {
-      element.bind(endEventName, transitionEndHandler);
-    }
-
-    // Wrap in a timeout to allow the browser time to update the DOM before the transition is to occur
-    $timeout(function() {
-      if ( angular.isString(trigger) ) {
-        element.addClass(trigger);
-      } else if ( angular.isFunction(trigger) ) {
-        trigger(element);
-      } else if ( angular.isObject(trigger) ) {
-        element.css(trigger);
-      }
-      //If browser does not support transitions, instantly resolve
-      if ( !endEventName ) {
-        deferred.resolve(element);
-      }
-    });
-
-    // Add our custom cancel function to the promise that is returned
-    // We can call this if we are about to run a new transition, which we know will prevent this transition from ending,
-    // i.e. it will therefore never raise a transitionEnd event for that transition
-    deferred.promise.cancel = function() {
-      if ( endEventName ) {
-        element.unbind(endEventName, transitionEndHandler);
-      }
-      deferred.reject('Transition cancelled');
-    };
-
-    return deferred.promise;
-  };
-
-  // Work out the name of the transitionEnd event
-  var transElement = document.createElement('trans');
-  var transitionEndEventNames = {
-    'WebkitTransition': 'webkitTransitionEnd',
-    'MozTransition': 'transitionend',
-    'OTransition': 'oTransitionEnd',
-    'transition': 'transitionend'
-  };
-  var animationEndEventNames = {
-    'WebkitTransition': 'webkitAnimationEnd',
-    'MozTransition': 'animationend',
-    'OTransition': 'oAnimationEnd',
-    'transition': 'animationend'
-  };
-  function findEndEventName(endEventNames) {
-    var name;
-    for (name in endEventNames){
-      if (transElement.style[name] !== undefined) {
-        return endEventNames[name];
-      }
-    }
-  }
-  $transition.transitionEndEventName = findEndEventName(transitionEndEventNames);
-  $transition.animationEndEventName = findEndEventName(animationEndEventNames);
-  return $transition;
-}])
 
 .run(function() {'use strict';
   // number helper
@@ -853,8 +674,9 @@ angular.module('ui.helper', [])
   }
 });
 
-
-angular.module('ui.iscroll', ['ui.helper'])
+angular.module('ui.iscroll', [
+  'ui.helper', 'ui.style'
+])
 
 .controller('iscrollCtrl', [
   '$scope', '$timeout',
@@ -877,9 +699,8 @@ angular.module('ui.iscroll', ['ui.helper'])
 ])
 
 .directive('iscroll', [
-  '$q',
-  '$css3Style', '$animation', '$device',
-  function($q, $css3Style, $animation, $device) {
+  '$q', '$device', 'easing', '$prefixStyle', '$animateFrame',
+  function($q, $device, easing, $prefixStyle, $animateFrame) {
     return {
       restrict: 'EA',
       transclude: true,
@@ -902,12 +723,12 @@ angular.module('ui.iscroll', ['ui.helper'])
               end: 'touchend pointerup MSPointerUp',
               cancel: 'touchcancel pointercancel MSPointerCancel'
             },
-            ease = $animation.ease,
+            ease = easing,
             easeType = $attrs.$attr.hasOwnProperty('ease') || 'bounce',
-            _transition = $css3Style.prefixStyle('transition'),
-            _transitionTimingFunction = $css3Style.prefixStyle('transitionTimingFunction'),
-            _transitionDuration = $css3Style.prefixStyle('transitionDuration'),
-            _transform = $css3Style.prefixStyle('transform'),
+            _transition = $prefixStyle('transition'),
+            _transitionTimingFunction = $prefixStyle('transitionTimingFunction'),
+            _transitionDuration = $prefixStyle('transitionDuration'),
+            _transform = $prefixStyle('transform'),
             _size, screenW, screenH, maxScrollX, maxScrollY, curX, curY,
 
             // for pc wheel.
@@ -1024,8 +845,7 @@ angular.module('ui.iscroll', ['ui.helper'])
               startY = curY,
               startTime = Date.now(),
               destTime = startTime + duration,
-              isAnimating = true,
-              rids = [];
+              isAnimating = true;
 
           !(function step() {
             var now = Date.now(),
@@ -1039,7 +859,6 @@ angular.module('ui.iscroll', ['ui.helper'])
               destY = Math.min(Math.max(destY, maxScrollY), 0);
 
               destX !== curX || destY !== curY && animation(destX, destY, ease.bounce.time, easingFn, promise);
-              rids.splice(0, rids.length);
             }
             else {
               now = (now - startTime)/duration;
@@ -1047,17 +866,12 @@ angular.module('ui.iscroll', ['ui.helper'])
               destinationX = (destX - startX) * easing + startX;
               destinationY = (destY - startY) * easing + startY;
               translate(destinationX, destinationY);
-              isAnimating && rids.push($animation.rAF(step));
+              isAnimating && $animateFrame.rAF(step);
             }
           })();
 
           promise.stop = function() {
-            angular.forEach(rids, function(id) {
-              $animation.cAF(id);
-            });
-
             isAnimating = undefined;
-            rids.splice(0, rids.length);
           };
         }
 
@@ -1089,9 +903,6 @@ angular.module('ui.iscroll', ['ui.helper'])
         // mobile touch
         $element
         .on(events.start, function(event) {
-          event.preventDefault();
-          event.stopPropagation();
-
           var touch = event.touches ? event.touches[0] : event,
               startX = touch.pageX,
               startY = touch.pageY,
@@ -1234,79 +1045,33 @@ angular.module('ui.iscroll', ['ui.helper'])
         }
 
         // TODO: drag scroll
-      }
-    };
-  }
-]);
+        $element
+        .on('mousedown', function(event) {
+          var point = getComputedPosition(event),
+              beginX = parseInt(point.x) || 0,
+              beginY = parseInt(point.y) || 0;
 
-angular.module('ui.layout', [])
+          console.log(beginY)
 
-.controller('AsidebarCtrl', [
-  '$scope',
-  function($scope) {
-    var exports = this;
-    $scope.isOpen = false;
-    exports.show = exports.hide = angular.noop;
-  }
-])
+          var move = function(event) {
+            endX = event.pageX;
+            endY = event.pageY;
+            deltaX = endX - startX;
+            deltaY = endY - startY;
+          };
 
-.directive('fixedbar', [
-  '$rootScope',
-  function($rootScope) {
-    return {
-      restrict: 'EA',
-      controller: 'AsidebarCtrl',
-      scope: {
-        isOpen: '=?'
-      },
-      link: function($scope, $element, $attrs, ctrl) {
-        ctrl.open = function() {
-          $element.removeClass('minify');
-          angular.element(document.body).addClass('fixedbar-shown');
-        };
+          var end = function(event) {
 
-        ctrl.close = function() {
-          $element.addClass('minify');
-          angular.element(document.body).removeClass('fixedbar-shown');
-        };
 
-        $rootScope.$on('layout.toggleLeftSidebar', function(event, isOpen) {
-          $scope.isOpen = arguments.length > 1 ? !!isOpen : !$scope.isOpen;
-          $scope.isOpen ? ctrl.open() : ctrl.close();
+            $element
+            .off('mousemove', move)
+            .off('mouseup', end);
+          };
+
+          $element
+          .on('mousemove', move)
+          .on('mouseup', end);
         });
-
-        $scope.isOpen = !!$attrs.open;
-        $scope.isOpen ? ctrl.open() : ctrl.close();
-      }
-    };
-  }
-])
-
-.directive('slidebar', [
-  '$rootScope',
-  function($rootScope) {
-    return {
-      restrict: 'EA',
-      controller: 'AsidebarCtrl',
-      scope: {
-        isOpen: '=?'
-      },
-      link: function($scope, $element, $attrs, ctrl) {
-        ctrl.open = function() {
-          angular.element(document.body).addClass('slidebar-shown');
-        };
-
-        ctrl.close = function() {
-          angular.element(document.body).removeClass('slidebar-shown');
-        };
-
-        $rootScope.$on('layout.toggleRightSidebar', function(event, isOpen) {
-          $scope.isOpen = arguments.length > 1 ? !!isOpen : !$scope.isOpen;
-          $scope.isOpen ? ctrl.open() : ctrl.close();
-        });
-
-        $scope.isOpen = !!$attrs.open;
-        $scope.isOpen ? ctrl.open() : ctrl.close();
       }
     };
   }
@@ -1759,76 +1524,185 @@ angular.module('ui.slideMenu', [])
   }
 ]);
 
-angular.module('ui.tabs', [])
+angular.module('ui.style', [])
 
-.constant('tabsConfig', {
-  openTabClass: 'active',
-  openTabToggleClass: 'active'
+.constant('easing', {
+  quadratic: {
+    name: 'quadratic',
+    style: 'cubic-bezier(.25, .46, .45, .94)',
+    fn: function(k) {
+      return k * (2 - k);
+    }
+  },
+  circular: {
+    name: 'circular',
+    style: 'cubic-bezier(.1, .57, .1, 1)', // Not properly "circular" but this looks better, it should be (.075, .82, .165, 1)
+    fn: function(k) {
+      return Math.sqrt(1 - (-- k * k));
+    }
+  },
+  back: {
+    name: 'back',
+    style: 'cubic-bezier(.175, .885, .32, 1.275)',
+    fn: function(k) {
+      var b = 4;
+      return (k = k - 1) * k * ((b + 1) * k + b) + 1;
+    }
+  },
+  bounce: {
+    name: 'bounce',
+    style: '',
+    time: 600,
+    fn: function(k) {
+      if ((k /= 1) < (1/2.75)) return 7.5625 * k * k;
+      if (k < (2/2.75)) return 7.5625 * (k -= (1.5/2.75)) * k + 0.75;
+      if (k < (2.5/2.75)) return 7.5625 * (k -= (2.25/2.75 )) * k + 0.9375;
+      return 7.5625 * (k -= (2.625/2.75)) * k + 0.984375;
+    }
+  },
+  elastic: {
+    name: 'elastic',
+    style: '',
+    fn: function(k) {
+      var f = 0.22,
+          e = 0.4;
+
+      if ( k === 0 ) return 0;
+      if ( k == 1 ) return 1;
+      return (e * Math.pow(2, - 10*k) * Math.sin((k - f/4) * (2 * Math.PI) / f) + 1);
+    }
+  }
 })
 
-.controller('tabGroupController', [
-  '$scope',
-  function($scope) {
-    var scopeTabs = [];
+.factory('$prefixStyle', [
+  function() {'use strict';
+    var _elementStyle = document.createElement('div').style,
+        _vendor = (function() {
+          var vendors = ['OT', 'msT', 'MozT', 'webkit', 't'],
+              transform,
+              l = vendors.length;
 
-    this.addScopeTabs = function(openScope) {
-      scopeTabs.push(openScope);
+          for (; l > 0; l --) {
+            transform = vendors[l] + 'ransform';
+            if (transform in _elementStyle) {
+              return vendors[l].substr(0, vendors[l].length -1);
+            }
+          }
+
+          return false;
+        })();
+
+    return function(style) {
+      if (_vendor === false) return false;
+      if (_vendor === '') return style;
+      return _vendor + style.charAt(0).toUpperCase() + style.substr(1);
+    };
+  }
+])
+
+.factory('$animateFrame', [
+  function() {'use strict';
+    var rAF = (window.requestAnimationFrame && window.requestAnimationFrame.bind(window)) ||
+      (window.webkitRequestAnimationFrame && window.webkitRequestAnimationFrame.bind(window)) ||
+      (window.mozRequestAnimationFrame && window.mozRequestAnimationFrame.bind(window)) ||
+      (window.oRequestAnimationFrame && window.oRequestAnimationFrame.bind(window)) ||
+      (window.msRequestAnimationFrame && window.msRequestAnimationFrame.bind(window)) ||
+      function (callback) {
+        return window.setTimeout(callback, 1000 / 60);
+      };
+
+    var cAF = (window.cancelAnimationFrame && window.cancelAnimationFrame.bind(window)) ||
+      (window.webkitCancelAnimationFrame && window.webkitCancelAnimationFrame.bind(window)) ||
+      (window.mozCancelAnimationFrame && window.mozCancelAnimationFrame.bind(window)) ||
+      (window.oCancelAnimationFrame && window.oCancelAnimationFrame.bind(window)) ||
+      (window.msCancelAnimationFrame && window.msCancelAnimationFrame.bind(window)) ||
+      function(id) {
+        return clearTimeout(id);
+      };
+
+    var $animate = function(animate) {
+      var isAnimating = true,
+          deferred = $q.defer();
+
+      !(function step() {
+        if (isAnimating === true && false !== animate()) rAF(step);
+        else deferred.reslove();
+      });
+
+      deferred.promise.cancel = function() {
+        isAnimating = undefined;
+        deferred.reject('Animateframe cancelled');
+      };
+
+      return deferred.promise;
     };
 
-    this.closeOthers = function(openScope) {
-      angular.forEach(scopeTabs, function(scope) {
-        if (scope !== openScope) scope.isOpen = false;
+    $animate.rAF = $animate.requestAnimationFrame = rAF;
+    $animate.cAF = $animate.cancelAnimationFrame = cAF;
+    return $animate;
+  }
+])
+
+.factory('$transition', [
+  '$q', '$timeout', '$rootScope',
+  '$prefixStyle',
+  function($q, $timeout, $rootScope, $prefixStyle) {'use strict';
+
+  var $transition = function(element, trigger, options) {
+    options = options || {};
+    var deferred = $q.defer();
+    var endEventName = $transition[options.animation ? "animationEndEventName" : "transitionEndEventName"];
+
+    var transitionEndHandler = function(event) {
+      $rootScope.$apply(function() {
+        element.unbind(endEventName, transitionEndHandler);
+        deferred.resolve(element);
       });
     };
-  }
-])
 
-.directive('tabGroup', [
-  'tabsConfig',
-  function(tabsConfig) {
-    return {
-      controller: 'tabGroupController',
-      restrict: 'CA'
+    if (endEventName) element.bind(endEventName, transitionEndHandler);
+
+    $timeout(function() {
+      if (angular.isString(trigger)) element.addClass(trigger);
+      else if (angular.isFunction(trigger)) trigger(element);
+      else if (angular.isObject(trigger)) element.css(trigger);
+      if (!endEventName) deferred.resolve(element);
+    });
+
+    deferred.promise.cancel = function() {
+      if (endEventName) element.unbind(endEventName, transitionEndHandler);
+      deferred.reject('Transition cancelled');
     };
-  }
-])
 
-.directive('tabToggle', [
-  'tabsConfig',
-  function(tabsConfig) {
-    return {
-      require: '^tabGroup',
-      scope: {
-        isOpen: '=?'
-      },
-      link: function($scope, $element, $attrs, ctrl) {
-        if (!ctrl) return false;
+    return deferred.promise;
+  };
 
-        $scope.isOpen = $element.parent().hasClass('active');
-
-        ctrl.addScopeTabs($scope);
-
-        $element.on('click', function(event) {
-          event.preventDefault();
-          event.stopPropagation();
-
-          if (!$element.attr('disabled') && !$element.prop('disabled')) {
-            $scope.$apply(function() {
-              $scope.isOpen = true;
-            });
-          }
-        });
-
-        $scope.$watch('isOpen', function(isOpen) {
-          var $tab = document.getElementById($attrs.href.replace('#', ''));
-          $element.parent().toggleClass(tabsConfig.openTabToggleClass, isOpen || false);
-          angular.element($tab).toggleClass(tabsConfig.openTabClass, isOpen || false);
-          isOpen && ctrl && ctrl.closeOthers($scope);
-        });
+  var transElement = document.createElement('trans');
+  var transitionEndEventNames = {
+    'WebkitTransition': 'webkitTransitionEnd',
+    'MozTransition': 'transitionend',
+    'OTransition': 'oTransitionEnd',
+    'transition': 'transitionend'
+  };
+  var animationEndEventNames = {
+    'WebkitTransition': 'webkitAnimationEnd',
+    'MozTransition': 'animationend',
+    'OTransition': 'oAnimationEnd',
+    'transition': 'animationend'
+  };
+  function findEndEventName(endEventNames) {
+    var name;
+    for (name in endEventNames){
+      if (transElement.style[name] !== undefined) {
+        return endEventNames[name];
       }
-    };
+    }
   }
-]);
+
+  $transition.transitionEndEventName = findEndEventName(transitionEndEventNames);
+  $transition.animationEndEventName = findEndEventName(animationEndEventNames);
+  return $transition;
+}]);
 
 angular.module('ui.timepicker', ['ui.helper', 'ui.scrollpicker'])
 
@@ -2438,19 +2312,15 @@ angular.module('ui.zeroclipboard', [])
   }
 ]);angular.module("tpls/iscroll/iscroll.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("tpls/iscroll/iscroll.html",
-    "<div ng-class=\"{ 'open': showRails }\" class=\"iscroll\">\n" +
-    "  <div ng-show=\"isVertical\" ng-class=\"{ 'scroll-left': isFixedLeft }\" class=\"scroll-rails\">\n" +
+    "<div ng-class=\"{ &quot;open&quot;: showRails }\" class=\"iscroll\">\n" +
+    "  <div ng-show=\"isVertical\" ng-class=\"{ &quot;scroll-left&quot;: isFixedLeft }\" class=\"scroll-rails\">\n" +
     "    <div iscroll-slider=\"iscroll-slider\" vertical=\"vertical\" class=\"scroll-slider\"></div>\n" +
     "  </div>\n" +
-    "  <div ng-show=\"isHorizontal\" ng-class=\"{ 'scroll-bottom': isFixedTop }\" class=\"scroll-rails scroll-horizontal\">\n" +
+    "  <div ng-show=\"isHorizontal\" ng-class=\"{ &quot;scroll-bottom&quot;: isFixedTop }\" class=\"scroll-rails scroll-horizontal\">\n" +
     "    <div iscroll-slider=\"iscroll-slider\" horizontal=\"horizontal\" class=\"scroll-slider\"></div>\n" +
     "  </div>\n" +
     "  <div iscroll-wrapper=\"iscroll-wrapper\" ng-transclude=\"ng-transclude\" class=\"scroll-inner\"></div>\n" +
     "</div>");
-}]);
-;angular.module("tpls/layout/asidebar.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("tpls/layout/asidebar.html",
-    "");
 }]);
 ;angular.module("tpls/selecter/selecter.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("tpls/selecter/selecter.html",

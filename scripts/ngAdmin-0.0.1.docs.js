@@ -2,6 +2,32 @@
 
 angular.module('chat', [])
 
+.directive('chatLayout', [
+  '$rootScope',
+  function($rootScope) {
+    return {
+      restrict: 'A',
+      link: function($scope, $element, $attrs, ctrl) {'use strict';
+        function open() {
+          angular.element(document.body).addClass('show-chat');
+        }
+
+        function close() {
+          angular.element(document.body).removeClass('show-chat');
+        }
+
+        $rootScope.$on('layout.toggle.chat', function(event, isOpen) {
+          $scope.isOpen = arguments.length > 1 ? !!isOpen : !$scope.isOpen;
+          $scope.isOpen ? open() : close();
+        });
+
+        $scope.isOpen = !!$attrs.open;
+        $scope.isOpen ? open() : close();
+      }
+    };
+  }
+])
+
 .controller('Chat', [
   '$rootScope', '$scope',
   function($rootScope, $scope) {
@@ -16,11 +42,11 @@ angular.module('header', [])
   '$rootScope', '$scope',
   function($rootScope, $scope) {
     $scope.toggleLeftSidebar = function() {
-      $rootScope.$broadcast('layout.toggleLeftSidebar');
+      $rootScope.$broadcast('layout.toggle.navigation');
     };
 
     $scope.toggleRightSidebar = function() {
-      $rootScope.$broadcast('layout.toggleRightSidebar');
+      $rootScope.$broadcast('layout.toggle.chat');
     };
 
     $scope.logout = function() {
@@ -30,6 +56,34 @@ angular.module('header', [])
 ]);
 
 angular.module('navigation', [])
+
+.directive('navLayout', [
+  '$rootScope',
+  function($rootScope) {
+    return {
+      restrict: 'A',
+      link: function($scope, $element, $attrs, ctrl) {'use strict';
+        function open() {
+          $element.removeClass('minify');
+          angular.element(document.body).addClass('show-nav');
+        }
+
+        function close() {
+          $element.addClass('minify');
+          angular.element(document.body).removeClass('show-nav');
+        }
+
+        $rootScope.$on('layout.toggle.navigation', function(event, isOpen) {
+          $scope.isOpen = arguments.length > 1 ? !!isOpen : !$scope.isOpen;
+          $scope.isOpen ? open() : close();
+        });
+
+        $scope.isOpen = !!$attrs.open;
+        $scope.isOpen ? open() : close();
+      }
+    };
+  }
+])
 
 .controller('Navigation', [
   '$scope', '$http', '$route', '$location',
@@ -94,8 +148,7 @@ angular.module('charts', [])
 ]);
 
 angular.module('index', [
-  'ngRoute',
-  'ui.bootstrap', 'ui.ngAdmin',
+  'ngRoute', 'ui.ngAdmin',
   'chat', 'header', 'navigation',
   'charts'
 ])
@@ -262,6 +315,13 @@ angular.module('index', [
   '$scope',
   function($scope) {
     
+  }
+])
+
+.controller('TabsDemoCtrl', [
+  '$scope',
+  function($scope) {
+
   }
 ]);
 
