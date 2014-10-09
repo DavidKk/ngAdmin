@@ -4365,6 +4365,11 @@ fieldset[disabled] .btn.btn-danger.active {
 .container-layout .aside-layout.fixed-layout {
   position: fixed;
 }
+html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 body.fixed-layout,
 body.fixed-layout .container-layout,
 body.fixed-layout .container-layout .main-layout,
