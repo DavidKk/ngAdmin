@@ -11270,15 +11270,14 @@ body.fixed-layout #navigation-container .scroll-viewport {
   left: -240px;
   right: auto;
 }
-body.show-chat .container-layout .chat-layout {
+body.show-chat .container-layout .chat-layout,
+body.show-chat .container-layout .main-layout,
+body.show-chat .container-layout .navigation-layout {
   -webkit-transform: translate3d(-240px, 0, 0);
   -moz-transform: translate3d(-240px, 0, 0);
   -o-transform: translate3d(-240px, 0, 0);
   -ms-transform: translate3d(-240px, 0, 0);
   transform: translate3d(-240px, 0, 0);
-}
-body.show-chat .container-layout .main-layout {
-  padding-right: 240px;
 }
 #chat-container {
   width: 100%;
@@ -11612,5 +11611,14 @@ body.show-chat .container-layout .main-layout {
   #chat-container > .tab-content {
     margin-top: -50px;
     padding-top: 50px;
+  }
+}
+@media (max-width: 767px) {
+  body.show-chat .container-layout .navigation-layout {
+    -webkit-transform: translate3d(-280px, 0, 0);
+    -moz-transform: translate3d(-280px, 0, 0);
+    -o-transform: translate3d(-280px, 0, 0);
+    -ms-transform: translate3d(-280px, 0, 0);
+    transform: translate3d(-280px, 0, 0);
   }
 }
