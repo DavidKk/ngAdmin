@@ -4583,11 +4583,13 @@ tbody.collapse.in {
   font-size: 14px;
 }
 .dropdown-menu-modal {
+  margin: 0;
   padding-top: 0;
   padding-bottom: 0;
   max-width: 300px;
   min-width: 160px;
   width: 260px;
+  border-width: 0;
 }
 .dropdown-menu-modal a.dropdown-more {
   -moz-transition: all 0.35s;
@@ -10669,6 +10671,7 @@ body.fixed-layout .container-layout .main-layout .viewport-layout {
 }
 @media (max-width: 767px) {
   #header-container .navbar .notify-header .dropdown-menu-modal {
+    padding: 0;
     min-width: 0 !important;
     max-width: none !important;
     width: 100%;
