@@ -5,8 +5,8 @@
  * Version: 0.0.1 - 2014-10-12
  * License: 
  */
-angular.module("ui.ngAdmin", ["ui.ngAdmin.tpls", "ui.dropdownMenu","ui.helper","ui.iscroll","ui.promptBox","ui.scrollpicker","ui.selecter","ui.slideMenu","ui.style","ui.timepicker","ui.warpperSlider","ui.zeroclipboard"]);
-angular.module("ui.ngAdmin.tpls", ["tpls/iscroll/iscroll.html","tpls/selecter/selecter.html"]);
+angular.module("ui.ngAdmin", ["ui.ngAdmin.tpls", "ui.dropdownMenu","ui.helper","ui.ngScroll","ui.promptBox","ui.scrollpicker","ui.selecter","ui.slideMenu","ui.style","ui.timepicker","ui.warpperSlider","ui.zeroclipboard"]);
+angular.module("ui.ngAdmin.tpls", ["tpls/ngScroll/ngScroll.html","tpls/selecter/selecter.html"]);
 
 
 angular.module('ui.dropdownMenu', [])
@@ -674,11 +674,11 @@ angular.module('ui.helper', [])
   }
 });
 
-angular.module('ui.iscroll', [
+angular.module('ui.ngScroll', [
   'ui.helper', 'ui.style'
 ])
 
-.controller('iscrollCtrl', [
+.controller('ngScrollCtrl', [
   '$scope', '$timeout',
   function($scope, $timeout) {'use strict';
     var exports = this,
@@ -729,7 +729,7 @@ angular.module('ui.iscroll', [
   }
 ])
 
-.directive('iscroll', [
+.directive('ngScroll', [
   '$q',
   '$device', 'easing', '$prefixStyle', '$animateFrame',
   function($q, $device, ease, $prefixStyle, $animateFrame) {
@@ -737,8 +737,8 @@ angular.module('ui.iscroll', [
       restrict: 'EA',
       transclude: true,
       replace: true,
-      templateUrl: 'tpls/iscroll/iscroll.html',
-      controller: 'iscrollCtrl',
+      templateUrl: 'tpls/ngScroll/ngScroll.html',
+      controller: 'ngScrollCtrl',
       scope: {},
       link: function($scope, $element, $attrs, ctrl) {'use strict';
         var attrs = $attrs.$attr;
@@ -1054,11 +1054,11 @@ angular.module('ui.iscroll', [
   }
 ])
 
-.directive('iscrollContent', [
+.directive('ngScrollContent', [
   function() {
     return {
       restrict: 'A',
-      require: '?^iscroll',
+      require: '?^ngScroll',
       link: function($scope, $element, $attrs, ctrl) {'use strict';
         var exports = {};
         exports.args = Array.prototype.slice.call(arguments, 0, arguments.length);
@@ -1079,11 +1079,11 @@ angular.module('ui.iscroll', [
   }
 ])
 
-.directive('iscrollSlider', [
+.directive('ngScrollSlider', [
   function() {
     return {
       restrict: 'A',
-      require: '?^iscroll',
+      require: '?^ngScroll',
       link: function($scope, $element, $attrs, ctrl) {'use strict';
         var isHorizontal = $attrs.$attr.hasOwnProperty('horizontal'),
             isVertical = $attrs.$attr.hasOwnProperty('vertical'),
@@ -2363,16 +2363,16 @@ angular.module('ui.zeroclipboard', [])
       }
     };
   }
-]);angular.module("tpls/iscroll/iscroll.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("tpls/iscroll/iscroll.html",
-    "<div ng-class=\"{ &quot;open&quot;: showRails }\" class=\"iscroll\">\n" +
+]);angular.module("tpls/ngScroll/ngScroll.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("tpls/ngScroll/ngScroll.html",
+    "<div ng-class=\"{ &quot;open&quot;: showRails }\" class=\"ng-scroll\">\n" +
     "  <div ng-show=\"isVertical\" ng-class=\"{ &quot;scroll-left&quot;: isFixedLeft }\" class=\"scroll-rails\">\n" +
-    "    <div iscroll-slider=\"iscroll-slider\" vertical=\"vertical\" class=\"scroll-slider\"></div>\n" +
+    "    <div ng-scroll-slider=\"ng-scroll-slider\" vertical=\"vertical\" class=\"scroll-slider\"></div>\n" +
     "  </div>\n" +
     "  <div ng-show=\"isHorizontal\" ng-class=\"{ &quot;scroll-bottom&quot;: isFixedTop }\" class=\"scroll-rails scroll-horizontal\">\n" +
-    "    <div iscroll-slider=\"iscroll-slider\" horizontal=\"horizontal\" class=\"scroll-slider\"></div>\n" +
+    "    <div ng-scroll-slider=\"ng-scroll-slider\" horizontal=\"horizontal\" class=\"scroll-slider\"></div>\n" +
     "  </div>\n" +
-    "  <div iscroll-content=\"iscroll-content\" ng-transclude=\"ng-transclude\" class=\"scroll-inner\"></div>\n" +
+    "  <div ng-scroll-content=\"ng-scroll-content\" ng-transclude=\"ng-transclude\" class=\"scroll-inner\"></div>\n" +
     "</div>");
 }]);
 ;angular.module("tpls/selecter/selecter.html", []).run(["$templateCache", function($templateCache) {
