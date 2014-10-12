@@ -21,7 +21,7 @@
         a.status
 
   .scroll-viewport
-    iscroll(fixed-left)
+    ng-scroll(fixed-left)
       ul.nav.nav-stacked(slide-menu-group)
         li(ng-repeat="nav in navigations", ng-hide="nav.hidden", ng-class='{ "dropdown-submenu": nav.child }', ng-attr-slide-menu="nav.child", open="{{ nav.key == current[0] }}")
           a(ng-if="!nav.child", ng-href="{{ nav.url || ('#/index/' + nav.key) }}/")

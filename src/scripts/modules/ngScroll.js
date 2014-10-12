@@ -1,10 +1,10 @@
 
 
-angular.module('ui.iscroll', [
+angular.module('ui.ngScroll', [
   'ui.helper', 'ui.style'
 ])
 
-.controller('iscrollCtrl', [
+.controller('ngScrollCtrl', [
   '$scope', '$timeout',
   function($scope, $timeout) {'use strict';
     var exports = this,
@@ -55,7 +55,7 @@ angular.module('ui.iscroll', [
   }
 ])
 
-.directive('iscroll', [
+.directive('ngScroll', [
   '$q',
   '$device', 'easing', '$prefixStyle', '$animateFrame',
   function($q, $device, ease, $prefixStyle, $animateFrame) {
@@ -63,8 +63,8 @@ angular.module('ui.iscroll', [
       restrict: 'EA',
       transclude: true,
       replace: true,
-      templateUrl: 'tpls/iscroll/iscroll.html',
-      controller: 'iscrollCtrl',
+      templateUrl: 'tpls/ngScroll/ngScroll.html',
+      controller: 'ngScrollCtrl',
       scope: {},
       link: function($scope, $element, $attrs, ctrl) {'use strict';
         var attrs = $attrs.$attr;
@@ -380,11 +380,11 @@ angular.module('ui.iscroll', [
   }
 ])
 
-.directive('iscrollContent', [
+.directive('ngScrollContent', [
   function() {
     return {
       restrict: 'A',
-      require: '?^iscroll',
+      require: '?^ngScroll',
       link: function($scope, $element, $attrs, ctrl) {'use strict';
         var exports = {};
         exports.args = Array.prototype.slice.call(arguments, 0, arguments.length);
@@ -405,11 +405,11 @@ angular.module('ui.iscroll', [
   }
 ])
 
-.directive('iscrollSlider', [
+.directive('ngScrollSlider', [
   function() {
     return {
       restrict: 'A',
-      require: '?^iscroll',
+      require: '?^ngScroll',
       link: function($scope, $element, $attrs, ctrl) {'use strict';
         var isHorizontal = $attrs.$attr.hasOwnProperty('horizontal'),
             isVertical = $attrs.$attr.hasOwnProperty('vertical'),

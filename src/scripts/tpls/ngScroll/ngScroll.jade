@@ -1,0 +1,10 @@
+
+
+.ng-scroll(ng-class='{ "open": showRails }')
+  .scroll-rails(ng-show="isVertical", ng-class='{ "scroll-left": isFixedLeft }')
+    .scroll-slider(ng-scroll-slider, vertical)
+
+  .scroll-rails.scroll-horizontal(ng-show="isHorizontal", ng-class='{ "scroll-bottom": isFixedTop }')
+    .scroll-slider(ng-scroll-slider, horizontal)
+
+  .scroll-inner(ng-scroll-content, ng-transclude)
