@@ -2,7 +2,7 @@
  * ngAdmin
  * http://a.davidkk.com
 
- * Version: 0.0.1 - 2014-10-10
+ * Version: 0.0.1 - 2014-10-12
  * License: 
  */
 angular.module("ui.ngAdmin", ["ui.ngAdmin.tpls", "ui.dropdownMenu","ui.helper","ui.iscroll","ui.promptBox","ui.scrollpicker","ui.selecter","ui.slideMenu","ui.style","ui.timepicker","ui.warpperSlider","ui.zeroclipboard"]);
@@ -684,23 +684,55 @@ angular.module('ui.iscroll', [
     var exports = this,
     timeoutId;
 
+    $scope.isHorizontal = false;
+    $scope.isVertical = true;
+    $scope.isFixedLeft = false;
+    $scope.isFixedTop = false;
+    $scope.easeType = 'bounce';
     $scope.showRails = false;
 
-    exports.showRails = function(digest) {
+    $scope.size = {
+      maxScrollX: 0,
+      maxScrollY: 0,
+      wrapW: 1,
+      wrapH: 1,
+      viewW: 0,
+      viewH: 0,
+      screenW: 0,
+      screenH: 0
+    };
+
+    // only for pic
+    $scope.railsXP = 0;
+    $scope.railsYP = 0;
+    $scope.railsWP = 0;
+    $scope.railsHP = 0;
+
+    exports.showRails = function(doDigest, autoHide) {
+      doDigest = doDigest === undefined ? true : !!doDigest;
+      autoHide = autoHide === undefined ? true : !!autoHide;
+
       timeoutId && $timeout.cancel(timeoutId);
       $scope.showRails = true;
-      digest !== false && $scope.$digest();
+      doDigest && $scope.$digest();
 
-      return timeoutId = $timeout(function() {
-        $scope.showRails = false;
-      }, 2000);
+      if (autoHide) {
+        timeoutId = $timeout(function() {
+          $scope.showRails = false;
+        }, 2000);
+      }
+    };
+
+    exports.hideRails = function() {
+      timeoutId && $timeout.cancel(timeoutId);
     };
   }
 ])
 
 .directive('iscroll', [
-  '$q', '$device', 'easing', '$prefixStyle', '$animateFrame',
-  function($q, $device, easing, $prefixStyle, $animateFrame) {
+  '$q',
+  '$device', 'easing', '$prefixStyle', '$animateFrame',
+  function($q, $device, ease, $prefixStyle, $animateFrame) {
     return {
       restrict: 'EA',
       transclude: true,
@@ -709,105 +741,12 @@ angular.module('ui.iscroll', [
       controller: 'iscrollCtrl',
       scope: {},
       link: function($scope, $element, $attrs, ctrl) {'use strict';
-        $scope.isHorizontal = $attrs.$attr.hasOwnProperty('horizontal') ? !!$attrs.$attr.horizontal : false;
-        $scope.isVertical = $attrs.$attr.hasOwnProperty('vertical') ? !!$attrs.$attr.vertical : true;
-        $scope.isFixedLeft = $attrs.$attr.hasOwnProperty('fixedLeft') ? !!$attrs.$attr.fixedLeft : false;
-        $scope.isFixedTop = $attrs.$attr.hasOwnProperty('fixedTop') ? !!$attrs.$attr.fixedTop : false;
-
-        var $scroller = ctrl.getScroller(),
-            $horzSlider = ctrl.getHorizontalSlider(),
-            $vertSlider = ctrl.getVerticalSlider(),
-            events = {
-              start: 'touchstart pointerdown MSPointerDown',
-              move: 'touchmove pointermove MSPointerMove',
-              end: 'touchend pointerup MSPointerUp',
-              cancel: 'touchcancel pointercancel MSPointerCancel'
-            },
-            ease = easing,
-            easeType = $attrs.$attr.hasOwnProperty('ease') || 'bounce',
-            _transition = $prefixStyle('transition'),
-            _transitionTimingFunction = $prefixStyle('transitionTimingFunction'),
-            _transitionDuration = $prefixStyle('transitionDuration'),
-            _transform = $prefixStyle('transform'),
-            _size, screenW, screenH, maxScrollX, maxScrollY, curX, curY,
-
-            // for pc wheel.
-            railsXP = 0, railsYP = 0,
-            railsWP, railsHP;
-
-        $scope.$watch(function() {
-          var size = ctrl.getScrollerSize(),
-              element = $element[0];
-
-          _size = {
-            scrollerW: size.width,
-            scrollerH: size.height,
-            viewW: element.clientWidth,
-            viewHeight: element.clientHeight
-          };
-
-          return JSON.stringify(_size);
-        },
-        function() {
-          var element = $element[0],
-              scrollerW = _size.scrollerW,
-              scrollerH = _size.scrollerH,
-              radioW, radioH;
-
-          screenW = element.clientWidth;
-          screenH = element.clientHeight;
-          radioW = screenW/scrollerW;
-          radioH = screenH/scrollerH;
-
-          maxScrollX = -(scrollerW - screenW);
-          maxScrollY = -(scrollerH - screenH);
-
-          railsWP = angular.isNumeric(radioW) ? radioW : 1;
-          railsWP = Math.max(Math.min(railsWP, 1), 0);
-          $horzSlider.css('width', railsWP * 100 + '%');
-
-          railsHP = angular.isNumeric(radioH) ? radioH : 1;
-          railsHP = Math.max(Math.min(railsHP, 1), 0);
-          $vertSlider.css('height', railsHP * 100 + '%');
-
-          ctrl.showRails(false);
-        });
-    
-        function transition(trans) {
-          $scroller.css(_transition, trans);
-        }
-
-        function transitionTimingFunction(easing) {
-          $scroller.css(_transitionTimingFunction, easing);
-        }
-
-        function transitionTime(time) {
-          time = time || 0;
-          $scroller.css(_transitionDuration, time + 'ms');
-          !time && $device.isBadAndroid && $scroller.css(_transitionDuration, '0.001s');
-        } 
-
-        function translate(destX, destY) {
-          $scroller.css(_transform, 'translate(' + destX + 'px,' + destY + 'px)');
-          curX = destX;
-          curY = destY;
-        }
-
-        // get scroller position which is scrolling.
-        function getComputedPosition() {
-          var matrix = window.getComputedStyle($scroller[0], null),
-              x, y;
-
-          matrix = matrix[_transform];
-          if (matrix && matrix !== 'none') {
-            matrix = matrix.split(')')[0].split(', ');
-            x = +(matrix[12] || matrix[4]);
-            y = +(matrix[13] || matrix[5]);
-            return { x: x, y: y };
-          }
-
-          return {};
-        }
+        var attrs = $attrs.$attr;
+        $scope.isHorizontal = attrs.hasOwnProperty('horizontal') ? !!attrs.horizontal : $scope.isHorizontal;
+        $scope.isVertical = attrs.hasOwnProperty('vertical') ? !!attrs.vertical : $scope.isVertical;
+        $scope.isFixedLeft = attrs.hasOwnProperty('fixedLeft') ? !!attrs.fixedLeft : $scope.isFixedLeft;
+        $scope.isFixedTop = attrs.hasOwnProperty('fixedTop') ? !!attrs.fixedTop : $scope.isFixedTop;
+        $scope.easeType = attrs.hasOwnProperty('ease') ? attrs.ease : $scope.easeType;
 
         // physics deceleration, dest = s0 + vper^2 * 1/2a
         function momentum(current, start, deltaTime, lowerMargin, wrapperSize) {
@@ -836,180 +775,295 @@ angular.module('ui.iscroll', [
           };
         }
 
-        var animationPromise = {};
-        function animation(destX, destY, duration, easingFn, promise) {
-          easingFn = easingFn || ease[easeType].fn;
-          transition('');
+        function transition($elem, trans) {
+          $elem.css($prefixStyle('transition'), trans);
+        }
 
-          var startX = curX,
-              startY = curY,
-              startTime = Date.now(),
+        function transitionTimingFunction($elem, easing) {
+          $elem.css($prefixStyle('transitionTimingFunction'), easing);
+        }
+
+        function transitionTime($elem, time) {
+          time = time || 0;
+          var _transitionDuration = $prefixStyle('transitionDuration');
+
+          if ($device.isBadAndroid) {
+            !time && $elem.css(_transitionDuration, '0.001s');
+          }
+          else {
+            $elem.css(_transitionDuration, time + 'ms');
+          }
+        }
+
+        function translate($elem, destX, destY) {
+          $elem.css($prefixStyle('transform'), 'translate(' + destX + 'px,' + destY + 'px)');
+        }
+
+        // get scroller position which is scrolling.
+        function getComputedPosition($elem) {
+          var matrix = window.getComputedStyle($elem[0], null),
+              x, y;
+
+          matrix = matrix[$prefixStyle('transform')];
+          if (matrix && matrix !== 'none') {
+            matrix = matrix.split(')')[0].split(', ');
+            x = +(matrix[12] || matrix[4]);
+            y = +(matrix[13] || matrix[5]);
+            return { x: x, y: y };
+          }
+
+          return {};
+        }
+
+        var animeFuns = [];
+        function stopAnime() {
+          var i = animeFuns.length;
+          if (i === 0) return false;
+          while (-- i >= 0) {
+            animeFuns[i]();
+          }
+
+          animeFuns = [];
+        }
+
+        function animation($elem, curX, curY, destX, destY, duration, easingFn, callback) {
+          transition($elem, '');
+
+          var startTime = Date.now(),
               destTime = startTime + duration,
               isAnimating = true;
 
           !(function step() {
             var now = Date.now(),
+                _size = $scope.size,
                 destinationX, destinationY, easing;
 
             if (now >= destTime) {
-              isAnimating = false;
-              translate(destX, destY);
-
-              destX = Math.min(Math.max(destX, maxScrollX), 0);
-              destY = Math.min(Math.max(destY, maxScrollY), 0);
-
-              destX !== curX || destY !== curY && animation(destX, destY, ease.bounce.time, easingFn, promise);
+              isAnimating = undefined;
+              translate($elem, destX, destY);
+              callback && callback();
             }
             else {
               now = (now - startTime)/duration;
               easing = easingFn(now);
-              destinationX = (destX - startX) * easing + startX;
-              destinationY = (destY - startY) * easing + startY;
-              translate(destinationX, destinationY);
+              translate($elem, (destX - curX) * easing + curX, (destY - curY) * easing + curY);
               isAnimating && $animateFrame.rAF(step);
             }
           })();
 
-          promise.stop = function() {
+          return function() {
             isAnimating = undefined;
           };
         }
 
-        function scrollTo(destX, destY, duration, easing, promise) {
-          easing = easing || ease[easeType];
-          duration = easing.name === 'bounce' ? ease.bounce.time : duration;
+        function scrollTo($elem, curX, curY, destX, destY, duration, easing, callback) {
+          var _size = $scope.size,
+              animeId;
 
           if (!duration || easing.style) {
-            transitionTimingFunction(easing.style);
-            transitionTime(duration);
-            translate(destX, destY);
+            transitionTimingFunction($elem, easing.style);
+            transitionTime($elem, duration);
+            translate($elem, destX, destY);
 
-            destX = Math.min(Math.max(destX, maxScrollX), 0);
-            destY = Math.min(Math.max(destY, maxScrollY), 0);
+            animeId = setTimeout(function() {
+              // transition($elem, '');
+              callback && callback();
+            }, duration);
 
-            if (destX !== curX || destY !== curY) {
-              setTimeout(function() {
-                destX = Math.min(Math.max(destX, maxScrollX), 0);
-                destY = Math.min(Math.max(destY, maxScrollY), 0);
-                scrollTo(destX, destY, duration, undefined, promise);
-              }, duration);
-            }
+            animeFuns.push(function() {
+              clearTimeout(animeId);
+              animeId = undefined;
+            });
           }
           else if (easing.fn) {
-            animation(destX, destY, duration, easing.fn, promise);
+            var stopFn = animation($elem, curX, curY, destX, destY, duration, easing.fn, callback);
+            animeFuns.push(stopFn);
           }
         }
 
+        // resize slider
+        $scope.$watch(function() {
+          var _size = $scope.size,
+              content = ctrl.getContent(),
+              element = content.$element[0],
+              size = content.getSize();
+
+          angular.extend(_size, {
+            wrapW: size.width,
+            wrapH: size.height,
+            viewW: element.clientWidth,
+            viewH: element.clientHeight
+          });
+
+          return JSON.stringify(_size);
+        }, function() {
+          var _size = $scope.size,
+              viewport = $element[0];
+
+          _size.screenW = viewport.clientWidth;
+          _size.screenH = viewport.clientHeight;
+
+          _size.maxScrollX = -(_size.wrapW - _size.screenW);
+          _size.maxScrollY = -(_size.wrapH - _size.screenH);
+
+          $scope.isHorizontal && ctrl.getHorzSlider().resize();
+          $scope.isVertical && ctrl.getVertSlider().resize();
+          ctrl.showRails(false);
+        });
+
         // mobile touch
         $element
-        .on(events.start, function(event) {
-          var touch = event.touches ? event.touches[0] : event,
+        .on('touchstart pointerdown MSPointerDown', function(event) {
+          ctrl.showRails();
+
+          var $content = ctrl.getContent().$element,
+              $horzSlider = ctrl.getHorzSlider().$element,
+              $vertSlider = ctrl.getVertSlider().$element,
+              touch = event.touches ? event.touches[0] : event,
               startX = touch.pageX,
               startY = touch.pageY,
-              point = getComputedPosition(event),
+              point = getComputedPosition($content),
               beginX = parseInt(point.x) || 0,
               beginY = parseInt(point.y) || 0,
-              startTime = Date.now();
+              startTime = Date.now(),
+              curX = beginX,
+              curY = beginY;
 
-          animationPromise.stop && animationPromise.stop();
-          transition('');
-          translate(beginX, beginY);
+          stopAnime();
+          transition($content, '');
+          translate($content, beginX, beginY);
+          $scope.isHorizontal && transition($horzSlider, '') || translate($horzSlider, -curX * $scope.railsWP, 0);
+          $scope.isVertical && transition($vertSlider, '') || translate($vertSlider, 0, -curY * $scope.railsHP);
 
           var move = function(event) {
-            var touch = event.touches ? event.touches[0] : event,
-                size = ctrl.getScrollerSize(),
+            ctrl.showRails();
+
+            var _size = $scope.size,
+                wrapW = _size.wrapW,
+                wrapH = _size.wrapH,
+                touch = event.touches ? event.touches[0] : event,
                 endX = touch.pageX,
                 endY = touch.pageY,
                 deltaX = endX - startX,
                 deltaY = endY - startY;
 
-            translate($scope.isHorizontal ? curX + deltaX : 0, $scope.isVertical ? curY + deltaY : 0);
+            curX = $scope.isHorizontal ? curX + deltaX : 0;
+            curY = $scope.isVertical ? curY + deltaY : 0;
+
+            translate($content, curX, curY);
+            $scope.isHorizontal && translate($horzSlider, -Math.min(Math.max(curX, _size.maxScrollX), 0) * $scope.railsWP, 0);
+            $scope.isVertical &&translate($vertSlider, 0, -Math.min(Math.max(curY, _size.maxScrollY), 0) * $scope.railsHP);
+
             startX = endX;
             startY = endY;
           };
 
           var end = function(event) {
-            var duration = Date.now() - startTime,
+            var _size = $scope.size,
+                duration = Date.now() - startTime,
                 absDeltaX = Math.abs(curX - beginX),
                 absDeltaY = Math.abs(curY - beginY),
                 destX = curX,
                 destY = curY,
                 momentumX, momentumY;
 
-            destX = Math.min(Math.max(destX, maxScrollX), 0);
-            destY = Math.min(Math.max(destY, maxScrollY), 0);
+            destX = Math.min(Math.max(destX, _size.maxScrollX), 0);
+            destY = Math.min(Math.max(destY, _size.maxScrollY), 0);
+
             if (destX === curX && destY === curY) {
               if (duration < 300) {
-                momentumX = $scope.isHorizontal ? momentum(curX, beginX, duration, maxScrollX, screenW) : { destination: curX, duration: 0 };
-                momentumY = $scope.isVertical ? momentum(curY, beginY, duration, maxScrollY, screenH) : { destination: curY, duration: 0 };
+                momentumX = $scope.isHorizontal ? momentum(curX, beginX, duration, _size.maxScrollX, _size.screenW) : { destination: curX, duration: 0 };
+                momentumY = $scope.isVertical ? momentum(curY, beginY, duration, _size.maxScrollY, _size.screenH) : { destination: curY, duration: 0 };
                 destX = momentumX.destination;
                 destY = momentumY.destination;
                 duration = Math.max(momentumX.duration, momentumY.duration);
-              }
 
-              scrollTo(destX, destY, duration, ease.quadratic, animationPromise);
+                ctrl.showRails(true, false);
+                scrollTo($content, curX, curY, destX, destY, duration, ease.quadratic, function() {
+                  curX = destX;
+                  curY = destY;
+
+                  destX = Math.min(Math.max(destX, _size.maxScrollX), 0);
+                  destY = Math.min(Math.max(destY, _size.maxScrollY), 0);
+
+                  destX !== curX || destY !== curY &&
+                  scrollTo($content, curX, curY, destX, destY, ease[$scope.easeType].time || duration, ease[$scope.easeType], ctrl.hideRails);
+                });
+
+                $scope.isHorizontal && scrollTo($horzSlider, -destX * $scope.railsWP, 0, -Math.min(Math.max(destX, _size.maxScrollX), 0) * $scope.railsWP, 0, duration, ease.quadratic);
+                $scope.isVertical && scrollTo($vertSlider, 0, -destY * $scope.railsHP, 0, -Math.min(Math.max(destY, _size.maxScrollY), 0) * $scope.railsHP, duration, ease.quadratic);
+              }
             }
             else {
-              // at the top/bottom of scroller
-              scrollTo(destX, destY, duration, undefined, animationPromise);
+              // over the top/bottom
+              ctrl.showRails(true, false);
+              scrollTo($content, curX, curY, destX, destY, ease[$scope.easeType].time || duration, ease[$scope.easeType], ctrl.hideRails);
             }
 
             angular.element(window)
-            .off(events.move, move)
-            .off(events.end + ' ' + events.cancel, end);
+            .off('touchmove pointermove MSPointerMove', move)
+            .off('touchend pointerup MSPointerUp touchcancel pointercancel MSPointerCancel', end);
           };
 
           angular.element(window)
-          .on(events.move, move)
-          .on(events.end + ' ' + events.cancel, end);
+          .on('touchmove pointermove MSPointerMove', move)
+          .on('touchend pointerup MSPointerUp touchcancel pointercancel MSPointerCancel', end);
         });
 
-        // pc mouse wheel, not drag
+        // pc mouse wheel
         $element
         .on('mouseenter', ctrl.showRails)
         .on('mousewheel', function(event) {
           ctrl.showRails();
 
-          var scrollerW = _size.scrollerW,
-              scrollerH = _size.scrollerH,
-              point = getComputedPosition(event),
+          var $content = ctrl.getContent().$element,
+              _size = $scope.size,
+              wrapW = _size.wrapW,
+              wrapH = _size.wrapH,
+              point = getComputedPosition($content),
               beginX = parseInt(point.x) || 0,
-              beginY = parseInt(point.y) || 0;
+              beginY = parseInt(point.y) || 0,
+              deltaX = event.wheelDeltaX,
+              deltaY = event.wheelDeltaY;
 
-          animationPromise.stop && animationPromise.stop();
-          transition('');
-          translate(beginX, beginY);
+          stopAnime();
+          transition($content, '');
 
-          if ($scope.isHorizontal && event.wheelDeltaX !== 0) {
-            var maxRailsWP = 1 - railsWP;
+          if ($scope.isHorizontal && deltaX !== 0) {
+            var maxRailsWP = 1 - $scope.railsWP,
+                $horzSlider = ctrl.getHorzSlider().$element;
 
-            railsXP -= event.wheelDeltaX/scrollerW;
-            railsXP = Math.max(Math.min(railsXP, maxRailsWP), 0);
-            $horzSlider.css(_transform, 'translate(' + railsXP * screenW + 'px, 0)');
+            $scope.railsXP -= deltaX/wrapW;
+            $scope.railsXP = Math.max(Math.min($scope.railsXP, maxRailsWP), 0);
+            translate($horzSlider, $scope.railsXP * _size.screenW, 0);
           }
 
-          if ($scope.isVertical && event.wheelDeltaY !== 0) {
-            var maxRailsHP = 1 - railsHP;
+          if ($scope.isVertical && deltaY !== 0) {
+            var maxRailsHP = 1 - $scope.railsHP,
+                $vertSlider = ctrl.getVertSlider().$element;
 
-            railsYP -= event.wheelDeltaY/scrollerH;
-            railsYP = Math.max(Math.min(railsYP, maxRailsHP), 0);
-            $vertSlider.css(_transform, 'translate(0,' + railsYP * screenH + 'px)');
+            $scope.railsYP -= deltaY/wrapH;
+            $scope.railsYP = Math.max(Math.min($scope.railsYP, maxRailsHP), 0);
+            translate($vertSlider, 0, $scope.railsYP * _size.screenH);
           }
 
-          translate(-railsXP * scrollerW, -railsYP * scrollerH);
+          translate($content, -$scope.railsXP * wrapW, -$scope.railsYP * wrapH);
         });
       }
     };
   }
 ])
 
-.directive('iscrollWrapper', [
+.directive('iscrollContent', [
   function() {
     return {
       restrict: 'A',
       require: '?^iscroll',
       link: function($scope, $element, $attrs, ctrl) {'use strict';
-        ctrl.getScrollerSize = function() {
+        var exports = {};
+        exports.args = Array.prototype.slice.call(arguments, 0, arguments.length);
+        exports.$element = $element;
+        exports.getSize = function() {
           var el = $element[0];
           return {
             width: el.clientWidth,
@@ -1017,8 +1071,8 @@ angular.module('ui.iscroll', [
           };
         };
 
-        ctrl.getScroller = function() {
-          return $element;
+        ctrl.getContent = function() {
+          return exports;
         };
       }
     };
@@ -1035,43 +1089,42 @@ angular.module('ui.iscroll', [
             isVertical = $attrs.$attr.hasOwnProperty('vertical'),
             method;
 
-        if (isHorizontal) method = 'getHorizontalSlider';
-        else if (isVertical) method = 'getVerticalSlider';
+        if (isHorizontal) method = 'getHorzSlider';
+        else if (isVertical) method = 'getVertSlider';
+        else return false;
 
-        if (method) {
-          ctrl[method] = function() {
-            return $element;
-          };
-        }
+        var exports = {};
+        exports.args = Array.prototype.slice.call(arguments, 0, arguments.length);
+        exports.$element = $element;
+        exports.resize = (function() {
+          var _size = $scope.size;
+          if (isHorizontal) {
+            return function() {
+              var radioW = _size.screenW/_size.wrapW;
+              $scope.railsWP = angular.isNumeric(radioW) ? radioW : 1;
+              $scope.railsWP = Math.max(Math.min($scope.railsWP, 1), 0);
+              $element.css('width', $scope.railsWP * 100 + '%');
+            };
+          }
+          
+          if (isVertical) {
+            return function() {
+              var radioH = _size.screenH/_size.wrapH;
+              $scope.railsHP = angular.isNumeric(radioH) ? radioH : 1;
+              $scope.railsHP = Math.max(Math.min($scope.railsHP, 1), 0);
+              $element.css('height', $scope.railsHP * 100 + '%');
+            };
+          }
+        })();
+
+        angular.element(window)
+        .on('resize', exports.resize);
+
+        ctrl[method] = function() {
+          return exports;
+        };
 
         // TODO: drag scroll
-        $element
-        .on('mousedown', function(event) {
-          var point = getComputedPosition(event),
-              beginX = parseInt(point.x) || 0,
-              beginY = parseInt(point.y) || 0;
-
-          console.log(beginY)
-
-          var move = function(event) {
-            endX = event.pageX;
-            endY = event.pageY;
-            deltaX = endX - startX;
-            deltaY = endY - startY;
-          };
-
-          var end = function(event) {
-
-
-            $element
-            .off('mousemove', move)
-            .off('mouseup', end);
-          };
-
-          $element
-          .on('mousemove', move)
-          .on('mouseup', end);
-        });
       }
     };
   }
@@ -2319,7 +2372,7 @@ angular.module('ui.zeroclipboard', [])
     "  <div ng-show=\"isHorizontal\" ng-class=\"{ &quot;scroll-bottom&quot;: isFixedTop }\" class=\"scroll-rails scroll-horizontal\">\n" +
     "    <div iscroll-slider=\"iscroll-slider\" horizontal=\"horizontal\" class=\"scroll-slider\"></div>\n" +
     "  </div>\n" +
-    "  <div iscroll-wrapper=\"iscroll-wrapper\" ng-transclude=\"ng-transclude\" class=\"scroll-inner\"></div>\n" +
+    "  <div iscroll-content=\"iscroll-content\" ng-transclude=\"ng-transclude\" class=\"scroll-inner\"></div>\n" +
     "</div>");
 }]);
 ;angular.module("tpls/selecter/selecter.html", []).run(["$templateCache", function($templateCache) {

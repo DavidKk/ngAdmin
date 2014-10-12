@@ -10039,10 +10039,10 @@ lesshat-selector {
   cursor: default;
 }
 .iscroll .scroll-rails .scroll-slider {
-  -webkit-transition: height 0.35s, width 0.35s;
-  -moz-transition: height 0.35s, width 0.35s;
-  -o-transition: height 0.35s, width 0.35s;
-  transition: height 0.35s, width 0.35s;
+  -webkit-transition: height 0.35s, width 0.35s, -webkit-transform;
+  -moz-transition: height 0.35s, width 0.35s, -moz-transform;
+  -o-transition: height 0.35s, width 0.35s, -o-transform;
+  transition: height 0.35s, width 0.35s,-webkit-transform,-moz-transform,-o-transform,transform;
   margin-top: 3px;
   margin-bottom: 3px;
   width: 5px;
@@ -10050,9 +10050,9 @@ lesshat-selector {
   position: relative;
   top: 0;
   left: 1.5px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(169, 169, 169, 0.3);
   border-radius: 2px;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(169, 169, 169, 0.3);
   cursor: pointer;
 }
 .iscroll .scroll-rails.scroll-horizontal {
