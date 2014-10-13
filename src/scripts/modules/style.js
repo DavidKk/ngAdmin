@@ -123,59 +123,79 @@ angular.module('ui.style', [])
   '$q', '$timeout', '$rootScope',
   '$prefixStyle',
   function($q, $timeout, $rootScope, $prefixStyle) {'use strict';
+    var $transition = function(element, trigger, options) {
+      options = options || {};
+      var deferred = $q.defer();
+      var endEventName = $transition[options.animation ? "animationEndEventName" : "transitionEndEventName"];
 
-  var $transition = function(element, trigger, options) {
-    options = options || {};
-    var deferred = $q.defer();
-    var endEventName = $transition[options.animation ? "animationEndEventName" : "transitionEndEventName"];
+      var transitionEndHandler = function(event) {
+        $rootScope.$apply(function() {
+          element.unbind(endEventName, transitionEndHandler);
+          deferred.resolve(element);
+        });
+      };
 
-    var transitionEndHandler = function(event) {
-      $rootScope.$apply(function() {
-        element.unbind(endEventName, transitionEndHandler);
-        deferred.resolve(element);
+      if (endEventName) element.bind(endEventName, transitionEndHandler);
+
+      $timeout(function() {
+        if (angular.isString(trigger)) element.addClass(trigger);
+        else if (angular.isFunction(trigger)) trigger(element);
+        else if (angular.isObject(trigger)) element.css(trigger);
+        if (!endEventName) deferred.resolve(element);
       });
+
+      deferred.promise.cancel = function() {
+        if (endEventName) element.unbind(endEventName, transitionEndHandler);
+        deferred.reject('Transition cancelled');
+      };
+
+      return deferred.promise;
     };
 
-    if (endEventName) element.bind(endEventName, transitionEndHandler);
-
-    $timeout(function() {
-      if (angular.isString(trigger)) element.addClass(trigger);
-      else if (angular.isFunction(trigger)) trigger(element);
-      else if (angular.isObject(trigger)) element.css(trigger);
-      if (!endEventName) deferred.resolve(element);
-    });
-
-    deferred.promise.cancel = function() {
-      if (endEventName) element.unbind(endEventName, transitionEndHandler);
-      deferred.reject('Transition cancelled');
+    var transElement = document.createElement('trans');
+    var transitionEndEventNames = {
+      'WebkitTransition': 'webkitTransitionEnd',
+      'MozTransition': 'transitionend',
+      'OTransition': 'oTransitionEnd',
+      'transition': 'transitionend'
     };
-
-    return deferred.promise;
-  };
-
-  var transElement = document.createElement('trans');
-  var transitionEndEventNames = {
-    'WebkitTransition': 'webkitTransitionEnd',
-    'MozTransition': 'transitionend',
-    'OTransition': 'oTransitionEnd',
-    'transition': 'transitionend'
-  };
-  var animationEndEventNames = {
-    'WebkitTransition': 'webkitAnimationEnd',
-    'MozTransition': 'animationend',
-    'OTransition': 'oAnimationEnd',
-    'transition': 'animationend'
-  };
-  function findEndEventName(endEventNames) {
-    var name;
-    for (name in endEventNames){
-      if (transElement.style[name] !== undefined) {
-        return endEventNames[name];
+    var animationEndEventNames = {
+      'WebkitTransition': 'webkitAnimationEnd',
+      'MozTransition': 'animationend',
+      'OTransition': 'oAnimationEnd',
+      'transition': 'animationend'
+    };
+    function findEndEventName(endEventNames) {
+      var name;
+      for (name in endEventNames){
+        if (transElement.style[name] !== undefined) {
+          return endEventNames[name];
+        }
       }
     }
-  }
 
-  $transition.transitionEndEventName = findEndEventName(transitionEndEventNames);
-  $transition.animationEndEventName = findEndEventName(animationEndEventNames);
-  return $transition;
-}])
+    $transition.transitionEndEventName = findEndEventName(transitionEndEventNames);
+    $transition.animationEndEventName = findEndEventName(animationEndEventNames);
+    return $transition;
+  }
+])
+
+.service('$getComputedPosition', [
+  '$prefixStyle',
+  function($prefixStyle) {
+    return function($elem) {
+      var matrix = window.getComputedStyle($elem[0], null),
+          x, y;
+
+      matrix = matrix[$prefixStyle('transform')];
+      if (matrix && matrix !== 'none') {
+        matrix = matrix.split(')')[0].split(', ');
+        x = +(matrix[12] || matrix[4]);
+        y = +(matrix[13] || matrix[5]);
+        return { x: x, y: y };
+      }
+
+      return {};
+    };
+  }
+])
