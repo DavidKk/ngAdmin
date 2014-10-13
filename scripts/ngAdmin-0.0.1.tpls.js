@@ -731,8 +731,8 @@ angular.module('ui.ngScroll', [
 
 .directive('ngScroll', [
   '$q',
-  '$device', 'easing', '$prefixStyle', '$animateFrame',
-  function($q, $device, ease, $prefixStyle, $animateFrame) {
+  '$device', 'easing', '$prefixStyle', '$getComputedPosition', '$animateFrame',
+  function($q, $device, ease, $prefixStyle, $getComputedPosition, $animateFrame) {
     return {
       restrict: 'EA',
       transclude: true,
@@ -797,22 +797,6 @@ angular.module('ui.ngScroll', [
 
         function translate($elem, destX, destY) {
           $elem.css($prefixStyle('transform'), 'translate(' + destX + 'px,' + destY + 'px)');
-        }
-
-        // get scroller position which is scrolling.
-        function getComputedPosition($elem) {
-          var matrix = window.getComputedStyle($elem[0], null),
-              x, y;
-
-          matrix = matrix[$prefixStyle('transform')];
-          if (matrix && matrix !== 'none') {
-            matrix = matrix.split(')')[0].split(', ');
-            x = +(matrix[12] || matrix[4]);
-            y = +(matrix[13] || matrix[5]);
-            return { x: x, y: y };
-          }
-
-          return {};
         }
 
         var animeFuns = [];
@@ -922,7 +906,7 @@ angular.module('ui.ngScroll', [
               touch = event.touches ? event.touches[0] : event,
               startX = touch.pageX,
               startY = touch.pageY,
-              point = getComputedPosition($content),
+              point = $getComputedPosition($content),
               beginX = parseInt(point.x) || 0,
               beginY = parseInt(point.y) || 0,
               startTime = Date.now(),
@@ -1020,7 +1004,7 @@ angular.module('ui.ngScroll', [
               _size = $scope.size,
               wrapW = _size.wrapW,
               wrapH = _size.wrapH,
-              point = getComputedPosition($content),
+              point = $getComputedPosition($content),
               beginX = parseInt(point.x) || 0,
               beginY = parseInt(point.y) || 0,
               deltaX = event.wheelDeltaX,
@@ -1080,8 +1064,8 @@ angular.module('ui.ngScroll', [
 ])
 
 .directive('ngScrollSlider', [
-  '$prefixStyle',
-  function($prefixStyle) {
+  '$prefixStyle', '$getComputedPosition',
+  function($prefixStyle, $getComputedPosition) {
     return {
       restrict: 'A',
       require: '?^ngScroll',
@@ -1093,22 +1077,6 @@ angular.module('ui.ngScroll', [
         if (isHorizontal) method = 'getHorzSlider';
         else if (isVertical) method = 'getVertSlider';
         else return false;
-
-        // get scroller position which is scrolling.
-        function getComputedPosition($elem) {
-          var matrix = window.getComputedStyle($elem[0], null),
-              x, y;
-
-          matrix = matrix[$prefixStyle('transform')];
-          if (matrix && matrix !== 'none') {
-            matrix = matrix.split(')')[0].split(', ');
-            x = +(matrix[12] || matrix[4]);
-            y = +(matrix[13] || matrix[5]);
-            return { x: x, y: y };
-          }
-
-          return {};
-        }
 
         function translate($elem, destX, destY) {
           $elem.css($prefixStyle('transform'), 'translate(' + destX + 'px,' + destY + 'px)');
@@ -1149,7 +1117,7 @@ angular.module('ui.ngScroll', [
         $element.
         on('mousedown', function(event) {
           var $content = ctrl.getContent().$element,
-              point = getComputedPosition($element),
+              point = $getComputedPosition($element),
               curX = parseInt(point.x) || 0,
               curY = parseInt(point.y) || 0,
               startX = event.pageX,
@@ -1776,62 +1744,82 @@ angular.module('ui.style', [])
   '$q', '$timeout', '$rootScope',
   '$prefixStyle',
   function($q, $timeout, $rootScope, $prefixStyle) {'use strict';
+    var $transition = function(element, trigger, options) {
+      options = options || {};
+      var deferred = $q.defer();
+      var endEventName = $transition[options.animation ? "animationEndEventName" : "transitionEndEventName"];
 
-  var $transition = function(element, trigger, options) {
-    options = options || {};
-    var deferred = $q.defer();
-    var endEventName = $transition[options.animation ? "animationEndEventName" : "transitionEndEventName"];
+      var transitionEndHandler = function(event) {
+        $rootScope.$apply(function() {
+          element.unbind(endEventName, transitionEndHandler);
+          deferred.resolve(element);
+        });
+      };
 
-    var transitionEndHandler = function(event) {
-      $rootScope.$apply(function() {
-        element.unbind(endEventName, transitionEndHandler);
-        deferred.resolve(element);
+      if (endEventName) element.bind(endEventName, transitionEndHandler);
+
+      $timeout(function() {
+        if (angular.isString(trigger)) element.addClass(trigger);
+        else if (angular.isFunction(trigger)) trigger(element);
+        else if (angular.isObject(trigger)) element.css(trigger);
+        if (!endEventName) deferred.resolve(element);
       });
+
+      deferred.promise.cancel = function() {
+        if (endEventName) element.unbind(endEventName, transitionEndHandler);
+        deferred.reject('Transition cancelled');
+      };
+
+      return deferred.promise;
     };
 
-    if (endEventName) element.bind(endEventName, transitionEndHandler);
-
-    $timeout(function() {
-      if (angular.isString(trigger)) element.addClass(trigger);
-      else if (angular.isFunction(trigger)) trigger(element);
-      else if (angular.isObject(trigger)) element.css(trigger);
-      if (!endEventName) deferred.resolve(element);
-    });
-
-    deferred.promise.cancel = function() {
-      if (endEventName) element.unbind(endEventName, transitionEndHandler);
-      deferred.reject('Transition cancelled');
+    var transElement = document.createElement('trans');
+    var transitionEndEventNames = {
+      'WebkitTransition': 'webkitTransitionEnd',
+      'MozTransition': 'transitionend',
+      'OTransition': 'oTransitionEnd',
+      'transition': 'transitionend'
     };
-
-    return deferred.promise;
-  };
-
-  var transElement = document.createElement('trans');
-  var transitionEndEventNames = {
-    'WebkitTransition': 'webkitTransitionEnd',
-    'MozTransition': 'transitionend',
-    'OTransition': 'oTransitionEnd',
-    'transition': 'transitionend'
-  };
-  var animationEndEventNames = {
-    'WebkitTransition': 'webkitAnimationEnd',
-    'MozTransition': 'animationend',
-    'OTransition': 'oAnimationEnd',
-    'transition': 'animationend'
-  };
-  function findEndEventName(endEventNames) {
-    var name;
-    for (name in endEventNames){
-      if (transElement.style[name] !== undefined) {
-        return endEventNames[name];
+    var animationEndEventNames = {
+      'WebkitTransition': 'webkitAnimationEnd',
+      'MozTransition': 'animationend',
+      'OTransition': 'oAnimationEnd',
+      'transition': 'animationend'
+    };
+    function findEndEventName(endEventNames) {
+      var name;
+      for (name in endEventNames){
+        if (transElement.style[name] !== undefined) {
+          return endEventNames[name];
+        }
       }
     }
-  }
 
-  $transition.transitionEndEventName = findEndEventName(transitionEndEventNames);
-  $transition.animationEndEventName = findEndEventName(animationEndEventNames);
-  return $transition;
-}]);
+    $transition.transitionEndEventName = findEndEventName(transitionEndEventNames);
+    $transition.animationEndEventName = findEndEventName(animationEndEventNames);
+    return $transition;
+  }
+])
+
+.service('$getComputedPosition', [
+  '$prefixStyle',
+  function($prefixStyle) {
+    return function($elem) {
+      var matrix = window.getComputedStyle($elem[0], null),
+          x, y;
+
+      matrix = matrix[$prefixStyle('transform')];
+      if (matrix && matrix !== 'none') {
+        matrix = matrix.split(')')[0].split(', ');
+        x = +(matrix[12] || matrix[4]);
+        y = +(matrix[13] || matrix[5]);
+        return { x: x, y: y };
+      }
+
+      return {};
+    };
+  }
+]);
 
 angular.module('ui.timepicker', ['ui.helper', 'ui.scrollpicker'])
 
