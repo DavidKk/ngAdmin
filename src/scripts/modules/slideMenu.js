@@ -7,8 +7,8 @@ angular.module('ui.slideMenu', [])
 })
 
 .controller('SlideMenuController', [
-  '$scope',
-  function($scope) {
+  '$rootScope', '$scope',
+  function($rootScope, $scope) {
     $scope.isOpen;
     this.openScope = $scope;
 
