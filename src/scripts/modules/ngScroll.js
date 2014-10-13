@@ -406,7 +406,8 @@ angular.module('ui.ngScroll', [
 ])
 
 .directive('ngScrollSlider', [
-  function() {
+  '$prefixStyle',
+  function($prefixStyle) {
     return {
       restrict: 'A',
       require: '?^ngScroll',
@@ -418,6 +419,26 @@ angular.module('ui.ngScroll', [
         if (isHorizontal) method = 'getHorzSlider';
         else if (isVertical) method = 'getVertSlider';
         else return false;
+
+        // get scroller position which is scrolling.
+        function getComputedPosition($elem) {
+          var matrix = window.getComputedStyle($elem[0], null),
+              x, y;
+
+          matrix = matrix[$prefixStyle('transform')];
+          if (matrix && matrix !== 'none') {
+            matrix = matrix.split(')')[0].split(', ');
+            x = +(matrix[12] || matrix[4]);
+            y = +(matrix[13] || matrix[5]);
+            return { x: x, y: y };
+          }
+
+          return {};
+        }
+
+        function translate($elem, destX, destY) {
+          $elem.css($prefixStyle('transform'), 'translate(' + destX + 'px,' + destY + 'px)');
+        }
 
         var exports = {};
         exports.args = Array.prototype.slice.call(arguments, 0, arguments.length);
@@ -450,7 +471,62 @@ angular.module('ui.ngScroll', [
           return exports;
         };
 
-        // TODO: drag scroll
+        // PC drag
+        $element.
+        on('mousedown', function(event) {
+          var $content = ctrl.getContent().$element,
+              point = getComputedPosition($element),
+              curX = parseInt(point.x) || 0,
+              curY = parseInt(point.y) || 0,
+              startX = event.pageX,
+              startY = event.pageY,
+              prnt = $content.parent()[0],
+              prntW = prnt.clientWidth,
+              prntH = prnt.clientHeight;
+
+          var move = function(event) {
+            ctrl.showRails();
+
+            var _size = $scope.size,
+                endX = event.pageX,
+                endY = event.pageY,
+                deltaX = endX - startX,
+                deltaY = endY - startY,
+                wrapW = _size.wrapW,
+                wrapH = _size.wrapH;
+
+            curX += deltaX;
+            curY += deltaY;
+            startX = endX;
+            startY = endY;
+
+            if ($scope.isHorizontal && deltaY !== 0) {
+              var maxRailsWP = 1 - $scope.railsWP;
+              $scope.railsXP += deltaX/wrapW;
+              $scope.railsXP = Math.max(Math.min($scope.railsXP, maxRailsWP), 0);
+              translate($element, 0, $scope.railsXP * prntW);
+            }
+
+            if ($scope.isVertical && deltaY !== 0) {
+              var maxRailsHP = 1 - $scope.railsHP;
+              $scope.railsYP += deltaY/wrapH;
+              $scope.railsYP = Math.max(Math.min($scope.railsYP, maxRailsHP), 0);
+              translate($element, 0, $scope.railsYP * prntH);
+            }
+
+            translate($content, -$scope.railsXP * wrapW, -$scope.railsYP * wrapH);
+          };
+
+          var end = function() {
+            angular.element(window)
+            .off('mousemove', move)
+            .off('mouseup', end);
+          };
+
+          angular.element(window)
+          .on('mousemove', move)
+          .on('mouseup', end);
+        });
       }
     };
   }
