@@ -470,16 +470,16 @@ angular.module('ui.ngScroll', [
 
             if ($scope.isHorizontal && deltaY !== 0) {
               var maxRailsWP = 1 - $scope.railsWP;
-              $scope.railsXP += deltaX/wrapW;
+              $scope.railsXP += deltaX/prntW;
               $scope.railsXP = Math.max(Math.min($scope.railsXP, maxRailsWP), 0);
-              translate($element, 0, $scope.railsXP * prntW);
+              translate($element, $scope.railsXP * _size.screenW, 0);
             }
 
             if ($scope.isVertical && deltaY !== 0) {
               var maxRailsHP = 1 - $scope.railsHP;
-              $scope.railsYP += deltaY/wrapH;
+              $scope.railsYP += deltaY/prntH;
               $scope.railsYP = Math.max(Math.min($scope.railsYP, maxRailsHP), 0);
-              translate($element, 0, $scope.railsYP * prntH);
+              translate($element, 0, $scope.railsYP * _size.screenH);
             }
 
             translate($content, -$scope.railsXP * wrapW, -$scope.railsYP * wrapH);
