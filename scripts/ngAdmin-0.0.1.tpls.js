@@ -971,11 +971,18 @@ angular.module('ui.ngScroll', [
                   destY = Math.min(Math.max(destY, _size.maxScrollY), 0);
 
                   destX !== curX || destY !== curY &&
-                  scrollTo($content, curX, curY, destX, destY, ease[$scope.easeType].time || duration, ease[$scope.easeType], ctrl.hideRails);
+                  scrollTo($content, curX, curY, destX, destY, ease[$scope.easeType].time || duration, ease[$scope.easeType], function() {
+                    transition($content, '');
+                    ctrl.hideRails();
+                  });
                 });
 
-                $scope.isHorizontal && scrollTo($horzSlider, -destX * $scope.railsWP, 0, -Math.min(Math.max(destX, _size.maxScrollX), 0) * $scope.railsWP, 0, duration, ease.quadratic);
-                $scope.isVertical && scrollTo($vertSlider, 0, -destY * $scope.railsHP, 0, -Math.min(Math.max(destY, _size.maxScrollY), 0) * $scope.railsHP, duration, ease.quadratic);
+                $scope.isHorizontal && scrollTo($horzSlider, -destX * $scope.railsWP, 0, -Math.min(Math.max(destX, _size.maxScrollX), 0) * $scope.railsWP, 0, duration, ease.quadratic, function() {
+                  transition($horzSlider, '');
+                });
+                $scope.isVertical && scrollTo($vertSlider, 0, -destY * $scope.railsHP, 0, -Math.min(Math.max(destY, _size.maxScrollY), 0) * $scope.railsHP, duration, ease.quadratic, function() {
+                  transition($vertSlider, '');
+                });
               }
             }
             else {
@@ -1454,8 +1461,8 @@ angular.module('ui.slideMenu', [])
 })
 
 .controller('SlideMenuController', [
-  '$scope',
-  function($scope) {
+  '$rootScope', '$scope',
+  function($rootScope, $scope) {
     $scope.isOpen;
     this.openScope = $scope;
 
