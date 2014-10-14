@@ -11452,7 +11452,6 @@ body.show-chat .container-layout .navigation-layout {
   top: 100px;
   right: 100%;
   background-color: #272c35;
-  display: none;
 }
 #chat-container .chat-conversation .conversation-header {
   padding: 20px 24px;
