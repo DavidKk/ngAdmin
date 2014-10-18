@@ -2,7 +2,7 @@
  * ngAdmin
  * http://a.davidkk.com
 
- * Version: 0.0.1 - 2014-10-14
+ * Version: 0.0.1 - 2014-10-18
  * License: 
  */
 angular.module("ui.ngAdmin", ["ui.dropdownMenu","ui.helper","ui.ngScroll","ui.promptBox","ui.scrollpicker","ui.selecter","ui.slideMenu","ui.style","ui.timepicker","ui.warpperSlider","ui.zeroclipboard"]);
@@ -134,7 +134,7 @@ angular.module('ui.dropdownMenu', [])
       }
     };
   }
-])  
+])
 
 .directive('dropdownMenuDialog', [
   'dropdownMenuConfig',
@@ -320,11 +320,14 @@ angular.module('ui.helper', [])
   }
 ])
 
-.service('$device', function() {'use strict';
-  var exports = this;
+.factory('$device', [
+  function() {'use strict';
+    var exports = {};
 
-  exports.isBadAndroid = /Android /.test(window.navigator.appVersion) && !(/Chrome\/\d/.test(window.navigator.appVersion));
-})
+    exports.isBadAndroid = /Android /.test(window.navigator.appVersion) && !(/Chrome\/\d/.test(window.navigator.appVersion));
+    return exports;
+  }
+])
 
 .run(function() {'use strict';
   // number helper
