@@ -126,7 +126,7 @@ angular.module('ui.dropdownMenu', [])
       }
     };
   }
-])  
+])
 
 .directive('dropdownMenuDialog', [
   'dropdownMenuConfig',

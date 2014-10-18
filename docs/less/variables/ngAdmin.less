@@ -1,5 +1,8 @@
 
 
+@import "bootstrap/variables";
+
+
 // Bright Colors
 @blue:                  #0073b7;
 @cyan:                  #22beef;
@@ -14,42 +17,38 @@
 @white:                 #fff;
 
 // Text Font
-@base-font-size:              14px;
+@base-font-size:        14px;
 
-@font-family-sans-serif:      "Helvetica Neue", Helvetica, Arial, "华文细黑", sans-serif;
-@font-family-serif:           Georgia, "Times New Roman", Times, "Microsoft YaHei", serif;
+@font-family-sans-serif: "Helvetica Neue", Helvetica, Arial, "华文细黑", sans-serif;
+@font-family-serif:      Georgia, "Times New Roman", Times, "Microsoft YaHei", serif;
 
 @text-color:            #494f4f;
 
 @link-color:            #666;
 @link-color-hover:      @green;
 
+@line-height-base:      1.428571429; // 20/14
+@line-height-computed:  floor(@font-size-base * @line-height-base); // ~20px
+
 // Path
-@cdn-path:             "/";
-@ico-path:             "@{cdn-path}assets/ico";
-@font-path:            "@{cdn-path}assets/fonts";
-@image-path:           "@{cdn-path}assets/images";
-@svg-path:             "@{cdn-path}assets/svg";
+@cdn-path:              "/";
+@ico-path:              "@{cdn-path}ico";
+@font-path:             "@{cdn-path}fonts";
+@image-path:            "@{cdn-path}images";
+@svg-path:              "@{cdn-path}svg";
 
 
 // Grid
 @grid-columns:              12;
 @grid-gutter-width:         30px;
 
-// Small screen / tablet
-@container-tablet:             ((720px + @grid-gutter-width));
-//** For `@screen-sm-min` and up.
-@container-sm:                 @container-tablet;
+@container-tablet:          720px + @grid-gutter-width;
+@container-desktop:         940px + @grid-gutter-width;
+@container-large-desktop:   1140px + @grid-gutter-width;
 
-// Medium screen / desktop
-@container-desktop:            ((940px + @grid-gutter-width));
-//** For `@screen-md-min` and up.
-@container-md:                 @container-desktop;
-
-// Large screen / wide desktop
-@container-large-desktop:      ((1140px + @grid-gutter-width));
-//** For `@screen-lg-min` and up.
-@container-lg:                 @container-large-desktop;
+@container-sm:              @container-tablet;
+@container-md:              @container-desktop;
+@container-lg:              @container-large-desktop;
 
 
 // Components
@@ -63,8 +62,17 @@
   'danger'     @red
 ;
 
-// Badges/Labels
-@badge-label-palette:
+// Badges
+@badge-palette:
+  'primary'    @black
+  'success'    @green
+  'info'       @cyan
+  'warning'    @orange
+  'danger'     @red
+;
+
+// Labels
+@label-palette:
   'primary'    @black
   'success'    @green
   'info'       @cyan
@@ -94,7 +102,7 @@
 @default-label: @black;
 
 // Nav
-@arr-nav:
+@nav-palette:
   'green'      @green      #fff
   'cyan'       @cyan       #fff
   'orange'     @orange     #fff

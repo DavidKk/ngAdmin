@@ -8,8 +8,13 @@
   display: inline-block;
 }
 
-.nav-tabs > li > a,
-.nav-pills > li > a { color: inherit; }
+.nav-tabs {
+  > li.active > a,
+  > li.active > a:focus,
+  > li.active > a:hover {
+    color: inherit;
+  } 
+}
 
 .nav-tabs { margin-bottom: 10px; }
 .nav-tabs.right-aligned { text-align: right; }
@@ -53,17 +58,40 @@
 
 
 // Pills Nav
-.nav-pills { margin-bottom: 10px; }
-.nav-pills.nav-stacked > li { display: block; }
-.nav-pills.right-aligned { text-align: right; }
+.nav-pills {
+  margin-bottom: 10px;
+
+  > li > a {
+    .transition(color .15s, background-color .15s);
+  }
+  
+  > li > a:hover,
+  > li.active > a,
+  > li.active > a:hover {
+    background-color: @black;
+    color: #fff;
+  }
+}
+
+.nav-pills.nav-stacked > li {
+  display: block;
+}
+
+.nav-pills.right-aligned {
+  text-align: right;
+}
 
 .nav-palette(@arr-style, @index: 1) when (@index =< length(@arr-style)) {
-  @token:     e(extract(@arr-style, @index));
-  @bg:      extract(@arr-style, @index + 1);
-  @color:     extract(@arr-style, @index + 2);
+  @token: e(extract(@arr-style, @index));
+  @bg:    extract(@arr-style, @index + 1);
+  @color: extract(@arr-style, @index + 2);
   
-  .nav.nav-@{token} > .active > a { background-color: @bg; color: @color; }
+  .nav.nav-@{token} > .active > a {
+    background-color: @bg;
+    color: @color;
+  }
+
   .nav-palette(@arr-style, @index + 3);
 }
 
-.nav-palette(@arr-nav);
+.nav-palette(@nav-palette);

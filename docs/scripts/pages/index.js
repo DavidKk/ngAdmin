@@ -6,7 +6,7 @@ angular.module('index', [
   'charts'
 ])
 
-.constant('TEMPLATE_PATH', './assets/templates/')
+.constant('TEMPLATE_PATH', './templates/')
 
 .constant('NAVIGATION', [
   {

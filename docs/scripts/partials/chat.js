@@ -29,9 +29,27 @@ angular.module('chat', [])
 ])
 
 .controller('Chat', [
-  '$rootScope', '$scope',
-  function($rootScope, $scope) {
-    var exports = this;
+  '$scope',
+  function($scope) {'use strict';
+    $scope.isOpenBox = false;
+
+    $scope.openBox = function() {
+      $scope.isOpenBox = true;
+    };
+
+    $scope.closeBox = function() {
+      $scope.isOpenBox = false;
+    };
+
+    $scope.toggleBox = function() {
+      $scope.isOpenBox = !$scope.isOpenBox;
+    };
+  }
+])
+
+.controller('ChatBox', [
+  '$scope',
+  function($scope) {'use strict';
 
   }
 ])

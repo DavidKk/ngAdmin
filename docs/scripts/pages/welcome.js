@@ -8,10 +8,12 @@ angular.module('welcome', [
 .config([
   '$routeProvider', '$locationProvider',
   function($routeProvider, $locationProvider) {
-    function redirectTo(url) { window.location.replace(url); };
+    function redirectTo(url) {
+      window.location.replace(url);
+    };
 
     $routeProvider.
-    when('/welcome/',     {}).
+    when('/welcome/',       {}).
     when('/welcome.html',   {}).
     otherwise({
       resolve: [
@@ -20,8 +22,12 @@ angular.module('welcome', [
           var firstPath = '/' + $location.$$path.split('\/')[1] + '/',
           url = $location.$$url;
 
-          if ($route.routes[firstPath]) $location.path(firstPath);
-          else if (url) window.location.replace(url);
+          if ($route.routes[firstPath]) {
+            $location.path(firstPath);
+          }
+          else if (url) {
+            window.location.replace(url);
+          }
         }
       ]
     });

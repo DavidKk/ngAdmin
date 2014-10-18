@@ -34,11 +34,14 @@ angular.module('ui.helper', [])
   }
 ])
 
-.service('$device', function() {'use strict';
-  var exports = this;
+.factory('$device', [
+  function() {'use strict';
+    var exports = {};
 
-  exports.isBadAndroid = /Android /.test(window.navigator.appVersion) && !(/Chrome\/\d/.test(window.navigator.appVersion));
-})
+    exports.isBadAndroid = /Android /.test(window.navigator.appVersion) && !(/Chrome\/\d/.test(window.navigator.appVersion));
+    return exports;
+  }
+])
 
 .run(function() {'use strict';
   // number helper

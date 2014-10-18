@@ -19,29 +19,21 @@ main#highcharts-content.content-layout
 
     .panel-collapse
       .panel-body.no-padding
-        table.table.table-bordered
-          tbody
-            tr
-              td(ng-controller="AreaChart", style="width:50%;")
-                div(highchart, config="chartConfig", style="height: 300px;")
-              td(ng-controller="LineChart", style="width:50%;")
-                div(highchart, config="chartConfig", style="height: 300px;")
-            
-            tr
-              td(ng-controller="BarChart", style="width:50%;")
-                div(highchart, config="chartConfig", style="height: 300px;")
-              td(ng-controller="ColumnStacked", style="width:50%;")
-                div(highchart, config="chartConfig", style="height: 300px;")
+        .row
+          .col-sm-6(ng-controller="AreaDemoChart")
+            highchart(config="chartConfig")
+          .col-sm-6(ng-controller="LineDemoChart")
+            highchart(config="chartConfig")
 
-            tr
-              td(ng-controller="PieChart", style="width:33%;")
-                div(highchart, config="chartConfig", style="height: 300px;")
-              td(ng-controller="PieSemiChart", style="width:33%")
-                div(highchart, config="chartConfig", style="height: 300px;")
+          .col-sm-6(ng-controller="BarDemoChart")
+            highchart(config="chartConfig")
+          .col-sm-6(ng-controller="ColumnDemoChart")
+            highchart(config="chartConfig")
 
-            tr
-              td(ng-controller="SplineChart", colspan="2")
-                div(highchart, config="chartConfig", style="height: 300px;")
+          .col-sm-6(ng-controller="PieDemoChart")
+            highchart(config="chartConfig")
+          .col-sm-6(ng-controller="ScatterDemoChart")
+            highchart(config="chartConfig")
 
   .panel
     .panel-heading
@@ -61,15 +53,13 @@ main#highcharts-content.content-layout
         table.table.table-bordered
           tbody
             tr
-              td(ng-controller="AreaChart", style="width:33.333333%;")
+              td(ng-controller="AreaDemoChart", style="width:33.333333%;")
                 strong Donut Charts
 
-
-              td(ng-controller="LineChart", style="width:33.333333%;")
+              td(ng-controller="LineDemoChart", style="width:33.333333%;")
                 strong Colored
 
-
-              td(ng-controller="LineChart", style="width:33.333333%;")
+              td(ng-controller="BarDemoChart", style="width:33.333333%;")
                 strong Formatted
 
   .row

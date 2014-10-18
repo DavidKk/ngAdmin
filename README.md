@@ -2,4 +2,4 @@
 ngAdmin
 =======
 
-[Demo](http://davidkk.github.io/ngAdmin/#/index/ngScroll/)
+[Demo](http://davidkk.github.io/ngAdmin/)
