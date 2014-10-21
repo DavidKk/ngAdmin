@@ -59,7 +59,7 @@ module.exports = function(grunt) {'use strict';
 
     function dependenciesForModule(name) {
       var deps = [];
-      grunt.file.expand('src/' + name + '/*.js')
+      grunt.file.expand('src/scripts/modules/' + name + '.js')
       .map(grunt.file.read)
       .forEach(function(contents) {
         var moduleDeclIndex = contents.indexOf('angular.module('),

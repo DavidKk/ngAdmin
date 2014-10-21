@@ -1,7 +1,8 @@
 
 
 angular.module('index', [
-  'ngRoute', 'ui.ngAdmin',
+  'ngRoute',
+  'ui.ngAdmin',
   'chat', 'header', 'navigation',
   'charts'
 ])

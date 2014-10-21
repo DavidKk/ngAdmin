@@ -1,8 +1,6 @@
 
 
-angular.module('ui.ngScroll', [
-  'ui.helper', 'ui.style'
-])
+angular.module('ui.ngScroll', ['ui.helper', 'ui.style'])
 
 .controller('ngScrollCtrl', [
   '$scope', '$timeout',

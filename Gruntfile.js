@@ -40,6 +40,7 @@ module.exports = function(grunt) {'use strict';
           'src/less/components/*.less',
           'src/less/script_components/*.less',
           'src/less/utilities/*.less',
+          'src/less/partials/*/main.less',
           'src/less/partials/*/*.less'
         ]
       }
@@ -91,7 +92,7 @@ module.exports = function(grunt) {'use strict';
         banner: '<%= meta.banner %>'
       },
       dist: {
-        src: ['<%= tempPath %>less/app.less'],
+        src: ['src/less/app.less'],
         dest: 'dist/<%= filename %>-<%= pkg.version %>.css'
       },
       customizer: {
@@ -219,11 +220,11 @@ module.exports = function(grunt) {'use strict';
     }
     else {
       tempFile = grunt.config('tempPath') + 'less/app.less';
+      grunt.task.run(['less:dist', 'cssmin:dist', 'clean:temp']);
     }
 
     source += _.pluck(modules, 'import').join('\n');
     grunt.file.write(tempFile, source);
-    grunt.task.run(['less:dist', 'cssmin:dist', 'clean:temp']);
   });
 
   grunt.registerTask('scripts-customizer', 'Add scripts files to customizer.', function() {
@@ -253,7 +254,7 @@ module.exports = function(grunt) {'use strict';
     grunt.config('concat.distTpls.src', grunt.config('concat.distTpls.src').concat(srcFiles).concat(tpljsFiles));
     grunt.task.run(['concat:dist', 'concat:distTpls', 'uglify:dist', 'uglify:distTpls', 'clean:temp']);
   });
-
+  
   grunt.registerTask('build-dist-test', ['karma:unit']);
   grunt.registerTask('build-dist', ['clean:dist', 'style-customizer', 'html2js:dist', 'scripts-customizer'])
   grunt.registerTask('build-dist-dev', ['build-dist', 'copy:dist-css', 'copy:dist-scripts', 'build-docs-dev']);

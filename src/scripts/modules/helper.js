@@ -108,7 +108,7 @@ angular.module('ui.helper', [])
       }
     };
   }
-
+  
   if (!angular.isFunction(angular.inArrayBy)) {
     angular.inArrayBy = function(object_or_index, array, index_name) {
       var index;
