@@ -1,0 +1,10 @@
+{
+  "asi": true,
+  "expr": true,
+  "browser": true,
+  "laxcomma": true,
+  "-W014": false,
+  "globals": {
+
+  }
+}
