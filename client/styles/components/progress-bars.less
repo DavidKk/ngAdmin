@@ -1,7 +1,3 @@
-
-
-@import "bootstrap/progress-bars";
-
 .table {
   > thead > tr > th .progress,
   > tbody > tr > th .progress,
@@ -17,7 +13,7 @@
   @color: extract(@arr-style, @index + 1);
 
   .progress-bar-@{token} {
-    .progress-bar-variant(@color);
+    // .progress-bar-variant(@color);
   }
 
   .progress-bar-palette(@arr-style, @index + 2);

@@ -73,7 +73,7 @@ module.exports = function(grunt) {
               stripGlobBase: true,
               less_dest: 'client/styles/mixins',
               files: [
-                'build/*.less'
+                'build/lesshat.less'
               ]
             },
             'script': {

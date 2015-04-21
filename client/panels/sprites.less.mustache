@@ -1,0 +1,54 @@
+
+.sp-width(@sprite) {
+  width: ~`"@{sprite}".split(', ')[4]`;
+}
+
+.sp-height(@sprite) {
+  height: ~`"@{sprite}".split(', ')[5]`;
+}
+
+.sp-position(@sprite) {
+  @sp-offset-x: ~`"@{sprite}".split(', ')[2]`;
+  @sp-offset-y: ~`"@{sprite}".split(', ')[3]`;
+  background-position: @sp-offset-x  @sp-offset-y;
+}
+
+.sp-image(@sprite) {
+  {{! DEV: We perform a slice due to a trailing brace from string coercion of arrays }}
+  @sp-image: ~`"@{sprite}".split(', ')[8].slice(1, -2)`;
+  background-image: url(@sp-image);
+}
+
+.sprite(@sprite) {
+  .sp-width(@sprite);
+  .sp-height(@sprite);
+
+  &:before {
+    .transform-origin(0 0);
+    .sp-position(@sprite);
+    .sp-width(@sprite);
+    .sp-height(@sprite);
+  }
+}
+
+.sprite {
+  display: inline-block;
+  vertical-align: middle;
+
+  &:before {
+    display: block;
+    content: '';
+    background: url({{& options.basepath}}) no-repeat 0 0 transparent;
+  }
+}
+
+.sp-loop() {
+{{#items}}
+  @{{name}}: {{px.x}} {{px.y}} {{px.offset_x}} {{px.offset_y}} {{px.width}} {{px.height}} {{px.total_width}} {{px.total_height}} '{{{escaped_image}}}';
+  .{{name}} {
+    .sprite(@{{name}});
+  }
+{{/items}}
+}
+
+.sp-loop();

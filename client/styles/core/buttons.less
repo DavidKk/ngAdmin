@@ -1,9 +1,5 @@
-
-
-@import "bootstrap/buttons";
-
 .btn {
-  .button-variant(@black, @gray, @gray);
+  // .button-variant(@black, @gray, @gray);
   .transition(background-color .35s, border-color .35s);
 
   border-width: 0;
@@ -59,7 +55,7 @@
   @color:     extract(@arr-style, @index + 1);
   
   .btn.btn-@{token} {
-    .button-variant(#fff, @color, darken(@color, 12%));
+    // .button-variant(#fff, @color, darken(@color, 12%));
 
     &.btn-icon > i {
       background-color: darken(@color, 12%);
