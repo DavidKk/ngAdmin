@@ -1,8 +1,7 @@
 
 
 angular.module('welcome', [
-  'ngRoute',
-  'system', 'public'
+  'ngRoute'
 ])
 
 .config([

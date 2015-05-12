@@ -20,19 +20,19 @@ main#highcharts-content.content-layout
     .panel-collapse
       .panel-body.no-padding
         .row
-          .col-sm-6(ng-controller="AreaDemoChart")
+          .col-sm-6(ng-controller="AreaDemoChartController")
             highchart(config="chartConfig")
-          .col-sm-6(ng-controller="LineDemoChart")
-            highchart(config="chartConfig")
-
-          .col-sm-6(ng-controller="BarDemoChart")
-            highchart(config="chartConfig")
-          .col-sm-6(ng-controller="ColumnDemoChart")
+          .col-sm-6(ng-controller="LineDemoChartController")
             highchart(config="chartConfig")
 
-          .col-sm-6(ng-controller="PieDemoChart")
+          .col-sm-6(ng-controller="BarDemoChartController")
             highchart(config="chartConfig")
-          .col-sm-6(ng-controller="ScatterDemoChart")
+          .col-sm-6(ng-controller="ColumnDemoChartController")
+            highchart(config="chartConfig")
+
+          .col-sm-6(ng-controller="PieDemoChartController")
+            highchart(config="chartConfig")
+          .col-sm-6(ng-controller="ScatterDemoChartController")
             highchart(config="chartConfig")
 
   .panel
@@ -53,13 +53,13 @@ main#highcharts-content.content-layout
         table.table.table-bordered
           tbody
             tr
-              td(ng-controller="AreaDemoChart", style="width:33.333333%;")
+              td(ng-controller="AreaDemoChartController", style="width:33.333333%;")
                 strong Donut Charts
 
-              td(ng-controller="LineDemoChart", style="width:33.333333%;")
+              td(ng-controller="LineDemoChartController", style="width:33.333333%;")
                 strong Colored
 
-              td(ng-controller="BarDemoChart", style="width:33.333333%;")
+              td(ng-controller="BarDemoChartController", style="width:33.333333%;")
                 strong Formatted
 
   .row

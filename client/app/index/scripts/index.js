@@ -165,14 +165,14 @@ angular.module('index', [
   }
 ])
 
-.controller('CollapseDemoCtrl', [
+.controller('CollapseDemoController', [
   '$scope',
   function($scope) {
     
   }
 ])
 
-.controller('TabsDemoCtrl', [
+.controller('TabsDemoController', [
   '$scope',
   function($scope) {
 
