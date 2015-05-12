@@ -138,7 +138,7 @@ module.exports = function(grunt) {
         yuicompress: true,
         sourceMap: true,
         outputSourceFiles: true,
-        paths: ['./', 'less/']
+        paths: ['./', 'client/public/styles/'],
       },
       public: {
         options: {
@@ -245,7 +245,7 @@ module.exports = function(grunt) {
         src: './Gruntfile.js',
       },
       scripts: {
-        src: ['client/public/scripts/**/*.js', 'client/app/**/scripts/*.js'],
+        src: ['client/public/scripts/**/*.js', 'client/apps/**/scripts/*.js'],
       },
     },
 
@@ -293,14 +293,14 @@ module.exports = function(grunt) {
         options: {
           event: ['added', 'deleted']
         },
-        files: ['client/public/styles/*/*.less', 'client/app/*/styles/*/*.less'],
+        files: ['client/public/styles/*/*.less', 'client/apps/*/styles/*/*.less'],
         tasks: ['lessToCss']
       },
       'style-public': {
         options: {
           event: ['changed'],
         },
-        files: ['client/public/styles/*/*.less', 'client/app/*/styles/*/*.less'],
+        files: ['client/public/styles/*/*.less', 'client/apps/*/styles/*/*.less'],
         tasks: ['less:public']
       },
 
@@ -308,7 +308,7 @@ module.exports = function(grunt) {
         options: {
           event: ['added', 'deleted'],
         },
-        files: ['client/public/scripts/*/*.js', 'client/app/*/scripts/*/*.js'],
+        files: ['client/public/scripts/*/*.js', 'client/apps/*/scripts/*/*.js'],
         tasks: ['concatJS']
       },
       'script-public': {
@@ -353,11 +353,11 @@ module.exports = function(grunt) {
 
     // App style
     grunt.file
-    .expand('client/app/*')
+    .expand('client/apps/*')
     .forEach(function(dir) {
       var stats = fs.lstatSync(dir)
           , name = dir.split('/').splice(-1, 1)[0]
-          , bootstrapFile = grunt.config('buildPath') + '/styles/app/' + name + '.less'
+          , bootstrapFile = grunt.config('buildPath') + '/styles/apps/' + name + '.less'
 
       if (!stats.isDirectory()) {
         return
@@ -374,13 +374,12 @@ module.exports = function(grunt) {
 
       // Extend jade task.
       grunt.config('less.$' + name, {
-        options: {
+        options: _.extend(grunt.config('less.options'), {
           banner: '/* ' + name + '.css#<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd HH:MM:ss") %> */\n',
-          sourceMapFilename: 'assets/styles/main/app/' + name + '.min.css.map',
-        },
-        paths: ['./', './client/public/styles'],
-        src: ['<%= buildPath %>/styles/app/' + name + '.less'],
-        dest: 'assets/styles/main/app/' + name + '.min.css',
+          sourceMapFilename: 'assets/styles/main/apps/' + name + '.min.css.map',
+        }),
+        src: ['<%= buildPath %>/styles/apps/' + name + '.less'],
+        dest: 'assets/styles/main/apps/' + name + '.min.css',
       })
 
       // Extend watch task.
@@ -388,7 +387,7 @@ module.exports = function(grunt) {
         options: {
           event: ['changed'],
         },
-        files: ['client/app/' + name + '/styles/*.less'],
+        files: ['client/apps/' + name + '/styles/*.less'],
         tasks: ['loadState', 'less:$' + name]
       })
     })
@@ -417,7 +416,7 @@ module.exports = function(grunt) {
         , appDeps = []
 
     appFiles = grunt.file
-    .expand('client/app/*/scripts/*.js')
+    .expand('client/apps/*/scripts/*.js')
     .map(function(regexp) {
       return grunt.config.process(regexp)
     })
@@ -514,7 +513,7 @@ module.exports = function(grunt) {
         options: {
           event: ['changed'],
         },
-        files: ['client/app/' + name + '/scripts/**'],
+        files: ['client/apps/' + name + '/scripts/**'],
         tasks: ['loadState', 'concat:$' + name]
       })
     }
@@ -528,7 +527,7 @@ module.exports = function(grunt) {
    */
   grunt.registerTask('compileJade', 'Find the jade file and watch them in each app.', function() {
     grunt.file
-    .expand('client/app/*/')
+    .expand('client/apps/*/')
     .forEach(function(dir) {
       var stats = fs.lstatSync(dir)
           , name = dir.split('/').splice(-2, 1)[0]
@@ -540,7 +539,7 @@ module.exports = function(grunt) {
       // Extend jade task.
       grunt.config('jade.$' + name, {
         dest: 'assets/templates/' + name + '.html',
-        src: 'client/app/' + name + '/index.jade'
+        src: 'client/apps/' + name + '/index.jade'
       })
 
       // Extend watch task.
@@ -584,12 +583,12 @@ module.exports = function(grunt) {
 
     grunt.config('environment', 'DEVELOPMENT')
 
-    grunt.config('less.options', {
+    grunt.config('less.options', _.extend(grunt.config('less.options'), {
       compress: false,
       yuicompress: false,
       sourceMap: false,
       outputSourceFiles: false
-    })
+    }))
 
     grunt.task.run(['clean', 'assets', 'styles', 'scripts', 'layouts', 'watch'])
   })
