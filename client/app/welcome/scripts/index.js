@@ -36,7 +36,7 @@ angular.module('welcome', [
   }
 ])
 
-.controller('Welcome.Login', [
+.controller('FormController', [
   '$rootScope', '$scope',
   function($rootScope, $scope) {
     $scope.username = '';

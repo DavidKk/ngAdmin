@@ -160,9 +160,3 @@
 
   .arrow-mixin > .offset(@offset, @direction);
 }
-
-
-
-.anti-color(@bg-color) when(lighten(@bg-color, 14%) = #fff) {
-  color: negation(@bg-color, #ccc);
-}

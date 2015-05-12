@@ -1,6 +1,6 @@
 
 
-#chat-container(ng-controller="Chat")
+#chat-container(ng-controller="ChatController")
   ul.nav.nav-tabs.nav-justified
     li.active()
       a(title="Contact")
@@ -71,7 +71,7 @@
               | Robert J. Garcia
               span.badge.badge-info
 
-  .chat-conversation(ng-controller="ChatBox", ng-show="isOpenBox")
+  .chat-conversation(ng-controller="ChatboxController", ng-show="isOpenBox")
     .conversation-header
       a.conversation-close
         i.fa.fa-times

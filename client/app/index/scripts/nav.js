@@ -30,7 +30,7 @@ angular.module('navigation', [])
   }
 ])
 
-.controller('Navigation', [
+.controller('NavController', [
   '$scope', '$http', '$route', '$location',
   'NAVIGATION',
   function($scope, $http, $route, $location, NAVIGATION) {

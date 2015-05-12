@@ -234,14 +234,6 @@ module.exports = function(grunt) {
             PUBLIC: 'client/public/templates/',
           }
         }
-      },
-      all: {
-        dest: 'assets/templates/',
-        cwd: 'client/app/',
-        src: ['*/*.jade'],
-        ext: '.html',
-        flatten: true,
-        expand: true,
       }
     },
 
@@ -371,7 +363,7 @@ module.exports = function(grunt) {
         return
       }
 
-      var modules = findLesses(grunt.file.expand(dir + '/styles/*'))
+      var modules = findLesses(grunt.file.expand(dir + '/styles/*.less'))
       grunt.file.write(bootstrapFile,
         _.pluck(modules, 'srcFile')
         .map(function(file) {
@@ -384,10 +376,11 @@ module.exports = function(grunt) {
       grunt.config('less.$' + name, {
         options: {
           banner: '/* ' + name + '.css#<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd HH:MM:ss") %> */\n',
-          sourceMapFilename: 'assets/styles/main/' + name + '.min.css.map',
+          sourceMapFilename: 'assets/styles/main/app/' + name + '.min.css.map',
         },
+        paths: ['./', './client/public/styles'],
         src: ['<%= buildPath %>/styles/app/' + name + '.less'],
-        dest: 'assets/styles/main/' + name + '.min.css',
+        dest: 'assets/styles/main/app/' + name + '.min.css',
       })
 
       // Extend watch task.
@@ -546,11 +539,8 @@ module.exports = function(grunt) {
 
       // Extend jade task.
       grunt.config('jade.$' + name, {
-        dest: 'assets/templates/' + name + '/',
-        cwd: 'client/app/' + name + '/',
-        src: ['*.jade'],
-        ext: '.html',
-        expand: true,
+        dest: 'assets/templates/' + name + '.html',
+        src: 'client/app/' + name + '/index.jade'
       })
 
       // Extend watch task.
@@ -563,7 +553,7 @@ module.exports = function(grunt) {
       })
     })
 
-    grunt.task.run(['jade:all', 'saveState'])
+    grunt.task.run(['jade', 'saveState'])
   })
 
   grunt.registerTask('loadState', 'Load grunt\'s config from json file and merge them.', loadState)

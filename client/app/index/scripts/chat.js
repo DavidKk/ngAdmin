@@ -28,7 +28,7 @@ angular.module('chat', [])
   }
 ])
 
-.controller('Chat', [
+.controller('ChatController', [
   '$scope',
   function($scope) {'use strict';
     $scope.isOpenBox = false;
@@ -47,7 +47,7 @@ angular.module('chat', [])
   }
 ])
 
-.controller('ChatBox', [
+.controller('ChatboxController', [
   '$scope',
   function($scope) {'use strict';
 

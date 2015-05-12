@@ -2,7 +2,7 @@
 
 angular.module('header', [])
 
-.controller('Header', [
+.controller('HeaderController', [
   '$rootScope', '$scope',
   function($rootScope, $scope) {
     $scope.toggleLeftSidebar = function() {
