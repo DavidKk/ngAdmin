@@ -1,13 +1,6 @@
+angular.module('index', ['ngRoute', 'helpers.array', 'chat', 'header', 'nav'])
 
-
-angular.module('index', [
-  'ngRoute',
-  'ui.ngAdmin',
-  'chat', 'header', 'navigation',
-  'charts'
-])
-
-.constant('TEMPLATE_PATH', './templates/')
+.constant('TEMPLATE_PATH', '/assets/templates/')
 
 .constant('NAVIGATION', [
   {

@@ -1,6 +1,4 @@
-
-
-angular.module('navigation', [])
+angular.module('nav', ['ui.slideMenu'])
 
 .directive('navLayout', [
   '$rootScope',

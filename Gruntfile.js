@@ -48,10 +48,10 @@ module.exports = function(grunt) {
     bower: {
       dist: {
         dest: 'assets/',
-        js_dest: 'assets/scripts',
-        css_dest: 'assets/styles',
-        fonts_dest: 'assets/fonts',
-        less_dest: 'client/styles',
+        js_dest: 'assets/scripts/',
+        css_dest: 'assets/styles/',
+        fonts_dest: 'assets/fonts/',
+        less_dest: 'client/styles/',
         /**
          * Modify options what you want to import.
          */
@@ -65,9 +65,17 @@ module.exports = function(grunt) {
               keepExpandedHierarchy: true,
               stripGlobBase: true,
               files: [
-                'dist/scripts/*.js',
+                'dist/js/*.js',
                 'dist/fonts/*.{eot,svg,ttf,woff,woff2}',
-                'dist/styles/*.css'
+                'dist/css/*.css'
+              ]
+            },
+            'font-awesome': {
+              keepExpandedHierarchy: true,
+              stripGlobBase: true,
+              files: [
+                'css/*.css',
+                'fonts/*.{eot,svg,ttf,woff,woff2}'
               ]
             },
             'lesshat': {
@@ -127,7 +135,7 @@ module.exports = function(grunt) {
       assets: {
         cwd: 'client/public/',
         dest: 'assets/',
-        src: ['audio/**', 'fonts/**'],
+        src: ['audio/**', 'fonts/**', 'panels/*.{png,jpg,gif,ico}'],
         expand: true
       }
     },
@@ -234,6 +242,20 @@ module.exports = function(grunt) {
             PUBLIC: 'client/public/templates/',
           }
         }
+      },
+      templates: {
+        dest: 'assets/templates/',
+        cwd: 'client/apps/',
+        src: ['*/templates/*.jade'],
+        ext: '.html',
+        expand: true,
+        rename: function(distPath, filePath, options) {
+          var map = filePath.split('/')
+              , app = map.shift()
+              , name = path.basename(filePath)
+
+          return distPath + app + '/' + name;
+        }
       }
     },
 
@@ -293,14 +315,14 @@ module.exports = function(grunt) {
         options: {
           event: ['added', 'deleted']
         },
-        files: ['client/public/styles/*/*.less', 'client/apps/*/styles/*/*.less'],
+        files: ['client/public/styles/**', 'client/apps/*/styles/*/*.less'],
         tasks: ['lessToCss']
       },
       'style-public': {
         options: {
           event: ['changed'],
         },
-        files: ['client/public/styles/*/*.less', 'client/apps/*/styles/*/*.less'],
+        files: ['client/public/styles/**'],
         tasks: ['less:public']
       },
 
@@ -387,7 +409,7 @@ module.exports = function(grunt) {
         options: {
           event: ['changed'],
         },
-        files: ['client/apps/' + name + '/styles/*.less'],
+        files: ['client/apps/' + name + '/styles/**'],
         tasks: ['loadState', 'less:$' + name]
       })
     })
@@ -538,7 +560,7 @@ module.exports = function(grunt) {
 
       // Extend jade task.
       grunt.config('jade.$' + name, {
-        dest: 'assets/templates/' + name + '.html',
+        dest: 'assets/' + name + '.html',
         src: 'client/apps/' + name + '/index.jade'
       })
 
@@ -547,7 +569,7 @@ module.exports = function(grunt) {
         options: {
           event: ['changed'],
         },
-        files: [dir + '*.jade', dir + 'templates/*.jade'],
+        files: [dir + '*.jade', dir + 'templates/**'],
         tasks: ['loadState', 'jade:$' + name]
       })
     })

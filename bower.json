@@ -8,7 +8,10 @@
     "angular-mocks": "1.3.16-build.96+sha.abfbfd6",
     "angular-route": "1.3.16-build.96+sha.abfbfd6",
     "angular-touch": "1.3.16-build.96+sha.abfbfd6",
-    "script": "https://github.com/ded/script.js.git#2.5.7"
+    "script": "https://github.com/ded/script.js.git#2.5.7",
+
+    "font-awesome": "4.3.0",
+    "bootstrap": "3.3.4"
   },
   "devDependencies": {
     "lesshat": "3.0.2"

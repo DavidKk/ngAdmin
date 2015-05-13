@@ -7,53 +7,56 @@ html(lang="en-US")
     meta(name="keywords", value= pkg.keywords)
 
     //- lt styles
-    link(href= makeVersion('css/font-awesome.min.css'), rel="stylesheet", media="screen")
-    link(href= makeVersion('css/ngAdmin-" + pkg.version + ".min.css'), rel="stylesheet", media="screen")
-    link(href= makeVersion('css/ngAdmin-" + pkg.version + ".docs.min.css'), rel="stylesheet", media="screen")
+    link(href= makeVersion('/assets/styles/bootstrap/bootstrap.min.css'), rel="stylesheet", media="screen")
+    link(href= makeVersion('/assets/styles/font-awesome/font-awesome.min.css'), rel="stylesheet", media="screen")
+    link(href= makeVersion('/assets/styles/main/ngAdmin.min.css'), rel="stylesheet", media="screen")
+    link(href= makeVersion('/assets/styles/main/apps/index.min.css'), rel="stylesheet", media="screen")
     title Index | ngAdmin
 
     //- lt scripts
-    script(src= makeVersion('scripts/script/script.min.js'))
+    script(src= makeVersion('/assets/scripts/script/script.min.js'))
     script.
       'use strict'
 
       var jsfile = {
-        angular: '#{ makeVersion("scripts/angular/angular.min.js") }'
-        , ngRoute: '#{ makeVersion("scripts/angular-route/angular-route.min.js") }'
-        , ngTouch: '#{ makeVersion("scripts/angular-touch/angular-touch.min.js") }'
+        angular: '#{ makeVersion("/assets/scripts/angular/angular.js") }'
+        , ngRoute: '#{ makeVersion("/assets/scripts/angular-route/angular-route.js") }'
+        , ngTouch: '#{ makeVersion("/assets/scripts/angular-touch/angular-touch.js") }'
 
         , jQuery: '//code.jquery.com/jquery-1.11.0.min.js'
-        , highcharts: '#{ makeVersion("scripts/highcharts-4.0.4.min.js") }'
-        , ngHeightcharts: '#{ makeVersion("scripts/highcharts-ng-0.0.8.min.js") }'
+        , highcharts: '#{ makeVersion("/assets/scripts/highcharts-4.0.4.min.js") }'
+        , ngHeightcharts: '#{ makeVersion("/assets/scripts/highcharts-ng-0.0.8.min.js") }'
 
-        , public: '#{ makeVersion("/scripts/main/" + pkg.name + ".js") }'
-        , app: '#{ makeVersion("/scripts/main/apps/index.js") }'
+        , public: '#{ makeVersion("/assets/scripts/main/" + pkg.name + ".js") }'
+        , app: '#{ makeVersion("/assets/scripts/main/apps/index.js") }'
       }
 
       $script(jsfile.angular, function() {
         //- jQuery load after angular, because the angular will auto load jQuery instead jqlit
         //- etc. $event or origin event, jQuery will redefine the event object.
-        $script(jsfile.jQuery, function() {
-          $script(jsfile.highcharts, function() {
-            $script(jsfile.ngHeightcharts)
-          })
-        })
+        //- $script(jsfile.jQuery, function() {
+        //-   $script(jsfile.highcharts, function() {
+        //-     $script(jsfile.ngHeightcharts)
+        //-   })
+        //- })
 
         //- Loading public module, and the page module before angular and it's plugin is ready.
         $script([jsfile.ngRoute, jsfile.ngTouch], function() {
-          $script([jsfile.public, jsfile.app], function() {
-            //- Because js file was loaded in async, we must bootstrap the extrance module.
-            angular.bootstrap(document, ['index'])
+          $script([jsfile.public], function() {
+            $script([jsfile.app], function() {
+              //- Because js file was loaded in async, we must bootstrap the extrance module.
+              angular.bootstrap(document, ['index'])
+            })
           })
         })
       })
 
     //- lt icons
-    link(href= makeVersion("/assets/panels/ico/favicon.ico"), rel="shortcut icon")
-    link(href= makeVersion("/assets/panels/ico/touch-icon-iphone.png"), rel="apple-touch-icon")
-    link(href= makeVersion("/assets/panels/ico/touch-icon-ipad.png"), rel="apple-touch-icon", sizes="76x76")
-    link(href= makeVersion("/assets/panels/ico/touch-icon-iphone-retina.png"), rel="apple-touch-icon", sizes="120x120")
-    link(href= makeVersion("/assets/panels/ico/touch-icon-ipad-retina.png"), rel="apple-touch-icon", sizes="152x152")
+    link(href= makeVersion("/assets/panels/favicon.ico"), rel="shortcut icon")
+    link(href= makeVersion("/assets/panels/touch-icon-iphone.png"), rel="apple-touch-icon")
+    link(href= makeVersion("/assets/panels/touch-icon-ipad.png"), rel="apple-touch-icon", sizes="76x76")
+    link(href= makeVersion("/assets/panels/touch-icon-iphone-retina.png"), rel="apple-touch-icon", sizes="120x120")
+    link(href= makeVersion("/assets/panels/touch-icon-ipad-retina.png"), rel="apple-touch-icon", sizes="152x152")
 
   body.fixed-layout.minify-nav
     .container-layout
