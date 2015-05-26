@@ -7,13 +7,14 @@ html(lang="en-US")
     meta(name="keywords", value= pkg.keywords)
 
     //- lt styles
-    link(href= makeVersion('css/font-awesome.min.css'), rel="stylesheet", media="screen")
-    link(href= makeVersion('css/ngAdmin-" + pkg.version + ".min.css'), rel="stylesheet", media="screen")
-    link(href= makeVersion('css/ngAdmin-" + pkg.version + ".docs.min.css'), rel="stylesheet", media="screen")
-    title Welcome | ngAdmin
+    link(href= makeVersion('/assets/styles/bootstrap/bootstrap.min.css'), rel="stylesheet", media="screen")
+    link(href= makeVersion('/assets/styles/font-awesome/font-awesome.min.css'), rel="stylesheet", media="screen")
+    link(href= makeVersion('/assets/styles/ngAdmin/ngAdmin.min.css'), rel="stylesheet", media="screen")
+    link(href= makeVersion('/assets/styles/app/font-end.min.css'), rel="stylesheet", media="screen")
+    title Font-End | ngAdmin
 
     //- lt scripts
-    script(src= makeVersion('scripts/script/script.min.js'))
+    script(src= makeVersion('/assets/scripts/script/script.min.js'))
     script.
       'use strict'
 
@@ -27,7 +28,7 @@ html(lang="en-US")
         , ngHeightcharts: '#{ makeVersion("scripts/highcharts-ng-0.0.8.min.js") }'
 
         , public: '#{ makeVersion("/scripts/main/" + pkg.name + ".js") }'
-        , app: '#{ makeVersion("/scripts/main/apps/welcome.js") }'
+        , app: '#{ makeVersion("/scripts/main/apps/font-end.js") }'
       }
 
       $script(jsfile.angular, function() {
@@ -43,7 +44,7 @@ html(lang="en-US")
         $script([jsfile.ngRoute, jsfile.ngTouch], function() {
           $script([jsfile.public, jsfile.app], function() {
             //- Because js file was loaded in async, we must bootstrap the extrance module.
-            angular.bootstrap(document, ['welcome'])
+            angular.bootstrap(document, ['font-end'])
           })
         })
       })
@@ -55,39 +56,4 @@ html(lang="en-US")
     link(href= makeVersion("/assets/panels/ico/touch-icon-iphone-retina.png"), rel="apple-touch-icon", sizes="120x120")
     link(href= makeVersion("/assets/panels/ico/touch-icon-ipad-retina.png"), rel="apple-touch-icon", sizes="152x152")
 
-  body#welcome-page
-    #welcome-container
-      .head-module
-        .container
-          .row
-            .col-sm-12
-              h1.caption-head ngAdmin
-              p.desc-head Please enter your email and password to login.
-
-      .form-module(ng-controller="FormController")
-        .container
-          .row
-            .col-md-4.col-md-offset-4.col-sm-6.col-sm-offset-3
-              form(name="form", role="form")
-                .form-group
-                  .input-group-login.input-group
-                    .input-group-addon
-                      i.fa.fa-user
-                    input.form-control(name="email", type="email", placeholder="Please enter email")
-
-                .form-group
-                  .input-group-login.input-group
-                    .input-group-addon
-                      i.fa.fa-lock
-                    input.form-control(name="password", type="password", placeholder="Please enter password")
-
-                .form-group
-                  button.btn-login.btn.btn-block(type="button", role="button") Login
-                    i.fa.fa-sign-in
-
-      .split-module
-        em.line - or -
-
-      .footer-module
-        a.forget(title="Forgot password") Forgot Password
-        p.copyright Copyright © 2014.
+  body

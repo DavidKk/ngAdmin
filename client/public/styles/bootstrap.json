@@ -1,0 +1,9 @@
+[
+  "/variables/**/*.less"
+  , "/mixins/**/*.less"
+  , "/resets/**/*.less"
+  , "/core/**/*.less"
+  , "/effects/**/*.less"
+  , "/utilities/**/*.less"
+  , "/components/**/*.less"
+]

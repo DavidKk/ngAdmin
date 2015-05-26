@@ -31,27 +31,34 @@ module.exports = function(grunt) {
     name: '<%= pkg.name.replace(/^[A-Z]/, function(str) { return str.toLowerCase(); }) %>',
     environment: 'DEVELOPMENT',
 
-    buildPath: './.build',
-    browserPath: './bower_components',
+    buildPath: '.build',
+    browserPath: 'bower_components',
+
+    stylePublicPath: 'client/public/styles',
+    styleDistPath: 'assets/styles',
+
+    scriptPublicPath: 'client/public/scripts',
+    scriptDistPath: 'assets/scripts',
 
     hashmapFile: 'assets/hashmap/version.json',
-    spritesImageFile: 'assets/panels/sprites.png',
-    spritesLessFile: '<%= buildPath %>/styles/sprites.less',
+    spriteImageFile: 'assets/panels/sprites.png',
+    spriteLessFile: '<%= buildPath %>/styles/sprites.less',
 
     stateFile: '<%= buildPath %>/grunt.state.json',
 
     clean: {
       build: '<%= buildPath %>',
-      dist: 'assets'
+      dist: 'assets',
     },
 
     bower: {
       dist: {
         dest: 'assets/',
-        js_dest: 'assets/scripts/',
-        css_dest: 'assets/styles/',
-        fonts_dest: 'assets/fonts/',
-        less_dest: 'client/styles/',
+        js_dest: 'assets/scripts',
+        css_dest: 'assets/styles',
+        fonts_dest: 'assets/fonts',
+
+        less_dest: 'client/public/styles',
         /**
          * Modify options what you want to import.
          */
@@ -61,21 +68,21 @@ module.exports = function(grunt) {
             'jquery'
           ],
           packageSpecific: {
-            'bootstrap': {
-              keepExpandedHierarchy: true,
-              stripGlobBase: true,
-              files: [
-                'dist/js/*.js',
-                'dist/fonts/*.{eot,svg,ttf,woff,woff2}',
-                'dist/css/*.css'
-              ]
-            },
             'font-awesome': {
               keepExpandedHierarchy: true,
               stripGlobBase: true,
               files: [
                 'css/*.css',
-                'fonts/*.{eot,svg,ttf,woff,woff2}'
+                'fonts/*.{eot,svg,ttf,woff,woff2}',
+              ]
+            },
+            'bootstrap': {
+              keepExpandedHierarchy: true,
+              stripGlobBase: true,
+              files: [
+                'dist/scripts/*.js',
+                'dist/fonts/*.{eot,svg,ttf,woff,woff2}',
+                'dist/css/*.css'
               ]
             },
             'lesshat': {
@@ -104,8 +111,8 @@ module.exports = function(grunt) {
     sprite: {
       dist: {
         src: 'client/public/panels/sprites/*.png',
-        dest: '<%= spritesImageFile %>',
-        destCss: '<%= spritesLessFile %>',
+        dest: '<%= spriteImageFile %>',
+        destCss: '<%= spriteLessFile %>',
         padding: 10,
         cssFormat: 'less',
         cssTemplate: 'client/public/panels/sprites.less.mustache',
@@ -135,7 +142,7 @@ module.exports = function(grunt) {
       assets: {
         cwd: 'client/public/',
         dest: 'assets/',
-        src: ['audio/**', 'fonts/**', 'panels/*.{png,jpg,gif,ico}'],
+        src: ['audio/**', 'fonts/**'],
         expand: true
       }
     },
@@ -151,14 +158,14 @@ module.exports = function(grunt) {
       public: {
         options: {
           banner: '/* <%= pkg.name %>.css#<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd HH:MM:ss") %> */\n',
-          sourceMapFilename: 'assets/styles/main/<%= name %>.min.css.map',
+          sourceMapFilename: '<%= styleDistPath %>/<%= name %>.min.css.map',
         },
         src: ['<%= buildPath %>/styles/bootstrap.less'],
-        dest: 'assets/styles/main/<%= name %>.min.css',
+        dest: '<%= styleDistPath %>/<%= name %>/<%= name %>.min.css',
       }
     },
 
-    scripts: {
+    script: {
       srcModules: [],
       srcFiles: [],
     },
@@ -171,7 +178,7 @@ module.exports = function(grunt) {
           base: 'client/public/scripts/ui/template',
           module: null,
           rename: function(name) {
-            return 'template/' + name.replace(path.extname(name), '.html');
+            return 'templates/' + name.replace(path.extname(name), '.html');
           }
         },
         dest: '<%= buildPath %>/scripts/ui/template',
@@ -190,8 +197,8 @@ module.exports = function(grunt) {
         options: {
           banner: '// <%= pkg.name %>.js#<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd HH:MM:ss") %>\n',
         },
-        src: ['<%= scripts.srcFiles %>'],
-        dest: 'assets/scripts/main/<%= name %>.js',
+        src: ['<%= script.srcFiles %>'],
+        dest: '<%= scriptDistPath %>/<%= name %>/<%= name %>.js',
       }
     },
 
@@ -204,11 +211,11 @@ module.exports = function(grunt) {
           banner: '// <%= pkg.name %>.min.js#<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd HH:MM:ss") %>\n',
         },
         src: ['<%= concat.public.dest %>'],
-        dest: 'assets/scripts/main/<%= name %>.min.js',
+        dest: '<%= scriptDistPath %>/<%= name %>/<%= name %>.min.js',
       },
       app: {
-        dest: 'assets/scripts/main/apps/',
-        cwd: 'assets/scripts/main/apps/',
+        dest: 'assets/scripts/app/',
+        cwd: 'assets/scripts/app/',
         src: ['*.js'],
         expand: true,
       },
@@ -243,19 +250,12 @@ module.exports = function(grunt) {
           }
         }
       },
-      templates: {
-        dest: 'assets/templates/',
-        cwd: 'client/apps/',
-        src: ['*/templates/*.jade'],
+      views: {
+        dest: 'assets/views/',
+        cwd: 'client/app/',
+        src: ['*/*.jade'],
         ext: '.html',
         expand: true,
-        rename: function(distPath, filePath, options) {
-          var map = filePath.split('/')
-              , app = map.shift()
-              , name = path.basename(filePath)
-
-          return distPath + app + '/' + name;
-        }
       }
     },
 
@@ -287,6 +287,7 @@ module.exports = function(grunt) {
     },
 
     watch: {
+      // config
       'config-package': {
         options: {
           event: ['added', 'changed'],
@@ -311,118 +312,166 @@ module.exports = function(grunt) {
         tasks: ['<%= environment === "DEVELOPMENT" ? "development" : "production" %>']
       },
 
-      'style-all': {
-        options: {
-          event: ['added', 'deleted']
-        },
-        files: ['client/public/styles/**', 'client/apps/*/styles/*/*.less'],
-        tasks: ['lessToCss']
-      },
+      // styles
       'style-public': {
-        options: {
-          event: ['changed'],
-        },
-        files: ['client/public/styles/**'],
-        tasks: ['less:public']
+        files: ['client/public/styles/*/*.less'],
+        tasks: ['compileStyle']
       },
-
-      'script-all': {
+      'style-app': {
         options: {
           event: ['added', 'deleted'],
         },
-        files: ['client/public/scripts/*/*.js', 'client/apps/*/scripts/*/*.js'],
+        files: ['client/app/*/styles/*/*.less'],
+        tasks: ['compileStyle']
+      },
+
+      // scripts
+      'script-public': {
+        files: ['client/public/scripts/*/*.js'],
         tasks: ['concatJS']
       },
-      'script-public': {
+      'script-app': {
         options: {
-          event: ['changed'],
+          event: ['added', 'deleted'],
         },
-        files: ['client/public/scripts/*/*.js'],
-        tasks: ['concat:public']
+        files: ['client/app/*/scripts/*/*.js'],
+        tasks: ['concatJS']
       },
+
+      'layout-app': {
+        files: ['client/app/*/*.jade'],
+        tasks: ['jade:views']
+      }
     },
   })
 
-  // Merge Tasks
+
+  // Merged Tasks
   // ================
 
   /**
-   * This task will 
+   * 该任务将会合并并编译 `client/public/styles` 下所有的样式。你可以在
+   * `client/public/styles/bootstrap.json` 里面配置一下文件导入顺序，
+   * 因为公共样式并没有很强的单一依赖关系，则多个文件可能互相不依赖，但他们都
+   * 必须引入到公用样式用，因此我们必须安排他们的顺序。
+   *
+   * `bootstrap.json` (因为有 `/*` 所以加上反斜杠)
+   * [
+   *   "/variables/**\/*.less"
+   *   , "/mixins/**\/*.less"
+   *   , "/resets/**\/*.less"
+   *   , "/core/**\/*.less"
+   *   , "/effects/**\/*.less"
+   *   , "/utilities/**\/*.less"
+   *   , "/components/**\/*.less"
+   * ]
+   *
+   * 除此以外，任务还会根据 `client/app/` 下的目录再合并各个应用。我们可以将
+   * 这些应用看成一个 SPA，而这些应用下的各种情景我们可以将它定义为一个模块。
+   * 
+   * 例如：
+   * client/
+   *   app/
+   *     index/
+   *       styles/
+   *         index.less
+   *         user.less
+   *
+   * 这样我们就是生成一个名叫 `index` 的应用，而不同模块的样式我们统一放在
+   * `styles/` 里面，因为里面的样式一般都各自不没有任何关联，因此我们将他们
+   * 的所有样式文件合并成一个与应用名一样的 CSS 文件，并存放在 `assets/styles/app`
+   * 目录下；同时这些文件可以 `@import` 文件夹 `client/public/style` 下的所有文件。
+   * 若有特殊的 mixins 我们可以再在 `style` 目录下再建立 `mixins`
+   * 等文件夹，再通过 `@import` 引入。
+   *
+   * 注意：
+   *
+   * 系统会将应用样式写入到 `watch` 任务中，同时也会将扩展一个 `less` 任务，
+   * 当应用样式修改的时候，只会执行该生成的 `less` 任务。
+   * 
+   * 当公共样式有 `新增/修改/删除` 的时候，系统将会重新执行该任务；应用样式有 `新增/删除` 的时候，
+   * 系统也会重新执行该任务；而应用样式 修改 后只会执行重新编译该应用的样式。
    */
-  grunt.registerTask('lessToCss', 'Find the style file and compile them to css.', function() {
+  grunt.registerTask('less2Css', 'Find the style file and compile them to css.', function() {
     var bootstrapFile = grunt.config('buildPath') + '/styles/bootstrap.less'
-        , modules
+        , distPath = grunt.config('styleDistPath')
+        , absPaths = (grunt.file.readJSON('client/public/styles/bootstrap.json') || [])
+          .map(function(path) {
+            return grunt.config('stylePublicPath') + path
+          })
+        , modules = []
 
     // Public style
-    modules = findLesses(grunt.file.expand([
-      'client/public/styles/variables/**/*.less'
-      , 'client/public/styles/mixins/**/*.less'
-      , 'client/public/styles/resets/**/*.less'
-      , 'client/public/styles/core/**/*.less'
-      , 'client/public/styles/effects/**/*.less'
-      , 'client/public/styles/utilities/**/*.less'
-      , 'client/public/styles/components/**/*.less'
-      , grunt.config('spritesLessFile')
-    ]))
+    // ============
 
-    grunt.file.write(bootstrapFile,
-      _.pluck(modules, 'srcFile')
+    grunt.log.subhead('Compile public less files.')
+    modules = findLesses(grunt.file.expand(absPaths))
+
+    grunt.file.write(bootstrapFile, _.pluck(modules, 'srcFile')
       .map(function(file) {
         grunt.log.writeln('File ' + file.cyan + ' imported.')
         return '@import ' + enquote(file) + ';'
       })
       .join('\n'))
 
-    // App style
+    grunt.log.writeln('Above state will be saved in temp file ' + enquote(bootstrapFile).cyan)
+
+
+    // Apps style
+    // ==========
+
     grunt.file
-    .expand('client/apps/*')
+    .expand('client/app/*')
     .forEach(function(dir) {
       var stats = fs.lstatSync(dir)
           , name = dir.split('/').splice(-1, 1)[0]
-          , bootstrapFile = grunt.config('buildPath') + '/styles/apps/' + name + '.less'
+          , bootstrapFile = grunt.config('buildPath') + '/styles/app/' + name + '.less'
+          , modules = []
 
       if (!stats.isDirectory()) {
         return
       }
 
-      var modules = findLesses(grunt.file.expand(dir + '/styles/*.less'))
-      grunt.file.write(bootstrapFile,
-        _.pluck(modules, 'srcFile')
+      grunt.log.subhead('Compile module `' + name + '` less files.')
+      modules = findLesses(grunt.file.expand(dir + '/styles/*.less'))
+
+      grunt.file.write(bootstrapFile, _.pluck(modules, 'srcFile')
         .map(function(file) {
           grunt.log.writeln('File ' + file.cyan + ' imported.')
           return '@import ' + enquote(file) + ';'
         })
         .join('\n'))
 
+      grunt.log.writeln('Above state will be saved in temp file ' + enquote(bootstrapFile).cyan)
+
       // Extend jade task.
       grunt.config('less.$' + name, {
         options: _.extend(grunt.config('less.options'), {
           banner: '/* ' + name + '.css#<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd HH:MM:ss") %> */\n',
-          sourceMapFilename: 'assets/styles/main/apps/' + name + '.min.css.map',
+          sourceMapFilename: distPath + '/app/' + name + '.min.css.map',
         }),
-        src: ['<%= buildPath %>/styles/apps/' + name + '.less'],
-        dest: 'assets/styles/main/apps/' + name + '.min.css',
+        src: ['<%= buildPath %>/styles/app/' + name + '.less'],
+        dest: distPath + '/app/' + name + '.min.css',
       })
 
       // Extend watch task.
-      grunt.config('watch.style-$' + name, {
+      grunt.config('watch.$style-' + name, {
         options: {
           event: ['changed'],
         },
-        files: ['client/apps/' + name + '/styles/**'],
+        files: ['client/app/' + name + '/styles/*.less'],
         tasks: ['loadState', 'less:$' + name]
       })
     })
-  
-    grunt.task.run(['less', 'saveState'])
+    
+    saveState()
+    grunt.task.run(['less'])
   })
 
   /**
-   * This task will concat js file not include the controller-files,
-   * only the commmon modules. It will depend on the controllers'
-   * dependencies to find out the module and js file which
-   * was imported from controllers. But it would copy
-   * the controller-file to dest yet.
+   * concatJS 任务首先会根据各应用中的模块 `client/app/*` 获取所有需要用到的公共模块，
+   * 这些公共模块再会通过依赖关系获取相应的模块，这样就可以列出相应的顺序引入到公共模块。
+   * 然后再合并 `client/app\/*\/scripts/` 下的所有模块生成名为应用名的脚本文件。
    */
   grunt.registerTask('concatJS', 'According to dependencies, merge and sort the angularjs files.', function() {
     var appModules = []
@@ -434,17 +483,20 @@ module.exports = function(grunt) {
      * Import controller modules from controller's files.
      * It will read the file and find out their dependencies.
      */
+    grunt.log.subhead('Find out all dependencies module of apps\' modules.')
+
     var appFiles = []
         , appDeps = []
 
     appFiles = grunt.file
-    .expand('client/apps/*/scripts/*.js')
+    .expand('client/app/*/scripts/*.js')
     .map(function(regexp) {
       return grunt.config.process(regexp)
     })
 
     cmmModules = findScripts(appFiles, { isRoot: true })
     .filter(function(module) {
+      console.log(module.srcFile)
       if (-1 === appFiles.indexOf(module.srcFile)) {
         return true
       }
@@ -470,13 +522,13 @@ module.exports = function(grunt) {
      * Compile them to angular modules and save to the tmp path.
      */
     tplModules = grunt.file
-    .expand('client/public/scripts/ui/template/*/*.jade')
+    .expand(grunt.config('scriptPublicPath') + '/ui/templates/*/*.jade')
     .map(function(filePath) {
       var file = path.basename(filePath).replace(path.extname(filePath), '.html')
           , relativePath = path.dirname(filePath).split('/').pop() + '/' + file
-          , name = 'template/' + relativePath
+          , name = 'templates/' + relativePath
           , moduleName = enquote(name)
-          , srcFile = grunt.config('buildPath') + '/scripts/ui/template/' + relativePath + '.js'
+          , srcFile = grunt.config('buildPath') + '/scripts/ui/templates/' + relativePath + '.js'
 
       return { name: name, moduleName: moduleName, srcFile: srcFile }
     })
@@ -494,8 +546,8 @@ module.exports = function(grunt) {
       grunt.log.writeln('File ' + file.cyan + ' imported.')
     })
 
-    grunt.config('scripts.srcModules', srcModules)
-    grunt.config('scripts.srcFiles', srcFiles)
+    grunt.config('script.srcModules', srcModules)
+    grunt.config('script.srcFiles', srcFiles)
 
     /**
      * Add app file concat task and add a watching task.
@@ -518,6 +570,8 @@ module.exports = function(grunt) {
 
     var name = ''
     for (name in appSortedModules) {
+      grunt.log.subhead('Concat scripts file of `' + name + '` module.')
+
       // Extend concat task.
       grunt.config('concat.$' + name, {
         options: {
@@ -525,31 +579,31 @@ module.exports = function(grunt) {
         },
         src: appSortedModules[name]
           .map(function(app) {
+            grunt.log.writeln('File ' + app.srcFile.cyan + ' imported.')
             return app.srcFile
           }),
-        dest: 'assets/scripts/main/apps/' + name + '.js',
+        dest: '<%= scriptDistPath %>/app/' + name + '.js',
       })
 
       // Extend watch task.
-      grunt.config('watch.script-$' + name, {
+      grunt.config('watch.$script-' + name, {
         options: {
           event: ['changed'],
         },
-        files: ['client/apps/' + name + '/scripts/**'],
+        files: ['client/app/' + name + '/scripts/**'],
         tasks: ['loadState', 'concat:$' + name]
       })
     }
 
+    saveState()
+
     // Run the concat task.
-    grunt.task.run(['concat', 'saveState'])
+    grunt.task.run(['concat'])
   })
 
-  /**
-   * This task will 
-   */
   grunt.registerTask('compileJade', 'Find the jade file and watch them in each app.', function() {
     grunt.file
-    .expand('client/apps/*/')
+    .expand('client/app/*/')
     .forEach(function(dir) {
       var stats = fs.lstatSync(dir)
           , name = dir.split('/').splice(-2, 1)[0]
@@ -560,35 +614,34 @@ module.exports = function(grunt) {
 
       // Extend jade task.
       grunt.config('jade.$' + name, {
-        dest: 'assets/' + name + '.html',
-        src: 'client/apps/' + name + '/index.jade'
+        dest: 'assets/templates/' + name + '/',
+        cwd: 'client/app/' + name + '/templates/',
+        src: '*.jade',
+        ext: '.html',
+        expand: true,
       })
 
       // Extend watch task.
-      grunt.config('watch.layout-$' + name, {
+      grunt.config('watch.$layout-' + name, {
         options: {
           event: ['changed'],
         },
-        files: [dir + '*.jade', dir + 'templates/**'],
+        files: ['client/app/' + name + '/templates/*.jade'],
         tasks: ['loadState', 'jade:$' + name]
       })
     })
 
-    grunt.task.run(['jade', 'saveState'])
+    saveState()
+    grunt.task.run(['jade'])
   })
 
   grunt.registerTask('loadState', 'Load grunt\'s config from json file and merge them.', loadState)
   grunt.registerTask('saveState', 'Save grunt config state to json file.', saveState)
 
-  grunt.registerTask('kill', 'Kill the all child process.', function() {
-    // TODO: kill all child process.
-    // process.exit(1)
-  })
-
-  grunt.registerTask('assets', ['bower', 'copy:assets', 'sprite', 'imagemin'])
-  grunt.registerTask('styles',  ['lessToCss'])
-  grunt.registerTask('scripts', ['html2js', 'concatJS'])
-  grunt.registerTask('layouts', ['compileJade'])
+  grunt.registerTask('buildAssets', ['bower', 'copy:assets', 'sprite', 'imagemin'])
+  grunt.registerTask('compileStyle',  ['less2Css'])
+  grunt.registerTask('concatScript', ['html2js', 'concatJS'])
+  grunt.registerTask('compileLayout', ['compileJade'])
   grunt.registerTask('default', ['development'])
 
   grunt.registerTask('test-config', 'Task for test the grunt file.', function() {
@@ -609,17 +662,17 @@ module.exports = function(grunt) {
       compress: false,
       yuicompress: false,
       sourceMap: false,
-      outputSourceFiles: false
+      outputSourceFiles: false,
     }))
 
-    grunt.task.run(['clean', 'assets', 'styles', 'scripts', 'layouts', 'watch'])
+    grunt.task.run(['clean', 'buildAssets', 'compileStyle', 'concatScript', 'compileLayout', 'watch'])
   })
 
   /**
    * Task for release a new version.
    */
   grunt.registerTask('release', 'Task for jshint test and unit test before release a new version.', function() {
-    grunt.task.run(['clean', 'test-config', 'clean', 'assets', 'styles', 'scripts', 'uglify', 'karma:release', 'hashmap', 'layouts'])
+    grunt.task.run(['clean', 'test-config', 'clean', 'buildAssets', 'compileStyle', 'concatScript', 'uglify', 'karma:release', 'hashmap', 'compileLayout'])
   })
 
   /**
@@ -628,7 +681,7 @@ module.exports = function(grunt) {
    */
   grunt.registerTask('production', 'Task for product environment.', function() {
     grunt.config('environment', 'PRODUCTION')
-    grunt.task.run(['test-config', 'clean', 'assets', 'styles', 'scripts', 'uglify', 'hashmap', 'layouts', 'watch'])
+    grunt.task.run(['test-config', 'clean', 'buildAssets', 'compileStyle', 'concatScript', 'uglify', 'hashmap', 'compileLayout', 'watch'])
   })
 
 
@@ -732,11 +785,11 @@ module.exports = function(grunt) {
               .join('.')
               .replace(path.extname(filePath), '')
 
-      if (existsModules[name]) {
+      if (existsModules[filePath]) {
         return
       }
 
-      existsModules[name] = true
+      existsModules[filePath] = true
 
       var module = {
         name: name

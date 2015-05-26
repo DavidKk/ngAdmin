@@ -1,8 +1,4 @@
-
-
-angular.module('welcome', [
-  'ngRoute'
-])
+angular.module('welcome', ['ngRoute'])
 
 .config([
   '$routeProvider', '$locationProvider',
@@ -11,10 +7,10 @@ angular.module('welcome', [
       window.location.replace(url);
     };
 
-    $routeProvider.
-    when('/welcome/',       {}).
-    when('/welcome.html',   {}).
-    otherwise({
+    $routeProvider
+    .when('/welcome/', {})
+    .when('/welcome.html', {})
+    .otherwise({
       resolve: [
         '$route', '$location',
         function($route, $location) {

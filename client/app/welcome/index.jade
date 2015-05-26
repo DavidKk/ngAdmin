@@ -1,0 +1,85 @@
+doctype
+html(lang="en-US")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no")
+    meta(name="description", value= pkg.description)
+    meta(name="keywords", value= pkg.keywords)
+
+    //- lt styles
+    link(href= makeVersion('/assets/styles/font-awesome/font-awesome.min.css'), rel="stylesheet", media="screen")
+    link(href= makeVersion('/assets/styles/ngAdmin/ngAdmin.min.css'), rel="stylesheet", media="screen")
+    link(href= makeVersion('/assets/styles/app/welcome.min.css'), rel="stylesheet", media="screen")
+    title Welcome | ngAdmin
+
+    //- lt scripts
+    script(src= makeVersion('/assets/scripts/script/script.min.js'))
+    script.
+      'use strict'
+
+      var jsfile = {
+        angular: '#{ makeVersion("/assets/scripts/angular/angular.js") }'
+        , ngRoute: '#{ makeVersion("/assets/scripts/angular-route/angular-route.js") }'
+        , ngTouch: '#{ makeVersion("/assets/scripts/angular-touch/angular-touch.js") }'
+
+        , jQuery: '//code.jquery.com/jquery-1.11.0.js'
+        , highcharts: '#{ makeVersion("/assets/scripts/highcharts-4.0.4.js") }'
+        , ngHeightcharts: '#{ makeVersion("/assets/scripts/highcharts-ng-0.0.8.js") }'
+
+        , public: '#{ makeVersion("/assets/scripts/ngAdmin/ngAdmin.js") }'
+        , app: '#{ makeVersion("/assets/scripts/app/welcome.js") }'
+      }
+
+      $script(jsfile.angular, function() {
+        //- Loading public module, and the page module before angular and it's plugin is ready.
+        $script([jsfile.ngRoute, jsfile.ngTouch], function() {
+          $script([jsfile.public, jsfile.app], function() {
+            //- Because js file was loaded in async, we must bootstrap the extrance module.
+            angular.bootstrap(document, ['welcome'])
+          })
+        })
+      })
+
+    //- lt icons
+    link(href= makeVersion("/assets/panels/ico/favicon.ico"), rel="shortcut icon")
+    link(href= makeVersion("/assets/panels/ico/touch-icon-iphone.png"), rel="apple-touch-icon")
+    link(href= makeVersion("/assets/panels/ico/touch-icon-ipad.png"), rel="apple-touch-icon", sizes="76x76")
+    link(href= makeVersion("/assets/panels/ico/touch-icon-iphone-retina.png"), rel="apple-touch-icon", sizes="120x120")
+    link(href= makeVersion("/assets/panels/ico/touch-icon-ipad-retina.png"), rel="apple-touch-icon", sizes="152x152")
+
+  body#welcome-page
+    #welcome-container
+      .head-module
+        .container
+          .row
+            .col-sm-12
+              h1.caption-head ngAdmin
+              p.desc-head Please enter your email and password to login.
+
+      .form-module(ng-controller="FormController")
+        .container
+          .row
+            .col-md-4.col-md-offset-4.col-sm-6.col-sm-offset-3
+              form(name="form", role="form")
+                .form-group
+                  .input-group-login.input-group
+                    .input-group-addon
+                      i.fa.fa-user
+                    input.form-control(name="email", type="email", placeholder="Please enter email")
+
+                .form-group
+                  .input-group-login.input-group
+                    .input-group-addon
+                      i.fa.fa-lock
+                    input.form-control(name="password", type="password", placeholder="Please enter password")
+
+                .form-group
+                  button.btn-login.btn.btn-block(type="button", role="button") Login
+                    i.fa.fa-sign-in
+
+      .split-module
+        em.line - or -
+
+      .footer-module
+        a.forget(title="Forgot password") Forgot Password
+        p.copyright Copyright © 2014.
