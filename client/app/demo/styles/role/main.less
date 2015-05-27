@@ -1,0 +1,112 @@
+
+
+#demo-role-container {
+  margin-top: 15px;
+}
+
+#demo-role-container .widgets-bar {
+  margin-bottom: 14px;
+}
+
+#demo-role-container .widgets-bar .search-form {
+  position: relative;
+
+  input {
+    .border-radius(3px);
+    .transition(border-color ease-in-out .15s,box-shadow ease-in-out .15s);
+
+    padding: 8px 12px;
+    padding-right: 32px;
+    border: 1px solid #ebebeb;
+    background-image: none;
+    background-color: #fff;
+    line-height: @line-height-base;
+    color: #555;
+    font-size: 12px;
+  }
+
+  input:focus {
+    .box-shadow(0 2px 1px rgba(203, 208, 217, 0.08));
+
+    border-color: #c8cdd7;
+    outline: 0;
+  }
+
+  i {
+    color: #999;
+    position: absolute;
+    top: 11px;
+    right: 11px;
+  }
+}
+
+#demo-role-container .role-list {
+  border-top: 4px solid @cyan;
+  background-color: #fff;
+
+  tbody > tr > td {
+    border-top-width: 0;
+
+    a {
+      margin: 0 2px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+  }
+}
+
+#demo-role-container ul.permissions-list,
+#demo-role-container ul.sub-permissions-list {
+  .user-select(none);
+
+  padding-left: 0;
+  background-color: #fff;
+  list-style: none;
+  
+  & > li.name { margin-bottom: 4px; }
+  
+  & > li.name > span.p {
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  & > li.name > input {
+    margin-right: 6px;
+    float: right;
+  }
+
+  & > li { position: relative; }
+  & > li > .collapse {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    position: absolute;
+    top: 6px;
+  }
+
+  & > li > a.collapse { cursor: pointer; }
+
+  & > li > label {
+    margin-bottom: 0;
+    padding-left: 20px;
+    height: 32px;
+    display: block;
+    line-height: 32px;
+    font-size: 14px;
+  }
+  
+  & > li > label > input {
+    margin-top: 12px;
+    margin-right: 6px;
+    float: right;
+  }
+}
+
+#demo-role-container ul.permissions-list {
+  padding: 10px 15px;
+  border-top: 4px solid @cyan;
+}
+
+#demo-role-container ul.sub-permissions-list {
+  & > li { padding-left: 1.5em; }
+}

@@ -1,72 +1,75 @@
-angular.module('welcome', ['ngRoute'])
+/**
+ * Welcome
+ * @author  <David Jones qowera@qq.com>
+ */
+angular.module('welcome', ['ngRoute', 'conf.config'])
 
 .config([
-  '$routeProvider', '$locationProvider',
-  function($routeProvider, $locationProvider) {
-    function redirectTo(url) {
-      window.location.replace(url);
-    };
+  '$routeProvider',
+  function($routeProvider) {
+    'use strict'
 
-    $routeProvider
-    .when('/welcome/', {})
-    .when('/welcome.html', {})
-    .otherwise({
-      resolve: [
-        '$route', '$location',
-        function($route, $location) {
-          var firstPath = '/' + $location.$$path.split('\/')[1] + '/',
-          url = $location.$$url;
+    $routeProvider.when('/welcome/', {
+      controller: 'WelcomeController'
+    })
+  }
+])
 
-          if ($route.routes[firstPath]) {
-            $location.path(firstPath);
-          }
-          else if (url) {
-            window.location.replace(url);
-          }
-        }
-      ]
-    });
+.controller('WelcomeController', [
+  '$scope',
+  function($scope) {
+    'use strict'
 
-    $locationProvider.html5Mode(true);
+    $scope.method = 'login'
+
+    $scope.changeChannel = function(method) {
+      $scope.method = method
+    }
   }
 ])
 
 .controller('FormController', [
   '$rootScope', '$scope',
   function($rootScope, $scope) {
-    $scope.username = '';
-    $scope.password = '';
-    $scope.captcha = '';
-    $scope.captchaImage = '';
-    $scope.disabled = false;
+    'use strict'
+
+    $scope.username = ''                // 用户名
+    $scope.password = ''                // 密码
+    $scope.captcha = ''                 // 验证码
+    $scope.captchaImage = ''            // 验证码图片
+    $scope.disabled = false             // 当前是否可用
 
     $scope.newCaptcha = function() {
-      if ($scope.disabled) return;
+      if ($scope.disabled) {
+        return
+      }
       // $scope.captchaImage = 'http://api.xiaozhisong.com/captcha/?' + Date.now();
-    };
+    }
 
-    $scope.submit = function(event) {
-      if ($scope.disabled || (event && event.keyCode && event.keyCode !== 13)) return;
+    $scope.submit = function(evt) {
+      if ($scope.disabled || (evt && evt.keyCode && evt.keyCode !== 13)) {
+        return
+      }
 
-      var validUsername = $scope.form.username.$viewValue,
-      validPassword = $scope.form.password.$viewValue,
-      validCaptcha = $scope.form.captcha.$viewValue;
+      var validUsername = $scope.form.username.$viewValue
+          , validPassword = $scope.form.password.$viewValue
+          , validCaptcha = $scope.form.captcha.$viewValue
 
       if (validUsername && validPassword && validCaptcha) {
-        $scope.disabled = true;
+        $scope.disabled = true
 
-        $user.login({ username: validUsername, password: validPassword, captcha: validCaptcha }).
-        then(function(data) { window.location.replace('/index/'); }).
-        catch(function(msg) {
-          alert(msg);
-          
-          $scope.disabled = false;
-          $scope.captcha = '';
-          $scope.newCaptcha();
-        });
+        $user.login({ username: validUsername, password: validPassword, captcha: validCaptcha })
+        .then(function(data) {
+          window.location.replace('/index/')
+        })
+        .catch(function(msg) {
+          $scope.disabled = false
+          $scope.captcha = ''
+          $scope.newCaptcha()
+        })
       }
-    };
+    }
 
-    $scope.newCaptcha();
+    $scope.newCaptcha()
   }
 ])

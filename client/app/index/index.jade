@@ -28,12 +28,12 @@ html(lang="en-US")
         , ngRoute: '#{ makeVersion("/assets/scripts/angular-route/angular-route.js") }'
         , ngTouch: '#{ makeVersion("/assets/scripts/angular-touch/angular-touch.js") }'
 
-        , jQuery: '//code.jquery.com/jquery-1.11.0.min.js'
-        , highcharts: '#{ makeVersion("/assets/scripts/highcharts-4.0.4.min.js") }'
-        , ngHeightcharts: '#{ makeVersion("/assets/scripts/highcharts-ng-0.0.8.min.js") }'
+        //- , jQuery: '//code.jquery.com/jquery-1.11.0.min.js'
+        //- , highcharts: '#{ makeVersion("/assets/scripts/highcharts-4.0.4.min.js") }'
+        //- , ngHeightcharts: '#{ makeVersion("/assets/scripts/highcharts-ng-0.0.8.min.js") }'
 
-        , public: '#{ makeVersion("/assets/scripts/main/" + pkg.name + ".js") }'
-        , app: '#{ makeVersion("/assets/scripts/main/apps/index.js") }'
+        , common: '#{ makeVersion("/assets/scripts/ngAdmin/ngAdmin.js") }'
+        , app: '#{ makeVersion("/assets/scripts/app/index.js") }'
       }
 
       $script(jsfile.angular, function() {
@@ -47,7 +47,7 @@ html(lang="en-US")
 
         //- Loading public module, and the page module before angular and it's plugin is ready.
         $script([jsfile.ngRoute, jsfile.ngTouch], function() {
-          $script([jsfile.public], function() {
+          $script([jsfile.common], function() {
             $script([jsfile.app], function() {
               //- Because js file was loaded in async, we must bootstrap the extrance module.
               angular.bootstrap(document, ['index'])

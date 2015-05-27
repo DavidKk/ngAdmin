@@ -63,7 +63,7 @@ html(lang="en-US")
     link(rel="icon", type="image/png", sizes="64x64", href= makeVersion('/assets/panels/favicon.png'))
 
   body.welcome-page
-    section#welcome-container
+    section#welcome-container(ng-controller="WelcomeController")
       header.header-module
         .container
           .row
@@ -71,7 +71,7 @@ html(lang="en-US")
               h1.caption ngAdmin
               p.desc Please enter your email and password to login.
 
-      .form-module(ng-controller="FormController")
+      .form-module(ng-show="method == 'login'")
         .container
           .row
             .col-md-4.col-md-offset-4.col-sm-6.col-sm-offset-3
@@ -79,7 +79,7 @@ html(lang="en-US")
                 .form-group
                   .input-group
                     .input-group-addon
-                      i.fa.fa-user
+                      i.fa.fa-user-secret
                     input.form-control(require, name="email", type="email", placeholder="Please enter your email")
 
                 .form-group
@@ -92,9 +92,25 @@ html(lang="en-US")
                   button.btn-login.btn.btn-block(type="button", role="button") Login
                     i.fa.fa-sign-in
 
+      .form-module.ng-hide(ng-show="method == 'forgot'")
+        .container
+          .row
+            .col-md-4.col-md-offset-4.col-sm-6.col-sm-offset-3
+              form(name="form", role="form")
+                .form-group
+                  .input-group
+                    .input-group-addon
+                      i.fa.fa-envelope-o
+                    input.form-control(require, name="email", type="email", placeholder="Please enter your email")
+
+                .form-group
+                  button.btn-login.btn.btn-block(type="button", role="button") Submit
+                    i.fa.fa-eye
+
       .divider-module
         em.line - or -
 
       footer.footer-module
-        a.forget(href="/welcome/", title="Forgot password") Forgot Password
+        a.channel(ng-show="method == 'login'", ng-click="changeChannel('forgot')", title="Forgot password", role="button") Forgot Password
+        a.channel.ng-hide(ng-show="method == 'forgot'", ng-click="changeChannel('login')", title="Forgot password", role="button") Login now.
         p.copyright Copyright © 2015.
