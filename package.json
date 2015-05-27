@@ -39,6 +39,7 @@
     "grunt-spritesmith": "^4.4.1",
     "grunt-bower": "^0.18.0",
     "grunt-shell": "^1.1.2",
+    "grunt-favicons": "^0.7.0",
 
     "grunt-karma": "^0.9.0",
     "karma": "^0.12.24",

@@ -1,16 +1,22 @@
-doctype
+doctype html
 html(lang="en-US")
   head
     meta(charset="utf-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no")
-    meta(name="description", value= pkg.description)
-    meta(name="keywords", value= pkg.keywords)
 
     //- lt styles
+    link(href= makeVersion('/assets/styles/bootstrap/bootstrap.min.css'), rel="stylesheet", media="screen")
     link(href= makeVersion('/assets/styles/font-awesome/font-awesome.min.css'), rel="stylesheet", media="screen")
     link(href= makeVersion('/assets/styles/ngAdmin/ngAdmin.min.css'), rel="stylesheet", media="screen")
     link(href= makeVersion('/assets/styles/app/welcome.min.css'), rel="stylesheet", media="screen")
+
+    //- lt describes
     title Welcome | ngAdmin
+    meta(name="name", value= pkg.name)
+    meta(name="version", value= pkg.version)
+    meta(name="license", value= pkg.license)
+    meta(name="description", value= pkg.description)
+    meta(name="homepage", value= pkg.homepage)
 
     //- lt scripts
     script(src= makeVersion('/assets/scripts/script/script.min.js'))
@@ -22,18 +28,14 @@ html(lang="en-US")
         , ngRoute: '#{ makeVersion("/assets/scripts/angular-route/angular-route.js") }'
         , ngTouch: '#{ makeVersion("/assets/scripts/angular-touch/angular-touch.js") }'
 
-        , jQuery: '//code.jquery.com/jquery-1.11.0.js'
-        , highcharts: '#{ makeVersion("/assets/scripts/highcharts-4.0.4.js") }'
-        , ngHeightcharts: '#{ makeVersion("/assets/scripts/highcharts-ng-0.0.8.js") }'
-
-        , public: '#{ makeVersion("/assets/scripts/ngAdmin/ngAdmin.js") }'
+        , common: '#{ makeVersion("/assets/scripts/ngAdmin/ngAdmin.js") }'
         , app: '#{ makeVersion("/assets/scripts/app/welcome.js") }'
       }
 
       $script(jsfile.angular, function() {
         //- Loading public module, and the page module before angular and it's plugin is ready.
         $script([jsfile.ngRoute, jsfile.ngTouch], function() {
-          $script([jsfile.public, jsfile.app], function() {
+          $script([jsfile.common, jsfile.app], function() {
             //- Because js file was loaded in async, we must bootstrap the extrance module.
             angular.bootstrap(document, ['welcome'])
           })
@@ -41,20 +43,33 @@ html(lang="en-US")
       })
 
     //- lt icons
-    link(href= makeVersion("/assets/panels/ico/favicon.ico"), rel="shortcut icon")
-    link(href= makeVersion("/assets/panels/ico/touch-icon-iphone.png"), rel="apple-touch-icon")
-    link(href= makeVersion("/assets/panels/ico/touch-icon-ipad.png"), rel="apple-touch-icon", sizes="76x76")
-    link(href= makeVersion("/assets/panels/ico/touch-icon-iphone-retina.png"), rel="apple-touch-icon", sizes="120x120")
-    link(href= makeVersion("/assets/panels/ico/touch-icon-ipad-retina.png"), rel="apple-touch-icon", sizes="152x152")
+    meta(name="msapplication-square70x70logo", content= makeVersion('/assets/panels/windows-tile-70x70.png'))
+    meta(name="msapplication-square150x150logo", content= makeVersion('/assets/panels/windows-tile-150x150.png'))
+    meta(name="msapplication-square310x310logo", content= makeVersion('/assets/panels/windows-tile-310x310.png'))
+    meta(name="msapplication-TileImage", content= makeVersion('/assets/panels/windows-tile-144x144.png'))
+    meta(name="msapplication-TileColor", content="#DFEFEE")
 
-  body#welcome-page
-    #welcome-container
-      .head-module
+    link(rel="apple-touch-icon-precomposed", sizes="152x152", href= makeVersion('/assets/panels/apple-touch-icon-152x152-precomposed.png'))
+    link(rel="apple-touch-icon-precomposed", sizes="120x120", href= makeVersion('/assets/panels/apple-touch-icon-120x120-precomposed.png'))
+    link(rel="apple-touch-icon-precomposed", sizes="76x76", href= makeVersion('/assets/panels/apple-touch-icon-76x76-precomposed.png'))
+    link(rel="apple-touch-icon-precomposed", sizes="60x60", href= makeVersion('/assets/panels/apple-touch-icon-60x60-precomposed.png'))
+    link(rel="apple-touch-icon-precomposed", sizes="144x144", href= makeVersion('/assets/panels/apple-touch-icon-144x144-precomposed.png'))
+    link(rel="apple-touch-icon-precomposed", sizes="114x114", href= makeVersion('/assets/panels/apple-touch-icon-114x114-precomposed.png'))
+    link(rel="apple-touch-icon-precomposed", sizes="72x72", href= makeVersion('/assets/panels/apple-touch-icon-72x72-precomposed.png'))
+    link(rel="apple-touch-icon", sizes="57x57", href= makeVersion('/assets/panels/apple-touch-icon.png'))
+
+    link(rel="icon", sizes="228x228", href= makeVersion('/assets/panels/coast-icon-228x228.png'))
+    link(rel="shortcut icon", href= makeVersion('/assets/panels/favicon.ico'))
+    link(rel="icon", type="image/png", sizes="64x64", href= makeVersion('/assets/panels/favicon.png'))
+
+  body.welcome-page
+    section#welcome-container
+      header.header-module
         .container
           .row
             .col-sm-12
-              h1.caption-head ngAdmin
-              p.desc-head Please enter your email and password to login.
+              h1.caption ngAdmin
+              p.desc Please enter your email and password to login.
 
       .form-module(ng-controller="FormController")
         .container
@@ -62,24 +77,24 @@ html(lang="en-US")
             .col-md-4.col-md-offset-4.col-sm-6.col-sm-offset-3
               form(name="form", role="form")
                 .form-group
-                  .input-group-login.input-group
+                  .input-group
                     .input-group-addon
                       i.fa.fa-user
-                    input.form-control(name="email", type="email", placeholder="Please enter email")
+                    input.form-control(require, name="email", type="email", placeholder="Please enter your email")
 
                 .form-group
-                  .input-group-login.input-group
+                  .input-group
                     .input-group-addon
                       i.fa.fa-lock
-                    input.form-control(name="password", type="password", placeholder="Please enter password")
+                    input.form-control(require, name="password", type="password", placeholder="Please enter your password")
 
                 .form-group
                   button.btn-login.btn.btn-block(type="button", role="button") Login
                     i.fa.fa-sign-in
 
-      .split-module
+      .divider-module
         em.line - or -
 
-      .footer-module
-        a.forget(title="Forgot password") Forgot Password
-        p.copyright Copyright © 2014.
+      footer.footer-module
+        a.forget(href="/welcome/", title="Forgot password") Forgot Password
+        p.copyright Copyright © 2015.

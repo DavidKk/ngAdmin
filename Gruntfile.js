@@ -19,6 +19,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint')
   grunt.loadNpmTasks('grunt-contrib-watch')
   grunt.loadNpmTasks('grunt-hashmap')
+  grunt.loadNpmTasks('grunt-favicons')
   grunt.loadNpmTasks('grunt-spritesmith')
   grunt.loadNpmTasks('grunt-html2js')
   grunt.loadNpmTasks('grunt-bower')
@@ -105,8 +106,25 @@ module.exports = function(grunt) {
       }
     },
 
+    favicons: {
+      options: {
+        trueColor: true,
+        precomposed: true,
+        appleTouchPadding: 0,
+        appleTouchBackgroundColor: 'auto',
+        coast: true,
+        windowsTile: true,
+        tileBlackWhite: false,
+        tileColor: 'auto',
+      },
+      ico: {
+        src: 'client/public/panels/david-logo.png',
+        dest: 'assets/panels/'
+      }
+    },
+
     /**
-     * Make the sprite picture from all IMG-files which in `src` path..
+     * 制作精灵图，所有精灵元素均可以保存在 `client/public/sprites/` 目录下
      */
     sprite: {
       dist: {
@@ -127,11 +145,11 @@ module.exports = function(grunt) {
     },
 
     imagemin: {
-      dist: {
+      picture: {
         options: {
           optimizationLevel: 3
         },
-        cwd: 'client/panels/',
+        cwd: 'client/public/panels/',
         src: ['*.{png,jpg,gif}'],
         dest: 'assets/panels/',
         expand: true,
@@ -142,7 +160,7 @@ module.exports = function(grunt) {
       assets: {
         cwd: 'client/public/',
         dest: 'assets/',
-        src: ['audio/**', 'fonts/**'],
+        src: ['audio/**', 'fonts/**', 'panels/*.{png,jpg,gif,ico}'],
         expand: true
       }
     },
@@ -459,13 +477,12 @@ module.exports = function(grunt) {
         options: {
           event: ['changed'],
         },
-        files: ['client/app/' + name + '/styles/*.less'],
+        files: ['client/app/' + name + '/styles/*.less', 'client/app/' + name + '/styles/*/*.less'],
         tasks: ['loadState', 'less:$' + name]
       })
     })
     
-    saveState()
-    grunt.task.run(['less'])
+    grunt.task.run(['less', 'saveState'])
   })
 
   /**
@@ -595,10 +612,8 @@ module.exports = function(grunt) {
       })
     }
 
-    saveState()
-
     // Run the concat task.
-    grunt.task.run(['concat'])
+    grunt.task.run(['concat', 'saveState'])
   })
 
   grunt.registerTask('compileJade', 'Find the jade file and watch them in each app.', function() {
@@ -631,14 +646,13 @@ module.exports = function(grunt) {
       })
     })
 
-    saveState()
-    grunt.task.run(['jade'])
+    grunt.task.run(['jade', 'saveState'])
   })
 
   grunt.registerTask('loadState', 'Load grunt\'s config from json file and merge them.', loadState)
   grunt.registerTask('saveState', 'Save grunt config state to json file.', saveState)
 
-  grunt.registerTask('buildAssets', ['bower', 'copy:assets', 'sprite', 'imagemin'])
+  grunt.registerTask('buildAssets', ['bower', 'copy:assets', 'favicons', 'sprite', 'imagemin'])
   grunt.registerTask('compileStyle',  ['less2Css'])
   grunt.registerTask('concatScript', ['html2js', 'concatJS'])
   grunt.registerTask('compileLayout', ['compileJade'])

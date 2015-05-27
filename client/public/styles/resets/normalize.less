@@ -1,0 +1,68 @@
+// Normalize
+// -----------------
+
+* {
+  outline: none !important;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+  font-size: 10px;
+  -webkit-tap-highlight-color: transparent;
+  background-clip: padding-box;
+}
+
+body {
+  position: relative;
+  overflow-x: hidden;
+  width: 100%;
+  min-height: 100%;
+  -webkit-font-smoothing: subpixel-antialiased !important;
+  -moz-osx-font-smoothing: subpixel-antialiased !important;
+  color: @text-color;
+  font: @font-size-base/@line-height-base @font-family-sans-serif;
+  .transition(all .25s);
+}
+
+// Inputs
+// ================
+
+input[type=email],
+input[type=number],
+input[type=password],
+input[type=search],
+input[type=text],
+input[type=url] {
+  -webkit-appearance: none;
+}
+
+// Text
+// =============
+
+a {
+  color: @link-color;
+  .transition(color .35s);
+
+  &:hover {
+    text-decoration: none;
+    color: @link-color-hover;
+  }
+}
+
+[role="link"],
+[role="button"] {
+  cursor: pointer;
+}
+
+// Icons
+// =============
+
+.fa:before {
+  font-size: 1em;
+}
+
+.fa.pulled-down:before {
+  display: inline-block;
+  .transform(rotate(90deg));
+}
