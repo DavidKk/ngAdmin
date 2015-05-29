@@ -1,210 +1,209 @@
-
+// Header
+// @author <David Jones qowera@qq.com>
 
 #header-container {
-  .border-radius(0);
-
   position: relative;
   z-index: 6;
   padding-right: 15px;
   padding-left: 15px;
   border-width: 0;
   border-bottom: 1px solid #eee;
+  .border-radius(0);
   min-height: 1px;
   width: 100%;
   color: rgb(116, 127, 149);
-}
 
-#header-container .navbar {
-  .border-radius(0);
-  
-  margin-bottom: 0;
-  background-color: #fff;
-  border-width: 0;
-}
-
-#header-container .navbar .navbar-header .menu-switch {
-  padding: 25px;
-  display: block;
-  cursor: pointer;
-  line-height: 20px;
-  color: rgb(116, 127, 149);
-  font-size: 25px;
-}
-
-#header-container .navbar .search-header {
-  padding-left: 10px;
-  margin-top: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
-  background-color: darken(#fff, 4%);
-  position: relative;
-  float: left;
-
-  input {
-    margin-left: 20px;
-    padding: 10px;
+  .navbar {  
+    margin-bottom: 0;
+    .border-radius(0);
     border-width: 0;
-    background-color: transparent;
-    display: block;
-    vertical-align: middle;
-    outline: 0;
-    color: rgb(30, 41, 61);
+    background-color: #fff;
   }
 
-  input + i {
-    margin-top: -10px;
-    position: absolute;
-    top: 50%;
-    color: rgb(128, 128, 128);
-    font-size: 20px;
-  }
-}
-
-#header-container .navbar .notify-header {
-  margin-bottom: 0;
-  padding-left: 0;
-  display: block;
-  list-style: none;
-  
-  > li {
-    float: left;
-    position: relative;
-    display: block;
-  }
-
-  > li > a {
-    .transition(all .35s);
-
+  .navbar .navbar-header .menu-switch {
     padding: 25px;
     display: block;
-    border-right: 1px solid rgb(238, 238, 238);
     cursor: pointer;
-    text-align: center;
     line-height: 20px;
-    color: rgb(128, 128, 128);
+    color: rgb(116, 127, 149);
     font-size: 25px;
-
-    &:hover { background-color: rgb(249, 249, 249); }
   }
 
-  > li > a > .badge {
-    position: absolute;
-    right: 15px;
-    top: 15px;
-    z-index: 100;
-  }
-
-  > .bars { display: none; }
-  > .bars > a { width: 75px; }
-  > .profile { cursor: pointer; }
-
-  > .profile > .avator {
-    padding: 12.5px 10px;
-    width: 75px;
+  .navbar .search-header {
+    padding-left: 10px;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    background-color: darken(#fff, 4%);
+    position: relative;
     float: left;
-  }
 
-  > .profile > .avator > img {
-    .border-radius(50px);
-    .transition(all .25s);
+    input {
+      margin-left: 20px;
+      padding: 10px;
+      border-width: 0;
+      background-color: transparent;
+      display: block;
+      vertical-align: middle;
+      outline: 0;
+      color: rgb(30, 41, 61);
+    }
 
-    margin: 0 auto;
-    width: 50px;
-    height: 50px;
-    display: block;
-    vertical-align: middle;
-  }
-
-  > .profile > span.name {
-    .text-overflow();
-    .transition(all .35s);
-
-    padding: 30px 15px 15px 0;
-    display: block;
-    float: right;
-    overflow: hidden;
-    color: rgb(128, 128, 128);
-  }
-  
-  > .profile > .avator:hover { background-color: transparent; }
-  > .profile > .avator:hover > img { .opacity(.9); }
-}
-
-#header-container .navbar .notify-header.pull-right {
-  > li > a {
-    border-right-width: 0;
-    border-left: 1px solid rgb(238, 238, 238);
-  }
-}
-
-#header-container .navbar .notify-header .dropdown-menu-tasks {
-  .task > .task-info {
-    margin-bottom: 4px;
-    
-    .percent {
-      float: right;
+    input + i {
+      margin-top: -10px;
+      position: absolute;
+      top: 50%;
+      color: rgb(128, 128, 128);
+      font-size: 20px;
     }
   }
 
-  .task > .progress {
-    height: 6px;
+  .navbar .notify-header {
     margin-bottom: 0;
-  }
-}
-
-#header-container .navbar .notify-header .dropdown-menu-message {
-  max-width: 500px !important;
-  min-width: 368px !important;
-
-  .message > .thumb {
-    float: right;
+    padding-left: 0;
     display: block;
-    margin-left: 10px;
-  }
-
-  .message > .thumb > img {
-    .border-radius(100%);
-
-    border: 1px solid #fff;
-    height: 48px;
-    width: 48px;
-  }
-
-  .message > .desc > .line {
-    .text-overflow();
+    list-style: none;
     
-    font-weight: bold;
-    display: block;
-    margin-top: 8px;
+    > li {
+      float: left;
+      position: relative;
+      display: block;
+    }
+
+    > li > a {
+      .transition(all .35s);
+
+      padding: 25px;
+      display: block;
+      border-right: 1px solid rgb(238, 238, 238);
+      cursor: pointer;
+      text-align: center;
+      line-height: 20px;
+      color: rgb(128, 128, 128);
+      font-size: 25px;
+
+      &:hover { background-color: rgb(249, 249, 249); }
+    }
+
+    > li > a > .badge {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      z-index: 100;
+    }
+
+    > .bars { display: none; }
+    > .bars > a { width: 75px; }
+    > .profile { cursor: pointer; }
+
+    > .profile > .avator {
+      padding: 12.5px 10px;
+      width: 75px;
+      float: left;
+    }
+
+    > .profile > .avator > img {
+      .border-radius(50px);
+      .transition(all .25s);
+
+      margin: 0 auto;
+      width: 50px;
+      height: 50px;
+      display: block;
+      vertical-align: middle;
+    }
+
+    > .profile > span.name {
+      .text-overflow();
+      .transition(all .35s);
+
+      padding: 30px 15px 15px 0;
+      display: block;
+      float: right;
+      overflow: hidden;
+      color: rgb(128, 128, 128);
+    }
+    
+    > .profile > .avator:hover { background-color: transparent; }
+    > .profile > .avator:hover > img { .opacity(.9); }
   }
 
-  .message > .desc > .line.read {
-    font-weight: normal;
+  .navbar .notify-header.pull-right {
+    > li > a {
+      border-right-width: 0;
+      border-left: 1px solid rgb(238, 238, 238);
+    }
   }
 
-  .message > .desc > .line + .line {
-    margin-top: 5px;
-    font-weight: normal;
-  }
-}
+  .navbar .notify-header .dropdown-menu-tasks {
+    .task > .task-info {
+      margin-bottom: 4px;
+      
+      .percent {
+        float: right;
+      }
+    }
 
-#header-container .navbar .notify-header .dropdown-menu-notify {
-  .message > .label {
-    font-size: 14px;
-    float: right;
-    padding: 6px 0;
-    text-align: center;
-    width: 29px;
-    vertical-align: middle;
+    .task > .progress {
+      height: 6px;
+      margin-bottom: 0;
+    }
   }
 
-  .message > .small {
-    display: block;
+  .navbar .notify-header .dropdown-menu-message {
+    max-width: 500px !important;
+    min-width: 368px !important;
+
+    .message > .thumb {
+      float: right;
+      display: block;
+      margin-left: 10px;
+    }
+
+    .message > .thumb > img {
+      .border-radius(100%);
+
+      border: 1px solid #fff;
+      height: 48px;
+      width: 48px;
+    }
+
+    .message > .desc > .line {
+      .text-overflow();
+      
+      font-weight: bold;
+      display: block;
+      margin-top: 8px;
+    }
+
+    .message > .desc > .line.read {
+      font-weight: normal;
+    }
+
+    .message > .desc > .line + .line {
+      margin-top: 5px;
+      font-weight: normal;
+    }
+  }
+
+  .navbar .notify-header .dropdown-menu-notify {
+    .message > .label {
+      font-size: 14px;
+      float: right;
+      padding: 6px 0;
+      text-align: center;
+      width: 29px;
+      vertical-align: middle;
+    }
+
+    .message > .small {
+      display: block;
+    }
   }
 }
 
 // Revision
-body.fixed-layout .container-layout .main-layout .viewport-layout {
+.fixed-layout .container-layout .main-layout .viewport-layout {
   margin-top: -75px;
   padding-top: 75px !important;
 }

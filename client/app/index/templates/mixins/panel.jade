@@ -1,0 +1,22 @@
+mixin panel(title)
+  mixin controls
+    a(ng-click='isCollapsed = !isCollapsed')
+      i.fa.fa-chevron-down
+
+  mixin body
+    | &nbsp;
+
+  if block
+    block
+
+  .panel(ng-controller='CollapseDemoController')&attributes(attributes)
+    .panel-heading
+      .panel-title
+        h4!= title || 'Panel Title'
+
+      .panel-controls
+        +controls
+
+    .panel-collapse.in(collapse='isCollapsed')
+      .panel-body
+        +body

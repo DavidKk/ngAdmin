@@ -1,129 +1,98 @@
-
+include mixins/panel
 
 main#progress-bar.content-layout
   h2 Progress Bar
-  .panel(ng-controller="CollapseDemoController")
-    .panel-heading
-      .panel-title
-        h5 Progress Types
-      .panel-widgets
-        a(ng-click="isCollapsed = !isCollapsed")
-          i.fa.fa-chevron-down
 
-    .panel-collapse.in(collapse="isCollapsed")
-      .panel-body
-        .progress
-          .progress-bar.progress-bar-green(role='progressbar', style='width: 40%')
-            span.sr-only 40% Complete (Green)
+  +panel('Progress Types')
+    mixin body
+      .progress
+        .progress-bar.progress-bar-green(role='progressbar', style='width: 40%')
+          span.sr-only 40% Complete (Green)
 
-        .progress
-          .progress-bar.progress-bar-cyan(role='progressbar', style='width: 20%')
-            span.sr-only 20% Complete (Cyan)
-        
-        .progress
-          .progress-bar.progress-bar-orange(role='progressbar', style='width: 60%')
-            span.sr-only 60% Complete (Orange)
-      
-        .progress
-          .progress-bar.progress-bar-red(role='progressbar', style='width: 80%')
-            span.sr-only 80% Complete (Red)
+      .progress
+        .progress-bar.progress-bar-cyan(role='progressbar', style='width: 20%')
+          span.sr-only 20% Complete (Cyan)
 
-        .progress
-          .progress-bar.progress-bar-amethyst(role='progressbar', style='width: 35%')
-            span.sr-only 35% Complete (Amethyst)
+      .progress
+        .progress-bar.progress-bar-orange(role='progressbar', style='width: 60%')
+          span.sr-only 60% Complete (Orange)
 
-        .progress
-          .progress-bar.progress-bar-gray(role='progressbar', style='width: 51%')
-            span.sr-only 51% Complete (Gray)
+      .progress
+        .progress-bar.progress-bar-red(role='progressbar', style='width: 80%')
+          span.sr-only 80% Complete (Red)
 
-  .panel(ng-controller="CollapseDemoController")
-    .panel-heading
-      .panel-title
-        h5 Striped Progress
-      .panel-widgets
-        a(ng-click="isCollapsed = !isCollapsed")
-          i.fa.fa-chevron-down
+      .progress
+        .progress-bar.progress-bar-amethyst(role='progressbar', style='width: 35%')
+          span.sr-only 35% Complete (Amethyst)
 
-    .panel-collapse.in(collapse="isCollapsed")
-      .panel-body
-        .progress.progress-striped
-          .progress-bar.progress-bar-green(role='progressbar', style='width: 40%')
-            span.sr-only 40% Complete (Green)
+      .progress
+        .progress-bar.progress-bar-gray(role='progressbar', style='width: 51%')
+          span.sr-only 51% Complete (Gray)
 
-        .progress.progress-striped
-          .progress-bar.progress-bar-cyan(role='progressbar', style='width: 20%')
-            span.sr-only 20% Complete (Cyan)
-        
-        .progress.progress-striped
-          .progress-bar.progress-bar-orange(role='progressbar', style='width: 60%')
-            span.sr-only 60% Complete (Orange)
-      
-        .progress.progress-striped
-          .progress-bar.progress-bar-red(role='progressbar', style='width: 80%')
-            span.sr-only 80% Complete (Red)
+  +panel('Striped Progress')
+    mixin body
+      .progress.progress-striped
+        .progress-bar.progress-bar-green(role='progressbar', style='width: 40%')
+          span.sr-only 40% Complete (Green)
 
-        .progress.progress-striped
-          .progress-bar.progress-bar-amethyst(role='progressbar', style='width: 35%')
-            span.sr-only 35% Complete (Amethyst)
+      .progress.progress-striped
+        .progress-bar.progress-bar-cyan(role='progressbar', style='width: 20%')
+          span.sr-only 20% Complete (Cyan)
 
-        .progress.progress-striped
-          .progress-bar.progress-bar-gray(role='progressbar', style='width: 51%')
-            span.sr-only 51% Complete (Gray)
+      .progress.progress-striped
+        .progress-bar.progress-bar-orange(role='progressbar', style='width: 60%')
+          span.sr-only 60% Complete (Orange)
 
-  .panel(ng-controller="CollapseDemoController")
-    .panel-heading
-      .panel-title
-        h5 Animated Progress
-      .panel-widgets
-        a(ng-click="isCollapsed = !isCollapsed")
-          i.fa.fa-chevron-down
+      .progress.progress-striped
+        .progress-bar.progress-bar-red(role='progressbar', style='width: 80%')
+          span.sr-only 80% Complete (Red)
 
-    .panel-collapse.in(collapse="isCollapsed")
-      .panel-body
-        .progress.progress-striped.active
-          .progress-bar.progress-bar-green(role='progressbar', style='width: 40%')
-            span.sr-only 40% Complete (Green)
+      .progress.progress-striped
+        .progress-bar.progress-bar-amethyst(role='progressbar', style='width: 35%')
+          span.sr-only 35% Complete (Amethyst)
 
-        .progress.progress-striped.active
-          .progress-bar.progress-bar-cyan(role='progressbar', style='width: 20%')
-            span.sr-only 20% Complete (Cyan)
-        
-        .progress.progress-striped.active
-          .progress-bar.progress-bar-orange(role='progressbar', style='width: 60%')
-            span.sr-only 60% Complete (Orange)
-      
-        .progress.progress-striped.active
-          .progress-bar.progress-bar-red(role='progressbar', style='width: 80%')
-            span.sr-only 80% Complete (Red)
+      .progress.progress-striped
+        .progress-bar.progress-bar-gray(role='progressbar', style='width: 51%')
+          span.sr-only 51% Complete (Gray)
 
-        .progress.progress-striped.active
-          .progress-bar.progress-bar-amethyst(role='progressbar', style='width: 35%')
-            span.sr-only 35% Complete (Amethyst)
+  +panel('Animated Progress')
+    mixin body
+      .progress.progress-striped.active
+        .progress-bar.progress-bar-green(role='progressbar', style='width: 40%')
+          span.sr-only 40% Complete (Green)
 
-        .progress.progress-striped.active
-          .progress-bar.progress-bar-gray(role='progressbar', style='width: 51%')
-            span.sr-only 51% Complete (Gray)
+      .progress.progress-striped.active
+        .progress-bar.progress-bar-cyan(role='progressbar', style='width: 20%')
+          span.sr-only 20% Complete (Cyan)
 
-  .panel(ng-controller="CollapseDemoController")
-    .panel-heading
-      .panel-title
-        h5 Stacked Progress
-      .panel-widgets
-        a(ng-click="isCollapsed = !isCollapsed")
-          i.fa.fa-chevron-down
+      .progress.progress-striped.active
+        .progress-bar.progress-bar-orange(role='progressbar', style='width: 60%')
+          span.sr-only 60% Complete (Orange)
 
-    .panel-collapse.in(collapse="isCollapsed")
-      .panel-body
-        .progress.progress-striped.active
-          .progress-bar.progress-bar-green(role='progressbar', style='width: 40%')
-            span.sr-only 40% Complete (Green)
+      .progress.progress-striped.active
+        .progress-bar.progress-bar-red(role='progressbar', style='width: 80%')
+          span.sr-only 80% Complete (Red)
 
-          .progress-bar.progress-bar-cyan(role='progressbar', style='width: 20%')
-            span.sr-only 20% Complete (Cyan)
-        
-          .progress-bar.progress-bar-amethyst(role='progressbar', style='width: 35%')
-            span.sr-only 35% Complete (Amethyst)
-    
+      .progress.progress-striped.active
+        .progress-bar.progress-bar-amethyst(role='progressbar', style='width: 35%')
+          span.sr-only 35% Complete (Amethyst)
+
+      .progress.progress-striped.active
+        .progress-bar.progress-bar-gray(role='progressbar', style='width: 51%')
+          span.sr-only 51% Complete (Gray)
+
+  +panel('Stacked Progress')
+    mixin body
+      .progress.progress-striped.active
+        .progress-bar.progress-bar-green(role='progressbar', style='width: 40%')
+          span.sr-only 40% Complete (Green)
+
+        .progress-bar.progress-bar-cyan(role='progressbar', style='width: 20%')
+          span.sr-only 20% Complete (Cyan)
+
+        .progress-bar.progress-bar-amethyst(role='progressbar', style='width: 35%')
+          span.sr-only 35% Complete (Amethyst)
+
   .notification.notification-success
     h4 Bootstrap Progress Style
     p

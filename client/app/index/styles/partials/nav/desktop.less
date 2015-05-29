@@ -12,16 +12,16 @@
 }
 
 @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
-  #navigation-container > .brand-sidebar {
+  #nav-container > .brand-sidebar {
     display: none;
   }
 
   // Minify Mode
-  .minify #navigation-container {
+  .minify #nav-container {
     width: 75px;
   }
 
-  .minify #navigation-container ul.nav {
+  .minify #nav-container ul.nav {
     > li.dropdown-submenu:before,
     > li.search-sidebar,
     > li.profile-sidebar {
@@ -61,7 +61,7 @@
     }
   }
 
-  .minify #navigation-container .dropdown-menu-navigation {
+  .minify #nav-container .nav-submenu {
     .border-radius(4px);
     .box-shadow(0 6px 12px rgba(0, 0, 0, 0.176));
 
@@ -106,12 +106,12 @@
 
 
   // Revision
-  body.fixed-layout #navigation-container .scroll-viewport {
+  body.fixed-layout #nav-container .scroll-viewport {
     margin-top: 0;
     padding-top: 0;
   }
 
-  #navigation-container .scroll-viewport .scroll-wrapper {
+  #nav-container .scroll-viewport .scroll-wrapper {
     overflow: visible;
   }
 }

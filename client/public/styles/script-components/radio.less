@@ -1,0 +1,96 @@
+.radio {
+  margin: 0;
+}
+
+.radio.radio-replace {  
+  display: inline-block;
+  margin-right: 10px;
+  font-weight: normal;
+  cursor: pointer;
+  .user-select(none);
+
+  input[type="radio"],
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  .radio-icon {
+    display: inline-block;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    border: 1px solid @aux-color;
+    border-radius: 100%;
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+    cursor: pointer;
+    .transition(all .2s);
+
+    &:before {
+      position: absolute;
+      left: 2px;
+      top: 2px;
+      right: 2px;
+      bottom: 2px;
+      margin: auto;
+      width: auto;
+      height: auto;
+      max-width: 0;
+      max-height: 0;
+      border-radius: 100%;
+      background-color: @aux-color;
+      content: "";
+      .opacity(0);
+      .transition(all .2s);
+    }
+  }
+
+  &:hover .radio-icon {
+    .box-shadow(0 0 4px #dedede);
+  }
+
+  input[checked] + .radio-icon:before {
+    max-width: 10px;
+    max-height: 10px;
+    .opacity(1);
+  }
+  
+  &[disabled] > .radio-icon,
+  &.disabled > .radio-icon,
+  input.disabled + .radio-icon,
+  input[disabled] + .radio-icon {
+    .opacity(.3); 
+  }
+
+  .radio-inner {
+    display: inline-block;
+    margin-right: 10px;
+  }
+}
+
+// Radio in Form-horizontal
+.form-horizontal {
+  .control-label .radio.radio-replace {
+    margin-right: 0;
+    padding-top: 0;
+  }
+}
+
+
+.radio-palette(@arr-style, @index: 1) when (@index =< length(@arr-style)) {
+  @token: e(extract(@arr-style, @index));
+  @color: extract(@arr-style, @index + 1);
+  
+  .radio.radio-replace.radio-@{token} .radio-icon {
+    border-color: @color;
+
+    &:before {
+      background-color: @color;
+    }
+  }
+
+  .radio-palette(@arr-style, @index + 2);
+}
+
+.radio-palette(@radio-palette);

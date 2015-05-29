@@ -1,9 +1,11 @@
 [
   "/variables/**/*.less"
   , "/mixins/**/*.less"
+  , "/mixins/**/*.less"
   , "/resets/**/*.less"
   , "/core/**/*.less"
   , "/effects/**/*.less"
   , "/utilities/**/*.less"
   , "/components/**/*.less"
+  , "/script-components/**/*.less"
 ]

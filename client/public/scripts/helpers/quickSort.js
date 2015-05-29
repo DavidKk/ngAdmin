@@ -4,7 +4,7 @@
  */
 angular.module('helpers.quickSort', [])
 
-.run([
+.config([
   function() {
     'use strict'
 

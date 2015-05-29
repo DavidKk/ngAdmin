@@ -1,12 +1,13 @@
-
-
-header#header-container(ng-controller="HeaderController")
+header#header-container(ng-controller='HeaderController')
   .row
     .navbar
       ul.notify-header.pull-left
         li.bars
-          a.menu-toggle(ng-click="toggleLeftSidebar()")
+          a.menu-toggle(ng-click='toggleLeftSidebar()')
             i.fa.fa-bars
+        li
+          a(ng-click='screenfull()', title='{{ isFullscreen ? "退出全屏" : "全屏" }}')
+            i.fa(ng-class='{ "fa-compress": isFullscreen, "fa-expand": !isFullscreen }')
 
       ul.notify-header.pull-right
         li.dropdown-submenu(dropdown-menu)
@@ -20,11 +21,11 @@ header#header-container(ng-controller="HeaderController")
             h5.caption
               .dropdown-menu-caption-arrow
               .dropdown-menu-caption-widgets
-                a(title="refresh")
+                a(title='refresh')
                   i.fa.fa-refresh
               | You have 5 pending tasks
 
-            ng-scroll.scroll-viewport
+            .viewport-scroll(ng-iscroll)
               ul.dropdown-list
                 li
                   a.task
@@ -33,7 +34,7 @@ header#header-container(ng-controller="HeaderController")
                       .desc Layout
 
                     .progress.progress-striped.active
-                      .progress-bar.progress-bar-green(style="width: 80%")
+                      .progress-bar.progress-bar-green(style='width:80%')
                         .sr-only 80% Complete
                 li
                   a.task
@@ -42,7 +43,7 @@ header#header-container(ng-controller="HeaderController")
                       .desc UI Element
 
                     .progress.progress-striped.active
-                      .progress-bar.progress-bar-cyan(style="width: 40%")
+                      .progress-bar.progress-bar-cyan(style='width:40%')
                         .sr-only 40% Complete
                 li
                   a.task
@@ -51,7 +52,7 @@ header#header-container(ng-controller="HeaderController")
                       .desc Forms
 
                     .progress.progress-striped.active
-                      .progress-bar.progress-bar-orange(style="width: 10%")
+                      .progress-bar.progress-bar-orange(style='width:10%')
                         .sr-only 10% Complete
                 li
                   a.task
@@ -60,7 +61,7 @@ header#header-container(ng-controller="HeaderController")
                       .desc Table
 
                     .progress.progress-striped.active
-                      .progress-bar.progress-bar-red(style="width: 70%")
+                      .progress-bar.progress-bar-red(style='width:70%')
                         .sr-only 70% Complete
                 li
                   a.task
@@ -69,7 +70,7 @@ header#header-container(ng-controller="HeaderController")
                       .desc Charts
 
                     .progress.progress-striped.active
-                      .progress-bar.progress-bar-amethyst(style="width: 35%")
+                      .progress-bar.progress-bar-amethyst(style='width:35%')
                         .sr-only 35% Complete
 
             a.dropdown-more(href, title) Check all tasks...
@@ -85,16 +86,16 @@ header#header-container(ng-controller="HeaderController")
             h5.caption
               .dropdown-menu-caption-arrow
               .dropdown-menu-caption-widgets
-                a(title="refresh")
+                a(title='refresh')
                   i.fa.fa-refresh
               | You have 4 new messages
-          
-            ng-scroll.scroll-viewport
+
+            .viewport-scroll(ng-iscroll)
               ul.dropdown-list
                 li
                   .item.message
                     a.thumb
-                      img(src="//q.qlogo.cn/qqapp/100229475/70F82D66FE3FD280B8BC8D789E5CE979/100")
+                      img(src='//q.qlogo.cn/qqapp/100229475/70F82D66FE3FD280B8BC8D789E5CE979/100')
 
                     a.desc
                       span.line
@@ -105,7 +106,7 @@ header#header-container(ng-controller="HeaderController")
                 li
                   .item.message
                     a.thumb
-                      img(src="//q.qlogo.cn/qqapp/100229475/70F82D66FE3FD280B8BC8D789E5CE979/100")
+                      img(src='//q.qlogo.cn/qqapp/100229475/70F82D66FE3FD280B8BC8D789E5CE979/100')
 
                     a.desc
                       span.line
@@ -116,7 +117,7 @@ header#header-container(ng-controller="HeaderController")
                 li
                   .item.message
                     a.thumb
-                      img(src="//q.qlogo.cn/qqapp/100229475/70F82D66FE3FD280B8BC8D789E5CE979/100")
+                      img(src='//q.qlogo.cn/qqapp/100229475/70F82D66FE3FD280B8BC8D789E5CE979/100')
 
                     a.desc
                       span.line
@@ -127,7 +128,7 @@ header#header-container(ng-controller="HeaderController")
                 li
                   .item.message
                     a.thumb
-                      img(src="//q.qlogo.cn/qqapp/100229475/70F82D66FE3FD280B8BC8D789E5CE979/100")
+                      img(src='//q.qlogo.cn/qqapp/100229475/70F82D66FE3FD280B8BC8D789E5CE979/100')
 
                     a.desc
                       span.line
@@ -149,11 +150,11 @@ header#header-container(ng-controller="HeaderController")
             h5.caption
               .dropdown-menu-caption-arrow
               .dropdown-menu-caption-widgets
-                a(title="refresh")
+                a(title='refresh')
                   i.fa.fa-refresh
               | You have 12 new notifications
-          
-            ng-scroll.scroll-viewport
+
+            .viewport-scroll(ng-iscroll)
               ul.dropdown-list
                 li
                   a.message
@@ -194,7 +195,7 @@ header#header-container(ng-controller="HeaderController")
 
         li.dropdown-submenu.profile(dropdown-menu)
           a.avator(dropdown-menu-toggle)
-            img(src="//q.qlogo.cn/qqapp/100229475/70F82D66FE3FD280B8BC8D789E5CE979/100")
+            img(src='//q.qlogo.cn/qqapp/100229475/70F82D66FE3FD280B8BC8D789E5CE979/100')
           span.name David Jones
 
           ul.dropdown-menu-profile.dropdown-menu.pull-right
@@ -212,10 +213,10 @@ header#header-container(ng-controller="HeaderController")
                 i.fa.fa-question
                 | Help
             li
-              a(ng-click="logout()")
+              a(ng-click='logout()')
                 i.fa.fa-power-off
                 | Log Out
 
         li
-          a(ng-click="toggleRightSidebar()")
+          a(ng-click='toggleRightSidebar()')
             i.fa.fa-comments-o

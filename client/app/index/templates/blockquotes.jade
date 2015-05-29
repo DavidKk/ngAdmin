@@ -1,50 +1,41 @@
-
+include mixins/panel
 
 main#blockquotes-container.content-layout
   h3 Blockquotes
   br
 
-  .panel(ng-controller="CollapseDemoController")
-    .panel-heading
-      .panel-title
-        h5 Simple Blockquotes
-      .panel-widgets
-        a(ng-click="isCollapsed = !isCollapsed")
-          i.fa.fa-chevron-down
+  +panel('Simple Blockquotes')
+    mixin body
+      .col-md-12
+        p
+          strong Simple Blockquote (Native)
+        blockquote
+          p
+            strong Blockquote
+            br
+            | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
+        hr
+        p
+          strong Cited
+        blockquote
+          p
+            | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
+          small
+            | Someone famous in
+            cite(title='Source Title') Source Title
+        hr
+        p
+          strong Pulled right
+        blockquote.pull-right
+          p
+            | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
+          small
+            | Someone famous in
+            cite(title='Source Title') Source Title
 
-    .panel-collapse.in(collapse="isCollapsed")
-      .panel-body
-        .col-md-12
-          p
-            strong Simple Blockquote (Native)
-          blockquote
-            p
-              strong Blockquote
-              br
-              | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
-          hr
-          p
-            strong Cited
-          blockquote
-            p
-              | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
-            small
-              | Someone famous in
-              cite(title='Source Title') Source Title
-          hr
-          p
-            strong Pulled right
-          blockquote.pull-right
-            p
-              | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
-            small
-              | Someone famous in
-              cite(title='Source Title') Source Title
-
-  
   h3 Other Blockquotes Types
   br
-    
+
   blockquote
     p
       strong Blockquote Default

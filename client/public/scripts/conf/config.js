@@ -2,7 +2,10 @@
  * Config
  * @author  <David Jones qowera@qq.com>
  */
-angular.module('conf.config', ['ngRoute', 'helpers.util'])
+angular.module('conf.config', [
+  'ngRoute'
+  , 'helpers.util'
+])
 
 // Debug Config
 .config([

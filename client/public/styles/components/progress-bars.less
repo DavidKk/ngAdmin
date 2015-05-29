@@ -4,7 +4,9 @@
   > tfoot > tr > th .progress,
   > thead > tr > td .progress,
   > tbody > tr > td .progress,
-  > tfoot > tr > td .progress { margin-bottom: 0; }
+  > tfoot > tr > td .progress {
+    margin-bottom: 0;
+  }
 }
 
 
@@ -13,7 +15,7 @@
   @color: extract(@arr-style, @index + 1);
 
   .progress-bar-@{token} {
-    // .progress-bar-variant(@color);
+    .progress-bar-variant(@color);
   }
 
   .progress-bar-palette(@arr-style, @index + 2);

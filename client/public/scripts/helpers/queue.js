@@ -4,7 +4,7 @@
  */
 angular.module('helpers.queue', [])
 
-.run([
+.config([
   function() {
     'use strict'
 

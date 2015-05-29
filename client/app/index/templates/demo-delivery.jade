@@ -1,19 +1,18 @@
 
-
-#delivery-container.content-layout.no-padding(ng-controller="Delivery")
+#delivery-container.content-layout.no-padding(ng-controller='Delivery')
   ul.nav-bar
     li(ng-class='{ active: part == 0 }')
-      a(ng-click="change(0)", title="无人接手的包裹") 无人接手的包裹
+      a(ng-click='change(0)', title='无人接手的包裹') 无人接手的包裹
     li(ng-class='{ active: part == 1 }')
-      a(ng-click="change(1)", title="已接手包裹") 已接手包裹
+      a(ng-click='change(1)', title='已接手包裹') 已接手包裹
     li(ng-class='{ active: part == 2 }')
-      a(ng-click="change(2)", title="历史包裹") 历史包裹
-    .slider(wrapper-slider, number="3", ng-model="part")
+      a(ng-click='change(2)', title='历史包裹') 历史包裹
+    .slider(wrapper-slider, number='3', ng-model='part')
 
-  .wrapper.clearfix(wrapper-slider, number="3", ng-model="part", ng-controller="Delivery.Package")
+  .wrapper.clearfix(wrapper-slider, number='3', ng-model='part', ng-controller='Delivery.Package')
     .package-module
-      .list(ng-if="packages.length > 0")
-        .package.notice-bar(ng-repeat="package in packages", delivery-product)
+      .list(ng-if='packages.length > 0')
+        .package.notice-bar(ng-repeat='package in packages', delivery-product)
           .number {{ package.id }}
           .package-inner
             .total 共{{ package.userOrderIds.length }}个订单
@@ -21,16 +20,16 @@
 
           ul.widgets-bar
             li.cyan
-              a(ng-click="handle(package.id, $event)", title="接手处理")
+              a(ng-click='handle(package.id, $event)', title='接手处理')
                 i.fa.fa-thumb-tack
 
-      .no-data(ng-if="packages.length === 0")
+      .no-data(ng-if='packages.length === 0')
         | 暂无任何可接手的订单&nbsp;
         span ╮(╯▽╰)╭
 
-    .package-module(ng-controller="Delivery.Mine")
-      .list(ng-if="orders.length > 0", slide-menu-group)
-        .order.notice-bar(ng-repeat="order in orders", slide-menu, delivery-product, ng-class="{ open: openId == order.id}")
+    .package-module(ng-controller='Delivery.Mine')
+      .list(ng-if='orders.length > 0', slide-menu-group)
+        .order.notice-bar(ng-repeat='order in orders', slide-menu, delivery-product, ng-class='{ open: openId == order.id}')
           .package {{ order.package.id }}
             i.fa.fa-backward
 
@@ -41,38 +40,38 @@
               | {{ order.address.content }}
 
             .detail {{ order.address.name }}, 
-              a(title="电话") {{ order.address.phone }}
+              a(title='电话') {{ order.address.phone }}
               | , 
               span.price {{ order.totalPrice | price }}
 
           ul.widgets-bar
             li.green
-              a(ng-click="complete(order.package.id, order.id)", title="完成配送")
+              a(ng-click='complete(order.package.id, order.id)', title='完成配送')
                 i.fa.fa-upload
 
             li.orange
-              a(href="tel:\{{ order.address.phone }}", title="致电给客户")
+              a(href='tel:\{{ order.address.phone }}', title='致电给客户')
                 i.fa.fa-phone
 
             li.amethyst
-              a(ng-click="print(order.id, $event)", title="打印相关信息")
+              a(ng-click='print(order.id, $event)', title='打印相关信息')
                 i.fa.fa-print
 
           .product-wrapper(slide-menu-list)
-            .product-bar.notice-bar(ng-repeat="detail in order.details")
+            .product-bar.notice-bar(ng-repeat='detail in order.details')
               .product-tag {{ detail.seat }}
               .product-inner
                 .detail {{ detail.productName }} &nbsp;
                   span.price {{ detail.price | price }}
                 .number {{ detail.num }}
 
-      .no-data(ng-if="orders.length === 0")
+      .no-data(ng-if='orders.length === 0')
         | 你还没接手任何配送订单&nbsp;
         span ╮(╯▽╰)╭
 
-    .packages-module(ng-controller="Delivery.History")
-      .list(ng-if="orders.length > 0")
-        .order.notice-bar(ng-repeat="order in orders", slide-menu, delivery-product)
+    .packages-module(ng-controller='Delivery.History')
+      .list(ng-if='orders.length > 0')
+        .order.notice-bar(ng-repeat='order in orders', slide-menu, delivery-product)
           .package {{ order.package.id }}
             i.fa.fa-backward
 
@@ -83,27 +82,27 @@
               | {{ order.address.content }}
 
             .detail {{ order.address.name }}, 
-              a(title="电话") {{ order.address.phone }}
+              a(title='电话') {{ order.address.phone }}
               | , 
               span.price {{ order.price | price }} 
 
           ul.widgets-bar
             li.orange
-              a(ng-click="phone(order.address.phone)", title="致电给客户")
+              a(ng-click='phone(order.address.phone)', title='致电给客户')
                 i.fa.fa-phone
 
             li.amethyst
-              a(ng-click="print(order.id, $event)", title="打印相关信息")
+              a(ng-click='print(order.id, $event)', title='打印相关信息')
                 i.fa.fa-print
 
           .product-wrapper(slide-menu-list)
-            .product-bar.notice-bar(ng-repeat="detail in order.details")
+            .product-bar.notice-bar(ng-repeat='detail in order.details')
               .product-tag {{ detail.seat }}
               .product-inner
                 .detail {{ detail.productName }} &nbsp;
                   span.price {{ detail.price | price }}
                 .number {{ detail.num }}
 
-      .no-data(ng-if="orders.length === 0")
+      .no-data(ng-if='orders.length === 0')
         | 你还没有完成任何配送订单&nbsp;
         span ╮(╯▽╰)╭

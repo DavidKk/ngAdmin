@@ -4,7 +4,7 @@
  */
 angular.module('helpers.file', [])
 
-.run([
+.config([
   function() {
     'use strict'
 

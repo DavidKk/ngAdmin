@@ -1,0 +1,33 @@
+.iscroll,
+[ng-iscroll] {
+  position: relative;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.iScrollLoneScrollbar {
+  position: absolute;
+  bottom: 2px;
+  top: 2px;
+  right: 1px;
+  z-index: 9999;
+  width: 7px;
+  overflow: hidden;
+  pointer-events: none;
+  
+  & > div {
+    display: block;
+    position: absolute;
+    z-index: 100;
+    border: 1px solid rgba(200,200,200,.5);
+    .border-radius(4px);
+    width: 100%;
+    .opacity(0);
+    background: rgba(0,0,0,.4);
+    .transition(all .35s)!important;
+  }
+}
+
+*:hover > .iScrollLoneScrollbar > div {
+  .opacity(1);
+}

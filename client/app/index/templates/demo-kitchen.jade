@@ -1,21 +1,20 @@
 
-
-#kitchen-container.content-layout.no-padding(ng-controller="Kitchen")
+#kitchen-container.content-layout.no-padding(ng-controller='Kitchen')
   ul.nav-bar
     li(ng-class='{ active: part == 0 }')
-      a(ng-click="change(0)", title="合并订单") 合并订单
+      a(ng-click='change(0)', title='合并订单') 合并订单
     li(ng-class='{ active: part == 1 }')
-      a(ng-click="change(1)", title="当前订单") 当前订单
+      a(ng-click='change(1)', title='当前订单') 当前订单
     li(ng-class='{ active: part == 2 }')
-      a(ng-click="change(2)", title="待打包订单") 待打包订单
-    .slider(wrapper-slider, number="3", ng-model="part")
+      a(ng-click='change(2)', title='待打包订单') 待打包订单
+    .slider(wrapper-slider, number='3', ng-model='part')
 
-  .wrapper.clearfix(wrapper-slider, number="3", ng-model="part", ng-controller="Kitchen.Order")
+  .wrapper.clearfix(wrapper-slider, number='3', ng-model='part', ng-controller='Kitchen.Order')
     .production-module
-      .list(ng-if="combined.length > 0")
-        .product.notice-bar(kitchen-product, ng-repeat="item in combined")
+      .list(ng-if='combined.length > 0')
+        .product.notice-bar(kitchen-product, ng-repeat='item in combined')
           .product-pic
-            img(ng-src="{{ item.frontCover | image: '2/w/60/h/60' }}")
+            img(ng-src='{{ item.frontCover | image: "2/w/60/h/60" }}')
 
           .product-inner
             h5.title {{ item.productName }}
@@ -23,33 +22,33 @@
 
           ul.widgets-bar
             li.browse
-              a(title="查看制作食谱")
+              a(title='查看制作食谱')
                 i.fa.fa-leaf
-    
-      .no-data(ng-if="1")
+
+      .no-data(ng-if='1')
         | 暂时不支持此功能&nbsp;
         span ╮(╯▽╰)╭
 
     .production-module
-      .list(ng-if="unattended.length > 0")
-        .product-order(ng-repeat="order in unattended")
+      .list(ng-if='unattended.length > 0')
+        .product-order(ng-repeat='order in unattended')
           .header
             .time {{ order.createdAt*1000 | date: 'HH:mm MM-dd' }}
             .address {{ order.building.name }}, F{{ order.address.floor }}, {{ order.address.content }}, {{ order.address.name }}
             .widgets-bar(dropdown-menu)
-              a.open-widgets(dropdown-menu-toggle, title="展开")
+              a.open-widgets(dropdown-menu-toggle, title='展开')
                 i.fa.fa-chevron-down
 
-              ul.dropdown-menu.pull-right(ng-click="stopPropagation($event)")
+              ul.dropdown-menu.pull-right(ng-click='stopPropagation($event)')
                 //- li
-                  a(href, title="点击查看订单信息") 点击查看订单信息
+                  a(href, title='点击查看订单信息') 点击查看订单信息
                 li
-                  a(ng-click="complete(order.id, $event)", title="完成订单") 完成订单
+                  a(ng-click='complete(order.id, $event)', title='完成订单') 完成订单
 
           .list-wrap
-            .product.notice-bar(kitchen-product, ng-repeat="item in order.details")
+            .product.notice-bar(kitchen-product, ng-repeat='item in order.details')
               .product-pic
-                img(ng-src="{{ item.frontCover | image: '2/w/60/h/60' }}")
+                img(ng-src='{{ item.frontCover | image: "2/w/60/h/60" }}')
 
               .product-inner
                 h5.title {{ item.productName }}
@@ -57,21 +56,21 @@
 
               ul.widgets-bar
                 li.amethyst
-                  a(title="查看制作食谱")
+                  a(title='查看制作食谱')
                     i.fa.fa-leaf
-    
-      .no-data(ng-if="unattended.length === 0")
+
+      .no-data(ng-if='unattended.length === 0')
         | 暂无任何可接手的订单&nbsp;
         span ╮(╯▽╰)╭
 
-    .production-module(ng-if="orders.length > 0", ng-controller="Kitchen.Completed")
-      button.package-submit(ng-show="selected", ng-click="package()", ng-disabled="{{ disabled }}", title="确认打包", role="button")
+    .production-module(ng-if='orders.length > 0', ng-controller='Kitchen.Completed')
+      button.package-submit(ng-show='selected', ng-click='package()', ng-disabled='{{ disabled }}', title='确认打包', role='button')
         i.fa.fa-inbox
         | &nbsp;确认打包
 
-      .list(ng-if="orders.length > 0")
-        .order.notice-bar(kitchen-product, ng-repeat="order in orders", ng-class='{ selected: order.selected }')
-          .order-select(ng-click="select(order.id, $event)")
+      .list(ng-if='orders.length > 0')
+        .order.notice-bar(kitchen-product, ng-repeat='order in orders', ng-class='{ selected: order.selected }')
+          .order-select(ng-click='select(order.id, $event)')
             i.fa.fa-check
 
           .order-inner
@@ -80,16 +79,16 @@
 
           ul.widgets-bar
             li.amethyst
-              a(title="查看订单中的商品")
+              a(title='查看订单中的商品')
                 i.fa.fa-database
 
             li.orange
-              a(ng-click="revoke(order.id, $event)", title="撤销订单")
+              a(ng-click='revoke(order.id, $event)', title='撤销订单')
                 i.fa.fa-repeat
-      
-      .no-data(ng-if="orders.length === 0")
+
+      .no-data(ng-if='orders.length === 0')
         | 暂无任何订单历史&nbsp;
         span ╮(╯▽╰)╭
 
-  audio(media-player="noticeAudio", data-playlist="playlistA")
-    source(src="//cdn.xiaozhisong.com/work/audio/001.ogg", type="audio/ogg")
+  audio(media-player='noticeAudio', data-playlist='playlistA')
+    source(src='//cdn.xiaozhisong.com/work/audio/001.ogg', type='audio/ogg')

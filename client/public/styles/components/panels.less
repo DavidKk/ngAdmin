@@ -1,76 +1,162 @@
+// .panel {
+//   margin-bottom: 30px;
+//   border: 1px solid #eee;
+//   .border-radius(5px);
+
+//   .panel-heading {
+//     .clearfix();
+//     .border-top-left-radius(3px);
+
+//     padding: 10px;
+//     border-bottom: 2px solid rgba(0, 0, 0, .1);
+//     background-color: screen(greyscale(@main-color), #eee);
+//     overflow: hidden;
+//     color: @text-color;
+
+//     a {
+//       cursor: pointer;
+//       font-size: 12px;
+//     }
+
+//     .panel-title {
+//       display: block;
+//       float: left;
+//       margin: 0;
+//       text-transform: uppercase;
+//       line-height: 30px;
+//       font-size: 15px;
+//       font-weight: 600;
+//     }
+
+//     .panel-controls {
+//       position: relative;
+//       margin: 0px;
+//       padding: 0px;
+//       float: right;
+//       list-style: none;
+
+//       > li > a {
+//         display: block;
+//         float: left;
+//         margin-left: 3px;
+//         border: 1px solid #bbb;
+//         .border-radius(50%);
+//         width: 30px;
+//         height: 30px;
+//         text-align: center;
+//         line-height: 28px;
+//         color: #656d78;
+//         font-size: 16px;
+//         .transition(border-color .2s, transform .5s);
+//       }
+
+//       > li > a:hover {
+//         border-color: #434a54;
+//         color: #434a54;
+//         .transform(rotate(180deg));
+//       }
+//     }
+//   }
+
+//   .panel-body {
+//     position: relative;
+//     width: 100%;
+//   }
+// }
+
+// .panel.tabs {
+//   position: relative;
+//   margin-top: 40px;
+//   margin-bottom: 0;
+//   width: 100%;
+
+//   .nav-tabs {
+//     margin-bottom: 0px;
+//     margin-top: -40px;
+//     border-bottom: 0px;
+//   }
+// }
+
+
+// Panels
+// ========================
+
 .panel {
+  margin-bottom: 30px;
+  border: 1px solid #eee;
   .border-radius(3px);
 
-  border: 1px solid #eee;
-  margin-bottom: 30px;
-}
+  .panel-heading {
+    .clearfix();
+    padding: 0 15px;
+    height: 40px;
+    border-color: #eee;
+    color: @text-color;
+    overflow: hidden;
+    .border-top-left-radius(3px);
+    background-color: #fff;
 
-.panel > .panel-heading {
-  .clearfix();
-  .border-top-left-radius(3px);
+    a {
+      cursor: pointer;
+      font-size: 12px;
+    }
 
-  padding: 0 15px;
-  height: 40px;
-  background-color: #fff;
-  border-color: #eee;
-  overflow: hidden;
-  color: @text-color;
+    .panel-title {
+      padding: 10px 0;
+      float: left;
+      
+      h1, h2, h3, h4, h5, h6 {
+        margin: 0;
+        .text-overflow();
+        line-height: 20px;
+      }
+    }
 
-  a {
-    cursor: pointer;
-    font-size: 12px;
+    .panel-controls {
+      margin: 8px 0;
+      float: right;
+      font-size: 14px;
+
+      > .divider {
+        margin: 0 4px;
+      }
+
+      > a:not(.btn) {
+        color: inherit;
+      }
+    }
   }
-}
 
-.panel > .panel-heading > .panel-title {
-  padding: 10px 0;
-  float: left;
-  
-  h1, h2, h3, h4, h5, h6 {
-    .text-overflow();
+  .panel-collapse {
+    display: block;
+    overflow: hidden;
+    .transition(all .35s);
 
-    margin: 0;
-    line-height: 20px;
+    &.in {
+      max-height: 99999999px;
+    }
+
+    .panel-body {
+      .clearfix();
+      padding: 15px;
+      background-color: #fff;
+    }
+
+    .panel-body.no-padding {
+      padding: 0;
+      border-width: 0;
+    }
+
+    .panel-body.no-padding > table {
+      margin-bottom: 0;
+      border-width: 0;
+    }
   }
-}
-
-.panel > .panel-heading > .panel-widgets {
-  float: right;
-  font-size: 14px;
-  margin: 8px 0;
-  
-  > .divider { margin: 0 4px; }
-  > a:not(.btn) { color: inherit; }
-}
-
-.panel > .panel-collapse {
-  .transition(all .35s);
-
-  display: block;
-  overflow: hidden;
-}
-
-.panel > .panel-collapse > .panel-body {
-  .clearfix();
-
-  padding: 15px;
-  background-color: #fff;
-}
-
-.panel > .panel-collapse.in { max-height: 99999999px; }
-.panel > .panel-collapse > .panel-body.no-padding {
-  padding: 0;
-  border-width: 0;
-}
-
-.panel > .panel-collapse > .panel-body.no-padding > table {
-  margin-bottom: 0;
-  border-width: 0;
 }
 
 .panel-palette(@arr-name, @index: 1) when (@index =< length(@arr-name)) {
-  @token:    e(extract(@arr-name, @index));
-  @color:    extract(@arr-name, @index + 1);
+  @token: e(extract(@arr-name, @index));
+  @color: extract(@arr-name, @index + 1);
 
   .panel.panel-@{token} {
     border-color: @color;
@@ -79,7 +165,6 @@
   .panel.panel-@{token} > .panel-heading {
     background-color: @color;
     color: #fff;
-    
     .anti-color(@color);
   } 
 
@@ -89,34 +174,33 @@
 .panel-palette(@panel-palette);
 
 
-// Light State
-.panel.panel-light {
+// Young State
+.panel.panel-young {
   @border: screen(@black, #ccc);
   border-color: darken(@border, 4%);
+
+  .panel-heading {
+    color: @black;
+    background-color: screen(@black, #ccc);
+  }
 }
 
-.panel.panel-light > .panel-heading {
-  background-color: screen(@black, #ccc);
-  color: @black;
-}
+.panel-young-palette(@arr-style, @index: 1) when (@index =< length(@arr-style)) {
+  @token:     e(extract(@arr-style, @index));
+  @color:     extract(@arr-style, @index + 1);
+  @bg-color:  screen(@color, #ccc);
 
-.panel-light-palette(@arr-style, @index: 1) when (@index =< length(@arr-style)) {
-  @token:       e(extract(@arr-style, @index));
-  @color:       extract(@arr-style, @index + 1);
-  @bg-color:    screen(@color, #ccc);
-
-  .panel.panel-light.panel-@{token} {
+  .panel.panel-young.panel-@{token} {
     border-color: darken(@bg-color, 4%);
   }
 
-  .panel.panel-light.panel-@{token} > .panel-heading {
+  .panel.panel-young.panel-@{token} > .panel-heading {
     background-color: @bg-color;
     color: @color;
-
     .anti-color(@color);
   }
 
-  .panel-light-palette(@arr-style, @index + 2);
+  .panel-young-palette(@arr-style, @index + 2);
 }
 
-.panel-light-palette(@panel-palette);
+.panel-young-palette(@panel-palette);

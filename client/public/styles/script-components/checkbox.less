@@ -1,0 +1,94 @@
+.checkbox {
+  margin: 0;
+}
+
+.checkbox.checkbox-replace {
+  display: inline-block;
+  margin-right: 10px;
+  font-weight: normal;
+  cursor: pointer;
+  .user-select(none);
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    display: none;
+  }
+
+  .checkbox-icon {
+    display: inline-block;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    border: 1px solid @aux-color;
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    vertical-align: text-top;
+    cursor: pointer;
+    .transition(all .2s);
+
+    &:before {
+      position: absolute;
+      left: 2px;
+      top: 2px;
+      right: 2px;
+      bottom: 2px;
+      margin: auto;
+      border-radius: 3px;
+      width: auto;
+      height: auto;
+      max-width: 0;
+      max-height: 0;
+      background-color: @aux-color;
+      content: "";
+      .opacity(0);
+      .transition(all .2s);
+    }
+  }
+
+  &:hover .checkbox-icon {
+    .box-shadow(0 0 4px #dedede);
+  }
+
+  input[checked] + .checkbox-icon:before {
+    max-width: 10px;
+    max-height: 10px;
+    .opacity(1);
+  }
+
+  &[disabled] > .checkbox-icon, 
+  &.disabled > .checkbox-icon,
+  input.disabled + .checkbox-icon,
+  input[disabled] + .checkbox-icon {
+    .opacity(.3); 
+  }
+
+  .checkbox-inner {
+    display: inline-block;
+  }
+}
+
+// Radio in Form-horizontal
+.form-horizontal {
+  .control-label .checkbox.checkbox-replace {
+    margin-right: 0;
+    padding-top: 0;
+  }
+}
+
+.checkbox-palette(@arr-style, @index: 1) when (@index =< length(@arr-style)) {
+  @token: e(extract(@arr-style, @index));
+  @color: extract(@arr-style, @index + 1);
+  
+  .checkbox.checkbox-replace.checkbox-@{token} .checkbox-icon {
+    border-color: @color;
+    
+    &:before {
+      background-color: @color;
+    }
+  }
+
+  .checkbox-palette(@arr-style, @index + 2);
+}
+
+.checkbox-palette(@checkbox-palette);

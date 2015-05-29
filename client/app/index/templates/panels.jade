@@ -1,309 +1,235 @@
+include mixins/panel
 
-
-main#widgets-container.content-layout
+section#widgets-container.content-layout
   h2 Basic Panels
+
   .row
     .col-md-6
-      .panel.panel-blue(ng-controller="CollapseDemoController")
-        .panel-heading
-          .panel-title
-            h4 Panel with Label
-          .panel-widgets
-            .label.label-green Label
-            span.divider
-            a(ng-click="isCollapsed = !isCollapsed")
-              i.fa.fa-chevron-down
+      +panel('Panel with Label')(class=['panel-blue'])
+        mixin controls
+          .label.label-green Label
+          span.divider
+          a(ng-click='isCollapsed = !isCollapsed')
+            i.fa.fa-chevron-down
 
-        .panel-collapse.in(collapse="isCollapsed")
-          .panel-body
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+        mixin body
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
 
     .col-md-6
-      .panel.panel-cyan(ng-controller="CollapseDemoController")
-        .panel-heading
-          .panel-title
-            h4 Panel with Badge
-          .panel-widgets
-            .badge.badge-orange Badge
-            span.divider
-            a(ng-click="isCollapsed = !isCollapsed")
-              i.fa.fa-chevron-down
+      +panel('Panel with Badge')(class=['panel-cyan'])
+        mixin controls
+          .badge.badge-orange Badge
+          span.divider
+          a(ng-click='isCollapsed = !isCollapsed')
+            i.fa.fa-chevron-down
 
-        .panel-collapse.in(collapse="isCollapsed")
-          .panel-body
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
-  
+        mixin body
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+
   .row
     .col-md-6
-      .panel.panel-green(ng-controller="CollapseDemoController")
-        .panel-heading
-          .panel-title
-            h4 Panel with Button
-          .panel-widgets
-            a.btn.btn-xs.btn-mini.btn-pure.btn-amethyst Button
-            span.divider
-            a(ng-click="isCollapsed = !isCollapsed")
-              i.fa.fa-chevron-down
-        
-        .panel-collapse.in(collapse="isCollapsed")
-          .panel-body
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+      +panel('Panel with Button')(class=['panel-green'])
+        mixin controls
+          a.btn.btn-xs.btn-mini.btn-purity.btn-amethyst Button
+          span.divider
+          a(ng-click='isCollapsed = !isCollapsed')
+            i.fa.fa-chevron-down
+
+        mixin body
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
 
     .col-md-6
-      .panel.panel-yellow(ng-controller="CollapseDemoController")
-        .panel-heading
-          .panel-title
-            h4 Panel with Toggle
-          .panel-widgets
-            //- a.btn.btn-xs.btn-purple Button
-            span.divider
-            a(ng-click="isCollapsed = !isCollapsed")
-              i.fa.fa-chevron-down
-        
-        .panel-collapse.in(collapse="isCollapsed")
-          .panel-body
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
-  
+      +panel('Panel with Toggle')(class=['panel-yellow'])
+        mixin controls
+          //- a.btn.btn-xs.btn-purple Button
+          span.divider
+          a(ng-click='isCollapsed = !isCollapsed')
+            i.fa.fa-chevron-down
+
+        mixin body
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+
   .row
     .col-md-6
-      .panel.panel-orange(ng-controller="CollapseDemoController")
-        .panel-heading
-          .panel-title
-            h4 Panel with Icons
-          .panel-widgets
-            a
-              i.fa.fa-gear
-            span.divider
-            a
-              i.fa.fa-refresh
-            span.divider
-            a(ng-click="isCollapsed = !isCollapsed")
-              i.fa.fa-chevron-down
-        
-        .panel-collapse.in(collapse="isCollapsed")
-          .panel-body
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+      +panel('Panel with Icons')(class=['panel-orange'])
+        mixin controls
+          a
+            i.fa.fa-gear
+          span.divider
+          a
+            i.fa.fa-refresh
+          span.divider
+          a(ng-click='isCollapsed = !isCollapsed')
+            i.fa.fa-chevron-down
+
+        mixin body
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
 
     .col-md-6
-      .panel.panel-red(ng-controller="CollapseDemoController")
-        .panel-heading
-          .panel-title
-            h4 Panel with Tabs
-          .panel-widgets
-            a.btn.btn-xs.btn-mini.btn-pure.btn-default Tab #1
-            span.divider
-            a.btn.btn-xs.btn-mini.btn-pure.btn-default Tab #2
-            span.divider
-            a(ng-click="isCollapsed = !isCollapsed")
-              i.fa.fa-chevron-down
-        
-        .panel-collapse.in(collapse="isCollapsed")
-          .panel-body
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
-  
+      +panel('Panel with Tabs')(class=['panel-red'])
+        mixin controls
+          a.btn.btn-xs.btn-mini.btn-purity.btn-default Tab #1
+          span.divider
+          a.btn.btn-xs.btn-mini.btn-purity.btn-default Tab #2
+          span.divider
+          a(ng-click='isCollapsed = !isCollapsed')
+            i.fa.fa-chevron-down
+
+        mixin body
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+
   .row
     .col-md-6
-      .panel.panel-pink(ng-controller="CollapseDemoController")
-        .panel-heading
-          .panel-title
-            h4 Pink State
-          .panel-widgets
-            a(ng-click="isCollapsed = !isCollapsed")
-              i.fa.fa-chevron-down
-        
-        .panel-collapse.in(collapse="isCollapsed")
-          .panel-body
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+      +panel('Pink State')(class=['panel-pink'])
+        mixin controls
+          a(ng-click='isCollapsed = !isCollapsed')
+            i.fa.fa-chevron-down
+
+        mixin body
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
 
     .col-md-6
-      .panel.panel-amethyst(ng-controller="CollapseDemoController")
-        .panel-heading
-          .panel-title
-            h4 Amethyst State
-          .panel-widgets
-            a(ng-click="isCollapsed = !isCollapsed")
-              i.fa.fa-chevron-down
-        
-        .panel-collapse.in(collapse="isCollapsed")
-          .panel-body
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
-  
+      +panel('Amethyst State')(class=['panel-amethyst'])
+        mixin controls
+          a(ng-click='isCollapsed = !isCollapsed')
+            i.fa.fa-chevron-down
+
+        mixin body
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+
   .row
     .col-md-6
-      .panel.panel-black(ng-controller="CollapseDemoController")
-        .panel-heading
-          .panel-title
-            h4 Black State
-          .panel-widgets
-            a(ng-click="isCollapsed = !isCollapsed")
-              i.fa.fa-chevron-down
-        
-        .panel-collapse.in(collapse="isCollapsed")
-          .panel-body
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+      +panel('Black State')(class=['panel-black'])
+        mixin controls
+          a(ng-click='isCollapsed = !isCollapsed')
+            i.fa.fa-chevron-down
+
+        mixin body
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
 
     .col-md-6
-      .panel.panel-gray(ng-controller="CollapseDemoController")
-        .panel-heading
-          .panel-title
-            h4 Gray State
-          .panel-widgets
-            a(ng-click="isCollapsed = !isCollapsed")
-              i.fa.fa-chevron-down
-        
-        .panel-collapse.in(collapse="isCollapsed")
-          .panel-body
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+      +panel('Gray State')(class=['panel-gray'])
+        mixin controls
+          a(ng-click='isCollapsed = !isCollapsed')
+            i.fa.fa-chevron-down
+
+        mixin body
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
 
   h2 Light Panels
+
   .row
     .col-md-6
-      .panel.panel-light.panel-blue(ng-controller="CollapseDemoController")
-        .panel-heading
-          .panel-title
-            h4 Panel with Label
-          .panel-widgets
-            .label.label-green Label
-            span.divider
-            a(ng-click="isCollapsed = !isCollapsed")
-              i.fa.fa-chevron-down
+      +panel('Panel with Label')(class=['panel-young', 'panel-blue'])
+        mixin controls
+          .label.label-green Label
+          span.divider
+          a(ng-click='isCollapsed = !isCollapsed')
+            i.fa.fa-chevron-down
 
-        .panel-collapse.in(collapse="isCollapsed")
-          .panel-body
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+        mixin body
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
 
     .col-md-6
-      .panel.panel-light.panel-cyan(ng-controller="CollapseDemoController")
-        .panel-heading
-          .panel-title
-            h4 Panel with Badge
-          .panel-widgets
-            .badge.badge-orange Badge
-            span.divider
-            a(ng-click="isCollapsed = !isCollapsed")
-              i.fa.fa-chevron-down
+      +panel('Panel with Badge')(class=['panel-young', 'panel-cyan'])
+        mixin controls
+          .badge.badge-orange Badge
+          span.divider
+          a(ng-click='isCollapsed = !isCollapsed')
+            i.fa.fa-chevron-down
 
-        .panel-collapse.in(collapse="isCollapsed")
-          .panel-body
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+        mixin body
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+
+  .row
+    .col-md-6
+      +panel('Panel with Button')(class=['panel-young', 'panel-green'])
+        mixin controls
+          a.btn.btn-xs.btn-mini.btn-purity.btn-amethyst Button
+          span.divider
+          a(ng-click='isCollapsed = !isCollapsed')
+            i.fa.fa-chevron-down
+
+        mixin body
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
 
     .col-md-6
-      .panel.panel-light.panel-green(ng-controller="CollapseDemoController")
-        .panel-heading
-          .panel-title
-            h4 Panel with Button
-          .panel-widgets
-            a.btn.btn-xs.btn-mini.btn-pure.btn-amethyst Button
-            span.divider
-            a(ng-click="isCollapsed = !isCollapsed")
-              i.fa.fa-chevron-down
-        
-        .panel-collapse.in(collapse="isCollapsed")
-          .panel-body
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+      +panel('Panel with Toggle')(class=['panel-young', 'panel-yellow'])
+        mixin controls
+          //- a.btn.btn-xs.btn-purple Button
+          span.divider
+          a(ng-click='isCollapsed = !isCollapsed')
+            i.fa.fa-chevron-down
+
+        mixin body
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+
+  .row
+    .col-md-6
+      +panel('Panel with Icons')(class=['panel-young', 'panel-orange'])
+        mixin controls
+          a
+            i.fa.fa-gear
+          span.divider
+          a
+            i.fa.fa-refresh
+          span.divider
+          a(ng-click='isCollapsed = !isCollapsed')
+            i.fa.fa-chevron-down
+
+        mixin body
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
 
     .col-md-6
-      .panel.panel-light.panel-yellow(ng-controller="CollapseDemoController")
-        .panel-heading
-          .panel-title
-            h4 Panel with Toggle
-          .panel-widgets
-            //- a.btn.btn-xs.btn-purple Button
-            span.divider
-            a(ng-click="isCollapsed = !isCollapsed")
-              i.fa.fa-chevron-down
-        
-        .panel-collapse.in(collapse="isCollapsed")
-          .panel-body
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+      +panel('Panel with Tabs')(class=['panel-young', 'panel-red'])
+        mixin controls
+          a.btn.btn-xs.btn-mini.btn-purity.btn-default Tab #1
+          span.divider
+          a.btn.btn-xs.btn-mini.btn-purity.btn-default Tab #2
+          span.divider
+          a(ng-click='isCollapsed = !isCollapsed')
+            i.fa.fa-chevron-down
+
+        mixin body
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+
+  .row
+    .col-md-6
+      +panel('Pink State')(class=['panel-young', 'panel-pink'])
+        mixin controls
+          a(ng-click='isCollapsed = !isCollapsed')
+            i.fa.fa-chevron-down
+
+        mixin body
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
 
     .col-md-6
-      .panel.panel-light.panel-orange(ng-controller="CollapseDemoController")
-        .panel-heading
-          .panel-title
-            h4 Panel with Icons
-          .panel-widgets
-            a
-              i.fa.fa-gear
-            span.divider
-            a
-              i.fa.fa-refresh
-            span.divider
-            a(ng-click="isCollapsed = !isCollapsed")
-              i.fa.fa-chevron-down
-        
-        .panel-collapse.in(collapse="isCollapsed")
-          .panel-body
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+      +panel('Amethyst State')(class=['panel-young', 'panel-amethyst'])
+        mixin controls
+          a(ng-click='isCollapsed = !isCollapsed')
+            i.fa.fa-chevron-down
+
+        mixin body
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+
+  .row
+    .col-md-6
+      +panel('Black State')(class=['panel-young', 'panel-black'])
+        mixin controls
+          a(ng-click='isCollapsed = !isCollapsed')
+            i.fa.fa-chevron-down
+
+        mixin body
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
 
     .col-md-6
-      .panel.panel-light.panel-red(ng-controller="CollapseDemoController")
-        .panel-heading
-          .panel-title
-            h4 Panel with Tabs
-          .panel-widgets
-            a.btn.btn-xs.btn-mini.btn-pure.btn-default Tab #1
-            span.divider
-            a.btn.btn-xs.btn-mini.btn-pure.btn-default Tab #2
-            span.divider
-            a(ng-click="isCollapsed = !isCollapsed")
-              i.fa.fa-chevron-down
-        
-        .panel-collapse.in(collapse="isCollapsed")
-          .panel-body
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+      +panel('Gray State')(class=['panel-young', 'panel-gray'])
+        mixin controls
+          a(ng-click='isCollapsed = !isCollapsed')
+            i.fa.fa-chevron-down
 
-    .col-md-6
-      .panel.panel-light.panel-pink(ng-controller="CollapseDemoController")
-        .panel-heading
-          .panel-title
-            h4 Pink State
-          .panel-widgets
-            a(ng-click="isCollapsed = !isCollapsed")
-              i.fa.fa-chevron-down
-        
-        .panel-collapse.in(collapse="isCollapsed")
-          .panel-body
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
-
-    .col-md-6
-      .panel.panel-light.panel-amethyst(ng-controller="CollapseDemoController")
-        .panel-heading
-          .panel-title
-            h4 Amethyst State
-          .panel-widgets
-            a(ng-click="isCollapsed = !isCollapsed")
-              i.fa.fa-chevron-down
-        
-        .panel-collapse.in(collapse="isCollapsed")
-          .panel-body
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
-
-    .col-md-6
-      .panel.panel-light.panel-black(ng-controller="CollapseDemoController")
-        .panel-heading
-          .panel-title
-            h4 Black State
-          .panel-widgets
-            a(ng-click="isCollapsed = !isCollapsed")
-              i.fa.fa-chevron-down
-        
-        .panel-collapse.in(collapse="isCollapsed")
-          .panel-body
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
-
-    .col-md-6
-      .panel.panel-light.panel-gray(ng-controller="CollapseDemoController")
-        .panel-heading
-          .panel-title
-            h4 Gray State
-          .panel-widgets
-            a(ng-click="isCollapsed = !isCollapsed")
-              i.fa.fa-chevron-down
-        
-        .panel-collapse.in(collapse="isCollapsed")
-          .panel-body
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
+        mixin body
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis tempus libero. Aliquam et dui at augue aliquet gravida at at est. Curabitur mattis sem sed dolor sagittis blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
 
   h2 Notification
   .row
@@ -311,37 +237,37 @@ main#widgets-container.content-layout
       .notification.notification-primary
         h4 Primary Notification
         p
-          | Lorem ipsum dolor sit amet, consectetur 
-          b adipiscing 
+          | Lorem ipsum dolor sit amet, consectetur
+          b adipiscing
           | elit. Ut quis tempus libero.
-          b Aliquam 
-          | et dui at augue aliquet gravida at at est. Curabitur mattis sem 
-          b sed dolor sagittis 
+          b Aliquam
+          | et dui at augue aliquet gravida at at est. Curabitur mattis sem
+          b sed dolor sagittis
           | blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
-  
+
   .row
     .col-md-6
       .notification.notification-success
         h4 Success Notification
         p
-          | Lorem ipsum dolor sit amet, consectetur 
-          b adipiscing 
+          | Lorem ipsum dolor sit amet, consectetur
+          b adipiscing
           | elit. Ut quis tempus libero.
-          b Aliquam 
-          | et dui at augue aliquet gravida at at est. Curabitur mattis sem 
-          b sed dolor sagittis 
+          b Aliquam
+          | et dui at augue aliquet gravida at at est. Curabitur mattis sem
+          b sed dolor sagittis
           | blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
-    
+
     .col-md-6
       .notification.notification-info
         h4 Info Notification
         p
-          | Lorem ipsum dolor sit amet, consectetur 
-          b adipiscing 
+          | Lorem ipsum dolor sit amet, consectetur
+          b adipiscing
           | elit. Ut quis tempus libero.
-          b Aliquam 
-          | et dui at augue aliquet gravida at at est. Curabitur mattis sem 
-          b sed dolor sagittis 
+          b Aliquam
+          | et dui at augue aliquet gravida at at est. Curabitur mattis sem
+          b sed dolor sagittis
           | blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
 
   .row
@@ -349,22 +275,22 @@ main#widgets-container.content-layout
       .notification.notification-warning
         h4 Warning Notification
         p
-          | Lorem ipsum dolor sit amet, consectetur 
-          b adipiscing 
+          | Lorem ipsum dolor sit amet, consectetur
+          b adipiscing
           | elit. Ut quis tempus libero.
-          b Aliquam 
-          | et dui at augue aliquet gravida at at est. Curabitur mattis sem 
-          b sed dolor sagittis 
+          b Aliquam
+          | et dui at augue aliquet gravida at at est. Curabitur mattis sem
+          b sed dolor sagittis
           | blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.
-  
+
     .col-md-6
       .notification.notification-danger
         h4 Danger Notification
         p
-          | Lorem ipsum dolor sit amet, consectetur 
-          b adipiscing 
+          | Lorem ipsum dolor sit amet, consectetur
+          b adipiscing
           | elit. Ut quis tempus libero.
-          b Aliquam 
-          | et dui at augue aliquet gravida at at est. Curabitur mattis sem 
-          b sed dolor sagittis 
+          b Aliquam
+          | et dui at augue aliquet gravida at at est. Curabitur mattis sem
+          b sed dolor sagittis
           | blandit. Nulla facilisi. Praesent eget nibh nisl. Sed scelerisque ligula sed justo lobortis, at pharetra ipsum ornare. Pellentesque non nisl sit amet erat venenatis semper tincidunt sit amet erat.

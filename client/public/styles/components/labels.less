@@ -1,9 +1,12 @@
 .label {
-  background-color: @gray;
-  color: @black;
-  cursor: default;
-  font-weight: bold;
+  display: inline-block;
+  vertical-align: middle;
   padding: 4px 10px;
+  line-height: @line-height-base;
+  color: @black;
+  font-weight: bold;
+  cursor: default;
+  background-color: @gray;
 }
 
 .label-palette(@arr-style, @index: 1) when (@index =< length(@arr-style)) {

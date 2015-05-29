@@ -86,6 +86,13 @@ module.exports = function(grunt) {
                 'dist/css/*.css'
               ]
             },
+            'iscroll': {
+              keepExpandedHierarchy: true,
+              stripGlobBase: true,
+              files: [
+                'build/*.js'
+              ]
+            },
             'lesshat': {
               keepExpandedHierarchy: true,
               stripGlobBase: true,
@@ -477,7 +484,7 @@ module.exports = function(grunt) {
         options: {
           event: ['changed'],
         },
-        files: ['client/app/' + name + '/styles/*.less', 'client/app/' + name + '/styles/*/*.less'],
+        files: ['client/app/' + name + '/styles/*.less', 'client/app/' + name + '/styles/**/*.less'],
         tasks: ['loadState', 'less:$' + name]
       })
     })
@@ -641,7 +648,7 @@ module.exports = function(grunt) {
         options: {
           event: ['changed'],
         },
-        files: ['client/app/' + name + '/templates/*.jade'],
+        files: ['client/app/' + name + '/templates/*.jade', 'client/app/' + name + '/templates/**/*.jade'],
         tasks: ['loadState', 'jade:$' + name]
       })
     })
@@ -743,12 +750,12 @@ module.exports = function(grunt) {
       var name = path
             .basename(filePath)
             .replace(path.extname(filePath), '')
-
-      if (existsModules[name]) {
+      
+      if (existsModules[filePath]) {
         return
       }
 
-      existsModules[name] = true
+      existsModules[filePath] = true
 
       var module = {
         name: name

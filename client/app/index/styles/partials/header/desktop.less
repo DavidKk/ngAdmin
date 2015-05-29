@@ -1,4 +1,5 @@
-
+// Header
+// @author <David Jones qowera@qq.com>
 
 @media (max-width: @screen-md-max) {
   // rewrite layout
@@ -6,12 +7,21 @@
     margin-left: 75px;
   }
 
-  #header-container .navbar ul.notify-header {
-    > li.profile > span.name { display: none; }
-  }
+  #header-container {
+    .navbar ul.notify-header {
+      > li.profile > span.name {
+        display: none;
+      }
+    }
 
-  #header-container .navbar ul.notify-header {
-    > li.bars { display: block; }
-    > li.bars > a { width: 75px; }
+    .navbar ul.notify-header {
+      > li.bars {
+        display: block;
+      }
+
+      > li.bars > a {
+        width: 75px;
+      }
+    }
   }
 }

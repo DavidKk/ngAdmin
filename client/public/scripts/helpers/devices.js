@@ -4,7 +4,7 @@
  */
 angular.module('helpers.devices', [])
 
-.run([
+.config([
   function() {
     'use strict'
 

@@ -1,38 +1,44 @@
+// Header
+// @author <David Jones qowera@qq.com>
+
 .container-layout {
   .clearfix();
 
   width: 100%;
   overflow-x: hidden;
-}
 
-.container-layout .main-layout {
-  .transition(padding-left .25s ease);
+  .main-layout {
+    position: relative;
+    width: 100%;
+    .transition(all .25s ease);
 
-  width: 100%;
-  position: relative;
-
-  .content-layout {
-    padding: 0 15px;
+    .content-layout {
+      padding: 0 15px;
+    }
   }
 }
 
-// aside
-.container-layout .aside-layout {
-  .transition(transform .25s ease);
-  .clearfix();
 
-  height: 100%;
-  display: block;
-  position: absolute;
-  top: 0;
-  z-index: 4;
+// Aside
+// ===========================
+
+.container-layout {
+  .aside-layout {
+    display: block;
+    position: absolute;
+    top: 0;
+    z-index: 4;
+    .clearfix();
+    height: 100%;
+    .transition(transform .25s ease);
+  }
+
+  .aside-layout.fixed-layout {
+    position: fixed;
+  }
 }
 
-.container-layout .aside-layout.fixed-layout {
-  position: fixed;
-}
-
-body.fixed-layout {
+.fixed-layout {
   &,
   .container-layout,
   .container-layout .main-layout,

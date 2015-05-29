@@ -1,4 +1,12 @@
-angular.module('index', ['ngRoute', 'conf.config', 'helpers.util', 'chat', 'header', 'nav'])
+/**
+ * Index
+ * @author <David Jones qowera@qq.com>
+ */
+angular.module('index', [
+  'ngRoute'
+  , 'conf.config', 'helpers.util'
+  , 'chat', 'header', 'nav'
+])
 
 .constant('TEMPLATE_PATH', '/assets/templates')
 
@@ -34,7 +42,6 @@ angular.module('index', ['ngRoute', 'conf.config', 'helpers.util', 'chat', 'head
       { name: 'Progress Bars', key: 'progress-bar' },
       { name: 'Modals', key: 'modals' },
       { name: 'Carousel', key: 'carousel' },
-      { name: 'ngScroll', key: 'ngScroll' }
     ]
   },
   {
@@ -45,7 +52,7 @@ angular.module('index', ['ngRoute', 'conf.config', 'helpers.util', 'chat', 'head
       { name: 'Wizard', key: 'form-wizard' },
       { name: 'Input Mask', key: 'form-input-mask' },
       { name: 'Multi Upload', key: 'form-multi-upload' },
-      { name: 'Slider', key: 'slide' },
+      { name: 'Slider', key: 'slide' }
     ]
   },
   {
@@ -79,7 +86,9 @@ angular.module('index', ['ngRoute', 'conf.config', 'helpers.util', 'chat', 'head
       { name: 'Delivery', key: 'delivery' }
     ]
   },
-  { name: 'Thanks For', key: 'thanks', icon: 'share' }
+  {
+    name: 'Thanks For', key: 'thanks', icon: 'share'
+  }
 ])
 
 .config([
@@ -124,7 +133,6 @@ angular.module('index', ['ngRoute', 'conf.config', 'helpers.util', 'chat', 'head
     .when('/index/modals/',                { templateUrl: TEMPLATE_PATH + '/index/modals.html', resolve: resolve })
     .when('/index/slide/',                 { templateUrl: TEMPLATE_PATH + '/index/slide.html', resolve: resolve })
     .when('/index/carousel/',              { templateUrl: TEMPLATE_PATH + '/index/carousel.html', resolve: resolve })
-    .when('/index/ngScroll/',              { templateUrl: TEMPLATE_PATH + '/index/ngScroll.html', resolve: resolve })
 
     // Forms
     .when('/index/form-basic/',            { templateUrl: TEMPLATE_PATH + '/index/form-basic.html', resolve: resolve })
@@ -152,13 +160,13 @@ angular.module('index', ['ngRoute', 'conf.config', 'helpers.util', 'chat', 'head
 .controller('CollapseDemoController', [
   '$scope',
   function($scope) {
-    
+    // do something...
   }
 ])
 
 .controller('TabsDemoController', [
   '$scope',
   function($scope) {
-
+    // do something...
   }
 ])
