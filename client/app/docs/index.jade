@@ -8,10 +8,10 @@ html(lang="en-US")
     link(href= makeVersion('/assets/styles/bootstrap/bootstrap.min.css'), rel='stylesheet', media='screen')
     link(href= makeVersion('/assets/styles/font-awesome/font-awesome.min.css'), rel='stylesheet', media='screen')
     link(href= makeVersion('/assets/styles/ngAdmin/ngAdmin.min.css'), rel='stylesheet', media='screen')
-    link(href= makeVersion('/assets/styles/app/index.min.css'), rel='stylesheet', media='screen')
+    link(href= makeVersion('/assets/styles/app/docs.min.css'), rel='stylesheet', media='screen')
 
     //- lt describes
-    title Index | ngAdmin
+    title Docs | ngAdmin
     meta(name='name', value= pkg.name)
     meta(name='version', value= pkg.version)
     meta(name='license', value= pkg.license)
@@ -35,7 +35,7 @@ html(lang="en-US")
         , ngHeightcharts: '#{ makeVersion("/assets/scripts/highcharts-ng-0.0.8.min.js") }'
 
         , common: '#{ makeVersion("/assets/scripts/ngAdmin/ngAdmin.js") }'
-        , app: '#{ makeVersion("/assets/scripts/app/index.js") }'
+        , app: '#{ makeVersion("/assets/scripts/app/docs.js") }'
       }
 
       $script(jsFiles.angular, function() {
@@ -54,7 +54,7 @@ html(lang="en-US")
           $script([jsFiles.common], function() {
             $script([jsFiles.app], function() {
               //- Because js file was loaded in async, we must bootstrap the extrance module.
-              angular.bootstrap(document, ['index'])
+              angular.bootstrap(document, ['docs'])
             })
           })
         })
