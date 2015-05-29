@@ -1,372 +1,373 @@
 include mixins/panel
 
-main#basic-table-container.content-layout
-  h2 Basic Tables
+.content-layout(ng-iscroll)
+  section#basic-table-container
+    h2 Basic Tables
 
-  .row
-    .col-md-6
-      h4 Simple Table
-      table.table
-        thead
-          tr
-            th #
-            th Name
-            th Address
-        tbody
-          tr
-            td 1
-            td Arlind
-            td Nushi
-          tr
-            td 2
-            td Art
-            td Ramadani
-          tr
-            td 3
-            td Filan
-            td Fisteku
+    .row
+      .col-md-6
+        h4 Simple Table
+        table.table
+          thead
+            tr
+              th #
+              th Name
+              th Address
+          tbody
+            tr
+              td 1
+              td Arlind
+              td Nushi
+            tr
+              td 2
+              td Art
+              td Ramadani
+            tr
+              td 3
+              td Filan
+              td Fisteku
 
-    .col-md-6
-      h4 Striped Rows
-      table.table.table-striped
-        thead
-          tr
-            th #
-            th Name
-            th Address
-        tbody
-          tr
-            td 1
-            td Arlind
-            td Nushi
-          tr
-            td 2
-            td Art
-            td Ramadani
-          tr
-            td 3
-            td Filan
-            td Fisteku
+      .col-md-6
+        h4 Striped Rows
+        table.table.table-striped
+          thead
+            tr
+              th #
+              th Name
+              th Address
+          tbody
+            tr
+              td 1
+              td Arlind
+              td Nushi
+            tr
+              td 2
+              td Art
+              td Ramadani
+            tr
+              td 3
+              td Filan
+              td Fisteku
 
-    .col-md-6
-      h4 Hover Rows
-      table.table.table-hover
-        thead
-          tr
-            th #
-            th Name
-            th Address
-        tbody
-          tr
-            td 1
-            td Arlind
-            td Nushi
-          tr
-            td 2
-            td Art
-            td Ramadani
-          tr
-            td 3
-            td Filan
-            td Fisteku
+      .col-md-6
+        h4 Hover Rows
+        table.table.table-hover
+          thead
+            tr
+              th #
+              th Name
+              th Address
+          tbody
+            tr
+              td 1
+              td Arlind
+              td Nushi
+            tr
+              td 2
+              td Art
+              td Ramadani
+            tr
+              td 3
+              td Filan
+              td Fisteku
 
-    .col-md-6
-      h4 Bordered Tables
-      table.table.table-bordered
-        thead
-          tr
-            th #
-            th Name
-            th Address
-        tbody
-          tr
-            td 1
-            td Arlind
-            td Nushi
-          tr
-            td 2
-            td Art
-            td Ramadani
-          tr
-            td 3
-            td Filan
-            td Fisteku
-
-    .col-md-6
-      h4 Condensed Table
-      table.table.table-condensed
-        thead
-          tr
-            th #
-            th Name
-            th Address
-        tbody
-          tr
-            td 1
-            td Arlind
-            td Nushi
-          tr
-            td 2
-            td Art
-            td Ramadani
-          tr
-            td 3
-            td Filan
-            td Fisteku
-
-    .col-md-6
-      h4 Mix of all these classes
-      table.table.table-condensed.table-bordered.table-hover.table-striped
-        thead
-          tr
-            th #
-            th Name
-            th Address
-        tbody
-          tr
-            td 1
-            td Arlind
-            td Nushi
-          tr
-            td 2
-            td Art
-            td Ramadani
-          tr
-            td 3
-            td Filan
-            td Fisteku
-  
-  +panel('Table inside panel')
-    mixin body
-      table.table.table-bordered
-        thead
-          tr
-            th #
-            th Name
-            th Address
-            th Progress
-        tbody
-          tr
-            td 1
-            td Arlind
-            td Nushi
-            td
-              .progress
-                .progress-bar.progress-bar-info(role='progressbar', aria-valuenow='20', aria-valuemin='0', aria-valuemax='100', style='width: 20%')
-                  span.sr-only 20% Complete
-          tr
-            td 2
-            td Art
-            td Ramadani
-            td
-              .progress
-                .progress-bar.progress-bar-danger(role='progressbar', aria-valuenow='92', aria-valuemin='0', aria-valuemax='100', style='width: 92%')
-                  span.sr-only 92% Complete
-          tr
-            td 3
-            td Filan
-            td Fisteku
-            td
-              .progress
-                .progress-bar.progress-bar-warning(role='progressbar', aria-valuenow='70', aria-valuemin='0', aria-valuemax='100', style='width: 70%')
-                  span.sr-only 70% Complete
-
-  +panel('Responsive Table')
-    mixin body
-      .table-responsive
+      .col-md-6
+        h4 Bordered Tables
         table.table.table-bordered
           thead
             tr
-              th.out-xs(width='15%') ID
-              th First name
-              th Last name
-              th ZIP
-              th(width='33%') Country
-
+              th #
+              th Name
+              th Address
           tbody
             tr
-              td.out-xs(style) 65
-              td Dillon
-              td Garcia
-              td 13652
-              td Holy See (Vatican City State)
+              td 1
+              td Arlind
+              td Nushi
             tr
-              td.out-xs(style) 66
-              td Russell
-              td Sweeney
-              td T8P 2O6
-              td Saint Kitts and Nevis
+              td 2
+              td Art
+              td Ramadani
             tr
-              td.out-xs(style) 67
-              td Zelda
-              td Berg
-              td 84946
-              td Afghanistan
+              td 3
+              td Filan
+              td Fisteku
+
+      .col-md-6
+        h4 Condensed Table
+        table.table.table-condensed
+          thead
             tr
-              td.out-xs(style) 68
-              td Dexter
-              td Mann
-              td 73596
-              td Thailand
+              th #
+              th Name
+              th Address
+          tbody
             tr
-              td.out-xs(style) 69
-              td Maisie
-              td Miller
-              td X3M 6C1
-              td Seychelles
+              td 1
+              td Arlind
+              td Nushi
             tr
-              td.out-xs(style) 70
-              td Lynn
-              td Mitchell
-              td N5B 3Z9
-              td Wallis and Futuna
+              td 2
+              td Art
+              td Ramadani
             tr
-              td.out-xs(style) 71
-              td Gay
-              td Medina
-              td 66692
-              td Germany
+              td 3
+              td Filan
+              td Fisteku
+
+      .col-md-6
+        h4 Mix of all these classes
+        table.table.table-condensed.table-bordered.table-hover.table-striped
+          thead
             tr
-              td.out-xs(style) 72
-              td Olga
-              td Clark
-              td M6B 7B6
-              td Kuwait
+              th #
+              th Name
+              th Address
+          tbody
             tr
-              td.out-xs(style) 73
-              td Brianna
-              td Obrien
-              td Z6Z 5R3
-              td Bahrain
+              td 1
+              td Arlind
+              td Nushi
             tr
-              td.out-xs(style) 74
-              td Daria
-              td Byers
-              td R9T 4N7
-              td Ghana
+              td 2
+              td Art
+              td Ramadani
             tr
-              td.out-xs(style) 75
-              td Chiquita
-              td Barker
-              td 28435
-              td Ireland
+              td 3
+              td Filan
+              td Fisteku
+    
+    +panel('Table inside panel')
+      mixin body
+        table.table.table-bordered
+          thead
             tr
-              td.out-xs(style) 76
-              td Gray
-              td Salazar
-              td 58618
-              td Chile
+              th #
+              th Name
+              th Address
+              th Progress
+          tbody
             tr
-              td.out-xs(style) 77
-              td Delilah
-              td Kirby
-              td 42811
-              td Oman
+              td 1
+              td Arlind
+              td Nushi
+              td
+                .progress
+                  .progress-bar.progress-bar-info(role='progressbar', aria-valuenow='20', aria-valuemin='0', aria-valuemax='100', style='width: 20%')
+                    span.sr-only 20% Complete
             tr
-              td.out-xs(style) 78
-              td Xanthus
-              td Holland
-              td B8Q 9C4
-              td Antigua and Barbuda
+              td 2
+              td Art
+              td Ramadani
+              td
+                .progress
+                  .progress-bar.progress-bar-danger(role='progressbar', aria-valuenow='92', aria-valuemin='0', aria-valuemax='100', style='width: 92%')
+                    span.sr-only 92% Complete
             tr
-              td.out-xs(style) 79
-              td Reuben
-              td Brennan
-              td 44693
-              td Czech Republic
-            tr
-              td.out-xs(style) 80
-              td Alden
-              td Long
-              td 94236
-              td Slovakia
-            tr
-              td.out-xs(style) 81
-              td Blythe
-              td Bender
-              td 04812
-              td Guam
-            tr
-              td.out-xs(style) 82
-              td Aileen
-              td Burgess
-              td 47942
-              td Djibouti
-            tr
-              td.out-xs(style) 83
-              td Zeus
-              td Craig
-              td 43002
-              td Nicaragua
-            tr
-              td.out-xs(style) 84
-              td Jade
-              td Garza
-              td F2X 8F3
-              td New Zealand
-            tr
-              td.out-xs(style) 85
-              td Noah
-              td Barrera
-              td K9C 8U0
-              td Malawi
-            tr
-              td.out-xs(style) 86
-              td Quyn
-              td Robertson
-              td H3X 6J9
-              td Bosnia and Herzegovina
-            tr
-              td.out-xs(style) 87
-              td Serena
-              td Cabrera
-              td 83671
-              td Slovenia
-            tr
-              td.out-xs(style) 88
-              td Charity
-              td Chase
-              td T9Q 7C4
-              td Solomon Islands
-            tr
-              td.out-xs(style) 89
-              td Athena
-              td Grimes
-              td 62801
-              td Aruba
-            tr
-              td.out-xs(style) 90
-              td Mallory
-              td Middleton
-              td D2V 1M5
-              td Italy
-            tr
-              td.out-xs(style) 91
-              td Xenos
-              td Jones
-              td 46642
-              td Singapore
-            tr
-              td.out-xs(style) 92
-              td Tate
-              td Gregory
-              td 66538
-              td Zimbabwe
-            tr
-              td.out-xs(style) 93
-              td Blaze
-              td Taylor
-              td 70282
-              td Paraguay
-            tr
-              td.out-xs(style) 94
-              td Jena
-              td Duncan
-              td 63057
-              td Cambodia
-            tr
-              td.out-xs(style) 95
-              td Thaddeus
-              td Chase
-              td 66762
-              td Netherlands Antilles
+              td 3
+              td Filan
+              td Fisteku
+              td
+                .progress
+                  .progress-bar.progress-bar-warning(role='progressbar', aria-valuenow='70', aria-valuemin='0', aria-valuemax='100', style='width: 70%')
+                    span.sr-only 70% Complete
+
+    +panel('Responsive Table')
+      mixin body
+        .table-responsive
+          table.table.table-bordered
+            thead
+              tr
+                th.out-xs(width='15%') ID
+                th First name
+                th Last name
+                th ZIP
+                th(width='33%') Country
+
+            tbody
+              tr
+                td.out-xs(style) 65
+                td Dillon
+                td Garcia
+                td 13652
+                td Holy See (Vatican City State)
+              tr
+                td.out-xs(style) 66
+                td Russell
+                td Sweeney
+                td T8P 2O6
+                td Saint Kitts and Nevis
+              tr
+                td.out-xs(style) 67
+                td Zelda
+                td Berg
+                td 84946
+                td Afghanistan
+              tr
+                td.out-xs(style) 68
+                td Dexter
+                td Mann
+                td 73596
+                td Thailand
+              tr
+                td.out-xs(style) 69
+                td Maisie
+                td Miller
+                td X3M 6C1
+                td Seychelles
+              tr
+                td.out-xs(style) 70
+                td Lynn
+                td Mitchell
+                td N5B 3Z9
+                td Wallis and Futuna
+              tr
+                td.out-xs(style) 71
+                td Gay
+                td Medina
+                td 66692
+                td Germany
+              tr
+                td.out-xs(style) 72
+                td Olga
+                td Clark
+                td M6B 7B6
+                td Kuwait
+              tr
+                td.out-xs(style) 73
+                td Brianna
+                td Obrien
+                td Z6Z 5R3
+                td Bahrain
+              tr
+                td.out-xs(style) 74
+                td Daria
+                td Byers
+                td R9T 4N7
+                td Ghana
+              tr
+                td.out-xs(style) 75
+                td Chiquita
+                td Barker
+                td 28435
+                td Ireland
+              tr
+                td.out-xs(style) 76
+                td Gray
+                td Salazar
+                td 58618
+                td Chile
+              tr
+                td.out-xs(style) 77
+                td Delilah
+                td Kirby
+                td 42811
+                td Oman
+              tr
+                td.out-xs(style) 78
+                td Xanthus
+                td Holland
+                td B8Q 9C4
+                td Antigua and Barbuda
+              tr
+                td.out-xs(style) 79
+                td Reuben
+                td Brennan
+                td 44693
+                td Czech Republic
+              tr
+                td.out-xs(style) 80
+                td Alden
+                td Long
+                td 94236
+                td Slovakia
+              tr
+                td.out-xs(style) 81
+                td Blythe
+                td Bender
+                td 04812
+                td Guam
+              tr
+                td.out-xs(style) 82
+                td Aileen
+                td Burgess
+                td 47942
+                td Djibouti
+              tr
+                td.out-xs(style) 83
+                td Zeus
+                td Craig
+                td 43002
+                td Nicaragua
+              tr
+                td.out-xs(style) 84
+                td Jade
+                td Garza
+                td F2X 8F3
+                td New Zealand
+              tr
+                td.out-xs(style) 85
+                td Noah
+                td Barrera
+                td K9C 8U0
+                td Malawi
+              tr
+                td.out-xs(style) 86
+                td Quyn
+                td Robertson
+                td H3X 6J9
+                td Bosnia and Herzegovina
+              tr
+                td.out-xs(style) 87
+                td Serena
+                td Cabrera
+                td 83671
+                td Slovenia
+              tr
+                td.out-xs(style) 88
+                td Charity
+                td Chase
+                td T9Q 7C4
+                td Solomon Islands
+              tr
+                td.out-xs(style) 89
+                td Athena
+                td Grimes
+                td 62801
+                td Aruba
+              tr
+                td.out-xs(style) 90
+                td Mallory
+                td Middleton
+                td D2V 1M5
+                td Italy
+              tr
+                td.out-xs(style) 91
+                td Xenos
+                td Jones
+                td 46642
+                td Singapore
+              tr
+                td.out-xs(style) 92
+                td Tate
+                td Gregory
+                td 66538
+                td Zimbabwe
+              tr
+                td.out-xs(style) 93
+                td Blaze
+                td Taylor
+                td 70282
+                td Paraguay
+              tr
+                td.out-xs(style) 94
+                td Jena
+                td Duncan
+                td 63057
+                td Cambodia
+              tr
+                td.out-xs(style) 95
+                td Thaddeus
+                td Chase
+                td 66762
+                td Netherlands Antilles

@@ -1,24 +1,25 @@
 include mixins/panel
 
-#modals-container.content-layout
-  h2 Modals Triggering
+.content-layout(ng-iscroll)
+  section#modals-container
+    h2 Modals Triggering
 
-  +panel('Modals Examples')
-    mixin body
-      .docs-example
-        button.btn.btn-primary(type='button', role='button') Modal Basic
-        button.btn.btn-success(type='button', role='button') Modal Confirm
+    +panel('Modals Examples')
+      mixin body
+        .docs-example
+          button.btn.btn-primary(type='button', role='button') Modal Basic
+          button.btn.btn-success(type='button', role='button') Modal Confirm
 
-  .modal
-    .modal-dialog
-      .modal-content
-        .modal-header
-          button.close(type='button', data-dismiss='modal')
-            span(aria-hidden='true') ×
-            span.sr-only Close
-          h4.modal-title Modal title
-        .modal-body
-          p One fine body…
-        .modal-footer
-          button.btn.btn-default(type='button', data-dismiss='modal') Close
-          button.btn.btn-primary(type='button') Save changes
+    .modal
+      .modal-dialog
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal')
+              span(aria-hidden='true') ×
+              span.sr-only Close
+            h4.modal-title Modal title
+          .modal-body
+            p One fine body…
+          .modal-footer
+            button.btn.btn-default(type='button', data-dismiss='modal') Close
+            button.btn.btn-primary(type='button') Save changes

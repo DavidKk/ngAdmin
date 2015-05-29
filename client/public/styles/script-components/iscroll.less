@@ -1,8 +1,20 @@
 .iscroll,
 [ng-iscroll] {
+  display: block;
   position: relative;
   max-height: 100%;
+  max-width: 100%;
   overflow: hidden;
+}
+
+.content-layout.iscroll,
+.content-layout[ng-iscroll] {
+  overflow: hidden !important;
+
+  > *:first-child {
+    .clearfix();
+    height: auto !important;
+  }
 }
 
 .iScrollLoneScrollbar {

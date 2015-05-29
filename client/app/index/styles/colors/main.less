@@ -4,19 +4,18 @@
   padding-bottom: 0;
   height: 100%;
 
-  .demo-color-block {
-    .user-select(none);
-    
+  .demo-color-block {    
     height: percentage(1/3);
-    cursor: pointer;
     color: #fff;
+    cursor: pointer;
+    .user-select(none);
   }
 
   .demo-color-block > span {
-    bottom: 6px;
-    font-size: 16px;
     position: absolute;
+    bottom: 6px;
     left: 10px;
+    font-size: 16px;
   }
   
   .blue       { background-color: @blue; }

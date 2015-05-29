@@ -1,40 +1,41 @@
 include mixins/panel
 
-main#breadcrumbs-container.content-layout
-  h3 Breadcrumbs
-  br
+.content-layout(ng-iscroll)
+  section#breadcrumbs-container
+    h3 Breadcrumbs
+    br
 
-  +panel('Breadcrumb Types')
-    mixin body
-      ol.breadcrumb.breadcrumb-pure
-        li
-          a(href='#')
-            i.fa.fa-folder
-            | Breadcrumb
-        li
-          a(href='#') Appearance
-        li
-          a(href='#') Plugins
-        li.active Widgets
+    +panel('Breadcrumb Types')
+      mixin body
+        ol.breadcrumb.breadcrumb-pure
+          li
+            a(href='#')
+              i.fa.fa-folder
+              | Breadcrumb
+          li
+            a(href='#') Appearance
+          li
+            a(href='#') Plugins
+          li.active Widgets
 
-      ol.breadcrumb.breadcrumb-border
-        li
-          a(href='#')
-            i.fa.fa-folder
-            | Breadcrumb
-        li
-          a(href='#') Appearance
-        li
-          a(href='#') Plugins
-        li.active Widgets
+        ol.breadcrumb.breadcrumb-border
+          li
+            a(href='#')
+              i.fa.fa-folder
+              | Breadcrumb
+          li
+            a(href='#') Appearance
+          li
+            a(href='#') Plugins
+          li.active Widgets
 
-      ol.breadcrumb
-        li
-          a(href='#')
-            i.fa.fa-folder
-            | Breadcrumb
-        li
-          a(href='#') Appearance
-        li
-          a(href='#') Plugins
-        li.active Widgets
+        ol.breadcrumb
+          li
+            a(href='#')
+              i.fa.fa-folder
+              | Breadcrumb
+          li
+            a(href='#') Appearance
+          li
+            a(href='#') Plugins
+          li.active Widgets
