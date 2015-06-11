@@ -1,3 +1,6 @@
+// Table
+// ------------------
+
 .table {
   margin-bottom: 17px;
   width: 100%;
@@ -5,9 +8,11 @@
   table-layout: fixed;
 
   th {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
     text-align: left;
-    font-weight: 400;
     color: rgb(48, 54, 65);
+    font-weight: 700;
   }
 
   td {
@@ -21,32 +26,92 @@
   > thead > tr > td,
   > tbody > tr > td,
   > tfoot > tr > td {
-    padding: 8px;
-    border-top: 1px solid #ebebeb;
-    overflow: hidden;
+    border-bottom: 1px solid #ebebeb;
+    border-top-width: 0;
+    padding: 8px 12px;
     line-height: @line-height-base;
-    vertical-align: top;
+    vertical-align: middle;
   }
 
-  > caption+thead > tr:first-child > th,
-  > colgroup+thead > tr:first-child > th,
+  > thead > tr > th,
+  > tbody > tr > th,
+  > tfoot > tr > th {
+    .text-overflow();
+  }
+
+  > caption + thead > tr:first-child > th,
+  > colgroup + thead > tr:first-child > th,
   > thead:first-child > tr:first-child > th,
-  > caption+thead > tr:first-child > td,
-  > colgroup+thead > tr:first-child > td,
-  > thead:first-child > tr:first-child > td { border-top: 0; }
+  > caption + thead > tr:first-child > td,
+  > colgroup + thead > tr:first-child > td,
+  > thead:first-child > tr:first-child > td {
+    border-top: 0;
+  }
 
-  span.divider { margin: 0 4px; }
+  p,
+  label {
+    margin-bottom: 0;
+  }
+
+  // utilties
+  // ===============
+
+  > thead > tr > th,
+  > tbody > tr > th,
+  > tfoot > tr > th,
+  > thead > tr > td,
+  > tbody > tr > td,
+  > tfoot > tr > td {
+    &.text-left {
+      text-align: left !important;
+    }
+
+    &.text-right {
+      text-align: right !important;
+    }
+
+    &.text-center {
+      text-align: center !important;
+    }
+  }
+
+  // Components
+  // ===============
+  .divider {
+    margin: 0 4px;
+  }
+  
+  .table-list {
+    margin-top: 5px;
+    padding-left: 5px;
+    border-left: 2px solid #e5e5e5;
+  }
+
+  .no-data {
+    height: 200px;
+    line-height: 200px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bolder;
+  }
 }
 
-.table.table-striped {
-  > tbody > tr:nth-child(odd) > td,
-  > tbody > tr:nth-child(odd) > th { background-color: rgb(248, 248, 248); }
+// Condensed Style
+// ================
+
+.table.table-condensed {
+  > thead > tr > th,
+  > tbody > tr > th,
+  > tfoot > tr > th,
+  > thead > tr > td,
+  > tbody > tr > td,
+  > tfoot > tr > td {
+    padding: 5px;
+  }
 }
 
-.table.table-hover {
-  > tbody > tr:hover > td,
-  > tbody > tr:hover > th { background-color: #f5fdfd; }
-}
+// Bordered Style
+// ================
 
 .table.table-bordered {
   > thead > tr > th,
@@ -54,7 +119,9 @@
   > tfoot > tr > th,
   > thead > tr > td,
   > tbody > tr > td,
-  > tfoot > tr > td { border: 1px solid rgb(235, 235, 235); }
+  > tfoot > tr > td {
+    border: 1px solid rgb(235, 235, 235);
+  }
 
   > thead > tr > th,
   > thead > tr > td {
@@ -63,73 +130,85 @@
   }
 }
 
-.table.table-condensed {
-  > thead > tr > th,
-  > tbody > tr > th,
-  > tfoot > tr > th,
-  > thead > tr > td,
-  > tbody > tr > td,
-  > tfoot > tr > td { padding: 5px; }
-}
+// Striped Style
+// ================
 
-// Responsive
-.table-columns-responsive() {
-  .make(@arr-responsive, @arr-token, @name, @index: 1) when (@index =< length(@arr-token)) {
-    @responsive:  extract(@arr-responsive, @index);
-    @token:       e(extract(@arr-token, @index));
-    @n:           e(@name);
-
-    @media (max-width: @responsive) {
-      .table > thead > tr > th.@{n}-@{token},
-      .table > tbody > tr > th.@{n}-@{token},
-      .table > tfoot > tr > th.@{n}-@{token},
-      .table > thead > tr > td.@{n}-@{token},
-      .table > tbody > tr > td.@{n}-@{token},
-      .table > tfoot > tr > td.@{n}-@{token} {
-        display: none;
-      }
-    }
-
-    .make(@arr-responsive, @arr-token, @name, @index + 1);
+.table.table-striped {
+  &.table-bordered > tbody > tr:nth-of-type(odd),
+  &.table-bordered > tbody > tr:nth-of-type(odd) {
+    background-color: transparent;
   }
 
-  @arr-responsive:  @screen-md-max @screen-sm-max @screen-xs-max;
-  @arr-token:       md sm xs;
-  @name:            out;
-  .make(@arr-responsive, @arr-token, @name);
+  &.table-bordered > tbody > tr:nth-of-type(even),
+  &.table-bordered > tbody > tr:nth-of-type(even) {
+    background-color: rgb(248, 248, 248);
+  }
 }
 
-// .table-columns-responsive();
+// Hover Style
+// ================
 
+.table.table-hover {
+  > tbody > tr:hover > td,
+  > tbody > tr:hover > th {
+    background-color: #f5fdfd;
+  }
+}
 
-.table-responsive {
+// Compress Style
+// =================
+
+.table-compress {
   width: 100%;
   overflow-x: auto;
-}
 
-.table-responsive > .table,
-.table-responsive > .table-header > .table,
-.table-responsive > .table-body > .table { margin-bottom: 0; }
+  > .table,
+  > .table-header > .table,
+  > .table-body > .table {
+    margin-bottom: 0;
+  }
 
-.table-responsive > .table-header,
-.table-responsive > .table-body {
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
+  > .table-header,
+  > .table-body {
+    max-height: 400px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
 
-.table-responsive > .table-header + .table-responsive > .table-body > .table  { border-top-width: 0; }
+  > .table-body .table-group {
+    margin-bottom: 0;
+  }
 
-.table-responsive > .table-header > .table,
-.table-responsive > .table-body > .table { height: 100%; }
+  > .table-header + .table-body > .table  {
+    border-top-width: 0;
+  }
 
-
-@media (max-width: @screen-xs-max) {
-  .table {
-    > thead > tr > th,
-    > tbody > tr > th,
-    > tfoot > tr > th,
-    > thead > tr > td,
-    > tbody > tr > td,
-    > tfoot > tr > td { padding: 4px; }
+  > .table-header > .table,
+  > .table-body > .table {
+    height: 100%;
   }
 }
+
+// Table Group
+// ==================
+
+.table-group {
+  .table {
+    margin-bottom: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 17px;
+  }
+}
+
+// Table Grid
+// ==================
+
+// .table-grid() {
+//   .make(@arr-responsive, @arr-token) when (@index =< length(@arr-token)) {
+    
+//   }
+// }
+
+// .table-grid();

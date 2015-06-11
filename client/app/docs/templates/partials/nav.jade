@@ -29,7 +29,7 @@ nav#nav-container(ng-controller='NavController')
             "active": nav.key == navs[0] && paths.length === 1\
           }')
 
-          a(ng-if='!nav.child', ng-href='{{ nav.url || "/index/" + nav.key }}/')
+          a(ng-if='!nav.child', ng-href='{{ nav.url || "/docs/" + nav.key }}/')
             i(class='fa fa-{{ nav.icon }}')
             span {{ nav.name }}
 
@@ -43,6 +43,6 @@ nav#nav-container(ng-controller='NavController')
               ng-class="{\
                 active: menu.key == navs[1] || menu.key == paths.slice(1, paths.length).join('/')\
               }")
-              a(ng-href='{{ menu.url || "/index/" + menu.key }}/', target='{{ menu.target }}')
+              a(ng-href='{{ menu.url || "/docs/" + menu.key }}/', target='{{ menu.target }}')
                 i(class='fa fa-circle-o')
                 | {{ menu.name }}
