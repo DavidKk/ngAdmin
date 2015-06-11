@@ -1,8 +1,10 @@
-// Nav
-// @author <David Jones qowera@qq.com>
-
+/**
+ * Nav Module
+ * @author <David Jones qowera@qq.com>
+ */
 angular.module('nav', [
-  'ui.slidedown', 'ui.ngIscroll'
+  'ngRoute'
+  , 'ui.slidedown', 'ui.ngIscroll'
   , 'conf.config'
 ])
 

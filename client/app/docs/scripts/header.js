@@ -1,5 +1,5 @@
 /**
- * Header
+ * Header Module
  * @author <David Jones qowera@qq.com>
  */
 angular.module('header', [

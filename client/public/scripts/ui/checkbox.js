@@ -1,6 +1,4 @@
-
-
-angular.module('ui.checkbox', [])
+angular.module('ui.checkbox', ['templates/checkbox/checkbox.html'])
 
 .controller('CheckboxController', [
   '$scope',
@@ -17,7 +15,7 @@ angular.module('ui.checkbox', [])
       transclude: true,
       replace: true,
       controller: 'CheckboxController',
-      templateUrl: 'template/checkbox/checkbox.html',
+      templateUrl: 'templates/checkbox/checkbox.html',
       require: ['^checkbox', '^?ngModel'],
       scope: {
         model: '=?ngModel',
@@ -31,12 +29,11 @@ angular.module('ui.checkbox', [])
 
         $scope.attrId = $attrs.id;
         $scope.attrName = $attrs.ngModel || ('checkbox-' + Date.now() + Math.round(Math.random()*100));
-        $scope.attrValue = $attrs.value;
+        $scope.attrValue = angular.isDefined($attrs.value) ? $attrs.value : true;
         $scope.attrNgChecked = $attrs.ngChecked;
-        $scope.disabled = $attrs.hasOwnProperty('disabled');
+        $scope.disabled = $attrs.hasOwnProperty('disabled')
         $scope.checked = angular.isBoolean($scope.ngModel) ? $scope.ngModel : $attrs.hasOwnProperty('checked');
 
-        $scope.attrValue = angular.isDefined($scope.attrValue) ? $scope.attrValue : true;
         $scope.toggle = function(isChecked) {
           isChecked = angular.isDefined(isChecked) ? !!isChecked : !$scope.checked;
           $scope.checked = isChecked;
@@ -44,8 +41,10 @@ angular.module('ui.checkbox', [])
 
         $element
         .removeAttr('id')
-        .on('click', function() {
+        .on('click', function(event) {
           if ($scope.disabled) {
+            event.preventDefault()
+            event.stopPropagation()
             return false;
           }
 
@@ -79,6 +78,7 @@ angular.module('ui.checkbox', [])
 
         $scope.$watch('model', function(value) {
           var isChecked = $scope.checked = value == $scope.attrValue;
+
           $element.attr('checked', isChecked);
           $scope.toggle(isChecked);
           CheckboxCtrl.toggle(isChecked);

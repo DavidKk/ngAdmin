@@ -1,5 +1,7 @@
-
-
+/**
+ * Chart Module
+ * @author <David Jones qowera@qq.com>
+ */
 angular.module('charts', [
   'highcharts-ng'
 ])

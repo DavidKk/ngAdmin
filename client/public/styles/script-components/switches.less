@@ -1,4 +1,4 @@
-// Switch
+// Switches
 // --------------
 
 .switch {
@@ -102,10 +102,12 @@
   
   input.disabled,
   input:disabled {
+    pointer-events: none;
+
     + .switch-inner {
       .switch-on,
       .switch-off {
-        .opacity(.6);
+        .opacity(.3);
       }
     }
   }

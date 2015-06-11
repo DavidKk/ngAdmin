@@ -1,6 +1,4 @@
-
-
-angular.module('ui.radio', [])
+angular.module('ui.radio', ['templates/radio/radio.html'])
 
 .controller('RadioController', [
   '$scope',
@@ -17,7 +15,7 @@ angular.module('ui.radio', [])
       transclude: true,
       replace: true,
       controller: 'RadioController',
-      templateUrl: 'template/radio/radio.html',
+      templateUrl: 'templates/radio/radio.html',
       require: ['^radio', '^?ngModel'],
       scope: {
         model: '=?ngModel',
@@ -29,7 +27,7 @@ angular.module('ui.radio', [])
 
         $scope.attrId = $attrs.id;
         $scope.attrName = $attrs.ngModel || ('radio-' + Date.now() + Math.round(Math.random()*100));
-        $scope.attrValue = $attrs.value;
+        $scope.attrValue = angular.isDefined($attrs.value) ? $attrs.value : true;
         $scope.disabled = $attrs.hasOwnProperty('disabled');
         $scope.checked = angular.isBoolean($scope.ngModel) ? $scope.ngModel : $attrs.hasOwnProperty('checked');
 
@@ -40,8 +38,10 @@ angular.module('ui.radio', [])
 
         $element
         .removeAttr('id')
-        .on('click', function() {
+        .on('click', function(event) {
           if ($scope.disabled) {
+            event.preventDefault()
+            event.stopPropagation()
             return false;
           }
 
@@ -63,9 +63,10 @@ angular.module('ui.radio', [])
         });
 
         $scope.$watch('model', function(value) {
-          $scope.checked = value == $scope.attrValue;
-          $element.attr('checked', $scope.checked);
-          if ($scope.checked) {
+          var isChecked = $scope.checked = value == $scope.attrValue
+          $element.attr('checked', isChecked)
+
+          if (isChecked) {
             $scope.toggle(true);
             RadioCtrl.toggle(true);
           }

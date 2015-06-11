@@ -194,103 +194,46 @@ include mixins/panel
               label.col-sm-3.control-label Checkboxes
               .col-sm-5
                 .clearfix
-                  label.checkbox.checkbox-replace
-                    input(type='checkbox', checked)
-                    .checkbox-icon
-                    .checkbox-inner Checkbox 1
+                  checkbox Checkbox 1
+                .clearfix
+                  checkbox(checked) Checkbox 2
                 .clearfix
                   label.checkbox.checkbox-replace
-                    input(type='checkbox', checked)
-                    .checkbox-icon
-                    .checkbox-inner Checkbox 2
+                    checkbox(disabled) Checkbox 3
                 .clearfix
-                  label.checkbox.checkbox-replace
-                    input(type='checkbox')
-                    .checkbox-icon
-                    .checkbox-inner Checkbox 3
-                .clearfix
-                  label.checkbox.checkbox-replace
-                    input(type='checkbox', disabled)
-                    .checkbox-icon
-                    .checkbox-inner Checkbox 3
-                .clearfix
-                  label.checkbox.checkbox-replace
-                    input(type='checkbox', disabled, checked)
-                    .checkbox-icon
-                    .checkbox-inner Checkbox 3
+                  checkbox(checked, disabled) Checkbox 4
 
             .form-group
               label.col-sm-3.control-label Radio Inputs
               .col-sm-5
                 .clearfix
-                  label.radio.radio-replace
-                    input(type='radio', checked)
-                    .radio-icon
-                    .radio-inner Radio 1
+                  radio Radio 1
                 .clearfix
-                  label.radio.radio-replace
-                    input(type='radio', checked)
-                    .radio-icon
-                    .radio-inner Radio 2
+                  radio(checked) Radio 2
                 .clearfix
-                  label.radio.radio-replace
-                    input(type='radio')
-                    .radio-icon
-                    .radio-inner Radio 3
+                  radio(disabled) Radio 3
                 .clearfix
-                  label.radio.radio-replace
-                    input(type='radio', disabled)
-                    .radio-icon
-                    .radio-inner Radio 3
-                .clearfix
-                  label.radio.radio-replace
-                    input(type='radio', disabled, checked)
-                    .radio-icon
-                    .radio-inner Radio 3
+                  radio(checked, disabled) Radio 4
 
             .form-group
               label.col-sm-3.control-label Colors
               .col-sm-5
                 .clearfix
-                  label.radio.radio-replace.radio-blue
-                    input(type='radio')
-                    .radio-icon
-                    .radio-inner Radio 1
+                  radio.radio-blue(checked) Radio 1
                 .clearfix
-                  label.radio.radio-replace.radio-cyan
-                    input(type='radio', checked)
-                    .radio-icon
-                    .radio-inner Radio 2
+                  radio.radio-cyan(checked) Radio 2
                 .clearfix
-                  label.radio.radio-replace.radio-green
-                    input(type='radio', disabled)
-                    .radio-icon
-                    .radio-inner Radio 3
+                  radio.radio-green(checked) Radio 3
                 .clearfix
-                  label.radio.radio-replace.radio-yellow
-                    input(type='radio', checked, disabled)
-                    .radio-icon
-                    .radio-inner Radio 4
+                  radio.radio-yellow(checked) Radio 4
                 .clearfix
-                  label.checkbox.checkbox-replace.checkbox-orange
-                    input(type='checkbox')
-                    .checkbox-icon
-                    .checkbox-inner Checkbox 5
+                  checkbox.checkbox-orange(checked) Checkbox 5
                 .clearfix
-                  label.checkbox.checkbox-replace.checkbox-red
-                    input(type='checkbox', checked)
-                    .checkbox-icon
-                    .checkbox-inner Checkbox 6
+                  checkbox.checkbox-red(checked) Checkbox 6
                 .clearfix
-                  label.checkbox.checkbox-replace.checkbox-pink
-                    input(type='checkbox', disabled)
-                    .checkbox-icon
-                    .checkbox-inner Checkbox 7
+                  checkbox.checkbox-pink(checked) Checkbox 7
                 .clearfix
-                  label.checkbox.checkbox-replace.checkbox-amethyst
-                    input(type='checkbox', checked, disabled)
-                    .checkbox-icon
-                    .checkbox-inner Checkbox 8
+                  checkbox.checkbox-amethyst(checked) Checkbox 8
 
     +panel('Switches - Checkbox &amp; Radio')
       mixin body
@@ -367,16 +310,12 @@ include mixins/panel
             .form-group
               label.col-sm-3.control-label Apply Icon
               .col-sm-5
-                label.switch
-                  input(type='checkbox')
-                  .switch-inner
-                    .switch-on
-                      .inner
-                        i.fa.fa-check
-                    .switch-off
-                      .inner
-                        i.fa.fa-times
-                  .switch-switch
+                switch
+                  on
+                    i.fa.fa-check
+                  off
+                    i.fa.fa-times
+
                 label.switch
                   input(type='checkbox', checked)
                   .switch-inner

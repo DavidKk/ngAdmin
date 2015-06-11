@@ -1,10 +1,11 @@
 /**
- * Index
+ * Entrance Module
  * @author <David Jones qowera@qq.com>
  */
 angular.module('docs', [
   'ngRoute'
   , 'conf.config', 'helpers.util'
+  , 'ui.checkbox', 'ui.radio'
   , 'chat', 'header', 'nav'
 ])
 

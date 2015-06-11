@@ -1,3 +1,6 @@
+// Checkboxes
+// -----------------
+
 .checkbox {
   margin: 0;
 }
@@ -62,6 +65,8 @@
   &:disabled,
   &[disabled],
   &.disabled {
+    pointer-events: none;
+
     > .checkbox-icon {
       .opacity(.3);
     }

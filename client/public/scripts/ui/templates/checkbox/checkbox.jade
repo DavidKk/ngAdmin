@@ -1,0 +1,13 @@
+
+
+.checkbox.checkbox-replace(ng-class="{ disabled: disabled }")
+  input(checkbox-origin,
+    ng-class="{ disabled: disabled }",
+    ng-model="ngModel",
+    ng-attr-id="{{ attrId }}",
+    ng-attr-name="{{ attrName }}",
+    ng-attr-value="{{ attrValue }}",
+    ng-disabled="{{ disabled }}",
+    type="checkbox")
+  .checkbox-icon
+  .checkbox-inner(ng-transclude)

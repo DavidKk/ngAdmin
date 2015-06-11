@@ -200,14 +200,14 @@ module.exports = function(grunt) {
       ui: {
         options: {
           useStrict: true,
-          base: 'client/public/scripts/ui/template',
+          base: 'client/public/scripts/ui/templates',
           module: null,
           rename: function(name) {
             return 'templates/' + name.replace(path.extname(name), '.html');
           }
         },
-        dest: '<%= buildPath %>/scripts/ui/template',
-        cwd: 'client/public/scripts/ui/template',
+        dest: '<%= buildPath %>/scripts/ui/templates',
+        cwd: 'client/public/scripts/ui/templates',
         src: ['**/*.jade'],
         ext: '.html.js',
         expand: true
@@ -351,15 +351,8 @@ module.exports = function(grunt) {
       },
 
       // scripts
-      'script-public': {
-        files: ['client/public/scripts/*/*.js'],
-        tasks: ['concatJS']
-      },
-      'script-app': {
-        options: {
-          event: ['added', 'deleted'],
-        },
-        files: ['client/app/*/scripts/*/*.js'],
+      'script': {
+        files: ['client/public/scripts/**/*.js', 'client/app/*/scripts/**/*.js'],
         tasks: ['concatJS']
       },
 
@@ -491,26 +484,18 @@ module.exports = function(grunt) {
     
     grunt.task.run(['less', 'saveState'])
   })
-
+  
   /**
    * concatJS 任务首先会根据各应用中的模块 `client/app/*` 获取所有需要用到的公共模块，
    * 这些公共模块再会通过依赖关系获取相应的模块，这样就可以列出相应的顺序引入到公共模块。
    * 然后再合并 `client/app\/*\/scripts/` 下的所有模块生成名为应用名的脚本文件。
    */
   grunt.registerTask('concatJS', 'According to dependencies, merge and sort the angularjs files.', function() {
-    var appModules = []
-        , cmmModules = []
-        , tplModules = []
-        , uiModules = []
-
-    /**
-     * Import controller modules from controller's files.
-     * It will read the file and find out their dependencies.
-     */
-    grunt.log.subhead('Find out all dependencies module of apps\' modules.')
-
     var appFiles = []
-        , appDeps = []
+        , appModules = []
+        , cmmModules = []
+        , cmmDeps = []
+        , uiTplModules = []
 
     appFiles = grunt.file
     .expand('client/app/*/scripts/*.js')
@@ -520,7 +505,6 @@ module.exports = function(grunt) {
 
     cmmModules = findScripts(appFiles, { isRoot: true })
     .filter(function(module) {
-      console.log(module.srcFile)
       if (-1 === appFiles.indexOf(module.srcFile)) {
         return true
       }
@@ -530,22 +514,21 @@ module.exports = function(grunt) {
       }
     })
 
-    // Find out all dependencies.
-    _.pluck(appModules, 'dependencies')
+    // Find out all common moudles' dependencies.
+    _.pluck(cmmModules, 'dependencies')
     .forEach(function(deps) {
       if (deps.length > 0) {
-        appDeps = appDeps.concat(deps)
+        cmmDeps = cmmDeps.concat(deps)
       }
     })
 
-    // Unique the same modules
-    appDeps = underscore.unique(appDeps)
+    cmmDeps = underscore.unique(cmmDeps)
 
     /**
      * Find out all the angular ui tempalte file.
      * Compile them to angular modules and save to the tmp path.
      */
-    tplModules = grunt.file
+    uiTplModules = grunt.file
     .expand(grunt.config('scriptPublicPath') + '/ui/templates/*/*.jade')
     .map(function(filePath) {
       var file = path.basename(filePath).replace(path.extname(filePath), '.html')
@@ -557,13 +540,13 @@ module.exports = function(grunt) {
       return { name: name, moduleName: moduleName, srcFile: srcFile }
     })
     .filter(function(module) {
-      return -1 !== appDeps.indexOf(module.name)
+      return -1 !== cmmDeps.indexOf(module.name)
     })
 
     // Pakage configure & Run concat task
-    var modules = cmmModules.concat(tplModules)
-        , srcModules = _.pluck(modules, 'moduleName')
-        , srcFiles = _.pluck(modules, 'srcFile')
+    var pubModules = cmmModules.concat(uiTplModules)
+        , srcModules = _.pluck(pubModules, 'moduleName')
+        , srcFiles = _.pluck(pubModules, 'srcFile')
 
     srcFiles
     .forEach(function(file) {
@@ -573,10 +556,8 @@ module.exports = function(grunt) {
     grunt.config('script.srcModules', srcModules)
     grunt.config('script.srcFiles', srcFiles)
 
-    /**
-     * Add app file concat task and add a watching task.
-     */
-    var appSortedModules = {}
+    // Add app file concat task and add a watching task.
+    var apps = {}
 
     appModules
     .forEach(function(module) {
@@ -585,42 +566,33 @@ module.exports = function(grunt) {
           .split('\/')
           .slice(2,3)[0]
 
-      if (!appSortedModules[name]) {
-        appSortedModules[name] = []
+      if (!apps[name]) {
+        apps[name] = []
       }
 
-      appSortedModules[name].push(module)
+      apps[name].push(module)
     })
 
     var name = ''
-    for (name in appSortedModules) {
-      grunt.log.subhead('Concat scripts file of `' + name + '` module.')
+    for (name in apps) {
+      grunt.log.subhead('Concat scripts file of `' + name + '` SPA.')
 
       // Extend concat task.
       grunt.config('concat.$' + name, {
         options: {
           banner: '// ' + name + '.js#<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd HH:MM:ss") %>\n',
         },
-        src: appSortedModules[name]
+        src: apps[name]
           .map(function(app) {
             grunt.log.writeln('File ' + app.srcFile.cyan + ' imported.')
             return app.srcFile
           }),
         dest: '<%= scriptDistPath %>/app/' + name + '.js',
       })
-
-      // Extend watch task.
-      grunt.config('watch.$script-' + name, {
-        options: {
-          event: ['changed'],
-        },
-        files: ['client/app/' + name + '/scripts/**'],
-        tasks: ['loadState', 'concat:$' + name]
-      })
     }
 
     // Run the concat task.
-    grunt.task.run(['concat', 'saveState'])
+    grunt.task.run(['html2js:ui', 'concat'])
   })
 
   grunt.registerTask('compileJade', 'Find the jade file and watch them in each app.', function() {
@@ -661,7 +633,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('buildAssets', ['bower', 'copy:assets', 'favicons', 'sprite', 'imagemin'])
   grunt.registerTask('compileStyle',  ['less2Css'])
-  grunt.registerTask('concatScript', ['html2js', 'concatJS'])
+  grunt.registerTask('concatScript', ['concatJS'])
   grunt.registerTask('compileLayout', ['compileJade'])
   grunt.registerTask('default', ['development'])
 
