@@ -1,6 +1,6 @@
+// Nav In Desktop
+// -----------------
 
-
-// Rewrite layout
 @media (max-width: @screen-md-max) {  
   .container-layout .main-layout {
     padding-left: 0;
@@ -19,99 +19,101 @@
   // Minify Mode
   .minify #nav-container {
     width: 75px;
-  }
 
-  .minify #nav-container ul.nav {
-    > li.dropdown-submenu:before,
-    > li.search-sidebar,
-    > li.profile-sidebar {
-      display: none;
+    .viewport-scroll {
+      overflow: visible;
     }
 
-    > li > a {
-      padding: 0;
-      padding-top: 25px;
-      width: 75px;
-      height: 75px;
-      line-height: 20px;
-      text-align: center;
+    .nav {
+      > .dropdown-submenu:before,
+      > .search-sidebar,
+      > .profile-sidebar {
+        display: none;
+      }
+
+      > li > a {
+        padding: 0;
+        padding-top: 25px;
+        width: 75px;
+        height: 75px;
+        line-height: 20px;
+        text-align: center;
+      }
+
+      > li > a > i {
+        margin-right: 0;
+        width: 75px;
+        font-size: 24px;
+      }
+
+      > li > a > span {
+        display: none;
+      }
+
+      > .active > a,
+      > li > a:hover {
+        color: rgb(255, 255, 255);
+      }
+
+      > .dropdown-submenu.open .nav-submenu {
+        display: none;
+      }
+
+      > .dropdown-submenu:hover .nav-submenu {
+        display: block;
+      }
     }
 
-    > li > a > i {
-      margin-right: 0;
-      width: 75px;
-      font-size: 24px;
-    }
-
-    > li > a > span {
-      display: none;
-    }
-
-    > li.active > a,
-    > li > a:hover {
-      color: rgb(255, 255, 255);
-    }
-
-    > li.dropdown-submenu.open .dropdown-menu {
-      display: none;
-    }
-
-    > li.dropdown-submenu:hover .dropdown-menu {
-      display: block;
-    }
-  }
-
-  .minify #nav-container .nav-submenu {
-    .border-radius(4px);
-    .box-shadow(0 6px 12px rgba(0, 0, 0, 0.176));
-
-    margin-left: 1px;
-    padding: 4px;
-    height: auto !important;
-    background-color: rgb(48, 54, 65);
-    position: absolute;
-    left: 100%;
-    top: 0;
-
-    &:before {
-      bottom: 0;
-      content: "";
+    .nav-submenu {
       position: absolute;
-      right: 100%;
+      left: 100%;
       top: 0;
-      width: 10px;
-    }
+      margin-left: 1px;
+      padding: 4px 16px 4px 4px;
+      height: auto !important;
+      .border-radius(4px);
+      background-color: rgb(48, 54, 65);
+      .box-shadow(0 6px 12px rgba(0, 0, 0, 0.176));
 
-    > li {
-      line-height: @line-height-base;
-    }
+      &:before {
+        bottom: 0;
+        content: "";
+        position: absolute;
+        right: 100%;
+        top: 0;
+        width: 10px;
+      }
 
-    > li > a {
-      .transition(color .35s, background-color .35s);
+      > li {
+        line-height: @line-height-base;
+      }
 
-      padding-left: 10px;
-      border-width: 0;
-      background-color: transparent;
-    }
+      > li > a {
+        .transition(color .35s, background-color .35s);
 
-    > li.active > a,
-    > li > a:hover {
-      background-color: rgb(45, 50, 61);
-    }
+        padding-left: 10px;
+        border-width: 0;
+        background-color: transparent;
+      }
 
-    > li > a > span {
-      color: rgb(116, 127, 149);
+      > .active > a,
+      > li > a:hover {
+        background-color: rgb(45, 50, 61);
+      }
+
+      > li > a > span {
+        color: rgb(116, 127, 149);
+      }
     }
   }
-
 
   // Revision
-  body.fixed-layout #nav-container .scroll-viewport {
+  .fixed-layout #nav-container .scroll-viewport {
     margin-top: 0;
     padding-top: 0;
   }
 
-  #nav-container .scroll-viewport .scroll-wrapper {
+  .scroll-viewport .scroll-wrapper {
     overflow: visible;
   }
 }

@@ -1,5 +1,5 @@
 // Nav
-// @author <David Jones qowera@qq.com>
+// ---------------------
 
 .container-layout {
   .main-layout {
@@ -51,7 +51,6 @@
 
   .viewport-scroll {
     position: relative;
-    overflow: hidden;
     height: 100%;
   }
 
@@ -253,12 +252,12 @@
     width: auto;
     list-style: none;
     background-color: rgb(49, 61, 84);
-    
-    > li {
+
+    li {
       line-height: @line-height-base;
     }
 
-    > li > a {
+    li > a {
       display: block;
       padding: 10px 0 10px 40px;
       border-bottom: 1px solid lighten(rgb(43, 48, 58), 2%);
@@ -269,18 +268,19 @@
       background-color: rgb(43, 48, 58);
       .transition(all .35s);
 
-      > i {
+      i {
         margin-right: 6px;
+      }
+
+      span {
+        color: inherit;
       }
     }
     
-    > .active a,
-    > li > a:hover {
+    .active a,
+    li > a:hover {
       background-color: rgb(45, 50, 61);
-    }
-
-    > li > a > span {
-      color: rgb(116, 127, 149);
+      color: #fff;
     }
   }
 
@@ -293,9 +293,9 @@
 @media (max-width: 767px), (min-width: 1170px) {
   #nav-container {
     .nav-submenu {
-      .clearfix();
       display: block;
       overflow-y: hidden;
+      .clearfix();
 
       > li > a {
         color: rgba(116, 127, 149, 0);

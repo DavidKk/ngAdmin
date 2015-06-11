@@ -1,22 +1,26 @@
-
+// Nav In Mobile
+// ----------------
 
 @media (max-width: @screen-xs-max) {
-  // rewrite layout
-  .container-layout .navigation-layout {
-    .transform(translate3d(-280px, 0, 0));
-    padding-top: 0;
+  .container-layout {
+    .navigation-layout {
+      padding-top: 0;
+      .transform(translate3d(-280px, 0, 0));
+    }
+
+    .main-layout .content-layout {
+      margin-left: 0;
+    }
   }
 
-  .container-layout .main-layout .content-layout {
-    margin-left: 0;
-  }
+  .show-nav .container-layout {
+    .navigation-layout {
+      .transform(translate3d(0, 0, 0));
+    }
 
-  body.show-nav .container-layout .navigation-layout {
-    .transform(translate3d(0, 0, 0));
-  }
-
-  body.show-nav .container-layout .main-layout {
-    .transform(translate3d(280px, 0, 0));
+    .main-layout {
+      .transform(translate3d(280px, 0, 0));
+    }
   }
 }
 
@@ -25,97 +29,96 @@
   .minify #nav-container {
     margin-top: 0;
     width: 50px;
-  }
 
-  .minify #nav-container ul.nav {
-    > li > a {
-      padding-top: 15px;
-      width: 50px;
-      height: 50px;
+    .nav {
+      > li > a {
+        padding-top: 15px;
+        width: 50px;
+        height: 50px;
+      }
+
+      > li > a > i {
+        width: 50px;
+        font-size: 16px;
+      }
+
+      > li > a > span {
+        display: none;
+        position: absolute;
+        left: 100%;
+        top: 0;
+        padding: 14px 10px;
+        width: 240px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        text-align: left;
+        color: rgb(255, 255, 255);
+        background-color: rgb(45, 50, 61);
+      }
+    
+      > .active a,
+      > li:hover > a > span {
+        display: block;
+      }
+
+
+      > .search-sidebar {
+        display: block;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      > .search-sidebar > input {
+        display: none;
+        position: absolute;
+        left: 100%;
+        top: 0;
+        padding: 15px 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        width: 240px;
+        height: 50px;
+        line-height: 20px;
+        text-align: left;
+        color: rgb(255, 255, 255);
+        background-color: rgb(45, 50, 61);
+      }
+
+      > .search-sidebar > a {
+        position: relative;
+        top: auto;
+        right: auto;
+        left: auto;
+        bottom: auto;
+        margin: 0;
+        padding: 15px !important;
+        width: 50px;
+        height: 50px;
+        line-height: 20px;
+        text-align: center;
+        font-size: 16px;
+      }
+
+      > .search-sidebar > a > i {
+        width: 20px;
+      }
+
+      > .search-sidebar:hover > input {
+        display: block;
+      }
     }
 
-    > li > a > i {
-      width: 50px;
-      font-size: 16px;
-    }
-
-    > li > a > span {
-      padding: 14px 10px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      background-color: rgb(45, 50, 61);
-      display: none;
-      width: 240px;
+    .nav-submenu {
       position: absolute;
       left: 100%;
-      top: 0;
-      text-align: left;
-      color: rgb(255, 255, 255);
-    }
-  
-    > li.active a,
-    > li:hover > a > span {
-      display: block;
-    }
+      top: 100%;
+      margin: -2px 0 0 0;
+      border-width: 0;
+      .border-radius(0);
+      width: 240px !important;
 
-
-    > li.search-sidebar {
-      display: block;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    > li.search-sidebar > input {
-      padding: 15px 10px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      background-color: rgb(45, 50, 61);
-      width: 240px;
-      height: 50px;
-      display: none;
-      position: absolute;
-      left: 100%;
-      top: 0;
-      line-height: 20px;
-      text-align: left;
-      color: rgb(255, 255, 255);
-    }
-
-    > li.search-sidebar > a {
-      margin: 0;
-      padding: 15px !important;
-      width: 50px;
-      height: 50px;
-      font-size: 16px;
-      position: relative;
-      top: auto;
-      right: auto;
-      left: auto;
-      bottom: auto;
-      line-height: 20px;
-      text-align: center;
-    }
-
-    > li.search-sidebar > a > i {
-      width: 20px;
-    }
-
-    > li.search-sidebar:hover > input {
-      display: block;
-    }
-  }
-
-  .minify #nav-container ul.nav-submenu {
-    .border-radius(0);
-
-    margin: 0;
-    padding: 0;
-    width: 240px !important;
-    border-width: 0;
-    position: absolute;
-    left: 100%;
-
-    > li > a {
-      padding-top: 10px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      > li > a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
     }
   }
 }

@@ -1,5 +1,5 @@
 // Header
-// @author <David Jones qowera@qq.com>
+// ------------------
 
 #header-container {
   position: relative;
@@ -12,8 +12,9 @@
   min-height: 1px;
   width: 100%;
   color: rgb(116, 127, 149);
-
-  .navbar {  
+  
+  // nav real block
+  .navbar {
     margin-bottom: 0;
     .border-radius(0);
     border-width: 0;
@@ -21,68 +22,71 @@
   }
 
   .navbar .navbar-header .menu-switch {
-    padding: 25px;
     display: block;
-    cursor: pointer;
+    padding: 25px;
     line-height: 20px;
     color: rgb(116, 127, 149);
     font-size: 25px;
+    cursor: pointer;
   }
-
+  
+  // searchbar in header
   .navbar .search-header {
-    padding-left: 10px;
+    position: relative;
+    float: left;
     margin-top: 20px;
     margin-left: 20px;
     margin-right: 20px;
+    padding-left: 10px;
     background-color: darken(#fff, 4%);
-    position: relative;
-    float: left;
 
     input {
+      display: block;
       margin-left: 20px;
       padding: 10px;
       border-width: 0;
-      background-color: transparent;
-      display: block;
       vertical-align: middle;
-      outline: 0;
       color: rgb(30, 41, 61);
+      background-color: transparent;
+      outline: 0;
     }
 
     input + i {
-      margin-top: -10px;
       position: absolute;
       top: 50%;
+      margin-top: -10px;
       color: rgb(128, 128, 128);
       font-size: 20px;
     }
   }
-
+  
+  // notify header in left (default)
   .navbar .notify-header {
+    display: block;
     margin-bottom: 0;
     padding-left: 0;
-    display: block;
     list-style: none;
     
     > li {
-      float: left;
-      position: relative;
       display: block;
+      position: relative;
+      float: left;
     }
 
     > li > a {
-      .transition(all .35s);
-
-      padding: 25px;
       display: block;
+      padding: 25px;
       border-right: 1px solid rgb(238, 238, 238);
       cursor: pointer;
       text-align: center;
       line-height: 20px;
       color: rgb(128, 128, 128);
       font-size: 25px;
+      .transition(all .35s);
 
-      &:hover { background-color: rgb(249, 249, 249); }
+      &:hover {
+        background-color: rgb(249, 249, 249);
+      }
     }
 
     > li > a > .badge {
@@ -92,9 +96,17 @@
       z-index: 100;
     }
 
-    > .bars { display: none; }
-    > .bars > a { width: 75px; }
-    > .profile { cursor: pointer; }
+    > .bars {
+      display: none;
+    }
+
+    > .bars > a {
+      width: 75px;
+    }
+    
+    > .profile {
+      cursor: pointer;
+    }
 
     > .profile > .avator {
       padding: 12.5px 10px;
@@ -103,38 +115,43 @@
     }
 
     > .profile > .avator > img {
-      .border-radius(50px);
-      .transition(all .25s);
-
+      display: block;
       margin: 0 auto;
       width: 50px;
       height: 50px;
-      display: block;
+      .border-radius(50px);
       vertical-align: middle;
+      .transition(all .25s);
     }
 
     > .profile > span.name {
-      .text-overflow();
-      .transition(all .35s);
-
-      padding: 30px 15px 15px 0;
       display: block;
       float: right;
       overflow: hidden;
+      padding: 30px 15px 15px 0;
+      .text-overflow();
       color: rgb(128, 128, 128);
+      .transition(all .35s);
     }
     
-    > .profile > .avator:hover { background-color: transparent; }
-    > .profile > .avator:hover > img { .opacity(.9); }
+    > .profile > .avator:hover {
+      background-color: transparent;
+      
+      > img {
+        .opacity(.9);
+      }
+    }
   }
 
+  // notify header in right
   .navbar .notify-header.pull-right {
     > li > a {
       border-right-width: 0;
       border-left: 1px solid rgb(238, 238, 238);
     }
   }
-
+  
+  // task dropdown
   .navbar .notify-header .dropdown-menu-tasks {
     .task > .task-info {
       margin-bottom: 4px;
@@ -149,7 +166,8 @@
       margin-bottom: 0;
     }
   }
-
+  
+  // message dropdown
   .navbar .notify-header .dropdown-menu-message {
     max-width: 500px !important;
     min-width: 368px !important;
@@ -185,7 +203,8 @@
       font-weight: normal;
     }
   }
-
+  
+  // notify dropdown
   .navbar .notify-header .dropdown-menu-notify {
     .message > .label {
       font-size: 14px;

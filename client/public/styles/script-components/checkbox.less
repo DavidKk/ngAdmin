@@ -49,18 +49,29 @@
   &:hover .checkbox-icon {
     .box-shadow(0 0 4px #dedede);
   }
-
-  input[checked] + .checkbox-icon:before {
-    max-width: 10px;
-    max-height: 10px;
-    .opacity(1);
+  
+  input.checked,
+  input:checked {
+    & + .checkbox-icon:before {
+      max-width: 10px;
+      max-height: 10px;
+      .opacity(1);
+    }
+  }
+  
+  &:disabled,
+  &[disabled],
+  &.disabled {
+    > .checkbox-icon {
+      .opacity(.3);
+    }
   }
 
-  &[disabled] > .checkbox-icon, 
-  &.disabled > .checkbox-icon,
-  input.disabled + .checkbox-icon,
-  input[disabled] + .checkbox-icon {
-    .opacity(.3); 
+  input.disabled,
+  input:disabled {
+    + .checkbox-icon {
+      .opacity(.3);
+    }
   }
 
   .checkbox-inner {
