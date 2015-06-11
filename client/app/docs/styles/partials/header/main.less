@@ -87,58 +87,58 @@
       &:hover {
         background-color: rgb(249, 249, 249);
       }
-    }
 
-    > li > a > .badge {
-      position: absolute;
-      right: 15px;
-      top: 15px;
-      z-index: 100;
+      .badge {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        z-index: 100;
+      }
     }
 
     > .bars {
       display: none;
-    }
 
-    > .bars > a {
-      width: 75px;
+      a {
+        width: 75px;
+      }
     }
     
     > .profile {
       cursor: pointer;
-    }
 
-    > .profile > .avator {
-      padding: 12.5px 10px;
-      width: 75px;
-      float: left;
-    }
+      .avator {
+        padding: 12.5px 10px;
+        width: 75px;
+        float: left;
 
-    > .profile > .avator > img {
-      display: block;
-      margin: 0 auto;
-      width: 50px;
-      height: 50px;
-      .border-radius(50px);
-      vertical-align: middle;
-      .transition(all .25s);
-    }
+        img {
+          display: block;
+          margin: 0 auto;
+          width: 50px;
+          height: 50px;
+          .border-radius(50px);
+          vertical-align: middle;
+          .transition(all .25s);
+        }
 
-    > .profile > span.name {
-      display: block;
-      float: right;
-      overflow: hidden;
-      padding: 30px 15px 15px 0;
-      .text-overflow();
-      color: rgb(128, 128, 128);
-      .transition(all .35s);
-    }
-    
-    > .profile > .avator:hover {
-      background-color: transparent;
-      
-      > img {
-        .opacity(.9);
+        &:hover {
+          background-color: transparent;
+          
+          img {
+            .opacity(.9);
+          }
+        }
+      }
+
+      .name {
+        display: block;
+        float: right;
+        overflow: hidden;
+        padding: 30px 15px 15px 0;
+        .text-overflow();
+        color: rgb(128, 128, 128);
+        .transition(all .35s);
       }
     }
   }
@@ -152,8 +152,8 @@
   }
   
   // task dropdown
-  .navbar .notify-header .dropdown-menu-tasks {
-    .task > .task-info {
+  .navbar .notify-header .dropdown-menu-tasks ul {
+    > li .task .task-info {
       margin-bottom: 4px;
       
       .percent {
@@ -161,61 +161,74 @@
       }
     }
 
-    .task > .progress {
+    > li .task .progress {
       height: 6px;
       margin-bottom: 0;
     }
   }
   
   // message dropdown
-  .navbar .notify-header .dropdown-menu-message {
+  .navbar .notify-header .dropdown-menu-message ul {
     max-width: 500px !important;
     min-width: 368px !important;
 
-    .message > .thumb {
+    > li .message .thumb {
       float: right;
       display: block;
       margin-left: 10px;
+
+       > img {
+        border: 1px solid #fff;
+        .border-radius(100%);
+        height: 48px;
+        width: 48px;
+      }
     }
 
-    .message > .thumb > img {
-      .border-radius(100%);
+    > li .message .desc {
+      .line {
+        display: block;
+        margin-top: 8px;
+        .text-overflow();
+        font-weight: bold;
 
-      border: 1px solid #fff;
-      height: 48px;
-      width: 48px;
-    }
+        &.read {
+          font-weight: normal;
+        }
+      }
 
-    .message > .desc > .line {
-      .text-overflow();
-      
-      font-weight: bold;
-      display: block;
-      margin-top: 8px;
-    }
-
-    .message > .desc > .line.read {
-      font-weight: normal;
-    }
-
-    .message > .desc > .line + .line {
-      margin-top: 5px;
-      font-weight: normal;
+      .line + .line {
+        margin-top: 5px;
+        font-weight: normal;
+      }
     }
   }
   
   // notify dropdown
-  .navbar .notify-header .dropdown-menu-notify {
-    .message > .label {
-      font-size: 14px;
-      float: right;
-      padding: 6px 0;
-      text-align: center;
-      width: 29px;
-      vertical-align: middle;
+  .navbar .notify-header .dropdown-menu-notify ul {
+    > li .message {
+      position: relative;
     }
 
-    .message > .small {
+    > li .message .label {
+      vertical-align: middle;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 10px;
+      margin: auto 0;
+      padding: 6px 0;
+      width: 32px;
+      height: 32px;
+      text-align: center;
+      font-size: 14px;
+
+      i {
+        margin-right: 0;
+      }
+    }
+
+    > li .message .small {
       display: block;
     }
   }

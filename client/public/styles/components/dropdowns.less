@@ -1,19 +1,22 @@
+// Dropdown Menu
+// -----------------
+
 .dropdown-menu {
   .border-radius(0);
 
-  > li > a {
+  li > a {
     line-height: 20px;
-  }
 
-  > li > a > i {
-    display: inline-block;
-    margin-right: 4px;
-    width: 20px;
-    height: 20px;
-    vertical-align: middle;
-    line-height: 20px;
-    text-align: center;
-    font-size: 14px;
+    i {
+      display: inline-block;
+      margin-right: 4px;
+      width: 20px;
+      height: 20px;
+      vertical-align: middle;
+      line-height: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
   }
 }
 
@@ -69,8 +72,8 @@
     .arrow-mixin(6px, @green, top, 10%);
   }
 
-  .dropdown-menu-modal.pull-right .dropdown-menu-arrow {
-    .arrow-mixin > .offset(-1.5em, top);
+  &.pull-right .dropdown-menu-arrow {
+    .arrow-mixin > .offset(-2em, top);
   }
 
   .dropdown-list {
@@ -127,7 +130,6 @@
 }
 
 .dropdown-menu-modal-palette(@dropdown-palette);
-
 
 .dropdown-menu-modal .scroll-viewport.scroll-wrapper {
   padding-right: 8px;

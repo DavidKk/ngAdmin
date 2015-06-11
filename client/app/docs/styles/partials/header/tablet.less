@@ -1,5 +1,5 @@
-// Header
-// @author <David Jones qowera@qq.com>
+// Header In Tablet
+// ----------------------
 
 @media (max-width: @screen-sm-max) {
   // rewrite layout
@@ -12,38 +12,42 @@
       display: none;
     }
 
+    // searchbar in header
     .navbar .search-header {
       display: none;
     }
 
-    .navbar ul.notify-header {
+    // notify header in right
+    .navbar .notify-header {
       > li > a {
         padding: 15px;
-        line-height: 10px;
-        font-size: 20px;
+
+        .badge {
+          right: 5px;
+          top: 5px;
+        }
       }
 
-      > li > a > span.badge {
-        right: 5px;
-        top: 5px;
+      .bars {
+        display: block;
+        
+        a {
+          width: 50px;
+        }
       }
 
-      > li.bars { display: block; }
-      > li.bars > a { width: 50px; }
-
-      > li.profile > a.avator {
+      .profile .avator {
         padding: 10px;
         width: 50px;
-      }
 
-      > li.profile > a.avator img {
-        margin: 0;
-        width: 30px;
-        height: 30px;
-        .border-radius(30px);
+        img {
+          margin: 0;
+          .border-radius(30px);
+          width: 30px;
+          height: 30px;
+        }
       }
     }
-
   }
 
   // 修正
