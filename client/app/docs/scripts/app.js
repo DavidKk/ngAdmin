@@ -74,21 +74,30 @@ angular.module('docs', [
   {
     name: 'Pages', key: 'tables', icon: 'folder-open-o',
     child: [
-      { name: 'Frontend', key: 'front-end', url: './front-end.html', target: '_self' },
-      { name: 'Welcome', key: 'welcome', url: './welcome.html', target: '_self' },
-      { name: '404', key: '404', url: './404.html', target: '_self' }
+      { name: 'Frontend', key: 'front-end', url: '/front-end', target: '_self' },
+      { name: 'Welcome', key: 'welcome', url: '/welcome', target: '_self' },
+      { name: '404', key: '404', url: '/404', target: '_self' }
     ]
   },
   {
     name: 'Demo', key: 'tables', icon: 'laptop',
     child: [
-      { name: 'Role', key: 'role' },
-      { name: 'User', key: 'user' },
-      { name: 'Delivery', key: 'delivery' }
+      { name: 'Role', key: 'role', url: '/demo/role/', target: '_self' },
+      { name: 'User', key: 'user', url: '/demo/user/', target: '_self' },
+      { name: 'Delivery', key: 'delivery', url: '/demo/delivery/', target: '_self' }
     ]
   },
   {
-    name: 'Thanks For', key: 'thanks', icon: 'share'
+    name: 'Contributors', key: 'contributors', icon: 'user-secret',
+    child: [
+      { name: 'David Jones', key: 'davidjones', url: '//about.davidkk.com', target: '_self' }
+    ]
+  },
+  {
+    name: 'Team', key: 'team', icon: 'group',
+    child: [
+      { name: 'Blog', key: 'blog', url: '//blog.ishgo.cn', target: '_self' }
+    ]
   }
 ])
 
@@ -110,7 +119,7 @@ angular.module('docs', [
 
     $routeProvider
     // Dashboard
-    .when('/',                             { templateUrl: TEMPLATE_PATH + '/docs/dashboard.html', resolve: resolve })
+    .when('/',                            { templateUrl: TEMPLATE_PATH + '/docs/dashboard.html', resolve: resolve })
     .when('/docs/',                       { templateUrl: TEMPLATE_PATH + '/docs/dashboard.html', resolve: resolve })
     .when('/docs/dashboard/',             { templateUrl: TEMPLATE_PATH + '/docs/dashboard.html', resolve: resolve })
 

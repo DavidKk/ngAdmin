@@ -4,13 +4,19 @@ header#header-container(ng-controller='HeaderController')
       ul.notify-header.pull-left
         li.bars
           a.menu-toggle(ng-click='toggleLeftSidebar()')
-            i.fa.fa-bars
-        li
+            i.fa.fa-navicon
+
+        li.hidden-xs
           a(ng-click='screenfull()', title='{{ isFullscreen ? "退出全屏" : "全屏" }}')
             i.fa(ng-class='{ "fa-compress": isFullscreen, "fa-expand": !isFullscreen }')
 
       ul.notify-header.pull-right
-        li.dropdown-submenu(dropdown-menu)
+        li
+          a(ng-click='toggleRightSidebar()')
+            i.fa.fa-comments-o
+
+      ul.notify-header.pull-right
+        li.hidden-xs.dropdown-submenu(dropdown-menu)
           a(dropdown-menu-toggle)
             i.fa.fa-tasks
             span.badge.badge-info 5
@@ -75,7 +81,7 @@ header#header-container(ng-controller='HeaderController')
 
             a.dropdown-more(href, title) Check all tasks...
 
-        li.dropdown-submenu(dropdown-menu)
+        li.hidden-xs.dropdown-submenu(dropdown-menu)
           a(dropdown-menu-toggle)
             i.fa.fa-envelope-o
             span.badge.badge-warning 4
@@ -139,7 +145,7 @@ header#header-container(ng-controller='HeaderController')
 
             a.dropdown-more(href, title) All message...
 
-        li.dropdown-submenu(dropdown-menu)
+        li.hidden-xs.dropdown-submenu(dropdown-menu)
           a(dropdown-menu-toggle)
             i.fa.fa-bell-o
             span.badge.badge-danger 12
@@ -193,6 +199,10 @@ header#header-container(ng-controller='HeaderController')
 
             a.dropdown-more(href, title) Check all notify...
 
+        li.visible-xs
+          a
+            i.fa.fa-ellipsis-h
+
         li.dropdown-submenu.profile(dropdown-menu)
           a.avator(dropdown-menu-toggle)
             img(src='//q.qlogo.cn/qqapp/100229475/70F82D66FE3FD280B8BC8D789E5CE979/100')
@@ -216,7 +226,3 @@ header#header-container(ng-controller='HeaderController')
               a(ng-click='logout()')
                 i.fa.fa-power-off
                 | Log Out
-
-        li
-          a(ng-click='toggleRightSidebar()')
-            i.fa.fa-comments-o
