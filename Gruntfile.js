@@ -107,6 +107,14 @@ module.exports = function(grunt) {
               files: [
                 'dist/*.js'
               ]
+            },
+            'pace': {
+              keepExpandedHierarchy: true,
+              stripGlobBase: true,
+              files: [
+                'themes/orange/*.css',
+                '*.js'
+              ]
             }
           }
         }
