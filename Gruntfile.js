@@ -360,9 +360,9 @@ module.exports = function(grunt) {
         tasks: ['concatJS']
       },
 
-      'layout-app': {
-        files: ['client/app/*/*.jade'],
-        tasks: ['jade:views']
+      'layout': {
+        files: ['client/app/*/templates/**/*.jade', 'client/app/*/index.jade'],
+        tasks: ['compileJade']
       }
     },
   })
@@ -618,18 +618,9 @@ module.exports = function(grunt) {
         ext: '.html',
         expand: true,
       })
-
-      // Extend watch task.
-      grunt.config('watch.$layout-' + name, {
-        options: {
-          event: ['changed'],
-        },
-        files: ['client/app/' + name + '/templates/*.jade', 'client/app/' + name + '/templates/**/*.jade'],
-        tasks: ['loadState', 'jade:$' + name]
-      })
     })
 
-    grunt.task.run(['jade', 'saveState'])
+    grunt.task.run(['jade'])
   })
 
   grunt.registerTask('loadState', 'Load grunt\'s config from json file and merge them.', loadState)
@@ -647,8 +638,8 @@ module.exports = function(grunt) {
 
   /**
    * If you in development. You can only run development task.
-   * It will only concat the file, run the unit-test. It will not to
-   * compress the files.
+   * It will only concat the file, run the unit-test. But it will
+   * not to compress the files.
    */
   grunt.registerTask('development', 'Task for develop environment.', function() {
     timer.init(grunt)

@@ -35,8 +35,11 @@
   height: 100%;
   color: rgba(255, 255, 255, 0.5);
   background-color: #303641;
+  
+  // Rewrite Nav-Tab Style
+  // =====================
 
-  > .nav {
+  .nav {
     margin-bottom: 0;
     .border-radius(0);
     width: 240px;
@@ -60,14 +63,14 @@
       .transition(all .25s);
     }
     
-    > li.active a,
+    > .active a,
     > li > a:hover {
       color: rgb(255, 255, 255);
       background-color: #262b34;
     }
   }
 
-  > .tab-content {
+  .tab-content {
     margin-top: -75px;
     padding-top: 75px;
 
@@ -76,6 +79,10 @@
       height: 100%;
     }
   }
+
+
+  // Main
+  // =============
 
   .chat-search {
     position: relative;
@@ -170,7 +177,9 @@
   }
 
 
-  // Chat popover
+  // Chat Conversation
+  // =================
+
   .chat-conversation {
     position: absolute;
     top: 100px;

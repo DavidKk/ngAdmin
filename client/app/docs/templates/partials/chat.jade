@@ -1,17 +1,9 @@
 #chat-container(ng-controller='ChatController')
-  ul.nav.nav-tabs.nav-justified
-    li.active
-      a(title='Contact')
+  tabset(justified='true')
+    tab
+      tab-heading
         i.fa.fa-users
-    li
-      a(title='Recent')
-        i.fa.fa-clock-o
-    li
-      a(title='Setting')
-        i.fa.fa-gear
 
-  .tab-content
-    .tab-pane.active
       .chat-search
         input(type='search', placeholder='Search Users...')
         i.fa.fa-search
@@ -69,6 +61,44 @@
                 span.status
                 | Robert J. Garcia
                 span.badge.badge-info
+
+    tab
+      tab-heading
+        i.fa.fa-clock-o
+
+      .chat-search
+        input(type='search', placeholder='Search Users...')
+        i.fa.fa-search
+
+      .chat-inner
+        .viewport-scroll(ng-iscroll)
+          .chat-wrapper
+            .chat-group
+              h6.chat-caption RECENTS
+              a.user.online(title='Rodrigo E. Lozano')
+                span.status
+                | Rodrigo E. Lozano
+                span.badge.badge-info
+              a.user.online(title='Robert J. Garcia')
+                span.status
+                | Robert J. Garcia
+                span.badge.badge-info
+              a.user.busy(title='Daniel A. Pena')
+                span.status
+                | Daniel A. Pena
+                span.badge.badge-info
+              a.user.idle(title='Abigail')
+                span.status
+                | Abigail
+                span.badge.badge-info
+               a.user(title='Tracy J. Rodriguez')
+                span.status
+                | Tracy J. Rodriguez
+                span.badge.badge-info
+
+    tab
+      tab-heading
+        i.fa.fa-gear
 
   .chat-conversation(ng-controller='ChatboxController', ng-show='isOpenBox')
     .conversation-header
