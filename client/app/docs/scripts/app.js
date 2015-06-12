@@ -5,7 +5,7 @@
 angular.module('docs', [
   'ngRoute'
   , 'conf.config', 'helpers.util'
-  , 'ui.checkbox', 'ui.radio', 'ui.switch'
+  , 'ui.bootstrap', 'ui.checkbox', 'ui.radio', 'ui.switch'
   , 'chat', 'header', 'nav'
 ])
 
@@ -162,5 +162,41 @@ angular.module('docs', [
   '$scope',
   function($scope) {
     // nothing to do...
+  }
+])
+
+.controller('ModalInstanceController', [
+  '$scope', '$modalInstance',
+  function($scope, $modalInstance) {
+    $scope.ok = function() {
+      $modalInstance.close()
+    }
+
+    $scope.cancel = function() {
+      $modalInstance.dismiss('cancel')
+    }
+  }
+])
+
+.controller('ModalsController', [
+  '$scope', '$modal',
+  function($scope, $modal) {
+    'use strict'
+
+    $scope.open = function(size) {
+      var modalInstance = $modal.open({
+        animation: true
+        , templateUrl: '/templates/modal/modal.html'
+        , controller: 'ModalInstanceController'
+      })
+
+      modalInstance.result
+      .then(function() {
+        // do something after click ok...
+      },
+      function() {
+        // do something after click cancel...
+      })
+    }
   }
 ])

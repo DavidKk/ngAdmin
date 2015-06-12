@@ -1,25 +1,19 @@
 include mixins/panel
 
 .content-layout
-  section#modals-container
+  section#modals-container(ng-controller="ModalsController")
     h2 Modals Triggering
 
     +panel('Modals Examples')
       mixin body
         .docs-example
-          button.btn.btn-primary(type='button', role='button') Modal Basic
-          button.btn.btn-success(type='button', role='button') Modal Confirm
+          button.btn.btn-success(ng-click='open()', type='button', role='button') Modal Toggle
 
-    .modal
-      .modal-dialog
-        .modal-content
-          .modal-header
-            button.close(type='button', data-dismiss='modal')
-              span(aria-hidden='true') ×
-              span.sr-only Close
-            h4.modal-title Modal title
-          .modal-body
-            p One fine body…
-          .modal-footer
-            button.btn.btn-default(type='button', data-dismiss='modal') Close
-            button.btn.btn-primary(type='button') Save changes
+    script(id='/templates/modal/modal.html', type='text/ng-template')
+      .modal-header
+        h3.modal-title I'm a modal!
+      .modal-body
+        p One fine body…
+      .modal-footer
+        button.btn.btn-default(type='button', data-dismiss='modal') Close
+        button.btn.btn-primary(type='button') Ok

@@ -27,6 +27,7 @@ html(lang="en-US")
         angular: '#{ makeVersion("/assets/scripts/angular/angular.js") }'
         , ngRoute: '#{ makeVersion("/assets/scripts/angular-route/angular-route.js") }'
         , ngTouch: '#{ makeVersion("/assets/scripts/angular-touch/angular-touch.js") }'
+        , ngBootstrap: '#{ makeVersion("/assets/scripts/angular-bootstrap/ui-bootstrap-tpls.js") }'
 
         , iscroll: '#{ makeVersion("/assets/scripts/iscroll/iscroll.js") }'
 
@@ -51,7 +52,7 @@ html(lang="en-US")
 
         //- Loading public module, and the page module before angular and it's plugin is ready.
         $script([jsFiles.ngRoute, jsFiles.ngTouch], function() {
-          $script([jsFiles.common], function() {
+          $script([jsFiles.common, jsFiles.ngBootstrap], function() {
             $script([jsFiles.app], function() {
               //- Because js file was loaded in async, we must bootstrap the extrance module.
               angular.bootstrap(document, ['docs'])
