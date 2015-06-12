@@ -21,7 +21,7 @@
     width: 200%;
     height: 100%;
     .transition(margin .3s);
-    
+
     .switch-on,
     .switch-off {
       .box-sizing(border-box);
@@ -41,8 +41,14 @@
         vertical-align: middle;
       }
 
-      .inner > i {
-        vertical-align: text-top;
+      .content {
+        display: inline-block;
+        width: 50%;
+        text-align: center;
+      }
+
+      i {
+        vertical-align: text-bottom;
         font-size: 1.6em;
       }
     }
@@ -102,14 +108,16 @@
   
   input.disabled,
   input:disabled {
-    pointer-events: none;
-
     + .switch-inner {
       .switch-on,
       .switch-off {
         .opacity(.3);
       }
     }
+  }
+
+  &[disabled] {
+    pointer-events: none;
   }
 }
 
@@ -146,7 +154,7 @@
       height: @size;
     }
 
-    input[checked] + .switch-inner + .switch-switch {
+    input:checked + .switch-inner + .switch-switch {
       margin-left: 0 - (@size + @padding);
     }
   }

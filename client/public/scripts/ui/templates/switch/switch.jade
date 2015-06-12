@@ -1,0 +1,16 @@
+label.switch(ng-class='{ disabled: disabled }')
+  input(nng-model='model',
+    ng-attr-type='{{ attrType }}',
+    ng-attr-id='{{ attrId }}',
+    ng-attr-name='{{ attrName }}',
+    ng-attr-value='{{ attrValue }}',
+    ng-checked='checked',
+    ng-disabled='disabled')
+  .switch-inner
+    .switch-on
+      .inner
+        span.content(switch-transclude='on') on
+    .switch-off
+      .inner
+        span.content(switch-transclude='off') off
+  .switch-switch

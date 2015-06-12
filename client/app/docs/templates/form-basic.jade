@@ -11,11 +11,11 @@ include mixins/panel
             .form-group
               label.col-sm-3.control-label(for='field-1') Field 1
               .col-sm-5
-                input#field-1.form-control(type='text', placeholder='Placeholder')
+                input#field-1.form-control(placeholder='Placeholder')
             .form-group
               label.col-sm-3.control-label(for='field-2') Disabled
               .col-sm-5
-                input#field-2.form-control(type='text', placeholder='Placeholder', disabled)
+                input#field-2.form-control(placeholder='Placeholder', disabled)
             .form-group
               label.col-sm-3.control-label(for='field-3') Password
               .col-sm-5
@@ -35,15 +35,15 @@ include mixins/panel
             .form-group.has-error
               label.col-sm-3.control-label(for='field-4') Error field
               .col-sm-5
-                input#field-4.form-control(type='text', placeholder='Placeholder')
+                input#field-4.form-control(placeholder='Placeholder')
             .form-group.has-warning
               label.col-sm-3.control-label(for='field-5') Warning field
               .col-sm-5
-                input#field-5.form-control(type='text', placeholder='Placeholder')
+                input#field-5.form-control(placeholder='Placeholder')
             .form-group.has-success
               label.col-sm-3.control-label(for='field-6') Success field
               .col-sm-5
-                input#field-6.form-control(type='text', placeholder='Placeholder')
+                input#field-6.form-control(placeholder='Placeholder')
             .form-group
               label.col-sm-3.control-label Select List
               .col-sm-5
@@ -84,15 +84,15 @@ include mixins/panel
             .form-group
               label.col-sm-3.control-label(for='field-1') Large
               .col-sm-5
-                input#field-1.form-control.input-lg(type='text', placeholder='Large input (.input-lg)')
+                input#field-1.form-control.input-lg(placeholder='Large input (.input-lg)')
             .form-group
               label.col-sm-3.control-label(for='field-1') Medium
               .col-sm-5
-                input#field-1.form-control(type='text', placeholder='Normal input')
+                input#field-1.form-control(placeholder='Normal input')
             .form-group
               label.col-sm-3.control-label(for='field-1') Small
               .col-sm-5
-                input#field-1.form-control.input-sm(type='text', placeholder='Large input (.input-sm)')
+                input#field-1.form-control.input-sm(placeholder='Large input (.input-sm)')
 
     +panel('Input Groups &amp; Addons')
       mixin body
@@ -103,7 +103,7 @@ include mixins/panel
               .col-sm-5
                 .input-group
                   span.input-group-addon @
-                  input.form-control(type='text', placeholder='Username')
+                  input.form-control(placeholder='Username')
             .form-group
               label.col-sm-3.control-label Right addon
               .col-sm-5
@@ -133,7 +133,7 @@ include mixins/panel
                   input.form-control(type='email', placeholder='Email')
                 br
                 .input-group.minimal
-                  input.form-control(type='text', placeholder='Username')
+                  input.form-control(placeholder='Username')
                   span.input-group-addon
                     i.fa.fa-user
             .form-group
@@ -242,70 +242,21 @@ include mixins/panel
             .form-group
               label.col-sm-3.control-label Toggle Check
               .col-sm-5
-                label.switch
-                  input(type='checkbox')
-                  .switch-inner
-                    .switch-on
-                      .inner ON
-                    .switch-off
-                      .inner OFF
-                  .switch-switch
+                switch(checked)
 
             .form-group
               label.col-sm-3.control-label Toggle Sizes
               .col-sm-5
-                label.switch.switch-lg
-                  input(type='checkbox', checked)
-                  .switch-inner
-                    .switch-on
-                      .inner ON
-                    .switch-off
-                      .inner OFF
-                  .switch-switch
-                label.switch.switch-md
-                  input(type='checkbox', checked)
-                  .switch-inner
-                    .switch-on
-                      .inner ON
-                    .switch-off
-                      .inner OFF
-                  .switch-switch
-                label.switch.switch-sm
-                  input(type='checkbox', checked)
-                  .switch-inner
-                    .switch-on
-                      .inner ON
-                    .switch-off
-                      .inner OFF
-                  .switch-switch
-                label.switch.switch-xs
-                  input(type='checkbox', checked)
-                  .switch-inner
-                    .switch-on
-                      .inner ON
-                    .switch-off
-                      .inner OFF
-                  .switch-switch
+                switch.switch-lg(checked)
+                switch.switch-md(checked)
+                switch.switch-sm(checked)
+                switch.switch-xs(checked)
 
             .form-group
               label.col-sm-3.control-label Disabled
               .col-sm-5
-                label.switch
-                  input(type='checkbox', checked, disabled)
-                  .switch-inner
-                    .switch-on
-                      .inner ON
-                    .switch-off
-                      .inner OFF
-                  .switch-switch
-                label.switch
-                  input(type='checkbox', disabled)
-                  .switch-inner
-                    .switch-on
-                      .inner ON
-                    .switch-off
-                      .inner OFF
-                  .switch-switch
+                switch(disabled)
+                switch(checked, disabled)
 
             .form-group
               label.col-sm-3.control-label Apply Icon
@@ -316,212 +267,157 @@ include mixins/panel
                   off
                     i.fa.fa-times
 
-                label.switch
-                  input(type='checkbox', checked)
-                  .switch-inner
-                    .switch-on
-                      .inner
-                        i.fa.fa-check
-                    .switch-off
-                      .inner
-                        i.fa.fa-times
-                  .switch-switch
+                switch(checked)
+                  on
+                    i.fa.fa-check
+                  off
+                    i.fa.fa-times
 
             .form-group
               label.col-sm-3.control-label Colors
               .col-sm-5
-                label.switch.switch-blue
-                  input(type='checkbox', checked)
-                  .switch-inner
-                    .switch-on
-                      .inner
-                        i.fa.fa-check
-                    .switch-off
-                      .inner
-                        i.fa.fa-times
-                  .switch-switch
-                label.switch.switch-cyan
-                  input(type='checkbox', checked)
-                  .switch-inner
-                    .switch-on
-                      .inner
-                        i.fa.fa-check
-                    .switch-off
-                      .inner
-                        i.fa.fa-times
-                  .switch-switch
-                label.switch.switch-green
-                  input(type='checkbox', checked)
-                  .switch-inner
-                    .switch-on
-                      .inner
-                        i.fa.fa-check
-                    .switch-off
-                      .inner
-                        i.fa.fa-times
-                  .switch-switch
-                label.switch.switch-yellow
-                  input(type='checkbox', checked)
-                  .switch-inner
-                    .switch-on
-                      .inner
-                        i.fa.fa-check
-                    .switch-off
-                      .inner
-                        i.fa.fa-times
-                  .switch-switch
-                label.switch.switch-orange
-                  input(type='checkbox', checked)
-                  .switch-inner
-                    .switch-on
-                      .inner
-                        i.fa.fa-check
-                    .switch-off
-                      .inner
-                        i.fa.fa-times
-                  .switch-switch
-                label.switch.switch-red
-                  input(type='checkbox', checked)
-                  .switch-inner
-                    .switch-on
-                      .inner
-                        i.fa.fa-check
-                    .switch-off
-                      .inner
-                        i.fa.fa-times
-                  .switch-switch
-                label.switch.switch-pink
-                  input(type='checkbox', checked)
-                  .switch-inner
-                    .switch-on
-                      .inner
-                        i.fa.fa-check
-                    .switch-off
-                      .inner
-                        i.fa.fa-times
-                  .switch-switch
-                label.switch.switch-amethyst
-                  input(type='checkbox', checked)
-                  .switch-inner
-                    .switch-on
-                      .inner
-                        i.fa.fa-check
-                    .switch-off
-                      .inner
-                        i.fa.fa-times
-                  .switch-switch
+                switch.switch-blue(checked)
+                  on
+                    i.fa.fa-check
+                  off
+                    i.fa.fa-times
+
+                switch.switch-cyan(checked)
+                  on
+                    i.fa.fa-check
+                  off
+                    i.fa.fa-times
+
+                switch.switch-green(checked)
+                  on
+                    i.fa.fa-check
+                  off
+                    i.fa.fa-times
+
+                switch.switch-yellow(checked)
+                  on
+                    i.fa.fa-check
+                  off
+                    i.fa.fa-times
+
+                switch.switch-orange(checked)
+                  on
+                    i.fa.fa-check
+                  off
+                    i.fa.fa-times
+
+                switch.switch-red(checked)
+                  on
+                    i.fa.fa-check
+                  off
+                    i.fa.fa-times
+
+                switch.switch-pink(checked)
+                  on
+                    i.fa.fa-check
+                  off
+                    i.fa.fa-times
+
+                switch.switch-amethyst(checked)
+                  on
+                    i.fa.fa-check
+                  off
+                    i.fa.fa-times
 
             .form-group
               label.col-sm-3.control-label Radio
               .col-sm-5
-                label.switch.switch-blue
-                  input(type='radio', checked)
-                  .switch-inner
-                    .switch-on
-                      .inner
-                        i.fa.fa-check
-                    .switch-off
-                      .inner
-                        i.fa.fa-times
-                  .switch-switch
-                label.switch.switch-cyan
-                  input(type='radio')
-                  .switch-inner
-                    .switch-on
-                      .inner
-                        i.fa.fa-check
-                    .switch-off
-                      .inner
-                        i.fa.fa-times
-                  .switch-switch
-                label.switch.switch-green
-                  input(type='radio')
-                  .switch-inner
-                    .switch-on
-                      .inner
-                        i.fa.fa-check
-                    .switch-off
-                      .inner
-                        i.fa.fa-times
-                  .switch-switch
-                label.switch.switch-yellow
-                  input(type='radio')
-                  .switch-inner
-                    .switch-on
-                      .inner
-                        i.fa.fa-check
-                    .switch-off
-                      .inner
-                        i.fa.fa-times
-                  .switch-switch
+                switch.switch-blue(type='radio', ng-model="switchRadio", checked)
+                  on
+                    i.fa.fa-check
+                  off
+                    i.fa.fa-times
+
+                switch.switch-cyan(type='radio', ng-model="switchRadio")
+                  on
+                    i.fa.fa-check
+                  off
+                    i.fa.fa-times
+
+                switch.switch-green(type='radio', ng-model="switchRadio")
+                  on
+                    i.fa.fa-check
+                  off
+                    i.fa.fa-times
+
+                switch.switch-yellow(type='radio', ng-model="switchRadio")
+                  on
+                    i.fa.fa-check
+                  off
+                    i.fa.fa-times
 
     +panel('Input Grid')
       mixin body
         .docs-example
           .row
             .col-md-12
-              input.form-control(type='text', placeholder='.col-md-12')
-            .clear
-            br
+              input.form-control(placeholder='col-md-12')
+
+          .row
             .col-md-6
-              input.form-control(type='text', placeholder='.col-md-6')
+              input.form-control(placeholder='col-md-6')
             .col-md-6
-              input.form-control(type='text', placeholder='.col-md-6')
-            .clear
-            br
+              input.form-control(placeholder='col-md-6')
+          
+          .row
             .col-md-4
-              input.form-control(type='text', placeholder='.col-md-4')
+              input.form-control(placeholder='col-md-4')
             .col-md-4
-              input.form-control(type='text', placeholder='.col-md-4')
+              input.form-control(placeholder='col-md-4')
             .col-md-4
-              input.form-control(type='text', placeholder='.col-md-4')
-            .clear
-            br
+              input.form-control(placeholder='col-md-4')
+          
+          .row
             .col-md-3
-              input.form-control(type='text', placeholder='.col-md-3')
+              input.form-control(placeholder='col-md-3')
             .col-md-3
-              input.form-control(type='text', placeholder='.col-md-3')
+              input.form-control(placeholder='col-md-3')
             .col-md-3
-              input.form-control(type='text', placeholder='.col-md-3')
+              input.form-control(placeholder='col-md-3')
             .col-md-3
-              input.form-control(type='text', placeholder='.col-md-3')
-            .clear
-            br
+              input.form-control(placeholder='col-md-3')
+          
+          .row
             .col-md-2
-              input.form-control(type='text', placeholder='.col-md-2')
+              input.form-control(placeholder='col-md-2')
             .col-md-2
-              input.form-control(type='text', placeholder='.col-md-2')
+              input.form-control(placeholder='col-md-2')
             .col-md-2
-              input.form-control(type='text', placeholder='.col-md-2')
+              input.form-control(placeholder='col-md-2')
             .col-md-2
-              input.form-control(type='text', placeholder='.col-md-2')
+              input.form-control(placeholder='col-md-2')
             .col-md-2
-              input.form-control(type='text', placeholder='.col-md-2')
+              input.form-control(placeholder='col-md-2')
             .col-md-2
-              input.form-control(type='text', placeholder='.col-md-2')
-            .clear
-            br
+              input.form-control(placeholder='col-md-2')
+          
+          .row
             .col-md-1
-              input.form-control(type='text', placeholder='.col-md-1')
+              input.form-control(placeholder='col-md-1')
             .col-md-1
-              input.form-control(type='text', placeholder='.col-md-1')
+              input.form-control(placeholder='col-md-1')
             .col-md-1
-              input.form-control(type='text', placeholder='.col-md-1')
+              input.form-control(placeholder='col-md-1')
             .col-md-1
-              input.form-control(type='text', placeholder='.col-md-1')
+              input.form-control(placeholder='col-md-1')
             .col-md-1
-              input.form-control(type='text', placeholder='.col-md-1')
+              input.form-control(placeholder='col-md-1')
             .col-md-1
-              input.form-control(type='text', placeholder='.col-md-1')
+              input.form-control(placeholder='col-md-1')
             .col-md-1
-              input.form-control(type='text', placeholder='.col-md-1')
+              input.form-control(placeholder='col-md-1')
             .col-md-1
-              input.form-control(type='text', placeholder='.col-md-1')
+              input.form-control(placeholder='col-md-1')
             .col-md-1
-              input.form-control(type='text', placeholder='.col-md-1')
+              input.form-control(placeholder='col-md-1')
             .col-md-1
-              input.form-control(type='text', placeholder='.col-md-1')
+              input.form-control(placeholder='col-md-1')
             .col-md-1
-              input.form-control(type='text', placeholder='.col-md-1')
+              input.form-control(placeholder='col-md-1')
             .col-md-1
-              input.form-control(type='text', placeholder='.col-md-1')
+              input.form-control(placeholder='col-md-1')

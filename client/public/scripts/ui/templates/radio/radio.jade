@@ -1,13 +1,11 @@
-
-
-.radio.radio-replace(ng-class="{ disabled: disabled }")
+.radio.radio-replace(ng-class='{ disabled: disabled }')
   input(radio-origin,
-    ng-class="{ disabled: disabled }",
-    ng-model="model",
-    ng-attr-id="{{ attrId }}",
-    ng-attr-name="{{ attrName }}",
-    ng-attr-value="{{ attrValue }}",
-    ng-disabled="{{ disabled }}",
-    type="radio")
+    ng-class='{ disabled: disabled }',
+    ng-model='model',
+    ng-attr-id='{{ attrId }}',
+    ng-attr-name='{{ attrName }}',
+    ng-attr-value='{{ attrValue }}',
+    ng-disabled='disabled',
+    type='radio')
   .radio-icon
   .radio-inner(ng-transclude)

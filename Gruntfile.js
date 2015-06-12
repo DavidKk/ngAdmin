@@ -352,7 +352,11 @@ module.exports = function(grunt) {
 
       // scripts
       'script': {
-        files: ['client/public/scripts/**/*.js', 'client/app/*/scripts/**/*.js'],
+        files: [
+          'client/public/scripts/**/*.js'
+          , 'client/public/scripts/ui/templates/**/*.jade'
+          , 'client/app/*/scripts/**/*.js'
+        ],
         tasks: ['concatJS']
       },
 

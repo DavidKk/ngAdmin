@@ -5,7 +5,7 @@
 angular.module('docs', [
   'ngRoute'
   , 'conf.config', 'helpers.util'
-  , 'ui.checkbox', 'ui.radio'
+  , 'ui.checkbox', 'ui.radio', 'ui.switch'
   , 'chat', 'header', 'nav'
 ])
 
