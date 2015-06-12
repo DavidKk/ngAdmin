@@ -1,0 +1,159 @@
+// Decoration
+// -----------------
+
+#decorate-container {
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+
+  .carousel-setting {
+    padding-bottom: 100px;
+
+    .preview-block {
+      .media {
+        padding: 10px;
+        position: relative;
+        display: inline-block;
+        float: left;
+
+        .pic {
+          position: relative;
+          display: block;
+          width: 80px;
+          height: 80px;
+        }
+
+        img {
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          display: block;
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
+
+      .file {
+        margin-left: 100px;
+        padding: 15px 0;
+
+        .name {
+          .text-overflow();
+          margin-bottom: 6px;
+          color: lighten(@text-color, 10%);
+          font-size: 16px;
+        }
+
+        .size:after {
+          content: " 像素";
+        }
+      }
+    }
+
+    .album-group {
+    }
+
+    .album .media {
+      > img {
+        display: block;
+        margin-bottom: 10px;
+        width: 100%;
+      }
+
+      a.remove {
+        position: absolute;
+        top: 3px;
+        right: 20px;
+        z-index: 99;
+        border: 2px solid #fff;
+        border-radius: 100%;
+        background-color: #666;
+        width: 17px;
+        height: 17px;
+        cursor: pointer;
+        text-align: center;
+        color: #fff;
+        font-size: 12px;
+        line-height: 13px;
+      }
+    }
+
+    .album-block .media {
+      position: relative;
+      display: inline-block;
+      float: left;
+      width: 160px;
+      height: 80px;
+
+      > img {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        margin: 0 auto;
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+
+    .album-block .inner {
+      margin-left: 170px;
+
+      .selecter:last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+  }
+
+  .funcnav-setting {
+    .style-group {
+      
+    }
+
+    .style {
+      display: inline-block;
+      float: left;
+      padding: 15px 15px 0 15px;
+      width: 50%;
+      min-height: 1px;
+      cursor: pointer;
+
+      img {
+        margin-top: 10px;
+        width: 100%;
+      }
+    }
+  }
+
+  .list-setting {
+    
+  }
+
+  .photo-setting {
+
+  }
+
+  .photoes-setting {
+    
+  }
+
+  .topic-setting {
+
+  }
+
+  .ad-setting {
+
+  }
+
+  .home-setting {
+    
+  }
+
+  .split-setting {
+
+  }
+}

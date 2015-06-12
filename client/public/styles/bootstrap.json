@@ -8,4 +8,8 @@
   , "/utilities/**/*.less"
   , "/components/**/*.less"
   , "/script-components/**/*.less"
+  , "/partials/**/main.less"
+  , "/partials/**/desktop.less"
+  , "/partials/**/tablet.less"
+  , "/partials/**/mobile.less"
 ]

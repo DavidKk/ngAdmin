@@ -1,0 +1,35 @@
+header#header-container(ng-controller='HeaderController')
+  .row
+    .navbar
+      ul.notify-header.pull-left
+        li.bars
+          a.menu-toggle(ng-click='toggleLeftSidebar()')
+            i.fa.fa-navicon
+
+        li.hidden-sm
+          a(ng-click='screenfull()', title='{{ isFullscreen ? "Exit" : "Full Screen" }}')
+            i.fa(ng-class='{ "fa-compress": isFullscreen, "fa-expand": !isFullscreen }')
+
+        li.dropdown-submenu.profile(dropdown-menu)
+          a.avator(dropdown-menu-toggle)
+            img(src='//q.qlogo.cn/qqapp/100229475/70F82D66FE3FD280B8BC8D789E5CE979/100')
+          span.name David Jones
+
+          ul.dropdown-menu-profile.dropdown-menu.pull-right
+            .dropdown-menu-arrow
+            li
+              a
+                i.fa.fa-user
+                | My Profile
+            li
+              a
+                i.fa.fa-cog
+                | Account Settings
+            li
+              a
+                i.fa.fa-question
+                | Help
+            li
+              a(ng-click='logout()')
+                i.fa.fa-power-off
+                | Log Out

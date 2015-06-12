@@ -1,0 +1,138 @@
+//- 拖拽插件 MIXINS
+//- @author David
+//- @email  qowera@qq.com
+
+mixin simulator
+  #simulator-container(simulator)
+    block
+
+//- 拖拽插件 HEAD
+mixin simulator-heading(options)
+  .simulator-heading
+    .tt-group.pull-left.visible-sm
+      a.btn.tt(ng-click="openSidebar($event, 'component')", title="左侧栏", role="button")
+        i.fa.fa-align-left
+
+    .tt-group.pull-right.visible-sm
+      a.btn.tt(ng-click="openSidebar($event, 'setting')", title="右侧栏", role="button")
+        i.fa.fa-align-right
+
+    h1= options.caption
+    block
+
+    //- .tt-group.text-center.clearfix.hidden-xs
+    //-   a.btn.tt(title="预览", role="button")
+    //-     i.fa.fa-eye
+    //-   a.btn.tt(title="桌面模式", role="button")
+    //-     i.fa.fa-desktop
+    //-   a.btn.tt(title="平板模式", role="button")
+    //-     i.fa.fa-tablet
+    //-   a.btn.tt(title="手机翻转模式", role="button")
+    //-     i.fa.fa-mobile.pulled-down
+    //-   a.btn.tt(title="手机模式", role="button")
+    //-     i.fa.fa-mobile
+    //-   a.btn.tt(title="撤销", role="button")
+    //-     i.fa.fa-undo
+    //-   a.btn.tt(title="重做", role="button")
+    //-     i.fa.fa-repeat
+
+//- 拖拽插件 BODY
+mixin simulator-body(options)
+  .simulator-body(simulator-body, ng-model="$instance")
+    .simulator-inner
+      block
+
+//- 拖拽元素栏
+mixin simulator-components(options)
+  .component-layout(simulator-sidebar, ng-class="{ 'opened': isOpenSidebar.component }")
+    .module-heading
+      h3= options.title
+
+    .module-body
+      block
+
+mixin simulator-components-section
+  .section-group.module-scroll(slidedown-group, ng-iscroll)
+    .section(slidedown, isOpen="true")
+      .section-heading(slidedown-toggle) 店铺组件
+      .section-body(slidedown-list)
+        block
+
+//- 元素设置栏
+mixin simulator-setting(options)
+  .setting-layout(simulator-sidebar, ng-class="{ 'opened': isOpenSidebar.setting }")
+    .module-heading
+      h3= options.title
+
+    .module-body
+      .module-scroll(ng-iscroll)
+        .setting-body(simulator-setting)
+
+//- 元素预览栏
+mixin simulator-viewport
+  .viewport-layout
+    .viewport-scroll
+      .phone-model
+        .viewport-body(simulator-viewport)
+          block
+
+//- 预览的元素
+mixin simulator-viewport-node
+  if block
+    simulator-node
+      block
+
+
+//- Placeholders
+//- ====================
+
+//- 预览视图提示操作
+script(id="tpls/partials/simulator/dragger-shadow.html", type="text/ng-template")
+  .dragger-shadow
+
+//- 预览视图提示操作
+script(id="tpls/partials/simulator/dragger-placeholder.html", type="text/ng-template")
+  .dragger-placeholder
+
+//- 预览视图的 placeholder
+script(id="tpls/partials/simulator/viewport-alert.html", type="text/ng-template")
+  .viewport-alert
+    i.fa.fa-cloud
+    | &nbsp;你可以将店铺组件拉拽到这里来装饰页面 O(∩_∩)O
+
+//- 设置栏提示操作 placeholder
+script(id="tpls/partials/simulator/setting-alert.html", type="text/ng-template")
+  .setting-alert
+    i.fa.fa-hand-o-up
+    p 请选择相应要操作的控件进行编辑。
+
+//- 插件 Progress 遮罩层
+script(id="tpls/partials/simulator/progress-cover.html", type="text/ng-template")
+  .progress-bar-cover.animate-fade.in(ng-if="isOpenProgress")
+    .progress
+      .progress-bar.progress-bar-striped.active(role="progressbar", ng-style="{ width: (progress || 0) + '%' }")
+      .progress-description {{ 'Uploading ' + (progress || 0) + '%' + ' ...' }}
+
+//- Dropper
+script(id="tpls/partials/simulator/dropper.html", type="text/ng-template")
+  .dropper(ng-class='{ "lock-iframe": !isLock }')
+    .toolbar
+      ul.toolbar-section
+        li
+          a(ng-show="!isLock", ng-click="toggle($event, true)", title="锁定")
+            i.fa.fa-unlock-alt
+        li
+          a(ng-show="isLock", ng-click="toggle($event, false)", title="解除")
+            i.fa.fa-lock
+        li
+          a(ng-click="modify($event)", title="修改信息")
+            i.fa.fa-edit
+        li
+          a(ng-click="close($event)", title="删除控件")
+            i.fa.fa-trash-o
+
+    .dropper-inner(ng-transclude)
+
+//- Node
+script(id="tpls/partials/simulator/node.html", type="text/ng-template")
+  .node-frame(ng-transclude)

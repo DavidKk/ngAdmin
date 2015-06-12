@@ -1,0 +1,208 @@
+#decorate-container.content-layout
+  //- 下面具体 Mixins 查看以下 include 链接
+  include partials/simulator
+
+  +simulator
+    +simulator-heading({ caption: '店铺装修' })
+      .tt-group.pull-right.clearfix.hidden-xs
+        a.btn.tt(title="二维码", role="button")
+          i.fa.fa-qrcode
+
+        a.btn.tt(clip-copy="'' | url:{ m: merchantId }:MOBILE_PATH",
+          clip-click="successCopyLink()",
+          clip-click-fallback="failCopyLink()",
+          title="复制店铺链接",
+          role="button")
+          i.fa.fa-link
+
+    +simulator-body
+      +simulator-components({ title: '店铺元素选择' })
+        +simulator-components-section
+          .node(ng-if="COMPONENT_TYPES.SLIDER", simulator-dragger, template="tpls/partials/simulator/components.html")
+            ul.widgets-bar
+              li
+                a
+                  i.fa.fa-question
+            .icon.icon-carousel
+            span.label 焦点图
+
+          .node(ng-if="COMPONENT_TYPES.FN", simulator-dragger, template="funcnav.html")
+            ul.widgets-bar
+              li
+                a
+                  i.fa.fa-question
+            .icon.icon-nav
+            span.label 功能菜单
+
+          .node(ng-if="COMPONENT_TYPES.GOODS", simulator-dragger, template="list.html")
+            ul.widgets-bar
+              li
+                a
+                  i.fa.fa-question
+            .icon.icon-list
+            span.label 商品模块
+
+          .node(ng-if="COMPONENT_TYPES.PIC1", simulator-dragger, template="photo.html")
+            ul.widgets-bar
+              li
+                a
+                  i.fa.fa-question
+            .icon.icon-focus
+            span.label 大图模块
+
+          .node(ng-if="COMPONENT_TYPES.PIC2", simulator-dragger, template="photoes.html")
+            ul.widgets-bar
+              li
+                a
+                  i.fa.fa-question
+            .icon.icon-pics
+            span.label 双图模块
+
+          .node(ng-if="COMPONENT_TYPES.TOPIC", simulator-dragger, template="topic.html")
+            ul.widgets-bar
+              li
+                a
+                  i.fa.fa-question
+            .icon.icon-topic
+            span.label 左图右文
+
+          .node(ng-if="COMPONENT_TYPES.AD", simulator-dragger, template="ad.html")
+            ul.widgets-bar
+              li
+                a
+                  i.fa.fa-question
+            .icon.icon-ad
+            span.label 广告
+
+          .node(ng-if="COMPONENT_TYPES.HOME", simulator-dragger, template="home.html")
+            ul.widgets-bar
+              li
+                a
+                  i.fa.fa-question
+            .icon.icon-shop
+            span.label 进入店铺
+
+          .node(ng-if="COMPONENT_TYPES.LINE", simulator-dragger, template="split.html")
+            ul.widgets-bar
+              li
+                a
+                  i.fa.fa-question
+            .icon.icon-line
+            span.label 分割线
+
+      +simulator-setting({ title: '店铺元素设置' })
+      +simulator-viewport
+
+    //- Carousel 焦点图
+    script(id="tpls/partials/simulator/components.html", type="text/ng-template")
+      +simulator-viewport-node
+        div(ng-controller="Decorate.CarouselController")
+          simulator-box(ng-attr-template="{{ settingTpl }}")
+            iframe(decorate-node-frame, ng-model="$midware")
+
+    //- Carousel 焦点图
+    script(id="tpls/partials/simulator/carousel-setting.html", type="text/ng-template")
+      .carousel-setting.setting-frame
+        .album-group
+          .album.album-block.block(ng-repeat="slide in slides")
+            .media
+              a.remove(ng-click="del($index)", role="button")
+                i.fa.fa-times
+              img(ng-src="{{ slide.image | image }}")
+
+            .inner
+              select(selecter, ng-model="slide.linkType", placeholder="请选择跳转模式")
+                option(value="1") 功能链接
+                option(value="2") 自定义链接
+
+              select(selecter, ng-if="1 == slide.linkType", ng-model="slide.action", placeholder="请选择目标链接")
+                option(value="1") 首页
+                option(value="2") 商品页
+
+              input.form-control(ng-if="2 == slide.linkType", ng-model="slide.link", type="url", placeholder="http://")
+
+        .block.text-right
+          a.btn.btn-file(ng-file-select,
+            ng-model="imageFiles",
+            accept="image/*",
+            name="imageFiles",
+            role="button")
+            i.fa.fa-cloud-upload
+            | &nbsp;上传图片
+
+        .upload-wrapper(ng-show="isOpenUpload")
+          .preview-block.block
+            .media
+              .pic
+                img(ng-src="{{ previewSlide.image || '' | image }}")
+
+            .file
+              .name {{ previewSlide.image }}
+              .size
+                i.fa.fa-
+                | {{ previewSlide.height }} x {{ previewSlide.width }}
+              .fileszie
+                i.fa.fa-
+                | {{ previewSlide.size }}k
+
+          .block
+              select(selecter, ng-model="previewSlide.linkType", placeholder="请选择跳转模式")
+                option(value="1") 功能链接
+                option(value="2") 自定义链接
+
+              select(selecter, ng-if="1 == previewSlide.linkType", ng-model="previewSlide.action", placeholder="请选择目标链接")
+                option(value="1") 首页
+                option(value="2") 列表页
+
+              input.form-control(ng-if="2 == previewSlide.linkType", ng-model="previewSlide.link", type="url", placeholder="http://")
+
+            .clearfix.text-right.push-padding
+              a.btn(ng-click="addItem()", role="button") 确认
+              | &nbsp;
+              a.btn(ng-click="toggleUpload(false)", role="button") 关闭
+
+    //- Funcnav 功能菜单
+    script(id="tpls/partials/simulator/funcnav-setting.html", type="text/ng-template")
+      .funcnav-setting.setting-frame
+        .style-group
+          label.style
+            radio(ng-model="style", value="1", checked) 样式一
+            img(src="//admin.anzow.com/picture/2012815/2012081534555861.jpg")
+
+          label.style
+            radio(ng-model="style", value="2") 样式二
+            img(src="//admin.anzow.com/picture/2012815/2012081534555861.jpg")
+
+          label.style
+            radio(ng-model="style", value="3") 样式三
+            img(src="//admin.anzow.com/picture/2012815/2012081534555861.jpg")
+      
+        .content-wrapper
+
+    //- List 商品
+    script(id="tpls/partials/simulator/list-setting.html", type="text/ng-template")
+      .list-setting.setting-frame
+
+    //- Photo 大图
+    script(id="tpls/partials/simulator/photo-setting.html", type="text/ng-template")
+      .photo-setting.setting-frame
+
+    //- Photoes 双图
+    script(id="tpls/partials/simulator/photoes-setting.html", type="text/ng-template")
+      .photoes-setting.setting-frame
+
+    //- Topic 左图右文
+    script(id="tpls/partials/simulator/topic-setting.html", type="text/ng-template")
+      .topic-setting.setting-frame
+
+    //- Ad 广告
+    script(id="tpls/partials/simulator/ad-setting.html", type="text/ng-template")
+      .ad-setting.setting-frame
+
+    //- Home 进入店铺
+    script(id="tpls/partials/simulator/home-setting.html", type="text/ng-template")
+      .home-setting.setting-frame
+
+    //- Split 分割线
+    script(id="tpls/partials/simulator/split-setting.html", type="text/ng-template")
+      .split-setting.setting-frame

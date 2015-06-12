@@ -1,0 +1,669 @@
+
+
+#simulator-container {
+  @text-color:            #cfcfcf;
+  @link-hover:            lighten(@text-color, 10%);
+  @border-color:          #3c3c3c;
+
+  @panel-color:           #656565;
+  @panel-linear:          linear-gradient(#656565, #5f5f5f);
+  @panel-linear-hover:    linear-gradient(#6f6f6f, #696969);
+  @inner-linear:          linear-gradient(#343434, #393939);
+  @simulator-color:       #4b4b4b;
+  
+  // Reset/Body
+  // ================
+
+  .user-select(none);
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  color: @text-color;
+
+  iframe {
+    .transition(height .25s);
+
+    position: relative;
+    display: block;
+    margin: 0;
+    border-width: 0;
+    padding: 0;
+    width: 100%;
+    height: auto;
+    background-color: transparent;
+    outline: none;
+  }
+
+  .lock-iframe iframe {
+    pointer-events: none !important;
+  }
+
+  // Components
+  // ================
+
+  // Buttons
+  .btn {
+    .border-radius(3px);
+    .button-variant(@text-color, @panel-color, @border-color);
+    border-width: 1px;
+
+    &:hover {
+      background-color: lighten(@panel-color, 4%);
+    }
+  }
+
+  // Forms
+  // -----------------
+
+  .form-control {
+    .background-image(@inner-linear);
+
+    border-width: 0;
+    border-radius: 2px;
+    padding: 6px 12px;
+    height: 36px;
+    color: @text-color;
+    font-size: 12px;
+
+    .fa {
+      font-size: 12px;
+    }
+  }
+
+  // Select
+  .selecter-group {
+    .selecter:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .selecter {
+    margin: 0 -1px 10px -1px;
+  }
+
+  .selecter > .dropdown-toggle {
+    padding: 6px 10px;
+    background-color: @panel-color;
+    border: 1px solid @border-color;
+    color: @text-color;
+  }
+
+  .selecter > .dropdown-menu {
+    .arrow-mixin > .color(@simulator-color, top);
+    border-color: @border-color;
+    background-color: @panel-color;
+
+    > ul.menu-list li {
+      > a {
+        padding: 6px 12px;
+        background-color: @panel-color;
+        color: @text-color;
+      }
+
+      &.active,
+      > a:hover {
+        cursor: pointer;
+        background-color: lighten(@panel-color, 10%);
+      }
+    }
+  }
+
+  .selecter > .dropdown-menu > .filter-bar {
+    padding: 0;
+  }
+
+  // Block
+  .block {
+    .clearfix();
+
+    margin: 0 10px;
+    padding: 10px 0;
+    display: block;
+    border-bottom: 1px solid @border-color;
+  }
+
+  
+  // Progress Bar Cover
+  .progress-bar-cover {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 999;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.6);
+
+    .progress {
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      padding: 5px;
+      border-radius: 8px;
+      width: 60%;
+      height: 46px;
+      background-color: @simulator-color;
+      line-height: 46px;
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .progress-bar {
+      .progress-bar-variant(@panel-color);
+      border-radius: 8px;
+    }
+
+    .progress-description {
+      display: inline-block;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 4;
+      marign: auto;
+      text-align: center;
+    }
+  }
+
+
+  // Layout
+  // ================
+  .phone-model {
+    .box-sizing(content-box);
+
+    position: relative;
+    margin: auto;
+    border-radius: 50px;
+    padding: 112px 30px;
+    width: 320px;
+    height: 480px;
+    background-color: #fff;
+    overflow-y: auto;
+
+    &:before {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 70px;
+      margin: 0 auto;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      width: 70px;
+      height: 10px;
+      display: block;
+      content: "";
+    }
+
+    &:after {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 20px;
+      margin: 0 auto;
+      display: block;
+      border: 2px solid #ccc;
+      border-radius: 100%;
+      width: 70px;
+      height: 70px;
+      content: "";
+    }
+  }
+
+  .module-heading {
+    position: relative;
+    border-top: 1px solid #2c2c2c;
+    border-bottom: 1px solid #272727;
+    padding: 12px 10px;
+    width: 100%;
+    background: #595959;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+    color: #d6d6d6;
+
+    h1,h2,h3,h4,h5,h6 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 400;
+    }
+  }
+
+  .module-body {
+    margin-top: -42px;
+    padding-top: 42px;
+    height: 100%;
+  }
+
+  .module-scroll {
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  .simulator-heading {
+    .clearfix();
+    position: relative;
+    width: 100%;
+    height: 35px;
+    background-color: @simulator-color;
+
+    h1,h2,h3,h4,h5,h6,.tt {
+      display: inline-block;
+      float: left;
+      margin: 0;
+      padding: 10px 14px;
+      color: @text-color;
+      font-size: 14px;
+
+      .fa {
+        font-size: 16px;
+      }
+    }
+
+    .tt-group {
+      .tt:first-child {
+        border-left: 1px solid @border-color;
+      }
+    }
+  
+    .tt {
+      float: none;
+      border-width: 0;
+      border-right: 1px solid @border-color;
+    }
+
+    .btn.tt {
+      .button-variant(@text-color, @simulator-color, @border-color);
+      border-radius: 0;
+      padding: 0;
+      width: 35px;
+      height: 35px;
+      line-height: 35px;
+      text-align: center;
+
+      .fa {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+  .simulator-body {
+    margin-top: -35px;
+    padding-top: 35px;
+    height: 100%;
+  }
+
+  .simulator-inner {
+    height: 100%;
+    position: relative;
+  }
+
+  // Section Group
+  .section-group {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+  }
+
+  .section > .section-heading {
+    border-bottom: 1px solid #272727;
+    padding: 8px 10px;
+    display: block;
+    background-color: darken(@simulator-color, 10%);
+    text-shadow: 0 -1px rgba(0,0,0,0.3);
+    text-decoration: none;
+    text-transform: capitalize;
+    color: @text-color;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+
+    &:before {
+      .transition(transform .25s);
+
+      margin-right: 10px;
+      display: inline-block;
+      content: "\f0da";
+      font-family: FontAwesome;
+    }
+  }
+
+  .section > .section-body {
+    .clearfix();
+    position: relative;
+    background-color: @simulator-color;
+  }
+
+  .section .node {
+    .transition(background-color .25s);
+    .clearfix();
+    
+    position: relative;
+    padding: 14px 10px 10px;
+    border: 1px solid transparent;
+    border-bottom-color: #2c2c2c;
+    width: percentage(1/3);
+    background-color: @simulator-color;
+    cursor: pointer;
+    float: left;
+    overflow: hidden;
+    text-align: center;
+    text-shadow: 0 -1px rgba(0,0,0,0.3);
+    
+    &:nth-child(3n+1) {
+      border-right-color: #2c2c2c;
+    }
+
+    &:nth-child(3n+3) {
+      border-left-color: #2c2c2c;
+    }
+
+    ul.widgets-bar {
+      .transition(transform .25s ease-out);
+
+      position: absolute;
+      top: -20px;
+      right: 4px;
+      z-index: 2;
+      margin: 0;
+      padding: 0;
+
+      li {
+        float: left;
+        list-style: none;
+      }
+
+      li > a {
+        .box-shadow(0 0 3px 0 rgba(0,0,0,0.15));
+    
+        border: 1px solid #2c2c2c;
+        border-radius: 3px;
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background-color: @simulator-color;
+        cursor: pointer;
+        line-height: 16px;
+        text-align: center;
+        color: #fff;
+        font-size: 12px;
+      }
+
+      li > a:hover {
+        background-color: @main-color;
+      }
+    }
+
+    .icon {
+      .transition(opacity .25s ease);
+
+      display: block;
+      background: url(../images/components.png) no-repeat transparent;
+      width: 60px;
+      height: 40px;
+      opacity: .8;
+    }
+
+    .icon-pos(@arr-style, @index: 0) when (@index < length(@arr-style)) {
+      @token: e(extract(@arr-style, @index + 1));
+      @value: @index * 40px;
+      .icon.icon-@{token} {
+        background-position: 0 -@value;
+      }
+
+      .icon-pos(@arr-style, @index + 1);
+    }
+    .icon-pos('carousel' 'nav' 'list' 'focus' 'pics' 'topic' 'ad' 'shop' 'line');
+
+    .label {
+      .transition(color .25s);
+      margin-top: 10px;
+      display: block;
+      color: @text-color;
+      font-size: 12px;
+    }
+
+    &:hover {
+      background-color: rgba(255,255,255,.1);
+      
+      ul.widgets-bar {
+        .transform(translate(0, 20px));
+      }
+
+      .label {
+        color: #ddd;
+      }
+    }
+  }
+
+  .section.open {
+    .section-heading:before {
+      .transform(rotate(90deg));
+    }
+  }
+
+
+  // Layout
+  // =================
+  .component-layout,
+  .viewport-layout,
+  .setting-layout {
+    .transition(all .35s);
+    .transform(translate(0, 0));
+
+    padding: 0;
+    display: block;
+    min-height: 1px;
+    height: 100%;
+  }
+
+
+  // 组件模块
+  // -----------------
+  .component-layout {
+    position: absolute;
+    left: 0;
+    z-index: 4;
+    width: 250px;
+    background-color: @simulator-color;
+  }
+
+
+  // 配置模块
+  // -----------------
+  .setting-layout {
+    position: absolute;
+    right: 0;
+    z-index: 4;
+    width: 380px;
+    height: 100%;
+    background-color: @simulator-color;
+  }
+
+  .setting-body {
+    .setting-alert {
+      .box-shadow(0 0 10px 1px @border-color);
+
+      position: relative;
+      display: block;
+      margin: 60px auto;
+      border: 1px solid @border-color;
+      border-radius: 6px;
+      padding: 42px 20px;
+      width: 216px;
+      height: 144px;
+      background-color: lighten(@simulator-color, 10%);
+      text-align: center;
+      color: @text-color;
+      font-size: 12px;
+      cursor: default;
+
+      .fa {
+        margin: 0 auto 10px auto;
+        width: 24px;
+        height: 24px;
+        font-size: 24px;
+      }
+
+      p {
+        line-height: 16px;
+        font-size: 12px;
+      }
+    }
+  }
+
+
+  // Preview 模块
+  // -----------------
+  .viewport-layout {
+    position: relative;
+    z-index: 0;
+    margin: 0 380px 0 250px;
+    width: auto;
+    height: 100%;
+    background-color: #f2f2f2;
+    overflow: auto;
+  }
+
+  .viewport-scroll {
+    display: block;
+    position: relative;
+    padding: 40px 0;
+    width: 100%;
+  }
+
+  .viewport-body {
+    .user-select(none);
+
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 1px;
+    background-color: #f2f2f2;
+    overflow: auto;
+    
+    // 无任何东西时候显示的 placeholder
+    .viewport-alert {
+      .transition(opacity .25s);
+      
+      margin: 15px;
+      border: 3px dashed #d5d5d5;
+      border-radius: 5px;
+      padding: 30px;
+      display: block;
+      cursor: pointer;
+      width: auto;
+      text-align: center;
+      line-height: 20px;
+      color: darken(@text-color, 30%);
+      font-size: 16px;
+
+      &:hover {
+        .opacity(.5);
+      }
+    }
+
+    .dropper {
+      .clearfix();  
+      position: relative;
+    }
+
+    .dropper > .toolbar {
+      .transition(all .25s);
+      .opacity(0);
+
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      z-index: 0;
+    }
+
+    .dropper:hover > .toolbar {
+      .opacity(1);
+      bottom: -35px;
+      z-index: 4;
+    }
+
+    .dropper .toolbar-section {
+      .clearfix();
+      margin: 0;
+      margin-right: 2px;
+      padding: 0;
+      float: left;
+
+      li {
+        list-style: none;
+        float: left;
+      }
+
+      li > a {
+        .box-shadow(inset 0 1px 0 0 rgba(255,255,255,0.08), inset 1px 0 0 0 #272727);
+        .transition(box-shadow .1s, background-color .25s);
+
+        display: block;
+        width: 35px;
+        height: 35px;
+        background-color: @simulator-color;
+        line-height: 35px;
+        text-align: center;
+        text-decoration: none;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      li:first-child > a {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+      }
+
+      li:last-child > a {
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+      }
+
+      li > a:hover {
+        color: @link-hover;
+        background-color: lighten(@simulator-color, 10%);
+      }
+    }
+  
+    // 拖拽控件到 viewport 时的 placeholder
+    .dragger-placeholder {
+      display: block;
+      margin: 2px;
+      border: 2px dashed @main-color;
+      min-height: 80px;
+    }
+  }
+
+  // 配置模块样式放到各 views 中
+  // ========================
+}
+
+body.simulator-draging {
+  cursor: move;
+}
+
+body .dragger-shadow {              // 移动已经放入 viewport 控件时的 placeholder
+  .transform(translate(-1000px, -1000px));
+  display: block;
+  position: relative;
+  z-index: 10000;
+  pointer-events: none;
+
+  > .node {
+    #simulator-container .section .node;
+    .animate-shake;
+    pointer-events: none;
+    width: 90px;
+  }
+}

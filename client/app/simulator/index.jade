@@ -1,0 +1,83 @@
+doctype html
+html(lang="en-US")
+  head
+    meta(charset="utf-8")
+    meta(name='viewport', content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no")
+
+    //- lt styles
+    link(href= makeVersion('/assets/styles/bootstrap/bootstrap.min.css'), rel='stylesheet', media='screen')
+    link(href= makeVersion('/assets/styles/font-awesome/font-awesome.min.css'), rel='stylesheet', media='screen')
+    link(href= makeVersion('/assets/styles/ngAdmin/ngAdmin.min.css'), rel='stylesheet', media='screen')
+    link(href= makeVersion('/assets/styles/app/simulator.min.css'), rel='stylesheet', media='screen')
+
+    //- lt describes
+    title Simulator | ngAdmin
+    meta(name='name', value= pkg.name)
+    meta(name='version', value= pkg.version)
+    meta(name='license', value= pkg.license)
+    meta(name='description', value= pkg.description)
+    meta(name='homepage', value= pkg.homepage)
+
+    //- lt scripts
+    script(src= makeVersion('/assets/scripts/script/script.min.js'))
+    script.
+      'use strict'
+
+      var jsFiles = {
+        angular: '#{ makeVersion("/assets/scripts/angular/angular.js") }'
+        , ngRoute: '#{ makeVersion("/assets/scripts/angular-route/angular-route.js") }'
+        , ngTouch: '#{ makeVersion("/assets/scripts/angular-touch/angular-touch.js") }'
+
+        , iscroll: '#{ makeVersion("/assets/scripts/iscroll/iscroll.js") }'
+
+        , common: '#{ makeVersion("/assets/scripts/ngAdmin/ngAdmin.js") }'
+        , app: '#{ makeVersion("/assets/scripts/app/simulator.js") }'
+      }
+
+      $script(jsFiles.angular, function() {
+        $script(jsFiles.iscroll)
+
+        //- Loading public module, and the page module before angular and it's plugin is ready.
+        $script([jsFiles.ngRoute, jsFiles.ngTouch], function() {
+          $script([jsFiles.common], function() {
+            $script([jsFiles.app], function() {
+              //- Because js file was loaded in async, we must bootstrap the extrance module.
+              angular.bootstrap(document, ['index'])
+            })
+          })
+        })
+      })
+
+    //- lt icons
+    meta(name="msapplication-square70x70logo", content= makeVersion('/assets/panels/windows-tile-70x70.png'))
+    meta(name="msapplication-square150x150logo", content= makeVersion('/assets/panels/windows-tile-150x150.png'))
+    meta(name="msapplication-square310x310logo", content= makeVersion('/assets/panels/windows-tile-310x310.png'))
+    meta(name="msapplication-TileImage", content= makeVersion('/assets/panels/windows-tile-144x144.png'))
+    meta(name="msapplication-TileColor", content="#DFEFEE")
+
+    link(rel="apple-touch-icon-precomposed", sizes='152x152', href= makeVersion('/assets/panels/apple-touch-icon-152x152-precomposed.png'))
+    link(rel="apple-touch-icon-precomposed", sizes='120x120', href= makeVersion('/assets/panels/apple-touch-icon-120x120-precomposed.png'))
+    link(rel="apple-touch-icon-precomposed", sizes='76x76', href= makeVersion('/assets/panels/apple-touch-icon-76x76-precomposed.png'))
+    link(rel="apple-touch-icon-precomposed", sizes='60x60', href= makeVersion('/assets/panels/apple-touch-icon-60x60-precomposed.png'))
+    link(rel="apple-touch-icon-precomposed", sizes='144x144', href= makeVersion('/assets/panels/apple-touch-icon-144x144-precomposed.png'))
+    link(rel="apple-touch-icon-precomposed", sizes='114x114', href= makeVersion('/assets/panels/apple-touch-icon-114x114-precomposed.png'))
+    link(rel="apple-touch-icon-precomposed", sizes='72x72', href= makeVersion('/assets/panels/apple-touch-icon-72x72-precomposed.png'))
+    link(rel="apple-touch-icon", sizes='57x57', href= makeVersion('/assets/panels/apple-touch-icon.png'))
+
+    link(rel='icon', sizes='228x228', href= makeVersion('/assets/panels/coast-icon-228x228.png'))
+    link(rel="shortcut icon", href= makeVersion('/assets/panels/favicon.ico'))
+    link(rel='icon', type="image/png", sizes='64x64', href= makeVersion('/assets/panels/favicon.png'))
+
+  body.fixed-layout.minify-nav
+    .container-layout
+      aside.aside-layout.navigation-layout(nav-layout)
+        include templates/partials/nav
+
+      .main-layout
+        include templates/partials/header
+        ng-view.viewport-layout
+
+    //- 添加声音，暂时关闭
+    //- audio(media-player='alertAudio')
+    //-   source(src="/assets/audio/alert.mp3", type="audio/mpeg")
+    //-   source(src="/assets/audio/alert.mp3", type="audio/ogg")

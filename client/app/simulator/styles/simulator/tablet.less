@@ -1,0 +1,22 @@
+
+
+@media (max-width: unit((380 + 380 + 250 + 220), px)) {
+  #simulator-container {
+    .component-layout {
+      .transform(translate(-250px, 0));
+    }
+
+    .setting-layout {
+      .transform(translate(380px, 0));
+    }
+
+    .viewport-layout {
+      margin: 0;
+    }
+  
+    .setting-layout.opened,
+    .component-layout.opened {
+      .transform(translate(0, 0));
+    }
+  }
+}

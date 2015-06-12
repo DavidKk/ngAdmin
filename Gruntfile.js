@@ -361,7 +361,11 @@ module.exports = function(grunt) {
       },
 
       'layout': {
-        files: ['client/app/*/templates/**/*.jade', 'client/app/*/index.jade'],
+        files: [
+          'client/app/*/templates/**/*.jade'
+          , 'client/app/*/templates/*.jade'
+          , 'client/app/*/index.jade'
+        ],
         tasks: ['compileJade']
       }
     },

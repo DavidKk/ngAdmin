@@ -114,11 +114,13 @@
     
     > .profile {
       cursor: pointer;
+      border-right: 1px solid rgb(238, 238, 238);
 
       .avator {
-        padding: 12.5px 10px;
-        width: 75px;
         float: left;
+        padding: 12.5px 10px;
+        border-right: 0;
+        width: 75px;
 
         img {
           display: block;
@@ -156,6 +158,10 @@
     > li > a {
       border-right-width: 0;
       border-left: 1px solid rgb(238, 238, 238);
+    }
+
+    > .profile {
+      border-right: 0;
     }
   }
   

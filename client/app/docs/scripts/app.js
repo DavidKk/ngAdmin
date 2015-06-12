@@ -9,7 +9,7 @@ angular.module('docs', [
   , 'chat', 'header', 'nav'
 ])
 
-.constant('TEMPLATE_PATH', '/assets/templates')
+.constant('TEMPLATE_PATH', '/assets/templates/docs')
 
 .constant('NAVIGATION', [
   {
@@ -80,11 +80,9 @@ angular.module('docs', [
     ]
   },
   {
-    name: 'Demo', key: 'tables', icon: 'laptop',
+    name: 'Applications', key: 'applications', icon: 'laptop',
     child: [
-      { name: 'Role', key: 'role', url: '/demo/role/', target: '_self' },
-      { name: 'User', key: 'user', url: '/demo/user/', target: '_self' },
-      { name: 'Delivery', key: 'delivery', url: '/demo/delivery/', target: '_self' }
+      { name: 'Simulator', key: 'simulator', url: '/simulator', target: '_self' }
     ]
   },
   {
@@ -119,51 +117,51 @@ angular.module('docs', [
 
     $routeProvider
     // Dashboard
-    .when('/',                            { templateUrl: TEMPLATE_PATH + '/docs/dashboard.html', resolve: resolve })
-    .when('/docs/',                       { templateUrl: TEMPLATE_PATH + '/docs/dashboard.html', resolve: resolve })
-    .when('/docs/dashboard/',             { templateUrl: TEMPLATE_PATH + '/docs/dashboard.html', resolve: resolve })
+    .when('/',                            { templateUrl: TEMPLATE_PATH + '/dashboard.html', resolve: resolve })
+    .when('/docs/',                       { templateUrl: TEMPLATE_PATH + '/dashboard.html', resolve: resolve })
+    .when('/docs/dashboard/',             { templateUrl: TEMPLATE_PATH + '/dashboard.html', resolve: resolve })
 
     // Basic UI Elements
-    .when('/docs/colors/',                { templateUrl: TEMPLATE_PATH + '/docs/colors.html', resolve: resolve })
-    .when('/docs/buttons/',               { templateUrl: TEMPLATE_PATH + '/docs/buttons.html', resolve: resolve })
-    .when('/docs/typography/',            { templateUrl: TEMPLATE_PATH + '/docs/typography.html', resolve: resolve })
-    .when('/docs/badges-label/',          { templateUrl: TEMPLATE_PATH + '/docs/badges-label.html', resolve: resolve })
-    .when('/docs/blockquotes/',           { templateUrl: TEMPLATE_PATH + '/docs/blockquotes.html', resolve: resolve })
-    .when('/docs/alert/',                 { templateUrl: TEMPLATE_PATH + '/docs/alert.html', resolve: resolve })
-    .when('/docs/navbars/',               { templateUrl: TEMPLATE_PATH + '/docs/navbars.html', resolve: resolve })
-    .when('/docs/pagination/',            { templateUrl: TEMPLATE_PATH + '/docs/pagination.html', resolve: resolve })
-    .when('/docs/breadcrumbs/',           { templateUrl: TEMPLATE_PATH + '/docs/breadcrumbs.html', resolve: resolve })
+    .when('/docs/colors/',                { templateUrl: TEMPLATE_PATH + '/colors.html', resolve: resolve })
+    .when('/docs/buttons/',               { templateUrl: TEMPLATE_PATH + '/buttons.html', resolve: resolve })
+    .when('/docs/typography/',            { templateUrl: TEMPLATE_PATH + '/typography.html', resolve: resolve })
+    .when('/docs/badges-label/',          { templateUrl: TEMPLATE_PATH + '/badges-label.html', resolve: resolve })
+    .when('/docs/blockquotes/',           { templateUrl: TEMPLATE_PATH + '/blockquotes.html', resolve: resolve })
+    .when('/docs/alert/',                 { templateUrl: TEMPLATE_PATH + '/alert.html', resolve: resolve })
+    .when('/docs/navbars/',               { templateUrl: TEMPLATE_PATH + '/navbars.html', resolve: resolve })
+    .when('/docs/pagination/',            { templateUrl: TEMPLATE_PATH + '/pagination.html', resolve: resolve })
+    .when('/docs/breadcrumbs/',           { templateUrl: TEMPLATE_PATH + '/breadcrumbs.html', resolve: resolve })
 
     // Advanced UI Elements
-    .when('/docs/tiles/',                 { templateUrl: TEMPLATE_PATH + '/docs/tiles.html', resolve: resolve })
-    .when('/docs/panels/',                { templateUrl: TEMPLATE_PATH + '/docs/panels.html', resolve: resolve })
-    .when('/docs/tabs-accordions/',       { templateUrl: TEMPLATE_PATH + '/docs/tabs-accordions.html', resolve: resolve })
-    .when('/docs/tooltips-popovers/',     { templateUrl: TEMPLATE_PATH + '/docs/tooltips-popovers.html', resolve: resolve })
-    .when('/docs/progress-bar/',          { templateUrl: TEMPLATE_PATH + '/docs/progress-bar.html', resolve: resolve })
-    .when('/docs/modals/',                { templateUrl: TEMPLATE_PATH + '/docs/modals.html', resolve: resolve })
-    .when('/docs/slide/',                 { templateUrl: TEMPLATE_PATH + '/docs/slide.html', resolve: resolve })
-    .when('/docs/carousel/',              { templateUrl: TEMPLATE_PATH + '/docs/carousel.html', resolve: resolve })
+    .when('/docs/tiles/',                 { templateUrl: TEMPLATE_PATH + '/tiles.html', resolve: resolve })
+    .when('/docs/panels/',                { templateUrl: TEMPLATE_PATH + '/panels.html', resolve: resolve })
+    .when('/docs/tabs-accordions/',       { templateUrl: TEMPLATE_PATH + '/tabs-accordions.html', resolve: resolve })
+    .when('/docs/tooltips-popovers/',     { templateUrl: TEMPLATE_PATH + '/tooltips-popovers.html', resolve: resolve })
+    .when('/docs/progress-bar/',          { templateUrl: TEMPLATE_PATH + '/progress-bar.html', resolve: resolve })
+    .when('/docs/modals/',                { templateUrl: TEMPLATE_PATH + '/modals.html', resolve: resolve })
+    .when('/docs/slide/',                 { templateUrl: TEMPLATE_PATH + '/slide.html', resolve: resolve })
+    .when('/docs/carousel/',              { templateUrl: TEMPLATE_PATH + '/carousel.html', resolve: resolve })
 
     // Forms
-    .when('/docs/form-basic/',            { templateUrl: TEMPLATE_PATH + '/docs/form-basic.html', resolve: resolve })
-    .when('/docs/form-advanced/',         { templateUrl: TEMPLATE_PATH + '/docs/form-advanced.html', resolve: resolve })
-    .when('/docs/form-wizard/',           { templateUrl: TEMPLATE_PATH + '/docs/form-wizard.html', resolve: resolve })
-    .when('/docs/form-input-mask/',       { templateUrl: TEMPLATE_PATH + '/docs/form-input-mask.html', resolve: resolve })
-    .when('/docs/form-multi-upload/',     { templateUrl: TEMPLATE_PATH + '/docs/form-multi-upload.html', resolve: resolve })
+    .when('/docs/form-basic/',            { templateUrl: TEMPLATE_PATH + '/form-basic.html', resolve: resolve })
+    .when('/docs/form-advanced/',         { templateUrl: TEMPLATE_PATH + '/form-advanced.html', resolve: resolve })
+    .when('/docs/form-wizard/',           { templateUrl: TEMPLATE_PATH + '/form-wizard.html', resolve: resolve })
+    .when('/docs/form-input-mask/',       { templateUrl: TEMPLATE_PATH + '/form-input-mask.html', resolve: resolve })
+    .when('/docs/form-multi-upload/',     { templateUrl: TEMPLATE_PATH + '/form-multi-upload.html', resolve: resolve })
 
     // Tables
-    .when('/docs/basic-table/',           { templateUrl: TEMPLATE_PATH + '/docs/basic-table.html', resolve: resolve })
-    .when('/docs/data-table/',            { templateUrl: TEMPLATE_PATH + '/docs/data-table.html', resolve: resolve })
+    .when('/docs/basic-table/',           { templateUrl: TEMPLATE_PATH + '/basic-table.html', resolve: resolve })
+    .when('/docs/data-table/',            { templateUrl: TEMPLATE_PATH + '/data-table.html', resolve: resolve })
 
     // Mail
-    .when('/docs/inbox/',                 { templateUrl: TEMPLATE_PATH + '/docs/inbox.html', resolve: resolve })
-    .when('/docs/compose-mail/',          { templateUrl: TEMPLATE_PATH + '/docs/compose-mail.html', resolve: resolve })
+    .when('/docs/inbox/',                 { templateUrl: TEMPLATE_PATH + '/inbox.html', resolve: resolve })
+    .when('/docs/compose-mail/',          { templateUrl: TEMPLATE_PATH + '/compose-mail.html', resolve: resolve })
 
     // Charts
-    .when('/docs/charts/',                { templateUrl: TEMPLATE_PATH + '/docs/charts.html', resolve: resolve })
+    .when('/docs/charts/',                { templateUrl: TEMPLATE_PATH + '/charts.html', resolve: resolve })
     
     // Thanks
-    .when('/docs/thanks/',                { templateUrl: TEMPLATE_PATH + '/docs/thanks.html', resolve: resolve })
+    .when('/docs/thanks/',                { templateUrl: TEMPLATE_PATH + '/thanks.html', resolve: resolve })
   }
 ])
 

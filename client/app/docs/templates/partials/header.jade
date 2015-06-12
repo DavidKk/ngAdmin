@@ -6,8 +6,8 @@ header#header-container(ng-controller='HeaderController')
           a.menu-toggle(ng-click='toggleLeftSidebar()')
             i.fa.fa-navicon
 
-        li.hidden-xs
-          a(ng-click='screenfull()', title='{{ isFullscreen ? "退出全屏" : "全屏" }}')
+        li.hidden-sm
+          a(ng-click='screenfull()', title='{{ isFullscreen ? "Exit" : "Full Screen" }}')
             i.fa(ng-class='{ "fa-compress": isFullscreen, "fa-expand": !isFullscreen }')
 
       ul.notify-header.pull-right
