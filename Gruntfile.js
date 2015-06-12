@@ -344,21 +344,10 @@ module.exports = function(grunt) {
         files: ['Gruntfile.js'],
         tasks: ['<%= environment === "DEVELOPMENT" ? "development" : "production" %>']
       },
-
-      // styles
-      'style-public': {
-        files: ['client/public/styles/*/*.less'],
+      'style': {
+        files: ['client/public/styles/*/*.less', 'client/app/*/styles/*/*.less'],
         tasks: ['compileStyle']
       },
-      'style-app': {
-        options: {
-          event: ['added', 'deleted'],
-        },
-        files: ['client/app/*/styles/*/*.less'],
-        tasks: ['compileStyle']
-      },
-
-      // scripts
       'script': {
         files: [
           'client/public/scripts/**/*.js'
@@ -367,7 +356,6 @@ module.exports = function(grunt) {
         ],
         tasks: ['concatJS']
       },
-
       'layout': {
         files: [
           'client/app/*/templates/**/*.jade'
@@ -486,15 +474,6 @@ module.exports = function(grunt) {
         }),
         src: ['<%= buildPath %>/styles/app/' + name + '.less'],
         dest: distPath + '/app/' + name + '.min.css',
-      })
-
-      // Extend watch task.
-      grunt.config('watch.$style-' + name, {
-        options: {
-          event: ['changed'],
-        },
-        files: ['client/app/' + name + '/styles/*.less', 'client/app/' + name + '/styles/**/*.less'],
-        tasks: ['loadState', 'less:$' + name]
       })
     })
     
