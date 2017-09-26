@@ -338,10 +338,11 @@ angular.module('simulator', [])
             $window.off('mouseup touchend pointerup MSPointerUp mousecancel touchcancel pointercancel MSPointerCancel', dropHandler)
             $element.off('mousemove touchmove pointermove MSPointerMove', seizeEvent)
           }
+
         })($viewport)
 
         // 插入并选择 "位置"
-        function seizeEvent(event) {
+        function seizeEvent (event) {
           var tar = event.target
               , $tar = angular.element(tar)
               , $prnt = $fn.findParentByClass($tar, SIMULATOR_CONSTANT.FRAME_NAME)

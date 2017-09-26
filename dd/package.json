@@ -1,0 +1,8 @@
+{
+  "name": "ngAdmin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/DavidKk/ngAdmin.git",
+  "author": "davidjones <qowera@qq.com>",
+  "license": "MIT"
+}
